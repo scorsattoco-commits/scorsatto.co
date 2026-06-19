@@ -26,7 +26,7 @@
     .nav-link { border: 1px solid transparent; border-radius: 999px; padding: 9px 9px; color: #343431; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: background .22s ease, color .22s ease; }
     .nav-link:hover, .nav-link.active { background: var(--black); color: var(--white); }
     .cart-mini { border: 1px solid var(--black); border-radius: 999px; background: var(--black); color: var(--white); min-width: 40px; height: 36px; padding: 0 11px; cursor: pointer; font-size: 12px; font-weight: 700; }
-    .hero { min-height: 100svh; display: grid; place-items: center; padding: 86px 18px 44px; background: var(--white); text-align: center; overflow: hidden; }
+    .hero { min-height: 66svh; display: grid; place-items: center; padding: 72px 18px 30px; background: var(--white); text-align: center; overflow: hidden; }
     .hero-logo { width: min(88vw, 1240px); transform-origin: center; animation: logoEntrance 1.2s cubic-bezier(.22,1,.36,1) both; will-change: transform, opacity; }
     .hero-brand { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(56px, 14.5vw, 196px); line-height: .86; font-weight: 500; letter-spacing: .04em; white-space: nowrap; }
     .hero-signature { margin: 22px 0 0; color: #2f2f2c; font-size: clamp(11px, 1.4vw, 16px); font-weight: 600; letter-spacing: .28em; text-transform: uppercase; }
@@ -39,27 +39,29 @@
     .eyebrow { margin: 0 0 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
     .muted { color: var(--muted); line-height: 1.6; }
     .shop { background: var(--paper); border-top: 1px solid rgba(0,0,0,.06); }
-    .shop-layout { display: grid; gap: 24px; }
-    .filters-panel { background: transparent; }
-    .filters-title { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 16px; }
-    .filters-title strong { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
-    .clear-filters { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; text-decoration: underline; }
-    .filter-group { padding: 18px 0; border-top: 1px solid var(--line); }
-    .filter-group:first-of-type { border-top: 0; padding-top: 0; }
+    .shop-layout { display: block; }
+    .filter-group { padding: 14px 0; border-top: 1px solid var(--line); }
     .filter-group-title { margin: 0 0 10px; color: #2f2f2c; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .side-options { display: grid; gap: 7px; }
-    .side-option { width: 100%; min-height: 34px; border: 0; background: transparent; color: #3f3f3b; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 0; cursor: pointer; text-align: left; font-size: 13px; }
-    .side-option span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .side-option .mark { width: 16px; height: 16px; border: 1px solid #aaa; flex: 0 0 16px; }
-    .side-option.active .mark { background: var(--black); border-color: var(--black); box-shadow: inset 0 0 0 3px var(--white); }
-    .side-option[disabled] { color: #b6b6b0; cursor: not-allowed; }
     .shop-main { min-width: 0; }
     .shop-tools { display: grid; gap: 12px; margin-bottom: 18px; }
     .search { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 0; padding: 0 13px; outline: none; background: var(--white); }
-    .active-category { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-    .active-category::-webkit-scrollbar { display: none; }
-    .chip { border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: #444; padding: 9px 12px; cursor: pointer; white-space: nowrap; font-size: 12px; transition: background .2s ease, color .2s ease; }
-    .chip.active { background: var(--black); color: var(--white); }
+    .compact-filters { display: flex; align-items: center; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .compact-filters::-webkit-scrollbar { display: none; }
+    .filter-label, .filter-summary, .clear-filters, .active-filter { min-height: 38px; border: 1px solid var(--line); background: var(--white); color: #2f2f2c; padding: 0 12px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
+    .filter-label { cursor: default; }
+    .filter-dropdown { position: relative; }
+    .filter-dropdown summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+    .filter-dropdown summary::-webkit-details-marker { display: none; }
+    .filter-dropdown[open] .filter-summary { border-color: var(--black); }
+    .filter-menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 18; min-width: 210px; padding: 8px; background: var(--white); border: 1px solid var(--line); box-shadow: 0 18px 42px rgba(0,0,0,.08); display: grid; gap: 2px; animation: filterOpen .18s ease both; }
+    .filter-option { border: 0; background: transparent; color: #333; min-height: 34px; padding: 0 9px; text-align: left; cursor: pointer; font-size: 13px; }
+    .filter-option:hover, .filter-option.active { background: var(--paper); }
+    .active-filters { display: none; align-items: center; flex-wrap: wrap; gap: 8px; margin: -6px 0 16px; }
+    .active-filters.visible { display: flex; }
+    .active-filter { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font-size: 11px; }
+    .clear-filters { display: none; color: var(--muted); }
+    .clear-filters.visible { display: inline-flex; align-items: center; }
+    @keyframes filterOpen { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
     .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 10px; }
     .product-card { opacity: 0; transform: translateY(16px); animation: rise .5s ease forwards; cursor: pointer; }
     .product-media { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--soft); }
@@ -132,10 +134,8 @@
       .topbar-inner { padding: 16px 26px; }
       .nav-link { padding-inline: 11px; font-size: 11px; }
       .section { padding: 74px 26px; }
-      .shop-layout { grid-template-columns: 230px minmax(0, 1fr); align-items: start; }
-      .filters-panel { position: sticky; top: 92px; }
       .shop-tools { grid-template-columns: minmax(260px, 420px) 1fr; align-items: center; }
-      .active-category { justify-content: flex-end; }
+      .compact-filters { justify-content: flex-end; }
       .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 18px; }
       .product-name, .price { font-size: 14px; }
       .detail-layout { grid-template-columns: minmax(0, 1fr) 420px; align-items: start; }
@@ -143,7 +143,6 @@
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
     }
     @media (min-width: 1120px) {
-      .shop-layout { grid-template-columns: 260px minmax(0, 1fr); gap: 34px; }
       .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
@@ -178,20 +177,12 @@
           <p class="muted" id="count"></p>
         </div>
         <div class="shop-layout">
-          <aside class="filters-panel reveal" aria-label="Filtros de produtos">
-            <div class="filters-title">
-              <strong>Filtros</strong>
-              <button class="clear-filters" id="clearFilters" type="button">limpar</button>
-            </div>
-            <div id="sideFilters"></div>
-          </aside>
           <div class="shop-main">
             <div class="shop-tools">
               <input class="search" id="search" placeholder="Buscar por peca, cor ou tamanho" />
-              <div class="active-category" id="categoryChips">
-                <button class="chip active" data-filter="disponiveis-agora">Disponiveis Agora</button><button class="chip" data-filter="camisetas">Camisetas</button><button class="chip" data-filter="gola-polo">Gola Polo</button><button class="chip" data-filter="camisa-social">Camisa Social</button><button class="chip" data-filter="calcas">Calcas</button><button class="chip" data-filter="sueteres">Sueteres</button><button class="chip" data-filter="jaquetas">Jaquetas</button><button class="chip" data-filter="casacos">Casacos</button><button class="chip" data-filter="bermudas">Bermudas</button>
-              </div>
+              <div class="compact-filters" id="filterBar"></div>
             </div>
+            <div class="active-filters" id="activeFilters"></div>
             <div class="product-grid" id="grid"></div>
             <div class="empty" id="empty">Nenhuma peca encontrada nesta selecao.</div>
           </div>
@@ -216,7 +207,6 @@
             <p>Desde o inicio, nosso objetivo foi selecionar roupas que transmitissem presen&ccedil;a, confian&ccedil;a e sofistica&ccedil;&atilde;o sem excessos.</p>
             <p>Come&ccedil;amos trabalhando com marcas reconhecidas mundialmente, como Ralph Lauren, Tommy Hilfiger, Lacoste, Calvin Klein, Aramis e Hugo Boss, oferecendo uma curadoria voltada para homens que valorizam o essencial bem feito.</p>
             <p>Mais do que acompanhar tend&ecirc;ncias, acreditamos em construir um guarda-roupa duradouro, com pe&ccedil;as vers&aacute;teis para diferentes momentos da vida.</p>
-            <p>Hoje, seguimos evoluindo com um objetivo claro: transformar a SCORSATTO em uma marca propria, mantendo os mesmos padr&otilde;es de qualidade, aten&ccedil;&atilde;o aos detalhes e experi&ecirc;ncia que valorizamos desde o primeiro dia.</p>
             <p><strong>SCORSATTO.</strong><br>O essencial bem feito.</p>
           </div>
         </div>
@@ -274,9 +264,8 @@
     const count = document.querySelector("#count");
     const empty = document.querySelector("#empty");
     const search = document.querySelector("#search");
-    const categoryChips = document.querySelector("#categoryChips");
-    const sideFilters = document.querySelector("#sideFilters");
-    const clearFilters = document.querySelector("#clearFilters");
+    const filterBar = document.querySelector("#filterBar");
+    const activeFilters = document.querySelector("#activeFilters");
     const productDetailSection = document.querySelector("#produto");
     const productDetail = document.querySelector("#productDetail");
     const backToProducts = document.querySelector("#backToProducts");
@@ -288,7 +277,7 @@
     const checkout = document.querySelector("#checkout");
     const whatsappFloat = document.querySelector("#whatsappFloat");
     let active = "disponiveis-agora";
-    let selected = { spec: new Set(), brand: new Set(), size: new Set() };
+    let selected = { brand: new Set(), size: new Set(), color: new Set() };
     let selectedProductSlug = null;
     let selectedDetailSize = null;
     let cart = JSON.parse(localStorage.getItem("scorsattoCartV2") || "[]");
@@ -299,6 +288,19 @@
     const colorFromName = (name) => name.includes(" - ") ? name.split(" - ").slice(1).join(" - ") : "Cor sob consulta";
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
     const isAvailableNow = (product) => product.status !== "sem-estoque" && product.sizes?.length > 0;
+    const COLORS = [
+      { label: "Preto", terms: ["preto"] },
+      { label: "Branco", terms: ["branco"] },
+      { label: "Azul", terms: ["azul marinho", "azul"] },
+      { label: "Bege", terms: ["bege"] },
+      { label: "Cinza", terms: ["cinza", "grafite"] },
+      { label: "Marrom", terms: ["marrom"] },
+      { label: "Off White", terms: ["off white", "off-white"] },
+      { label: "Verde Oliva", terms: ["verde oliva"] },
+      { label: "Caqui", terms: ["caqui"] },
+      { label: "Areia", terms: ["areia"] },
+      { label: "Creme", terms: ["creme"] },
+    ];
 
     function uniqueImages(product) {
       return [...new Set((product.images ?? []).filter(Boolean))];
@@ -329,66 +331,67 @@
       return PRODUCTS.filter((product) => categoryMatches(product, active));
     }
 
-    function optionCount(kind, value, products = baseCategoryProducts()) {
-      if (kind === "size") return products.filter((product) => product.sizes?.includes(value)).length;
-      const list = kind === "brand" ? BRANDS : currentCategory().specs ?? [];
-      const option = list.find((item) => item.label === value);
-      return option ? products.filter((product) => termMatch(product, option)).length : 0;
+    function colorMatch(product, color) {
+      const text = normalize(product.name + " " + colorFromName(product.name));
+      return color.terms.some((term) => text.includes(normalize(term)));
     }
 
     function clearSelected() {
-      selected = { spec: new Set(), brand: new Set(), size: new Set() };
+      selected = { brand: new Set(), size: new Set(), color: new Set() };
     }
 
     function setFilter(slug) {
       active = slug;
       search.value = "";
       clearSelected();
-      document.querySelectorAll("[data-filter]").forEach((chip) => chip.classList.toggle("active", chip.dataset.filter === active));
       document.querySelectorAll(".nav-link").forEach((link) => link.classList.toggle("active", link.dataset.filterLink === active));
       renderFilters();
       renderProducts();
     }
 
-    function filterGroup(title, kind, options) {
-      if (!options.length) return "";
+    function dropdown(title, kind, options) {
       return `
-        <div class="filter-group">
-          <p class="filter-group-title">${title}</p>
-          <div class="side-options">
-            ${options.map((option) => {
+        <details class="filter-dropdown">
+          <summary class="filter-summary">${title} <span>⌄</span></summary>
+          <div class="filter-menu">
+            ${options.length ? options.map((option) => {
               const value = typeof option === "string" ? option : option.label;
-              const optionTotal = optionCount(kind, value);
               const activeClass = selected[kind].has(value) ? " active" : "";
-              return `<button class="side-option${activeClass}" type="button" data-side-kind="${kind}" data-side-value="${value}" ${optionTotal ? "" : "disabled"}><span>${value}</span><span class="mark" aria-hidden="true"></span></button>`;
-            }).join("")}
+              return `<button class="filter-option${activeClass}" type="button" data-filter-kind="${kind}" data-filter-value="${value}">${value}</button>`;
+            }).join("") : "<span class='muted'>Sem opcoes</span>"}
           </div>
-        </div>`;
+        </details>`;
     }
 
     function renderFilters() {
-      const category = currentCategory();
       const products = baseCategoryProducts();
-      const specs = category.specs?.filter((option) => products.some((product) => termMatch(product, option))) ?? [];
       const availableBrands = BRANDS.filter((brand) => products.some((product) => termMatch(product, brand)));
       const sizes = [...new Set(products.flatMap((product) => product.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
-      sideFilters.innerHTML = [
-        category.specLabel ? filterGroup(category.specLabel, "spec", specs) : "",
-        filterGroup("Marcas", "brand", availableBrands),
-        filterGroup("Tamanhos", "size", sizes),
-      ].join("") || "<p class='muted'>Escolha uma categoria para refinar a selecao.</p>";
+      const colors = COLORS.filter((color) => products.some((product) => colorMatch(product, color)));
+      filterBar.innerHTML = [
+        "<button class='filter-label' type='button'>Filtros ⚙</button>",
+        dropdown("Marca", "brand", availableBrands),
+        dropdown("Tamanho", "size", sizes),
+        dropdown("Cor", "color", colors),
+      ].join("");
+      const activeItems = [
+        ...[...selected.brand].map((value) => ["Marca", "brand", value]),
+        ...[...selected.size].map((value) => ["Tamanho", "size", value]),
+        ...[...selected.color].map((value) => ["Cor", "color", value]),
+      ];
+      activeFilters.classList.toggle("visible", activeItems.length > 0);
+      activeFilters.innerHTML = activeItems.map(([label, kind, value]) => `<button class="active-filter" type="button" data-remove-filter-kind="${kind}" data-remove-filter-value="${value}">${label}: ${value} ×</button>`).join("") + (activeItems.length ? "<button class='clear-filters visible' type='button' data-clear-filters='true'>Limpar filtros</button>" : "");
     }
 
     function productPassesSideFilters(product) {
-      if (selected.spec.size) {
-        const specs = currentCategory().specs ?? [];
-        if (![...selected.spec].some((value) => termMatch(product, specs.find((item) => item.label === value)))) return false;
-      }
       if (selected.brand.size) {
         if (![...selected.brand].some((value) => termMatch(product, BRANDS.find((item) => item.label === value)))) return false;
       }
       if (selected.size.size) {
         if (![...selected.size].some((value) => product.sizes?.includes(value))) return false;
+      }
+      if (selected.color.size) {
+        if (![...selected.color].some((value) => colorMatch(product, COLORS.find((item) => item.label === value)))) return false;
       }
       return true;
     }
@@ -522,22 +525,27 @@
       heroLogo.style.opacity = opacity.toFixed(3);
     }
 
-    categoryChips.addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-filter]");
-      if (button) setFilter(button.dataset.filter);
-    });
     document.querySelectorAll("[data-filter-link]").forEach((link) => link.addEventListener("click", () => setFilter(link.dataset.filterLink)));
-    sideFilters.addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-side-kind]");
-      if (!button || button.disabled) return;
-      const group = selected[button.dataset.sideKind];
-      if (group.has(button.dataset.sideValue)) group.delete(button.dataset.sideValue);
-      else group.add(button.dataset.sideValue);
+    filterBar.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-filter-kind]");
+      if (!button) return;
+      const group = selected[button.dataset.filterKind];
+      if (group.has(button.dataset.filterValue)) group.delete(button.dataset.filterValue);
+      else group.add(button.dataset.filterValue);
       renderFilters();
       renderProducts();
     });
-    clearFilters.addEventListener("click", () => {
-      clearSelected();
+    activeFilters.addEventListener("click", (event) => {
+      const clear = event.target.closest("button[data-clear-filters]");
+      if (clear) {
+        clearSelected();
+        renderFilters();
+        renderProducts();
+        return;
+      }
+      const remove = event.target.closest("button[data-remove-filter-kind]");
+      if (!remove) return;
+      selected[remove.dataset.removeFilterKind].delete(remove.dataset.removeFilterValue);
       renderFilters();
       renderProducts();
     });
