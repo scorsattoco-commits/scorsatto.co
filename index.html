@@ -45,24 +45,33 @@
     .shop-main { min-width: 0; }
     .shop-tools { display: grid; gap: 12px; margin-bottom: 18px; }
     .search { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 0; padding: 0 13px; outline: none; background: var(--white); }
-    .filter-shell { display: grid; gap: 9px; justify-items: start; }
-    .filter-heading { color: #2a2a27; font-family: "Cormorant Garamond", serif; font-size: 18px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
-    .compact-filters { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; overflow: visible; padding-bottom: 2px; scrollbar-width: none; }
-    .compact-filters::-webkit-scrollbar { display: none; }
-    .filter-summary, .clear-filters, .active-filter { min-height: 38px; border: 1px solid var(--line); background: var(--white); color: #2f2f2c; padding: 0 12px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
-    .filter-dropdown { position: relative; }
-    .filter-dropdown summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; }
-    .filter-dropdown summary::-webkit-details-marker { display: none; }
-    .filter-dropdown[open] .filter-summary { border-color: var(--black); }
-    .filter-menu { position: static; margin-top: 8px; z-index: 18; min-width: 210px; padding: 8px; background: var(--white); border: 1px solid var(--line); box-shadow: 0 12px 28px rgba(0,0,0,.06); display: grid; gap: 2px; animation: filterOpen .18s ease both; }
-    .filter-option { border: 0; background: transparent; color: #333; min-height: 34px; padding: 0 9px; text-align: left; cursor: pointer; font-size: 13px; }
-    .filter-option:hover, .filter-option.active { background: var(--paper); }
-    .active-filters { display: none; align-items: center; flex-wrap: wrap; gap: 8px; margin: -6px 0 16px; }
+    .filter-trigger-wrap { display: flex; justify-content: flex-end; align-items: center; }
+    .filter-trigger { min-height: 42px; border: 0; background: transparent; color: var(--black); display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; font-weight: 600; letter-spacing: .03em; }
+    .filter-trigger svg { width: 18px; height: 18px; stroke-width: 1.6; }
+    .active-filters { display: none; align-items: center; flex-wrap: wrap; gap: 8px; margin: -4px 0 16px; }
     .active-filters.visible { display: flex; }
-    .active-filter { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font-size: 11px; }
+    .active-filter, .clear-filters { min-height: 32px; border: 1px solid var(--line); background: var(--white); color: #2f2f2c; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
+    .active-filter { display: inline-flex; align-items: center; gap: 8px; }
     .clear-filters { display: none; color: var(--muted); }
     .clear-filters.visible { display: inline-flex; align-items: center; }
-    @keyframes filterOpen { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .filter-overlay { position: fixed; inset: 0; z-index: 38; background: rgba(0,0,0,.42); opacity: 0; pointer-events: none; transition: opacity .24s ease; }
+    .filter-overlay.open { opacity: 1; pointer-events: auto; }
+    .filter-drawer { position: fixed; inset: 0 0 0 auto; z-index: 46; width: min(500px, 100%); background: var(--white); transform: translateX(105%); transition: transform .28s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr auto; box-shadow: -18px 0 50px rgba(0,0,0,.12); }
+    .filter-drawer.open { transform: translateX(0); }
+    .filter-drawer-head { min-height: 76px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .filter-drawer-title { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; }
+    .filter-close { border: 0; background: transparent; cursor: pointer; font-size: 34px; line-height: 1; color: var(--black); }
+    .filter-drawer-body { overflow: auto; padding: 0 24px 24px; }
+    .drawer-filter { border-bottom: 1px solid var(--line); }
+    .drawer-filter summary { min-height: 70px; list-style: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 15px; font-weight: 500; }
+    .drawer-filter summary::-webkit-details-marker { display: none; }
+    .drawer-filter summary::after { content: "⌄"; color: var(--muted); transition: transform .2s ease; }
+    .drawer-filter[open] summary::after { transform: rotate(180deg); }
+    .drawer-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0 0 18px; }
+    .drawer-option { min-height: 40px; border: 1px solid var(--line); background: var(--white); color: #2f2f2c; cursor: pointer; text-align: left; padding: 0 10px; font-size: 13px; transition: background .18s ease, border-color .18s ease; }
+    .drawer-option:hover, .drawer-option.active { background: var(--paper); border-color: var(--black); }
+    .drawer-option.active::after { content: " ×"; }
+    .filter-drawer-foot { padding: 18px 24px 24px; border-top: 1px solid var(--line); background: var(--white); }
     .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 10px; }
     .product-card { opacity: 0; transform: translateY(16px); animation: rise .5s ease forwards; cursor: pointer; }
     .product-media { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--soft); }
@@ -136,8 +145,7 @@
       .nav-link { padding-inline: 11px; font-size: 11px; }
       .section { padding: 74px 26px; }
       .shop-tools { grid-template-columns: minmax(260px, 420px) 1fr; align-items: center; }
-      .filter-shell { justify-items: end; }
-      .compact-filters { justify-content: flex-end; }
+      .filter-trigger-wrap { justify-content: flex-end; }
       .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 18px; }
       .product-name, .price { font-size: 14px; }
       .detail-layout { grid-template-columns: minmax(0, 1fr) 420px; align-items: start; }
@@ -182,9 +190,11 @@
           <div class="shop-main">
             <div class="shop-tools">
               <input class="search" id="search" placeholder="Buscar por peca, cor ou tamanho" />
-              <div class="filter-shell">
-                <div class="filter-heading">Filtros</div>
-                <div class="compact-filters" id="filterBar"></div>
+              <div class="filter-trigger-wrap">
+                <button class="filter-trigger" id="filterOpen" type="button" aria-controls="filterDrawer" aria-expanded="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 7h10"/><path d="M18 7h2"/><path d="M4 17h2"/><path d="M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+                  Filtrar e classificar
+                </button>
               </div>
             </div>
             <div class="active-filters" id="activeFilters"></div>
@@ -246,6 +256,21 @@
     </div>
   </aside>
 
+  <div class="filter-overlay" id="filterOverlay"></div>
+  <aside class="filter-drawer" id="filterDrawer" aria-label="Filtrar e classificar">
+    <div class="filter-drawer-head">
+      <div class="filter-drawer-title">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 7h10"/><path d="M18 7h2"/><path d="M4 17h2"/><path d="M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+        Filtrar e classificar
+      </div>
+      <button class="filter-close" id="filterClose" type="button" aria-label="Fechar filtros">&times;</button>
+    </div>
+    <div class="filter-drawer-body" id="filterDrawerBody"></div>
+    <div class="filter-drawer-foot">
+      <button class="primary-btn" id="filterApply" type="button">Aplicar filtros</button>
+    </div>
+  </aside>
+
   <footer>
     <div class="footer-inner">
       <div class="footer-line"></div>
@@ -269,7 +294,12 @@
     const count = document.querySelector("#count");
     const empty = document.querySelector("#empty");
     const search = document.querySelector("#search");
-    const filterBar = document.querySelector("#filterBar");
+    const filterOpen = document.querySelector("#filterOpen");
+    const filterClose = document.querySelector("#filterClose");
+    const filterApply = document.querySelector("#filterApply");
+    const filterOverlay = document.querySelector("#filterOverlay");
+    const filterDrawer = document.querySelector("#filterDrawer");
+    const filterDrawerBody = document.querySelector("#filterDrawerBody");
     const activeFilters = document.querySelector("#activeFilters");
     const productDetailSection = document.querySelector("#produto");
     const productDetail = document.querySelector("#productDetail");
@@ -282,7 +312,7 @@
     const checkout = document.querySelector("#checkout");
     const whatsappFloat = document.querySelector("#whatsappFloat");
     let active = "disponiveis-agora";
-    let selected = { brand: new Set(), size: new Set(), color: new Set() };
+    let selected = { brand: new Set(), size: new Set(), color: new Set(), category: new Set() };
     let selectedProductSlug = null;
     let selectedDetailSize = null;
     let cart = JSON.parse(localStorage.getItem("scorsattoCartV2") || "[]");
@@ -342,7 +372,7 @@
     }
 
     function clearSelected() {
-      selected = { brand: new Set(), size: new Set(), color: new Set() };
+      selected = { brand: new Set(), size: new Set(), color: new Set(), category: new Set() };
     }
 
     function setFilter(slug) {
@@ -354,15 +384,15 @@
       renderProducts();
     }
 
-    function dropdown(title, kind, options) {
+    function drawerGroup(title, kind, options, open = false) {
       return `
-        <details class="filter-dropdown">
-          <summary class="filter-summary">${title} <span>⌄</span></summary>
-          <div class="filter-menu">
+        <details class="drawer-filter" ${open ? "open" : ""}>
+          <summary>${title}</summary>
+          <div class="drawer-options">
             ${options.length ? options.map((option) => {
               const value = typeof option === "string" ? option : option.label;
               const activeClass = selected[kind].has(value) ? " active" : "";
-              return `<button class="filter-option${activeClass}" type="button" data-filter-kind="${kind}" data-filter-value="${value}">${value}</button>`;
+              return `<button class="drawer-option${activeClass}" type="button" data-filter-kind="${kind}" data-filter-value="${value}">${value}</button>`;
             }).join("") : "<span class='muted'>Sem opcoes</span>"}
           </div>
         </details>`;
@@ -373,21 +403,28 @@
       const availableBrands = BRANDS.filter((brand) => products.some((product) => termMatch(product, brand)));
       const sizes = [...new Set(products.flatMap((product) => product.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
       const colors = COLORS.filter((color) => products.some((product) => colorMatch(product, color)));
-      filterBar.innerHTML = [
-        dropdown("Marca", "brand", availableBrands),
-        dropdown("Tamanho", "size", sizes),
-        dropdown("Cor", "color", colors),
+      const categoryOptions = CATEGORIES.filter((category) => category.slug !== "todos").map((category) => category.label);
+      filterDrawerBody.innerHTML = [
+        drawerGroup("Marca", "brand", availableBrands, true),
+        drawerGroup("Tamanhos", "size", sizes),
+        drawerGroup("Cores", "color", colors),
+        drawerGroup("Categoria", "category", categoryOptions),
       ].join("");
       const activeItems = [
         ...[...selected.brand].map((value) => ["Marca", "brand", value]),
         ...[...selected.size].map((value) => ["Tamanho", "size", value]),
         ...[...selected.color].map((value) => ["Cor", "color", value]),
+        ...[...selected.category].map((value) => ["Categoria", "category", value]),
       ];
       activeFilters.classList.toggle("visible", activeItems.length > 0);
       activeFilters.innerHTML = activeItems.map(([label, kind, value]) => `<button class="active-filter" type="button" data-remove-filter-kind="${kind}" data-remove-filter-value="${value}">${label}: ${value} ×</button>`).join("") + (activeItems.length ? "<button class='clear-filters visible' type='button' data-clear-filters='true'>Limpar filtros</button>" : "");
     }
 
     function productPassesSideFilters(product) {
+      if (selected.category?.size) {
+        const allowed = [...selected.category].map((label) => CATEGORIES.find((category) => category.label === label)?.slug).filter(Boolean);
+        if (!allowed.some((slug) => categoryMatches(product, slug))) return false;
+      }
       if (selected.brand.size) {
         if (![...selected.brand].some((value) => termMatch(product, BRANDS.find((item) => item.label === value)))) return false;
       }
@@ -427,6 +464,16 @@
 
     function openCart() { cartDrawer.classList.add("open"); }
     function closeCart() { cartDrawer.classList.remove("open"); }
+    function openFilters() {
+      filterDrawer.classList.add("open");
+      filterOverlay.classList.add("open");
+      filterOpen.setAttribute("aria-expanded", "true");
+    }
+    function closeFilters() {
+      filterDrawer.classList.remove("open");
+      filterOverlay.classList.remove("open");
+      filterOpen.setAttribute("aria-expanded", "false");
+    }
 
     function renderCart() {
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -530,14 +577,11 @@
     }
 
     document.querySelectorAll("[data-filter-link]").forEach((link) => link.addEventListener("click", () => setFilter(link.dataset.filterLink)));
-    filterBar.addEventListener("click", (event) => {
-      const summary = event.target.closest("summary");
-      if (summary) {
-        const current = summary.closest("details");
-        filterBar.querySelectorAll("details[open]").forEach((details) => {
-          if (details !== current) details.removeAttribute("open");
-        });
-      }
+    filterOpen.addEventListener("click", openFilters);
+    filterClose.addEventListener("click", closeFilters);
+    filterOverlay.addEventListener("click", closeFilters);
+    filterApply.addEventListener("click", closeFilters);
+    filterDrawerBody.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-filter-kind]");
       if (!button) return;
       const group = selected[button.dataset.filterKind];
