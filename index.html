@@ -322,7 +322,8 @@
     const cleanName = (name) => name.includes(" - ") ? name.split(" - ")[0] : name;
     const colorFromName = (name) => name.includes(" - ") ? name.split(" - ").slice(1).join(" - ") : "Cor sob consulta";
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
-    const isAvailableNow = (product) => product.status !== "sem-estoque" && product.sizes?.length > 0;
+    const isAvailableNow = (product) => product.status === "disponivel" || product.tags?.includes("disponiveis-agora");
+    if (!PRODUCTS.some(isAvailableNow)) active = "todos";
     const COLORS = [
       { label: "Preto", terms: ["preto"] },
       { label: "Branco", terms: ["branco"] },
@@ -518,7 +519,7 @@
           <div class="thumb-row">${images.map((image) => `<button class="thumb" type="button" data-image="${image}"><img src="${image}" alt="${product.name}"></button>`).join("")}</div>
         </div>
         <div class="detail-copy">
-          <span class="availability-badge">Disponivel Agora</span>
+          ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
           <h2>${cleanName(product.name)}</h2>
           <div class="price">${currency.format(product.price)}</div>
           <p class="detail-meta">Marca: ${brandFromProduct(product)}<br>Cor: ${colorFromName(product.name)}<br>${product.description || product.shortDescription || ""}</p>
@@ -548,13 +549,13 @@
         const matchesFilter = categoryMatches(product, active);
         const haystack = productText(product) + " " + normalize(product.sizes?.join(" "));
         return matchesFilter && productPassesSideFilters(product) && (!term || haystack.includes(term));
-      });
+      }).sort((a, b) => Number(isAvailableNow(b)) - Number(isAvailableNow(a)));
       count.textContent = list.length + " pecas";
       empty.style.display = list.length ? "none" : "block";
       grid.innerHTML = list.map((product, index) => `
         <article class="product-card" data-open-product="${product.slug}" style="animation-delay: ${Math.min(index, 16) * 24}ms">
           <div class="product-media">
-            <span class="availability-badge">Disponivel Agora</span>
+            ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
             <img src="${product.images?.[0] || ""}" alt="${product.name}" loading="lazy">
             <button class="quick-buy" type="button" data-open-product="${product.slug}">Ver produto</button>
           </div>
@@ -635,6 +636,7 @@
     }, { threshold: 0.16 });
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
 
+    document.querySelectorAll(".nav-link").forEach((link) => link.classList.toggle("active", link.dataset.filterLink === active));
     renderFilters();
     renderProducts();
     renderCart();
