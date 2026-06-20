@@ -472,7 +472,7 @@
 
     function renderFilters() {
       const products = baseCategoryProducts();
-      const availableBrands = BRANDS.filter((brand) => brand.selectableOnly || products.some((product) => productBrand(product)?.label === brand.label));
+      const availableBrands = BRANDS;
       const sizes = [...new Set(products.flatMap((product) => product.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
       const colors = COLORS.filter((color) => products.some((product) => colorMatch(product, color)));
       const specGroup = activeSpecGroup(products);
