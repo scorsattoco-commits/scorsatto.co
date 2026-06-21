@@ -445,7 +445,6 @@
         <button class="account-tab active" type="button" data-account-tab="login">Entrar</button>
         <button class="account-tab" type="button" data-account-tab="signup">Criar conta</button>
         <button class="account-tab" type="button" data-account-tab="account">Minha Conta</button>
-        <button class="account-tab" type="button" data-account-tab="crm">CRM</button>
       </div>
 
       <div class="account-panel active" data-account-panel="login">
@@ -536,26 +535,6 @@
               <strong>Grupo exclusivo</strong>
               <span class="muted">Acessar grupo</span>
             </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="account-panel" data-account-panel="crm">
-        <p class="account-status">Cadastros e leads salvos neste navegador.</p>
-        <div class="account-area">
-          <div class="account-section open">
-            <button class="account-section-toggle" type="button">
-              <strong>Clientes cadastrados</strong>
-              <span class="muted" id="crmCustomersPreview">Nenhum cliente cadastrado ainda.</span>
-            </button>
-            <div class="account-section-body account-list" id="crmCustomers"></div>
-          </div>
-          <div class="account-section open">
-            <button class="account-section-toggle" type="button">
-              <strong>Leads do grupo exclusivo</strong>
-              <span class="muted" id="crmLeadsPreview">Nenhum lead captado ainda.</span>
-            </button>
-            <div class="account-section-body account-list" id="crmLeads"></div>
           </div>
         </div>
       </div>
@@ -656,10 +635,6 @@
     const addressZip = document.querySelector("#addressZip");
     const accountSaveAddress = document.querySelector("#accountSaveAddress");
     const accountArea = document.querySelector(".account-area");
-    const crmCustomersPreview = document.querySelector("#crmCustomersPreview");
-    const crmCustomers = document.querySelector("#crmCustomers");
-    const crmLeadsPreview = document.querySelector("#crmLeadsPreview");
-    const crmLeads = document.querySelector("#crmLeads");
     const loginEmail = document.querySelector("#loginEmail");
     const loginPassword = document.querySelector("#loginPassword");
     const loginSubmit = document.querySelector("#loginSubmit");
@@ -683,7 +658,8 @@
     let selected = { brand: new Set(), size: new Set(), color: new Set(), spec: new Set() };
     let selectedProductSlug = null;
     let selectedDetailSize = null;
-    let cart = JSON.parse(localStorage.getItem("scorsattoCartV2") || "[]");
+    const CART_KEY = "scorsattoCartV3";
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
     const GROUP_LINK = "https://chat.whatsapp.com/LSE3LbIwSMiAHGhjqg8rBF";
     let account = JSON.parse(localStorage.getItem("scorsattoAccountV1") || "null");
     if (account?.email === "alissonscorsatto21@gmail.com") {
@@ -932,7 +908,7 @@
     }
 
     function saveCart() {
-      localStorage.setItem("scorsattoCartV2", JSON.stringify(cart));
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
       renderCart();
     }
 
@@ -1023,7 +999,6 @@
       customers = customers.filter((item) => (item.email || item.phone) !== key);
       customers.unshift({ ...customer, updatedAt: new Date().toISOString() });
       localStorage.setItem("scorsattoCustomersV1", JSON.stringify(customers));
-      renderCrm();
     }
 
     function saveLead(lead) {
@@ -1031,18 +1006,6 @@
       leads = leads.filter((item) => (item.whatsapp || item.name) !== key);
       leads.unshift(lead);
       localStorage.setItem("scorsattoLeadsV1", JSON.stringify(leads));
-      renderCrm();
-    }
-
-    function renderCrm() {
-      crmCustomersPreview.textContent = customers.length ? customers.length + " cliente(s) cadastrado(s)." : "Nenhum cliente cadastrado ainda.";
-      crmCustomers.innerHTML = customers.length
-        ? customers.map((customer) => `<div class="account-list-item"><strong>${customer.name || "Cliente"}</strong><span class="muted">${[customer.phone, customer.email, customer.city && customer.state ? customer.city + " - " + customer.state : customer.city].filter(Boolean).join(" | ")}</span></div>`).join("")
-        : '<div class="account-empty">Nenhum cliente cadastrado ainda.</div>';
-      crmLeadsPreview.textContent = leads.length ? leads.length + " lead(s) captado(s)." : "Nenhum lead captado ainda.";
-      crmLeads.innerHTML = leads.length
-        ? leads.map((lead) => `<div class="account-list-item"><strong>${lead.name || "Lead"}</strong><span class="muted">${lead.whatsapp || ""}</span></div>`).join("")
-        : '<div class="account-empty">Nenhum lead captado ainda.</div>';
     }
 
     function updateAccountState() {
@@ -1067,7 +1030,6 @@
       renderAccountOrders();
       renderAccountFavorites();
       renderAccountAddress();
-      renderCrm();
     }
 
     function renderAccountOrders() {
