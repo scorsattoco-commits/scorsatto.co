@@ -25,7 +25,11 @@
     .nav-scroll::-webkit-scrollbar { display: none; }
     .nav-link { border: 1px solid transparent; border-radius: 999px; padding: 9px 9px; color: #343431; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: background .22s ease, color .22s ease; }
     .nav-link:hover, .nav-link.active { background: var(--black); color: var(--white); }
-    .cart-mini { border: 1px solid var(--black); border-radius: 999px; background: var(--black); color: var(--white); min-width: 40px; height: 36px; padding: 0 11px; cursor: pointer; font-size: 12px; font-weight: 700; }
+    .cart-mini { position: relative; width: 38px; height: 38px; border: 0; background: transparent; color: var(--black); display: grid; place-items: center; cursor: pointer; transition: opacity .22s ease, transform .22s ease; }
+    .cart-mini:hover { opacity: .62; transform: translateY(-1px); }
+    .cart-mini svg { width: 22px; height: 22px; stroke-width: 1.55; }
+    .cart-count { position: absolute; top: 2px; right: 1px; min-width: 15px; height: 15px; padding: 0 4px; border: 1px solid var(--white); border-radius: 999px; background: var(--black); color: var(--white); display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; line-height: 1; letter-spacing: 0; transform: scale(0); transform-origin: top right; transition: transform .2s ease; }
+    .cart-count.visible { transform: scale(1); }
     .hero { min-height: 66svh; display: grid; place-items: center; padding: 72px 18px 30px; background: var(--white); text-align: center; overflow: hidden; }
     .hero-logo { width: min(88vw, 1240px); transform-origin: center; animation: logoEntrance 1.2s cubic-bezier(.22,1,.36,1) both; will-change: transform, opacity; }
     .hero-brand { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(56px, 14.5vw, 196px); line-height: .86; font-weight: 500; letter-spacing: .04em; white-space: nowrap; }
@@ -100,11 +104,11 @@
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 10px 0 12px; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .product-facts { display: grid; gap: 0; margin: 18px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .product-fact { display: grid; gap: 6px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.55; }
+    .product-facts { display: grid; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; }
+    .product-fact { display: grid; gap: 8px; padding: 15px 0; border-bottom: 1px solid var(--line); background: transparent; font-size: 12px; line-height: 1.6; }
     .product-fact:last-child { border-bottom: 0; }
-    .product-fact span { color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 10px; font-weight: 700; }
-    .product-fact strong { font-weight: 500; }
+    .product-fact span { color: var(--muted); text-transform: none; letter-spacing: .02em; font-size: 12px; font-weight: 500; }
+    .product-fact strong { color: #252521; font-weight: 400; }
     .size-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
     .size-btn { min-width: 44px; min-height: 40px; border: 1px solid var(--line); background: var(--white); cursor: pointer; font-size: 12px; font-weight: 700; }
     .size-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
@@ -173,7 +177,13 @@
         <a class="nav-link" href="#inicio">Inicio</a>
         <a class="nav-link" href="#produtos" data-filter-link="disponiveis-agora">Disponiveis Agora</a><a class="nav-link" href="#produtos" data-filter-link="camisetas">Camisetas</a><a class="nav-link" href="#produtos" data-filter-link="manga-longa">Manga Longa</a><a class="nav-link" href="#produtos" data-filter-link="gola-polo">Gola Polo</a><a class="nav-link" href="#produtos" data-filter-link="camisa-social">Camisa Social</a><a class="nav-link" href="#produtos" data-filter-link="calcas">Calcas</a><a class="nav-link" href="#produtos" data-filter-link="sueteres">Sueteres</a><a class="nav-link" href="#produtos" data-filter-link="jaquetas">Jaquetas</a><a class="nav-link" href="#produtos" data-filter-link="casacos">Casacos</a><a class="nav-link" href="#produtos" data-filter-link="bermudas">Bermudas</a>
       </nav>
-      <button class="cart-mini" id="cartMini" type="button" aria-label="Abrir carrinho">0</button>
+      <button class="cart-mini" id="cartMini" type="button" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="M7.5 8.25h9l.8 11.25H6.7L7.5 8.25Z"/>
+          <path d="M9.25 8.25V6.75a2.75 2.75 0 0 1 5.5 0v1.5"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
     </div>
   </header>
 
@@ -313,6 +323,7 @@
     const productDetail = document.querySelector("#productDetail");
     const backToProducts = document.querySelector("#backToProducts");
     const cartMini = document.querySelector("#cartMini");
+    const cartCount = document.querySelector("#cartCount");
     const cartDrawer = document.querySelector("#cartDrawer");
     const cartItems = document.querySelector("#cartItems");
     const cartTotal = document.querySelector("#cartTotal");
@@ -550,7 +561,9 @@
 
     function renderCart() {
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      cartMini.textContent = totalItems;
+      cartCount.textContent = totalItems > 99 ? "99+" : String(totalItems);
+      cartCount.classList.toggle("visible", totalItems > 0);
+      cartMini.setAttribute("aria-label", totalItems ? "Abrir carrinho com " + totalItems + " item(s)" : "Abrir carrinho");
       const total = cart.reduce((sum, item) => {
         const product = PRODUCTS.find((entry) => entry.slug === item.slug);
         return sum + (product?.price ?? 0) * item.quantity;
