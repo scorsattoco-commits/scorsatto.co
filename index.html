@@ -205,6 +205,8 @@
     .auth-form.visible { display: grid; }
     .auth-secondary { border-color: var(--line); }
     .auth-guest { border: 0; background: transparent; color: var(--muted); min-height: 34px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+    .account-message { display: none; border: 1px solid var(--line); background: var(--paper); color: #2f2f2c; padding: 12px; font-size: 12px; line-height: 1.5; }
+    .account-message.visible { display: block; }
     .cart-drawer.open { transform: translateX(0); }
     .cart-head, .cart-foot { padding: 18px; border-bottom: 1px solid var(--line); }
     .cart-foot { border-top: 1px solid var(--line); border-bottom: 0; }
@@ -487,6 +489,8 @@
     let selectedDetailSize = null;
     let cart = JSON.parse(localStorage.getItem("scorsattoCartV3") || "[]");
     let account = JSON.parse(localStorage.getItem("scorsattoAccountV4") || "null");
+    let users = JSON.parse(localStorage.getItem("scorsattoUsersV1") || "[]");
+    let accountMessage = "";
     let favorites = JSON.parse(localStorage.getItem("scorsattoFavoritesV4") || "[]");
     let orders = JSON.parse(localStorage.getItem("scorsattoOrdersV4") || "[]");
     let activeAccountTab = account ? "resumo" : "entrar";
@@ -777,11 +781,29 @@
       return parts.length ? parts[parts.length - 1] : "";
     }
 
+    function saveUsers() {
+      localStorage.setItem("scorsattoUsersV1", JSON.stringify(users));
+    }
+
     function saveAccount() {
       if (account) {
         localStorage.setItem("scorsattoAccountV4", JSON.stringify(account));
+      } else {
+        localStorage.removeItem("scorsattoAccountV4");
       }
       renderAccount();
+    }
+
+    function setAccountMessage(message) {
+      accountMessage = message || "";
+      renderAccount();
+    }
+
+    function logoutAccount() {
+      account = null;
+      activeAccountTab = "entrar";
+      accountMessage = "Voce saiu da sua conta.";
+      saveAccount();
     }
 
     function saveFavorites() {
@@ -875,9 +897,11 @@
         accountDrawer.classList.add("auth-mode");
         accountTabs.innerHTML = "";
         accountTitle.textContent = activeAccountTab === "criar" ? "Criar conta" : "Bem-vindo a SCORSATTO";
+        const messageHtml = `<div class="account-message${accountMessage ? " visible" : ""}">${accountMessage}</div>`;
         accountPanels.innerHTML = activeAccountTab === "criar" ? `
           <section class="account-panel active" data-panel="criar">
             <div class="auth-card">
+              ${messageHtml}
               <form class="account-form auth-form visible" data-account-form="create">
                 <label class="field"><span>Nome completo</span><input name="name" required></label>
                 <label class="field"><span>Telefone/WhatsApp</span><input name="phone" required></label>
@@ -894,6 +918,7 @@
           </section>` : `
           <section class="account-panel active" data-panel="entrar">
             <div class="auth-card">
+              ${messageHtml}
               <form class="account-form auth-form visible" data-account-form="login">
                 <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" required></label>
                 <label class="field"><span>Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
@@ -915,7 +940,7 @@
           <nav class="profile-menu" aria-label="Minha conta">${accountMenu()}</nav>
           <div class="profile-main">
             <section class="account-panel${activeAccountTab === "resumo" ? " active" : ""}" data-panel="resumo">
-              <div class="account-hero"><strong>Ola, ${accountValue("name") || "cliente SCORSATTO"}</strong><span class="muted">${accountValue("email") || "E-mail nao informado"}</span><span class="muted">${accountValue("city") || "Cidade"} ${accountValue("state") ? "- " + accountValue("state") : ""}</span></div>
+              <div class="account-hero"><strong>Ola, ${accountValue("name") || "cliente SCORSATTO"}</strong><span class="muted">${accountValue("email") || "E-mail nao informado"}</span><span class="muted">${accountValue("city") || "Cidade"} ${accountValue("state") ? "- " + accountValue("state") : ""}</span><button class="secondary-btn" type="button" data-logout-account>Sair da conta</button></div>
               <div class="profile-actions">
                 <button class="profile-action" type="button" data-account-tab="dados"><strong>Dados pessoais</strong><span>Atualize nome, telefone e e-mail.</span></button>
                 <button class="profile-action" type="button" data-account-tab="favoritos"><strong>Favoritos</strong><span>${favorites.length} peca(s) salva(s).</span></button>
@@ -1127,9 +1152,10 @@
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
     accountDrawer.addEventListener("click", (event) => {
       const tabButton = event.target.closest("[data-account-tab]");
-      if (tabButton) { activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
+      if (tabButton) { accountMessage = ""; activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
       if (event.target.closest("[data-focus-email]")) { accountDrawer.querySelector('input[name="email"]')?.focus(); return; }
-      if (event.target.closest("[data-continue-guest]")) { closeAccount(); return; }
+      if (event.target.closest("[data-logout-account]")) { logoutAccount(); return; }
+      if (event.target.closest("[data-continue-guest]")) { accountMessage = ""; closeAccount(); return; }
       if (event.target.closest("[data-open-favorites-page]")) { openFavoritesPage(); return; }
       const removeFavorite = event.target.closest("[data-remove-favorite]");
       if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
@@ -1142,20 +1168,41 @@
       event.preventDefault();
       const data = formDataObject(form);
       if (form.dataset.accountForm === "create") {
+        const email = normalize(data.email);
+        const existing = users.find((user) => normalize(user.email) === email);
+        if (existing) {
+          accountMessage = "Este e-mail ja possui cadastro. Entre com e-mail e senha.";
+          activeAccountTab = "entrar";
+          renderAccount();
+          return;
+        }
         account = { ...data, newsletter: Boolean(form.elements.newsletter?.checked), createdAt: new Date().toISOString() };
+        users.push(account);
+        saveUsers();
+        accountMessage = "";
         activeAccountTab = "resumo";
         saveAccount();
         return;
       }
       if (form.dataset.accountForm === "login") {
-        account = account || { email: data.email, createdAt: new Date().toISOString() };
-        account.email = data.email;
+        const email = normalize(data.email);
+        const user = users.find((entry) => normalize(entry.email) === email && String(entry.password || "") === String(data.password || ""));
+        if (!user) {
+          accountMessage = "Conta nao encontrada. Cadastre-se antes de entrar ou confira e-mail e senha.";
+          activeAccountTab = "entrar";
+          renderAccount();
+          return;
+        }
+        account = { ...user, lastLoginAt: new Date().toISOString() };
+        accountMessage = "";
         activeAccountTab = "resumo";
         saveAccount();
         return;
       }
       if (form.dataset.accountForm === "profile" || form.dataset.accountForm === "address") {
         account = { ...(account || { createdAt: new Date().toISOString() }), ...data, updatedAt: new Date().toISOString() };
+        users = users.map((user) => normalize(user.email) === normalize(account.email) ? { ...user, ...account } : user);
+        saveUsers();
         activeAccountTab = form.dataset.accountForm === "address" ? "endereco" : "dados";
         saveAccount();
       }
