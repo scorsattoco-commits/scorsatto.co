@@ -184,11 +184,16 @@
     .account-list { display: grid; gap: 10px; }
     .account-card { border: 1px solid var(--line); padding: 12px; display: grid; gap: 6px; background: var(--white); color: inherit; text-align: left; }
     .favorite-preview, .favorite-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .favorite-card { border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; cursor: pointer; overflow: hidden; }
+    .favorite-card { position: relative; border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; overflow: hidden; }
+    .favorite-open { border: 0; background: transparent; padding: 0; color: inherit; text-align: left; cursor: pointer; display: grid; }
     .favorite-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
     .favorite-card span { display: grid; gap: 4px; padding: 10px; }
     .favorite-card strong { font-size: 12px; line-height: 1.35; }
     .favorite-card small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .favorite-remove { position: absolute; top: 8px; right: 8px; z-index: 2; width: 30px; height: 30px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 18px; line-height: 1; }
+    .favorites-page { display: none; background: var(--white); border-top: 1px solid var(--line); }
+    .favorites-page.open { display: block; }
+    .favorites-page .favorite-grid { margin-top: 18px; }
     .account-link { color: var(--black); text-decoration: underline; text-underline-offset: 4px; font-weight: 700; }
     .auth-card { display: grid; gap: 18px; }
     .auth-actions { display: grid; gap: 18px; }
@@ -258,6 +263,7 @@
     }
     @media (min-width: 1120px) {
       .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .favorites-page .favorite-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
 </head>
@@ -335,6 +341,20 @@
       <div class="section-inner">
         <button class="secondary-btn" id="backToProducts" type="button">Voltar para colecao</button>
         <div class="detail-layout" id="productDetail"></div>
+      </div>
+    </section>
+
+    <section class="section favorites-page" id="favoritosPage" aria-labelledby="favoritos-title">
+      <div class="section-inner">
+        <button class="secondary-btn" id="backFromFavorites" type="button">Voltar para colecao</button>
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Minha Conta</p>
+            <h2 id="favoritos-title">Favoritos.</h2>
+          </div>
+          <p class="muted" id="favoritesCountLabel"></p>
+        </div>
+        <div id="favoritesPageGrid"></div>
       </div>
     </section>
 
@@ -441,6 +461,10 @@
     const productDetailSection = document.querySelector("#produto");
     const productDetail = document.querySelector("#productDetail");
     const backToProducts = document.querySelector("#backToProducts");
+    const favoritesPage = document.querySelector("#favoritosPage");
+    const favoritesPageGrid = document.querySelector("#favoritesPageGrid");
+    const favoritesCountLabel = document.querySelector("#favoritesCountLabel");
+    const backFromFavorites = document.querySelector("#backFromFavorites");
     const accountMini = document.querySelector("#accountMini");
     const accountDrawer = document.querySelector("#accountDrawer");
     const accountClose = document.querySelector("#accountClose");
@@ -763,6 +787,7 @@
     function saveFavorites() {
       localStorage.setItem("scorsattoFavoritesV4", JSON.stringify(favorites));
       renderAccount();
+      renderFavoritesPage();
       if (selectedProductSlug) openProduct(selectedProductSlug, false);
     }
 
@@ -802,7 +827,35 @@
       const list = favorites.map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean).slice(0, limit);
       if (!list.length) return "<p class='muted'>Voce ainda nao salvou pecas favoritas.</p>";
       const className = preview ? "favorite-preview" : "favorite-grid";
-      return `<div class="${className}">${list.map((product) => `<button class="favorite-card" type="button" data-account-open-product="${product.slug}"><img src="${product.images?.[0] || ""}" alt="${product.name}"><span><strong>${cleanName(product.name)}</strong><small>${currency.format(product.price)}<br>${colorFromName(product.name)}<br>Ref.: ${supplierReference(product) || "sob consulta"}</small></span></button>`).join("")}</div>`;
+      return `<div class="${className}">${list.map((product) => `
+        <article class="favorite-card">
+          <button class="favorite-remove" type="button" data-remove-favorite="${product.slug}" aria-label="Remover favorito">×</button>
+          <button class="favorite-open" type="button" data-account-open-product="${product.slug}">
+            <img src="${product.images?.[0] || ""}" alt="${product.name}">
+            <span><strong>${cleanName(product.name)}</strong><small>${currency.format(product.price)}<br>${colorFromName(product.name)}<br>Ref.: ${supplierReference(product) || "sob consulta"}</small></span>
+          </button>
+        </article>`).join("")}</div>`;
+    }
+
+    function renderFavoritesPage() {
+      if (!favoritesPageGrid) return;
+      favoritesCountLabel.textContent = favorites.length ? favorites.length + " peca(s) salva(s)" : "Nenhuma peca salva";
+      favoritesPageGrid.innerHTML = favoriteCards();
+    }
+
+    function openFavoritesPage() {
+      renderFavoritesPage();
+      closeAccount();
+      productDetailSection.classList.remove("open");
+      favoritesPage.classList.add("open");
+      favoritesPage.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", "#favoritos");
+    }
+
+    function closeFavoritesPage() {
+      favoritesPage.classList.remove("open");
+      history.replaceState(null, "", "#produtos");
+      document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
     }
 
     function accountMenu() {
@@ -869,7 +922,7 @@
                 <button class="profile-action" type="button" data-account-tab="endereco"><strong>Enderecos</strong><span>Cadastre seu local de entrega.</span></button>
                 <button class="profile-action" type="button" data-account-tab="pedidos"><strong>Pedidos</strong><span>Acompanhe seu historico.</span></button>
               </div>
-              <div class="account-summary"><strong>Favoritos recentes</strong>${favoriteCards(4, true)}<button class="secondary-btn" type="button" data-account-tab="favoritos">Ver todos os favoritos</button></div>
+              <div class="account-summary"><strong>Favoritos recentes</strong>${favoriteCards(4, true)}<button class="secondary-btn" type="button" data-open-favorites-page>Ver todos os favoritos</button></div>
             </section>
             <section class="account-panel${activeAccountTab === "dados" ? " active" : ""}" data-panel="dados">
               <h3>Dados pessoais</h3>
@@ -882,7 +935,7 @@
                 <button class="primary-btn" type="submit">Salvar dados</button>
               </form>
             </section>
-            <section class="account-panel${activeAccountTab === "favoritos" ? " active" : ""}" data-panel="favoritos"><h3>Meus favoritos</h3>${favoriteCards()}</section>
+            <section class="account-panel${activeAccountTab === "favoritos" ? " active" : ""}" data-panel="favoritos"><h3>Meus favoritos</h3>${favoriteCards()}<button class="primary-btn" type="button" data-open-favorites-page>Abrir favoritos em tela cheia</button></section>
             <section class="account-panel${activeAccountTab === "endereco" ? " active" : ""}" data-panel="endereco">
               <h3>Endereco de entrega</h3>
               <div class="account-card"><strong>Endereco atual</strong><span class="muted">${addressText}</span></div>
@@ -1052,6 +1105,13 @@
       if (event.target.closest("#detailAdd")) addToCart(selectedProductSlug, selectedDetailSize, 1);
     });
     backToProducts.addEventListener("click", closeProduct);
+    backFromFavorites.addEventListener("click", closeFavoritesPage);
+    favoritesPageGrid.addEventListener("click", (event) => {
+      const removeFavorite = event.target.closest("[data-remove-favorite]");
+      if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
+      const openFavorite = event.target.closest("[data-account-open-product]");
+      if (openFavorite) openProduct(openFavorite.dataset.accountOpenProduct);
+    });
     cartItems.addEventListener("click", (event) => {
       const openFromCart = event.target.closest("button[data-cart-open-product]");
       if (openFromCart) {
@@ -1070,6 +1130,9 @@
       if (tabButton) { activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
       if (event.target.closest("[data-focus-email]")) { accountDrawer.querySelector('input[name="email"]')?.focus(); return; }
       if (event.target.closest("[data-continue-guest]")) { closeAccount(); return; }
+      if (event.target.closest("[data-open-favorites-page]")) { openFavoritesPage(); return; }
+      const removeFavorite = event.target.closest("[data-remove-favorite]");
+      if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
       const openFavorite = event.target.closest("[data-account-open-product]");
       if (openFavorite) { closeAccount(); openProduct(openFavorite.dataset.accountOpenProduct); return; }
     });
@@ -1114,6 +1177,7 @@
     renderProducts();
     renderCart();
     renderAccount();
+    renderFavoritesPage();
     updateScrollState();
     const hashSlug = location.hash.startsWith("#produto-") ? location.hash.replace("#produto-", "") : null;
     if (hashSlug) openProduct(hashSlug);
