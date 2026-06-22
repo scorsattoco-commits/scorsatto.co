@@ -95,6 +95,9 @@
     .availability-badge { position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 9px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.12); color: #20201d; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .availability-badge::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #111; }
     .quick-buy { position: absolute; left: 8px; right: 8px; bottom: 8px; min-height: 42px; border: 1px solid rgba(0,0,0,.12); border-radius: 0; background: rgba(255,255,255,.94); color: var(--black); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; opacity: .98; cursor: pointer; transition: transform .22s ease, background .22s ease; }
+    .product-save { position: absolute; top: 10px; right: 10px; z-index: 3; width: 34px; height: 34px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.92); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 18px; line-height: 1; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .product-save:hover { transform: translateY(-1px); }
+    .product-save.active { background: var(--black); color: var(--white); }
     .quick-buy:hover { transform: translateY(-2px); background: var(--white); }
     .product-info { padding-top: 10px; }
     .product-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
@@ -141,30 +144,62 @@
     .floating-whatsapp:hover { transform: translateY(-2px); }
     .floating-whatsapp svg { width: 23px; height: 23px; fill: currentColor; }
     .cart-drawer { position: fixed; inset: 0 0 0 auto; z-index: 45; width: min(420px, 100%); background: var(--white); box-shadow: -24px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .32s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr auto; }
-    .account-drawer { position: fixed; inset: 0 0 0 auto; z-index: 47; width: min(520px, 100%); background: var(--white); box-shadow: -24px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .32s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr; }
+    .account-drawer { position: fixed; inset: 0 0 0 auto; z-index: 47; width: min(760px, 100%); background: var(--white); box-shadow: -24px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .32s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr; }
     .account-drawer.open { transform: translateX(0); }
+    .account-drawer.auth-mode { inset: 50% auto auto 50%; width: min(724px, calc(100% - 24px)); max-height: calc(100svh - 24px); border-radius: 14px; box-shadow: 0 28px 90px rgba(0,0,0,.28); transform: translate(-50%, -46%) scale(.98); opacity: 0; overflow: hidden; }
+    .account-drawer.auth-mode.open { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    .account-drawer.auth-mode .cart-head { min-height: 74px; justify-content: center; padding: 18px 62px; border-bottom: 0; }
+    .account-drawer.auth-mode .cart-head strong { font-family: "Cormorant Garamond", serif; font-size: clamp(34px, 6vw, 48px); line-height: 1; font-weight: 500; letter-spacing: 0; text-transform: none; }
+    .account-drawer.auth-mode .cart-close { position: absolute; right: 28px; top: 25px; font-size: 34px; font-weight: 300; }
+    .account-drawer.auth-mode .account-body { padding: 0 58px 32px; gap: 18px; }
+    .account-drawer.auth-mode .account-intro, .account-drawer.auth-mode .account-tabs { display: none; }
     .drawer-overlay { position: fixed; inset: 0; z-index: 44; background: rgba(0,0,0,.38); opacity: 0; pointer-events: none; transition: opacity .24s ease; }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
-    .account-body { overflow: auto; padding: 20px; display: grid; gap: 18px; }
+    .account-body { overflow: auto; padding: 22px; display: grid; gap: 18px; }
     .account-intro { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0; }
     .account-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-    .account-tab { min-height: 36px; border: 1px solid var(--line); background: var(--white); padding: 0 12px; color: var(--black); cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .account-tab { min-height: 38px; border: 1px solid var(--line); background: var(--white); padding: 0 13px; color: var(--black); cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
     .account-tab.active { background: var(--black); border-color: var(--black); color: var(--white); }
-    .account-panel { display: none; gap: 12px; }
+    .account-shell { display: grid; gap: 18px; }
+    .profile-menu { display: grid; gap: 8px; align-self: start; }
+    .profile-menu .account-tab { width: 100%; justify-content: flex-start; text-align: left; background: var(--white); color: var(--black); }
+    .profile-menu .account-tab.active { background: var(--black); color: var(--white); }
+    .profile-main { min-width: 0; display: grid; gap: 14px; }
+    .account-panel { display: none; gap: 14px; }
     .account-panel.active { display: grid; }
+    .account-panel h3 { margin: 0; font-family: Inter, Arial, sans-serif; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
     .account-form { display: grid; gap: 10px; }
     .field { display: grid; gap: 6px; }
     .field span { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .field input { width: 100%; box-sizing: border-box; min-height: 42px; border: 1px solid var(--line); background: var(--white); padding: 0 12px; color: var(--black); }
     .field-check { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; line-height: 1.4; }
-    .account-summary { border: 1px solid var(--line); padding: 14px; display: grid; gap: 8px; }
+    .account-summary { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; background: #fff; }
     .account-summary strong { font-size: 14px; }
+    .account-hero { border: 1px solid var(--line); padding: 18px; display: grid; gap: 8px; background: var(--paper); }
+    .account-hero strong { font-size: 18px; }
+    .profile-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .profile-action { min-height: 82px; border: 1px solid var(--line); background: var(--white); padding: 12px; display: grid; gap: 5px; text-align: left; cursor: pointer; color: var(--black); }
+    .profile-action strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .profile-action span { color: var(--muted); font-size: 12px; line-height: 1.45; }
     .account-list { display: grid; gap: 10px; }
     .account-card { border: 1px solid var(--line); padding: 12px; display: grid; gap: 6px; background: var(--white); color: inherit; text-align: left; }
-    .favorite-preview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .favorite-preview .account-card { cursor: pointer; }
-    .favorite-preview img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
+    .favorite-preview, .favorite-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .favorite-card { border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; cursor: pointer; overflow: hidden; }
+    .favorite-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
+    .favorite-card span { display: grid; gap: 4px; padding: 10px; }
+    .favorite-card strong { font-size: 12px; line-height: 1.35; }
+    .favorite-card small { color: var(--muted); font-size: 11px; line-height: 1.45; }
     .account-link { color: var(--black); text-decoration: underline; text-underline-offset: 4px; font-weight: 700; }
+    .auth-card { display: grid; gap: 18px; }
+    .auth-actions { display: grid; gap: 18px; }
+    .auth-button { width: 100%; min-height: 70px; border: 1px solid var(--black); background: var(--white); color: var(--black); display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 18px; cursor: pointer; font-size: 16px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .auth-button.primary { background: #1a1a18; color: var(--white); }
+    .auth-divider { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; color: #2b2b28; font-size: 20px; line-height: 1; margin: 20px 4px 4px; }
+    .auth-divider::before, .auth-divider::after { content: ""; height: 1px; background: var(--line); }
+    .auth-form { display: none; gap: 10px; padding-top: 2px; }
+    .auth-form.visible { display: grid; }
+    .auth-secondary { border-color: var(--line); }
+    .auth-guest { border: 0; background: transparent; color: var(--muted); min-height: 34px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
     .cart-drawer.open { transform: translateX(0); }
     .cart-head, .cart-foot { padding: 18px; border-bottom: 1px solid var(--line); }
     .cart-foot { border-top: 1px solid var(--line); border-bottom: 0; }
@@ -207,6 +242,8 @@
       .hero-signature { margin-top: 16px; font-size: 10px; letter-spacing: .22em; }
     }
     @media (min-width: 760px) {
+      .account-shell { grid-template-columns: 190px minmax(0, 1fr); align-items: start; }
+      .favorite-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .topbar-inner { padding: 16px 26px; }
       .nav-link { padding-inline: 11px; font-size: 11px; }
       .section { padding: 74px 26px; }
@@ -425,9 +462,9 @@
     let selectedProductSlug = null;
     let selectedDetailSize = null;
     let cart = JSON.parse(localStorage.getItem("scorsattoCartV3") || "[]");
-    let account = JSON.parse(localStorage.getItem("scorsattoAccountV2") || "null");
-    let favorites = JSON.parse(localStorage.getItem("scorsattoFavoritesV2") || "[]");
-    let orders = JSON.parse(localStorage.getItem("scorsattoOrdersV2") || "[]");
+    let account = JSON.parse(localStorage.getItem("scorsattoAccountV4") || "null");
+    let favorites = JSON.parse(localStorage.getItem("scorsattoFavoritesV4") || "[]");
+    let orders = JSON.parse(localStorage.getItem("scorsattoOrdersV4") || "[]");
     let activeAccountTab = account ? "resumo" : "entrar";
 
     const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -718,13 +755,13 @@
 
     function saveAccount() {
       if (account) {
-        localStorage.setItem("scorsattoAccountV2", JSON.stringify(account));
+        localStorage.setItem("scorsattoAccountV4", JSON.stringify(account));
       }
       renderAccount();
     }
 
     function saveFavorites() {
-      localStorage.setItem("scorsattoFavoritesV2", JSON.stringify(favorites));
+      localStorage.setItem("scorsattoFavoritesV4", JSON.stringify(favorites));
       renderAccount();
       if (selectedProductSlug) openProduct(selectedProductSlug, false);
     }
@@ -761,80 +798,109 @@
       return account?.[key] || "";
     }
 
-    function favoriteCards(limit = favorites.length) {
+    function favoriteCards(limit = favorites.length, preview = false) {
       const list = favorites.map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean).slice(0, limit);
       if (!list.length) return "<p class='muted'>Voce ainda nao salvou pecas favoritas.</p>";
-      return `<div class="favorite-preview">${list.map((product) => `<button class="account-card" type="button" data-account-open-product="${product.slug}"><img src="${product.images?.[0] || ""}" alt="${product.name}"><strong>${cleanName(product.name)}</strong><span class="muted">${currency.format(product.price)}</span></button>`).join("")}</div>`;
+      const className = preview ? "favorite-preview" : "favorite-grid";
+      return `<div class="${className}">${list.map((product) => `<button class="favorite-card" type="button" data-account-open-product="${product.slug}"><img src="${product.images?.[0] || ""}" alt="${product.name}"><span><strong>${cleanName(product.name)}</strong><small>${currency.format(product.price)}<br>${colorFromName(product.name)}<br>Ref.: ${supplierReference(product) || "sob consulta"}</small></span></button>`).join("")}</div>`;
+    }
+
+    function accountMenu() {
+      return accountTabsData().map(([id, label]) => `<button class="account-tab${activeAccountTab === id ? " active" : ""}" type="button" data-account-tab="${id}">${label}</button>`).join("");
     }
 
     function renderAccount() {
       const tabs = accountTabsData();
       if (!tabs.some(([id]) => id === activeAccountTab)) activeAccountTab = tabs[0][0];
-      accountTitle.textContent = account ? "Minha Conta" : "Entrar na SCORSATTO";
-      accountIntro.textContent = account ? "Conta ativa para " + (account.name || "cliente SCORSATTO") + "." : "Acesse sua conta para acompanhar pedidos, salvar pecas e receber novidades exclusivas.";
-      accountTabs.innerHTML = tabs.map(([id, label]) => `<button class="account-tab${activeAccountTab === id ? " active" : ""}" type="button" data-account-tab="${id}">${label}</button>`).join("");
+      accountTitle.textContent = account ? "Minha conta" : "Entrar na SCORSATTO";
+      accountIntro.textContent = account ? "Gerencie seus dados, favoritos, enderecos e pedidos em um so lugar." : "Acesse sua conta para acompanhar pedidos, salvar pecas e receber novidades exclusivas.";
       const benefits = "<div class='account-summary'><span>Salvar pecas favoritas</span><span>Acompanhar pedidos</span><span>Receber lancamentos primeiro</span><span>Participar do grupo exclusivo</span></div>";
-      const emptyOrders = orders.length ? orders.map((order) => `<div class="account-card"><strong>${order.title}</strong><span class="muted">${order.date}</span></div>`).join("") : "<p class='muted'>Historico de pedidos sera exibido aqui.</p>";
+      const emptyOrders = orders.length ? orders.map((order) => `<div class="account-card"><strong>${order.title}</strong><span class="muted">${order.date}</span></div>`).join("") : "<p class='muted'>Seu historico de pedidos aparecera aqui.</p>";
       const addressText = account?.address ? `${account.address}, ${account.number || ""} ${account.complement || ""}<br>${account.neighborhood || ""}<br>${account.city || ""} - ${account.state || ""}<br>CEP: ${account.zip || ""}` : "Nenhum endereco cadastrado.";
+
+      if (!account) {
+        accountDrawer.classList.add("auth-mode");
+        accountTabs.innerHTML = "";
+        accountTitle.textContent = activeAccountTab === "criar" ? "Criar conta" : "Bem-vindo a SCORSATTO";
+        accountPanels.innerHTML = activeAccountTab === "criar" ? `
+          <section class="account-panel active" data-panel="criar">
+            <div class="auth-card">
+              <form class="account-form auth-form visible" data-account-form="create">
+                <label class="field"><span>Nome completo</span><input name="name" required></label>
+                <label class="field"><span>Telefone/WhatsApp</span><input name="phone" required></label>
+                <label class="field"><span>E-mail</span><input name="email" type="email" required></label>
+                <label class="field"><span>Senha</span><input name="password" type="password" required></label>
+                <label class="field"><span>Cidade</span><input name="city" required></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" required></label>
+                <label class="field-check"><input name="newsletter" type="checkbox" checked> Quero receber novidades e lancamentos da SCORSATTO.</label>
+                <button class="auth-button primary" type="submit">Cadastrar-se</button>
+                <button class="auth-button auth-secondary" type="button" data-account-tab="entrar">Ja tenho conta</button>
+                <button class="auth-guest" type="button" data-continue-guest>Continuar como visitante</button>
+              </form>
+            </div>
+          </section>` : `
+          <section class="account-panel active" data-panel="entrar">
+            <div class="auth-card">
+              <form class="account-form auth-form visible" data-account-form="login">
+                <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" required></label>
+                <label class="field"><span>Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
+                <button class="auth-button primary" type="submit">Entrar com email e senha</button>
+              </form>
+              <div class="auth-divider">Ainda nao e cliente?</div>
+              <button class="auth-button primary" type="button" data-account-tab="criar">Cadastre-se</button>
+              <button class="auth-guest" type="button" data-continue-guest>Continuar como visitante</button>
+            </div>
+          </section>`;
+        return;
+      }
+
+      accountDrawer.classList.remove("auth-mode");
+
+      accountTabs.innerHTML = "";
       accountPanels.innerHTML = `
-        <section class="account-panel${activeAccountTab === "entrar" ? " active" : ""}" data-panel="entrar">
-          ${benefits}
-          <form class="account-form" data-account-form="login">
-            <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" required></label>
-            <label class="field"><span>Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
-            <button class="primary-btn" type="submit">Entrar</button>
-            <button class="secondary-btn" type="button" data-account-tab="criar">Criar conta</button>
-            <button class="secondary-btn" type="button" data-continue-guest>Continuar como visitante</button>
-            <span class="muted">Esqueci minha senha</span>
-          </form>
-        </section>
-        <section class="account-panel${activeAccountTab === "criar" ? " active" : ""}" data-panel="criar">
-          ${benefits}
-          <form class="account-form" data-account-form="create">
-            <label class="field"><span>Nome completo</span><input name="name" required></label>
-            <label class="field"><span>Telefone/WhatsApp</span><input name="phone" required></label>
-            <label class="field"><span>E-mail</span><input name="email" type="email" required></label>
-            <label class="field"><span>Senha</span><input name="password" type="password" required></label>
-            <label class="field"><span>Cidade</span><input name="city" required></label>
-            <label class="field"><span>Estado</span><input name="state" maxlength="2" required></label>
-            <label class="field-check"><input name="newsletter" type="checkbox" checked> Quero receber novidades e lancamentos da SCORSATTO.</label>
-            <button class="primary-btn" type="submit">Criar conta</button>
-          </form>
-        </section>
-        <section class="account-panel${activeAccountTab === "visitante" ? " active" : ""}" data-panel="visitante"><p class="muted">Voce pode navegar, adicionar pecas ao carrinho e finalizar pelo WhatsApp sem criar conta.</p><button class="primary-btn" type="button" data-continue-guest>Continuar como visitante</button></section>
-        <section class="account-panel${activeAccountTab === "resumo" ? " active" : ""}" data-panel="resumo">
-          <div class="account-summary"><strong>${accountValue("name") || "Cliente SCORSATTO"}</strong><span class="muted">${accountValue("phone") || "WhatsApp nao informado"} | ${accountValue("email") || "E-mail nao informado"}</span><span class="muted">${accountValue("city") || "Cidade"} - ${accountValue("state") || "UF"}</span></div>
-          <div class="account-summary"><strong>Favoritos</strong>${favoriteCards(2)}<button class="secondary-btn" type="button" data-account-tab="favoritos">Ver todos</button></div>
-          <button class="secondary-btn" type="button" data-account-tab="dados">Alterar dados da conta</button>
-          <button class="secondary-btn" type="button" data-account-tab="endereco">Cadastrar endereco de entrega</button>
-          <button class="secondary-btn" type="button" data-account-tab="pedidos">Ver historico de pedidos</button>
-        </section>
-        <section class="account-panel${activeAccountTab === "dados" ? " active" : ""}" data-panel="dados">
-          <form class="account-form" data-account-form="profile">
-            <label class="field"><span>Nome completo</span><input name="name" value="${accountValue("name")}"></label>
-            <label class="field"><span>Telefone/WhatsApp</span><input name="phone" value="${accountValue("phone")}"></label>
-            <label class="field"><span>E-mail</span><input name="email" type="email" value="${accountValue("email")}"></label>
-            <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
-            <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
-            <button class="primary-btn" type="submit">Salvar dados</button>
-          </form>
-        </section>
-        <section class="account-panel${activeAccountTab === "favoritos" ? " active" : ""}" data-panel="favoritos">${favoriteCards()}</section>
-        <section class="account-panel${activeAccountTab === "endereco" ? " active" : ""}" data-panel="endereco">
-          <div class="account-card"><strong>Endereco atual</strong><span class="muted">${addressText}</span></div>
-          <form class="account-form" data-account-form="address">
-            <label class="field"><span>Endereco</span><input name="address" value="${accountValue("address")}"></label>
-            <label class="field"><span>Numero</span><input name="number" value="${accountValue("number")}"></label>
-            <label class="field"><span>Complemento</span><input name="complement" value="${accountValue("complement")}"></label>
-            <label class="field"><span>Bairro</span><input name="neighborhood" value="${accountValue("neighborhood")}"></label>
-            <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
-            <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
-            <label class="field"><span>CEP</span><input name="zip" value="${accountValue("zip")}"></label>
-            <button class="primary-btn" type="submit">Salvar endereco</button>
-          </form>
-        </section>
-        <section class="account-panel${activeAccountTab === "pedidos" ? " active" : ""}" data-panel="pedidos"><div class="account-list">${emptyOrders}</div></section>
-        <section class="account-panel${activeAccountTab === "grupo" ? " active" : ""}" data-panel="grupo"><a class="primary-btn" href="https://chat.whatsapp.com/LSE3LbIwSMiAHGhjqg8rBF" target="_blank" rel="noreferrer">Entrar no grupo exclusivo</a></section>
+        <div class="account-shell">
+          <nav class="profile-menu" aria-label="Minha conta">${accountMenu()}</nav>
+          <div class="profile-main">
+            <section class="account-panel${activeAccountTab === "resumo" ? " active" : ""}" data-panel="resumo">
+              <div class="account-hero"><strong>Ola, ${accountValue("name") || "cliente SCORSATTO"}</strong><span class="muted">${accountValue("email") || "E-mail nao informado"}</span><span class="muted">${accountValue("city") || "Cidade"} ${accountValue("state") ? "- " + accountValue("state") : ""}</span></div>
+              <div class="profile-actions">
+                <button class="profile-action" type="button" data-account-tab="dados"><strong>Dados pessoais</strong><span>Atualize nome, telefone e e-mail.</span></button>
+                <button class="profile-action" type="button" data-account-tab="favoritos"><strong>Favoritos</strong><span>${favorites.length} peca(s) salva(s).</span></button>
+                <button class="profile-action" type="button" data-account-tab="endereco"><strong>Enderecos</strong><span>Cadastre seu local de entrega.</span></button>
+                <button class="profile-action" type="button" data-account-tab="pedidos"><strong>Pedidos</strong><span>Acompanhe seu historico.</span></button>
+              </div>
+              <div class="account-summary"><strong>Favoritos recentes</strong>${favoriteCards(4, true)}<button class="secondary-btn" type="button" data-account-tab="favoritos">Ver todos os favoritos</button></div>
+            </section>
+            <section class="account-panel${activeAccountTab === "dados" ? " active" : ""}" data-panel="dados">
+              <h3>Dados pessoais</h3>
+              <form class="account-form" data-account-form="profile">
+                <label class="field"><span>Nome completo</span><input name="name" value="${accountValue("name")}"></label>
+                <label class="field"><span>Telefone/WhatsApp</span><input name="phone" value="${accountValue("phone")}"></label>
+                <label class="field"><span>E-mail</span><input name="email" type="email" value="${accountValue("email")}"></label>
+                <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
+                <button class="primary-btn" type="submit">Salvar dados</button>
+              </form>
+            </section>
+            <section class="account-panel${activeAccountTab === "favoritos" ? " active" : ""}" data-panel="favoritos"><h3>Meus favoritos</h3>${favoriteCards()}</section>
+            <section class="account-panel${activeAccountTab === "endereco" ? " active" : ""}" data-panel="endereco">
+              <h3>Endereco de entrega</h3>
+              <div class="account-card"><strong>Endereco atual</strong><span class="muted">${addressText}</span></div>
+              <form class="account-form" data-account-form="address">
+                <label class="field"><span>Endereco</span><input name="address" value="${accountValue("address")}"></label>
+                <label class="field"><span>Numero</span><input name="number" value="${accountValue("number")}"></label>
+                <label class="field"><span>Complemento</span><input name="complement" value="${accountValue("complement")}"></label>
+                <label class="field"><span>Bairro</span><input name="neighborhood" value="${accountValue("neighborhood")}"></label>
+                <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
+                <label class="field"><span>CEP</span><input name="zip" value="${accountValue("zip")}"></label>
+                <button class="primary-btn" type="submit">Salvar endereco</button>
+              </form>
+            </section>
+            <section class="account-panel${activeAccountTab === "pedidos" ? " active" : ""}" data-panel="pedidos"><h3>Meus pedidos</h3><div class="account-list">${emptyOrders}</div></section>
+            <section class="account-panel${activeAccountTab === "grupo" ? " active" : ""}" data-panel="grupo"><h3>Grupo exclusivo</h3><a class="primary-btn" href="https://chat.whatsapp.com/LSE3LbIwSMiAHGhjqg8rBF" target="_blank" rel="noreferrer">Entrar no grupo exclusivo</a></section>
+          </div>
+        </div>
       `;
     }
 
@@ -897,6 +963,7 @@
         <article class="product-card" data-open-product="${product.slug}" style="animation-delay: ${Math.min(index, 16) * 24}ms">
           <div class="product-media">
             ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
+            <button class="product-save${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-card-favorite="${product.slug}" aria-label="Salvar favorito">${favoriteProduct(product.slug) ? "♥" : "♡"}</button>
             <img src="${product.images?.[0] || ""}" alt="${product.name}" loading="lazy">
             <button class="quick-buy" type="button" data-open-product="${product.slug}">Ver produto</button>
           </div>
@@ -962,6 +1029,13 @@
       setFilter(button.dataset.collectionCategory);
     });
     grid.addEventListener("click", (event) => {
+      const cardFavorite = event.target.closest("button[data-card-favorite]");
+      if (cardFavorite) {
+        event.stopPropagation();
+        toggleFavorite(cardFavorite.dataset.cardFavorite);
+        renderProducts();
+        return;
+      }
       const target = event.target.closest("[data-open-product]");
       if (target) openProduct(target.dataset.openProduct);
     });
@@ -994,6 +1068,7 @@
     accountDrawer.addEventListener("click", (event) => {
       const tabButton = event.target.closest("[data-account-tab]");
       if (tabButton) { activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
+      if (event.target.closest("[data-focus-email]")) { accountDrawer.querySelector('input[name="email"]')?.focus(); return; }
       if (event.target.closest("[data-continue-guest]")) { closeAccount(); return; }
       const openFavorite = event.target.closest("[data-account-open-product]");
       if (openFavorite) { closeAccount(); openProduct(openFavorite.dataset.accountOpenProduct); return; }
