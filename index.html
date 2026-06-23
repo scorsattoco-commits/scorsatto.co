@@ -637,13 +637,15 @@
     }
 
     function updateTopNav() {
-      document.querySelectorAll(".nav-link").forEach((link) => {
+      document.querySelectorAll(".desktop-nav .nav-link").forEach((link) => {
+        link.classList.toggle("active", link.dataset.filterLink === active);
+      });
+      document.querySelectorAll(".mobile-nav-scroll .nav-link").forEach((link) => {
         const isAvailable = link.dataset.filterLink === "disponiveis-agora";
         const isCollection = link.dataset.filterLink === "todos";
         link.classList.toggle("active", (active === "disponiveis-agora" && isAvailable) || (active !== "disponiveis-agora" && isCollection));
       });
     }
-
     function renderCollectionCategories() {
       if (!collectionCategories) return;
       const categories = CATEGORIES.filter((category) => !["todos", "disponiveis-agora"].includes(category.slug));
@@ -1240,4 +1242,5 @@
   </script>
 </body>
 </html>
+
 
