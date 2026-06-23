@@ -64,6 +64,11 @@
     .active-filter { display: inline-flex; align-items: center; gap: 8px; }
     .clear-filters { display: none; color: var(--muted); }
     .clear-filters.visible { display: inline-flex; align-items: center; }
+    .collection-categories { display: none; gap: 8px; overflow-x: auto; padding: 0 0 16px; margin: -4px 0 18px; scrollbar-width: none; }
+    .collection-categories::-webkit-scrollbar { display: none; }
+    .collection-categories.visible { display: flex; }
+    .collection-category { min-height: 38px; border: 1px solid var(--line); background: var(--white); color: #2f2f2c; padding: 0 13px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+    .collection-category:hover, .collection-category.active { background: var(--black); border-color: var(--black); color: var(--white); }
     .filter-overlay { position: fixed; inset: 0; z-index: 38; background: rgba(0,0,0,.42); opacity: 0; pointer-events: none; transition: opacity .24s ease; }
     .filter-overlay.open { opacity: 1; pointer-events: auto; }
     .filter-drawer { position: fixed; inset: 0 0 0 auto; z-index: 46; width: min(500px, 100%); background: var(--white); transform: translateX(105%); transition: transform .28s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr auto; box-shadow: -18px 0 50px rgba(0,0,0,.12); }
@@ -90,6 +95,9 @@
     .availability-badge { position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 9px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.12); color: #20201d; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .availability-badge::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #111; }
     .quick-buy { position: absolute; left: 8px; right: 8px; bottom: 8px; min-height: 42px; border: 1px solid rgba(0,0,0,.12); border-radius: 0; background: rgba(255,255,255,.94); color: var(--black); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; opacity: .98; cursor: pointer; transition: transform .22s ease, background .22s ease; }
+    .product-save { position: absolute; top: 10px; right: 10px; z-index: 3; width: 34px; height: 34px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.92); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 18px; line-height: 1; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .product-save:hover { transform: translateY(-1px); }
+    .product-save.active { background: var(--black); color: var(--white); }
     .quick-buy:hover { transform: translateY(-2px); background: var(--white); }
     .product-info { padding-top: 10px; }
     .product-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
@@ -107,19 +115,20 @@
     .thumb { width: 72px; height: 92px; border: 1px solid var(--line); background: var(--soft); cursor: pointer; padding: 0; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
     .detail-copy { max-width: 560px; }
+    .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 10px 0 12px; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .detail-info { display: grid; gap: 10px; margin: 18px 0 20px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .detail-info-row { display: grid; grid-template-columns: 92px 1fr; gap: 14px; color: #252521; font-size: 13px; line-height: 1.5; }
-    .detail-info-row span { color: var(--muted); font-size: 12px; }
-    .reference-line { color: var(--muted); font-size: 12px; letter-spacing: .02em; }
-    .size-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 18px; }
+    .reference-line { margin: 14px 0 0; color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+    .favorite-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .favorite-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
+    .product-facts { display: grid; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; }
+    .product-fact { display: grid; gap: 8px; padding: 15px 0; border-bottom: 1px solid var(--line); background: transparent; font-size: 12px; line-height: 1.6; }
+    .product-fact:last-child { border-bottom: 0; }
+    .product-fact span { color: var(--muted); text-transform: none; letter-spacing: .02em; font-size: 12px; font-weight: 500; }
+    .product-fact strong { color: #252521; font-weight: 400; }
+    .size-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
     .size-btn { min-width: 44px; min-height: 40px; border: 1px solid var(--line); background: var(--white); cursor: pointer; font-size: 12px; font-weight: 700; }
     .size-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
-    .quantity-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 8px 0 20px; color: #252521; font-size: 13px; }
-    .quantity-control { display: inline-flex; align-items: center; border: 1px solid var(--line); }
-    .qty-btn { width: 40px; height: 38px; border: 0; background: var(--white); color: var(--black); cursor: pointer; font-size: 18px; line-height: 1; }
-    .quantity-value { min-width: 38px; text-align: center; font-size: 12px; font-weight: 700; }
     .detail-actions { display: grid; gap: 10px; margin-top: 20px; }
     .secondary-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .about { background: var(--white); border-top: 1px solid var(--line); }
@@ -135,6 +144,69 @@
     .floating-whatsapp:hover { transform: translateY(-2px); }
     .floating-whatsapp svg { width: 23px; height: 23px; fill: currentColor; }
     .cart-drawer { position: fixed; inset: 0 0 0 auto; z-index: 45; width: min(420px, 100%); background: var(--white); box-shadow: -24px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .32s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr auto; }
+    .account-drawer { position: fixed; inset: 0 0 0 auto; z-index: 47; width: min(760px, 100%); background: var(--white); box-shadow: -24px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .32s cubic-bezier(.22,1,.36,1); display: grid; grid-template-rows: auto 1fr; }
+    .account-drawer.open { transform: translateX(0); }
+    .account-drawer.auth-mode { inset: 50% auto auto 50%; width: min(724px, calc(100% - 24px)); max-height: calc(100svh - 24px); border-radius: 14px; box-shadow: 0 28px 90px rgba(0,0,0,.28); transform: translate(-50%, -46%) scale(.98); opacity: 0; overflow: hidden; }
+    .account-drawer.auth-mode.open { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    .account-drawer.auth-mode .cart-head { min-height: 74px; justify-content: center; padding: 18px 62px; border-bottom: 0; }
+    .account-drawer.auth-mode .cart-head strong { font-family: "Cormorant Garamond", serif; font-size: clamp(34px, 6vw, 48px); line-height: 1; font-weight: 500; letter-spacing: 0; text-transform: none; }
+    .account-drawer.auth-mode .cart-close { position: absolute; right: 28px; top: 25px; font-size: 34px; font-weight: 300; }
+    .account-drawer.auth-mode .account-body { padding: 0 58px 32px; gap: 18px; }
+    .account-drawer.auth-mode .account-intro, .account-drawer.auth-mode .account-tabs { display: none; }
+    .drawer-overlay { position: fixed; inset: 0; z-index: 44; background: rgba(0,0,0,.38); opacity: 0; pointer-events: none; transition: opacity .24s ease; }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .account-body { overflow: auto; padding: 22px; display: grid; gap: 18px; }
+    .account-intro { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0; }
+    .account-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .account-tab { min-height: 38px; border: 1px solid var(--line); background: var(--white); padding: 0 13px; color: var(--black); cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .account-tab.active { background: var(--black); border-color: var(--black); color: var(--white); }
+    .account-shell { display: grid; gap: 18px; }
+    .profile-menu { display: grid; gap: 8px; align-self: start; }
+    .profile-menu .account-tab { width: 100%; justify-content: flex-start; text-align: left; background: var(--white); color: var(--black); }
+    .profile-menu .account-tab.active { background: var(--black); color: var(--white); }
+    .profile-main { min-width: 0; display: grid; gap: 14px; }
+    .account-panel { display: none; gap: 14px; }
+    .account-panel.active { display: grid; }
+    .account-panel h3 { margin: 0; font-family: Inter, Arial, sans-serif; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+    .account-form { display: grid; gap: 10px; }
+    .field { display: grid; gap: 6px; }
+    .field span { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .field input { width: 100%; box-sizing: border-box; min-height: 42px; border: 1px solid var(--line); background: var(--white); padding: 0 12px; color: var(--black); }
+    .field-check { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .account-summary { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; background: #fff; }
+    .account-summary strong { font-size: 14px; }
+    .account-hero { border: 1px solid var(--line); padding: 18px; display: grid; gap: 8px; background: var(--paper); }
+    .account-hero strong { font-size: 18px; }
+    .profile-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .profile-action { min-height: 82px; border: 1px solid var(--line); background: var(--white); padding: 12px; display: grid; gap: 5px; text-align: left; cursor: pointer; color: var(--black); }
+    .profile-action strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .profile-action span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .account-list { display: grid; gap: 10px; }
+    .account-card { border: 1px solid var(--line); padding: 12px; display: grid; gap: 6px; background: var(--white); color: inherit; text-align: left; }
+    .favorite-preview, .favorite-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .favorite-card { position: relative; border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; overflow: hidden; }
+    .favorite-open { border: 0; background: transparent; padding: 0; color: inherit; text-align: left; cursor: pointer; display: grid; }
+    .favorite-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
+    .favorite-card span { display: grid; gap: 4px; padding: 10px; }
+    .favorite-card strong { font-size: 12px; line-height: 1.35; }
+    .favorite-card small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .favorite-remove { position: absolute; top: 8px; right: 8px; z-index: 2; width: 30px; height: 30px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 18px; line-height: 1; }
+    .favorites-page { display: none; background: var(--white); border-top: 1px solid var(--line); }
+    .favorites-page.open { display: block; }
+    .favorites-page .favorite-grid { margin-top: 18px; }
+    .account-link { color: var(--black); text-decoration: underline; text-underline-offset: 4px; font-weight: 700; }
+    .auth-card { display: grid; gap: 18px; }
+    .auth-actions { display: grid; gap: 18px; }
+    .auth-button { width: 100%; min-height: 70px; border: 1px solid var(--black); background: var(--white); color: var(--black); display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 18px; cursor: pointer; font-size: 16px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .auth-button.primary { background: #1a1a18; color: var(--white); }
+    .auth-divider { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; color: #2b2b28; font-size: 20px; line-height: 1; margin: 20px 4px 4px; }
+    .auth-divider::before, .auth-divider::after { content: ""; height: 1px; background: var(--line); }
+    .auth-form { display: none; gap: 10px; padding-top: 2px; }
+    .auth-form.visible { display: grid; }
+    .auth-secondary { border-color: var(--line); }
+    .auth-guest { border: 0; background: transparent; color: var(--muted); min-height: 34px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+    .account-message { display: none; border: 1px solid var(--line); background: var(--paper); color: #2f2f2c; padding: 12px; font-size: 12px; line-height: 1.5; }
+    .account-message.visible { display: block; }
     .cart-drawer.open { transform: translateX(0); }
     .cart-head, .cart-foot { padding: 18px; border-bottom: 1px solid var(--line); }
     .cart-foot { border-top: 1px solid var(--line); border-bottom: 0; }
@@ -177,6 +249,8 @@
       .hero-signature { margin-top: 16px; font-size: 10px; letter-spacing: .22em; }
     }
     @media (min-width: 760px) {
+      .account-shell { grid-template-columns: 190px minmax(0, 1fr); align-items: start; }
+      .favorite-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .topbar-inner { padding: 16px 26px; }
       .nav-link { padding-inline: 11px; font-size: 11px; }
       .section { padding: 74px 26px; }
@@ -185,11 +259,13 @@
       .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 18px; }
       .product-name, .price { font-size: 14px; }
       .detail-layout { grid-template-columns: minmax(0, 1fr) 420px; align-items: start; }
+      .product-fact { grid-template-columns: 140px 1fr; gap: 16px; }
       .trust-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
     }
     @media (min-width: 1120px) {
       .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .favorites-page .favorite-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
 </head>
@@ -199,16 +275,17 @@
       <a class="mobile-symbol" href="#inicio" aria-label="SCORSATTO">SCORSATTO</a>
       <a class="brand" href="#inicio">SCORSATTO</a>
       <nav class="nav-scroll desktop-nav" aria-label="Categorias principais">
-        <a class="nav-link" href="#inicio">Inicio</a>
-        <a class="nav-link" href="#produtos" data-filter-link="disponiveis-agora">Disponiveis Agora</a><a class="nav-link" href="#produtos" data-filter-link="camisetas">Camisetas</a><a class="nav-link" href="#produtos" data-filter-link="manga-longa">Manga Longa</a><a class="nav-link" href="#produtos" data-filter-link="gola-polo">Gola Polo</a><a class="nav-link" href="#produtos" data-filter-link="camisa-social">Camisa Social</a><a class="nav-link" href="#produtos" data-filter-link="calcas">Calcas</a><a class="nav-link" href="#produtos" data-filter-link="sueteres">Sueteres</a><a class="nav-link" href="#produtos" data-filter-link="jaquetas">Jaquetas</a><a class="nav-link" href="#produtos" data-filter-link="casacos">Casacos</a><a class="nav-link" href="#produtos" data-filter-link="bermudas">Bermudas</a>
+        <a class="nav-link" href="#inicio" data-home-link="true">Inicio</a>
+        <a class="nav-link" href="#produtos" data-filter-link="disponiveis-agora">Disponiveis Agora</a>
+        <a class="nav-link" href="#produtos" data-filter-link="todos">Colecao</a>
       </nav>
       <div class="header-actions">
-        <a class="account-mini" href="#sobre" aria-label="Conta">
+        <button class="account-mini" id="accountMini" type="button" aria-label="Conta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <circle cx="12" cy="8" r="3.25"/>
             <path d="M5.5 19.25a6.5 6.5 0 0 1 13 0"/>
           </svg>
-        </a>
+        </button>
         <button class="cart-mini" id="cartMini" type="button" aria-label="Abrir carrinho">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M7.5 8.25h9l.8 11.25H6.7L7.5 8.25Z"/>
@@ -218,7 +295,7 @@
         </button>
       </div>
       <nav class="mobile-nav-scroll" aria-label="Navegacao mobile">
-        <a class="nav-link" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#inicio" data-home-link="true">Inicio</a>
         <a class="nav-link" href="#produtos" data-filter-link="disponiveis-agora">Disponiveis Agora</a>
         <a class="nav-link" href="#produtos" data-filter-link="todos">Colecao</a>
       </nav>
@@ -242,6 +319,7 @@
           </div>
           <p class="muted" id="count"></p>
         </div>
+        <div class="collection-categories" id="collectionCategories" aria-label="Categorias da colecao"></div>
         <div class="shop-layout">
           <div class="shop-main">
             <div class="shop-tools">
@@ -265,6 +343,20 @@
       <div class="section-inner">
         <button class="secondary-btn" id="backToProducts" type="button">Voltar para colecao</button>
         <div class="detail-layout" id="productDetail"></div>
+      </div>
+    </section>
+
+    <section class="section favorites-page" id="favoritosPage" aria-labelledby="favoritos-title">
+      <div class="section-inner">
+        <button class="secondary-btn" id="backFromFavorites" type="button">Voltar para colecao</button>
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Minha Conta</p>
+            <h2 id="favoritos-title">Favoritos.</h2>
+          </div>
+          <p class="muted" id="favoritesCountLabel"></p>
+        </div>
+        <div id="favoritesPageGrid"></div>
       </div>
     </section>
 
@@ -302,6 +394,16 @@
   <button class="floating-whatsapp" id="whatsappFloat" type="button" aria-label="WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3.2A12.7 12.7 0 0 0 5.1 22.35L3.6 28.8l6.6-1.47A12.69 12.69 0 1 0 16.04 3.2Zm0 22.96c-1.95 0-3.86-.55-5.5-1.6l-.4-.25-3.9.87.88-3.78-.27-.42a10.22 10.22 0 1 1 9.2 5.18Zm5.6-7.65c-.3-.15-1.8-.9-2.08-1-.28-.1-.48-.15-.68.15-.2.3-.78 1-.96 1.18-.18.2-.35.22-.65.08-.3-.15-1.28-.47-2.43-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.68-1.63-.93-2.23-.25-.6-.5-.52-.68-.53h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.13 3.25 5.15 4.55.72.3 1.28.48 1.72.62.72.23 1.38.2 1.9.12.58-.08 1.8-.73 2.05-1.43.25-.7.25-1.3.18-1.43-.08-.13-.28-.2-.58-.35Z"/></svg>
   </button>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="account-drawer" id="accountDrawer" aria-label="Minha conta">
+    <div class="cart-head"><strong id="accountTitle">Entrar na SCORSATTO</strong><button class="cart-close" id="accountClose" type="button">x</button></div>
+    <div class="account-body">
+      <p class="account-intro" id="accountIntro">Acesse sua conta para acompanhar pedidos, salvar pecas e receber novidades exclusivas.</p>
+      <div class="account-tabs" id="accountTabs"></div>
+      <div id="accountPanels"></div>
+    </div>
+  </aside>
 
   <aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho">
     <div class="cart-head"><strong>Carrinho</strong><button class="cart-close" id="cartClose" type="button">x</button></div>
@@ -346,6 +448,7 @@
     const BRANDS = [{"label":"Ralph Lauren","codes":["rl"],"terms":["ralph lauren","polo ralph"]},{"label":"Tommy Hilfiger","codes":["xe"],"terms":["tommy hilfiger","tommy"]},{"label":"Lacoste","codes":["lct"],"terms":["lacoste"]},{"label":"Calvin Klein","codes":["ck"],"terms":["calvin klein"]},{"label":"Hugo Boss","codes":["hb"],"terms":["hugo boss","boss"]},{"label":"Aramis","codes":["arm"],"terms":["aramis"]},{"label":"Scorsatto","codes":[],"terms":[],"selectableOnly":true}];
     const topbar = document.querySelector("#topbar");
     const heroLogo = document.querySelector("#heroLogo");
+    const collectionCategories = document.querySelector("#collectionCategories");
     const grid = document.querySelector("#grid");
     const count = document.querySelector("#count");
     const empty = document.querySelector("#empty");
@@ -360,6 +463,18 @@
     const productDetailSection = document.querySelector("#produto");
     const productDetail = document.querySelector("#productDetail");
     const backToProducts = document.querySelector("#backToProducts");
+    const favoritesPage = document.querySelector("#favoritosPage");
+    const favoritesPageGrid = document.querySelector("#favoritesPageGrid");
+    const favoritesCountLabel = document.querySelector("#favoritesCountLabel");
+    const backFromFavorites = document.querySelector("#backFromFavorites");
+    const accountMini = document.querySelector("#accountMini");
+    const accountDrawer = document.querySelector("#accountDrawer");
+    const accountClose = document.querySelector("#accountClose");
+    const drawerOverlay = document.querySelector("#drawerOverlay");
+    const accountTitle = document.querySelector("#accountTitle");
+    const accountIntro = document.querySelector("#accountIntro");
+    const accountTabs = document.querySelector("#accountTabs");
+    const accountPanels = document.querySelector("#accountPanels");
     const cartMini = document.querySelector("#cartMini");
     const cartCount = document.querySelector("#cartCount");
     const cartDrawer = document.querySelector("#cartDrawer");
@@ -372,8 +487,13 @@
     let selected = { brand: new Set(), size: new Set(), color: new Set(), spec: new Set() };
     let selectedProductSlug = null;
     let selectedDetailSize = null;
-    let selectedDetailQuantity = 1;
-    let cart = JSON.parse(localStorage.getItem("scorsattoCartV2") || "[]");
+    let cart = JSON.parse(localStorage.getItem("scorsattoCartV3") || "[]");
+    let account = JSON.parse(localStorage.getItem("scorsattoAccountV4") || "null");
+    let users = JSON.parse(localStorage.getItem("scorsattoUsersV1") || "[]");
+    let accountMessage = "";
+    let favorites = JSON.parse(localStorage.getItem("scorsattoFavoritesV4") || "[]");
+    let orders = JSON.parse(localStorage.getItem("scorsattoOrdersV4") || "[]");
+    let activeAccountTab = account ? "resumo" : "entrar";
 
     const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
     const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -444,17 +564,6 @@
       return productBrand(product)?.label ?? "Marca sob curadoria";
     }
 
-    function productReference(product) {
-      return product.supplierProductId || product.id || product.slug;
-    }
-
-    function productModel(product) {
-      const base = cleanName(product.name);
-      const brand = brandFromProduct(product);
-      if (!brand || brand === "Marca sob curadoria" || normalize(base).includes(normalize(brand))) return base;
-      return base + " " + brand;
-    }
-
     function specMatch(product, option) {
       if (!option) return false;
       return termMatch(product, option);
@@ -512,9 +621,25 @@
       active = slug;
       search.value = "";
       clearSelected();
-      document.querySelectorAll(".nav-link").forEach((link) => link.classList.toggle("active", link.dataset.filterLink === active));
+      updateTopNav();
+      renderCollectionCategories();
       renderFilters();
       renderProducts();
+    }
+
+    function updateTopNav() {
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        const isAvailable = link.dataset.filterLink === "disponiveis-agora";
+        const isCollection = link.dataset.filterLink === "todos";
+        link.classList.toggle("active", (active === "disponiveis-agora" && isAvailable) || (active !== "disponiveis-agora" && isCollection));
+      });
+    }
+
+    function renderCollectionCategories() {
+      if (!collectionCategories) return;
+      const categories = CATEGORIES.filter((category) => !["todos", "disponiveis-agora"].includes(category.slug));
+      collectionCategories.classList.toggle("visible", active !== "disponiveis-agora");
+      collectionCategories.innerHTML = categories.map((category) => `<button class="collection-category${active === category.slug ? " active" : ""}" type="button" data-collection-category="${category.slug}">${category.label}</button>`).join("");
     }
 
     function drawerGroup(title, kind, options, open = false) {
@@ -592,7 +717,7 @@
     }
 
     function saveCart() {
-      localStorage.setItem("scorsattoCartV2", JSON.stringify(cart));
+      localStorage.setItem("scorsattoCartV3", JSON.stringify(cart));
       renderCart();
     }
 
@@ -626,16 +751,7 @@
           <div class="cart-item">
             <button class="cart-product" type="button" data-cart-open-product="${product.slug}" aria-label="Abrir ${product.name}">
               <img src="${product.images?.[0] || ""}" alt="${product.name}">
-              <span>
-                <strong>${productModel(product)}</strong>
-                <small>
-                  <span class="cart-line">Modelo: ${productModel(product)}</span>
-                  <span class="cart-line">Cor: ${colorFromName(product.name)}</span>
-                  <span class="cart-line">Tamanho: ${item.size}</span>
-                  <span class="cart-line">Quantidade: ${item.quantity}</span>
-                  <span class="cart-line">Refer\u00eancia: ${productReference(product)}</span>
-                </small>
-              </span>
+              <span><strong>${product.name}</strong><small>${currency.format(product.price)} · Tam: ${item.size} · Qtd: ${item.quantity}</small></span>
             </button>
             <button class="remove" type="button" data-remove="${item.key}">remover</button>
           </div>
@@ -644,53 +760,263 @@
     }
 
     function checkoutWhatsApp() {
-      const text = cart.length
-        ? "Ol\u00e1, gostaria de finalizar meu pedido.\n\n" + cart.map((item) => {
+      const message = cart.length
+        ? "Ola, gostaria de finalizar meu pedido:%0A%0A" + cart.map((item) => {
           const product = PRODUCTS.find((entry) => entry.slug === item.slug);
-          if (!product) return "Modelo: " + item.slug + "\nTamanho: " + item.size + "\nQuantidade: " + item.quantity;
-          return "Modelo: " + productModel(product) + "\nCor: " + colorFromName(product.name) + "\nTamanho: " + item.size + "\nQuantidade: " + item.quantity + "\nRefer\u00eancia: " + productReference(product);
-        }).join("\n\n")
+          return "Produto: " + (product?.name ?? item.slug) + "%0AReferencia: " + (product ? supplierReference(product) || "Sem referencia informada" : "Sem referencia informada") + "%0ATamanho: " + item.size + "%0AQuantidade: " + item.quantity + "%0A";
+        }).join("%0A")
         : "Ola, gostaria de conhecer a colecao da Scorsatto.";
-      window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(text), "_blank", "noreferrer");
+      const customer = account ? "%0ACliente: " + encodeURIComponent(account.name || "") + "%0AWhatsApp: " + encodeURIComponent(account.phone || "") + "%0ACidade: " + encodeURIComponent(account.city || "") : "";
+      window.open("https://wa.me/5554997055401?text=" + message + customer, "_blank", "noreferrer");
     }
 
-    function openProduct(slug) {
+    function supplierReference(product) {
+      if (product.reference) return product.reference;
+      const supplierId = String(product.supplierProductId || "").trim();
+      if (supplierId.startsWith("SC-")) return supplierId;
+      const url = product.supplierUrl || "";
+      if (!url.includes("catalogopoa.com.br")) return "";
+      const slug = url.split("/").filter(Boolean).pop() || "";
+      const parts = slug.split("-").filter(Boolean);
+      return parts.length ? parts[parts.length - 1] : "";
+    }
+
+    function saveUsers() {
+      localStorage.setItem("scorsattoUsersV1", JSON.stringify(users));
+    }
+
+    function saveAccount() {
+      if (account) {
+        localStorage.setItem("scorsattoAccountV4", JSON.stringify(account));
+      } else {
+        localStorage.removeItem("scorsattoAccountV4");
+      }
+      renderAccount();
+    }
+
+    function setAccountMessage(message) {
+      accountMessage = message || "";
+      renderAccount();
+    }
+
+    function logoutAccount() {
+      account = null;
+      activeAccountTab = "entrar";
+      accountMessage = "Voce saiu da sua conta.";
+      saveAccount();
+    }
+
+    function saveFavorites() {
+      localStorage.setItem("scorsattoFavoritesV4", JSON.stringify(favorites));
+      renderAccount();
+      renderFavoritesPage();
+      if (selectedProductSlug) openProduct(selectedProductSlug, false);
+    }
+
+    function favoriteProduct(slug) {
+      return favorites.includes(slug);
+    }
+
+    function toggleFavorite(slug) {
+      if (!slug) return;
+      favorites = favoriteProduct(slug) ? favorites.filter((item) => item !== slug) : [slug, ...favorites];
+      saveFavorites();
+    }
+
+    function openAccount(tab = activeAccountTab) {
+      activeAccountTab = tab;
+      renderAccount();
+      accountDrawer.classList.add("open");
+      drawerOverlay.classList.add("open");
+    }
+
+    function closeAccount() {
+      accountDrawer.classList.remove("open");
+      drawerOverlay.classList.remove("open");
+    }
+
+    function accountTabsData() {
+      return account
+        ? [["resumo", "Minha Conta"], ["dados", "Dados"], ["favoritos", "Favoritos"], ["endereco", "Endereco"], ["pedidos", "Pedidos"], ["grupo", "Grupo"]]
+        : [["entrar", "Entrar"], ["criar", "Criar conta"], ["visitante", "Visitante"]];
+    }
+
+    function accountValue(key) {
+      return account?.[key] || "";
+    }
+
+    function favoriteCards(limit = favorites.length, preview = false) {
+      const list = favorites.map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean).slice(0, limit);
+      if (!list.length) return "<p class='muted'>Voce ainda nao salvou pecas favoritas.</p>";
+      const className = preview ? "favorite-preview" : "favorite-grid";
+      return `<div class="${className}">${list.map((product) => `
+        <article class="favorite-card">
+          <button class="favorite-remove" type="button" data-remove-favorite="${product.slug}" aria-label="Remover favorito">×</button>
+          <button class="favorite-open" type="button" data-account-open-product="${product.slug}">
+            <img src="${product.images?.[0] || ""}" alt="${product.name}">
+            <span><strong>${cleanName(product.name)}</strong><small>${currency.format(product.price)}<br>${colorFromName(product.name)}<br>Ref.: ${supplierReference(product) || "sob consulta"}</small></span>
+          </button>
+        </article>`).join("")}</div>`;
+    }
+
+    function renderFavoritesPage() {
+      if (!favoritesPageGrid) return;
+      favoritesCountLabel.textContent = favorites.length ? favorites.length + " peca(s) salva(s)" : "Nenhuma peca salva";
+      favoritesPageGrid.innerHTML = favoriteCards();
+    }
+
+    function openFavoritesPage() {
+      renderFavoritesPage();
+      closeAccount();
+      productDetailSection.classList.remove("open");
+      favoritesPage.classList.add("open");
+      favoritesPage.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", "#favoritos");
+    }
+
+    function closeFavoritesPage() {
+      favoritesPage.classList.remove("open");
+      history.replaceState(null, "", "#produtos");
+      document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function accountMenu() {
+      return accountTabsData().map(([id, label]) => `<button class="account-tab${activeAccountTab === id ? " active" : ""}" type="button" data-account-tab="${id}">${label}</button>`).join("");
+    }
+
+    function renderAccount() {
+      const tabs = accountTabsData();
+      if (!tabs.some(([id]) => id === activeAccountTab)) activeAccountTab = tabs[0][0];
+      accountTitle.textContent = account ? "Minha conta" : "Entrar na SCORSATTO";
+      accountIntro.textContent = account ? "Gerencie seus dados, favoritos, enderecos e pedidos em um so lugar." : "Acesse sua conta para acompanhar pedidos, salvar pecas e receber novidades exclusivas.";
+      const benefits = "<div class='account-summary'><span>Salvar pecas favoritas</span><span>Acompanhar pedidos</span><span>Receber lancamentos primeiro</span><span>Participar do grupo exclusivo</span></div>";
+      const emptyOrders = orders.length ? orders.map((order) => `<div class="account-card"><strong>${order.title}</strong><span class="muted">${order.date}</span></div>`).join("") : "<p class='muted'>Seu historico de pedidos aparecera aqui.</p>";
+      const addressText = account?.address ? `${account.address}, ${account.number || ""} ${account.complement || ""}<br>${account.neighborhood || ""}<br>${account.city || ""} - ${account.state || ""}<br>CEP: ${account.zip || ""}` : "Nenhum endereco cadastrado.";
+
+      if (!account) {
+        accountDrawer.classList.add("auth-mode");
+        accountTabs.innerHTML = "";
+        accountTitle.textContent = activeAccountTab === "criar" ? "Criar conta" : "Bem-vindo a SCORSATTO";
+        const messageHtml = `<div class="account-message${accountMessage ? " visible" : ""}">${accountMessage}</div>`;
+        accountPanels.innerHTML = activeAccountTab === "criar" ? `
+          <section class="account-panel active" data-panel="criar">
+            <div class="auth-card">
+              ${messageHtml}
+              <form class="account-form auth-form visible" data-account-form="create">
+                <label class="field"><span>Nome completo</span><input name="name" required></label>
+                <label class="field"><span>Telefone/WhatsApp</span><input name="phone" required></label>
+                <label class="field"><span>E-mail</span><input name="email" type="email" required></label>
+                <label class="field"><span>Senha</span><input name="password" type="password" required></label>
+                <label class="field"><span>Cidade</span><input name="city" required></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" required></label>
+                <label class="field-check"><input name="newsletter" type="checkbox" checked> Quero receber novidades e lancamentos da SCORSATTO.</label>
+                <button class="auth-button primary" type="submit">Cadastrar-se</button>
+                <button class="auth-button auth-secondary" type="button" data-account-tab="entrar">Ja tenho conta</button>
+                <button class="auth-guest" type="button" data-continue-guest>Continuar como visitante</button>
+              </form>
+            </div>
+          </section>` : `
+          <section class="account-panel active" data-panel="entrar">
+            <div class="auth-card">
+              ${messageHtml}
+              <form class="account-form auth-form visible" data-account-form="login">
+                <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" required></label>
+                <label class="field"><span>Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
+                <button class="auth-button primary" type="submit">Entrar com email e senha</button>
+              </form>
+              <div class="auth-divider">Ainda nao e cliente?</div>
+              <button class="auth-button primary" type="button" data-account-tab="criar">Cadastre-se</button>
+              <button class="auth-guest" type="button" data-continue-guest>Continuar como visitante</button>
+            </div>
+          </section>`;
+        return;
+      }
+
+      accountDrawer.classList.remove("auth-mode");
+
+      accountTabs.innerHTML = "";
+      accountPanels.innerHTML = `
+        <div class="account-shell">
+          <nav class="profile-menu" aria-label="Minha conta">${accountMenu()}</nav>
+          <div class="profile-main">
+            <section class="account-panel${activeAccountTab === "resumo" ? " active" : ""}" data-panel="resumo">
+              <div class="account-hero"><strong>Ola, ${accountValue("name") || "cliente SCORSATTO"}</strong><span class="muted">${accountValue("email") || "E-mail nao informado"}</span><span class="muted">${accountValue("city") || "Cidade"} ${accountValue("state") ? "- " + accountValue("state") : ""}</span><button class="secondary-btn" type="button" data-logout-account>Sair da conta</button></div>
+              <div class="profile-actions">
+                <button class="profile-action" type="button" data-account-tab="dados"><strong>Dados pessoais</strong><span>Atualize nome, telefone e e-mail.</span></button>
+                <button class="profile-action" type="button" data-account-tab="favoritos"><strong>Favoritos</strong><span>${favorites.length} peca(s) salva(s).</span></button>
+                <button class="profile-action" type="button" data-account-tab="endereco"><strong>Enderecos</strong><span>Cadastre seu local de entrega.</span></button>
+                <button class="profile-action" type="button" data-account-tab="pedidos"><strong>Pedidos</strong><span>Acompanhe seu historico.</span></button>
+              </div>
+              <div class="account-summary"><strong>Favoritos recentes</strong>${favoriteCards(4, true)}<button class="secondary-btn" type="button" data-open-favorites-page>Ver todos os favoritos</button></div>
+            </section>
+            <section class="account-panel${activeAccountTab === "dados" ? " active" : ""}" data-panel="dados">
+              <h3>Dados pessoais</h3>
+              <form class="account-form" data-account-form="profile">
+                <label class="field"><span>Nome completo</span><input name="name" value="${accountValue("name")}"></label>
+                <label class="field"><span>Telefone/WhatsApp</span><input name="phone" value="${accountValue("phone")}"></label>
+                <label class="field"><span>E-mail</span><input name="email" type="email" value="${accountValue("email")}"></label>
+                <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
+                <button class="primary-btn" type="submit">Salvar dados</button>
+              </form>
+            </section>
+            <section class="account-panel${activeAccountTab === "favoritos" ? " active" : ""}" data-panel="favoritos"><h3>Meus favoritos</h3>${favoriteCards()}<button class="primary-btn" type="button" data-open-favorites-page>Abrir favoritos em tela cheia</button></section>
+            <section class="account-panel${activeAccountTab === "endereco" ? " active" : ""}" data-panel="endereco">
+              <h3>Endereco de entrega</h3>
+              <div class="account-card"><strong>Endereco atual</strong><span class="muted">${addressText}</span></div>
+              <form class="account-form" data-account-form="address">
+                <label class="field"><span>Endereco</span><input name="address" value="${accountValue("address")}"></label>
+                <label class="field"><span>Numero</span><input name="number" value="${accountValue("number")}"></label>
+                <label class="field"><span>Complemento</span><input name="complement" value="${accountValue("complement")}"></label>
+                <label class="field"><span>Bairro</span><input name="neighborhood" value="${accountValue("neighborhood")}"></label>
+                <label class="field"><span>Cidade</span><input name="city" value="${accountValue("city")}"></label>
+                <label class="field"><span>Estado</span><input name="state" maxlength="2" value="${accountValue("state")}"></label>
+                <label class="field"><span>CEP</span><input name="zip" value="${accountValue("zip")}"></label>
+                <button class="primary-btn" type="submit">Salvar endereco</button>
+              </form>
+            </section>
+            <section class="account-panel${activeAccountTab === "pedidos" ? " active" : ""}" data-panel="pedidos"><h3>Meus pedidos</h3><div class="account-list">${emptyOrders}</div></section>
+            <section class="account-panel${activeAccountTab === "grupo" ? " active" : ""}" data-panel="grupo"><h3>Grupo exclusivo</h3><a class="primary-btn" href="https://chat.whatsapp.com/LSE3LbIwSMiAHGhjqg8rBF" target="_blank" rel="noreferrer">Entrar no grupo exclusivo</a></section>
+          </div>
+        </div>
+      `;
+    }
+
+    function formDataObject(form) {
+      return Object.fromEntries([...new FormData(form).entries()].map(([key, value]) => [key, typeof value === "string" ? value.trim() : value]));
+    }
+
+    function availabilityText(product) {
+      return isAvailableNow(product) ? "Disponivel agora para envio imediato" : "Disponibilidade confirmada antes da finalizacao";
+    }
+
+    function openProduct(slug, scroll = true) {
       const product = PRODUCTS.find((item) => item.slug === slug);
       if (!product) return;
       selectedProductSlug = slug;
       selectedDetailSize = product.sizes?.[0] ?? null;
       const images = uniqueImages(product);
-      selectedDetailQuantity = 1;
       productDetail.innerHTML = `
         <div class="detail-gallery">
           <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${product.name}"></div>
           <div class="thumb-row">${images.map((image) => `<button class="thumb" type="button" data-image="${image}"><img src="${image}" alt="${product.name}"></button>`).join("")}</div>
         </div>
         <div class="detail-copy">
+          ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
           <h2>${cleanName(product.name)}</h2>
           <div class="price">${currency.format(product.price)}</div>
-          <div class="detail-info">
-            <div class="detail-info-row"><span>Modelo</span><strong>${productModel(product)}</strong></div>
-            <div class="detail-info-row"><span>Cor</span><strong>${colorFromName(product.name)}</strong></div>
-            <div class="detail-info-row reference-line"><span>Refer\u00eancia</span><strong>${productReference(product)}</strong></div>
-          </div>
-          <p class="filter-group-title">Tamanho</p>
+          <p class="detail-meta">Marca: ${brandFromProduct(product)}<br>Cor: ${colorFromName(product.name)}<br>${product.description || product.shortDescription || ""}</p>
+          ${supplierReference(product) ? `<p class="reference-line">Referencia: ${supplierReference(product)}</p>` : ""}
+          <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${(product.sizes ?? []).map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
-          <div class="quantity-row">
-            <span>Quantidade</span>
-            <div class="quantity-control" aria-label="Quantidade">
-              <button class="qty-btn" id="detailQtyMinus" type="button" aria-label="Diminuir quantidade">-</button>
-              <span class="quantity-value" id="detailQtyValue">1</span>
-              <button class="qty-btn" id="detailQtyPlus" type="button" aria-label="Aumentar quantidade">+</button>
-            </div>
-          </div>
           <div class="detail-actions">
             <button class="primary-btn" id="detailAdd" type="button">Adicionar ao carrinho</button>
+            <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "Remover dos favoritos" : "Salvar nos favoritos"}</button>
           </div>
         </div>
       `;
       productDetailSection.classList.add("open");
-      productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (scroll) productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", "#produto-" + slug);
     }
 
@@ -698,7 +1024,6 @@
       productDetailSection.classList.remove("open");
       selectedProductSlug = null;
       selectedDetailSize = null;
-      selectedDetailQuantity = 1;
       history.replaceState(null, "", "#produtos");
       document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
     }
@@ -716,6 +1041,7 @@
         <article class="product-card" data-open-product="${product.slug}" style="animation-delay: ${Math.min(index, 16) * 24}ms">
           <div class="product-media">
             ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
+            <button class="product-save${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-card-favorite="${product.slug}" aria-label="Salvar favorito">${favoriteProduct(product.slug) ? "♥" : "♡"}</button>
             <img src="${product.images?.[0] || ""}" alt="${product.name}" loading="lazy">
             <button class="quick-buy" type="button" data-open-product="${product.slug}">Ver produto</button>
           </div>
@@ -737,7 +1063,17 @@
       heroLogo.style.opacity = opacity.toFixed(3);
     }
 
-    document.querySelectorAll("[data-filter-link]").forEach((link) => link.addEventListener("click", () => setFilter(link.dataset.filterLink)));
+    document.querySelectorAll("[data-home-link]").forEach((link) => link.addEventListener("click", (event) => {
+      event.preventDefault();
+      document.querySelector("#inicio").scrollIntoView({ behavior: "smooth" });
+      document.querySelectorAll(".nav-link").forEach((item) => item.classList.toggle("active", item.dataset.homeLink === "true"));
+      if (collectionCategories) collectionCategories.classList.remove("visible");
+    }));
+    document.querySelectorAll("[data-filter-link]").forEach((link) => link.addEventListener("click", (event) => {
+      event.preventDefault();
+      setFilter(link.dataset.filterLink);
+      document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
+    }));
     filterOpen.addEventListener("click", openFilters);
     filterClose.addEventListener("click", closeFilters);
     filterOverlay.addEventListener("click", closeFilters);
@@ -765,7 +1101,19 @@
       renderFilters();
       renderProducts();
     });
+    if (collectionCategories) collectionCategories.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-collection-category]");
+      if (!button) return;
+      setFilter(button.dataset.collectionCategory);
+    });
     grid.addEventListener("click", (event) => {
+      const cardFavorite = event.target.closest("button[data-card-favorite]");
+      if (cardFavorite) {
+        event.stopPropagation();
+        toggleFavorite(cardFavorite.dataset.cardFavorite);
+        renderProducts();
+        return;
+      }
       const target = event.target.closest("[data-open-product]");
       if (target) openProduct(target.dataset.openProduct);
     });
@@ -777,19 +1125,18 @@
         selectedDetailSize = size.dataset.size;
         productDetail.querySelectorAll(".size-btn").forEach((button) => button.classList.toggle("active", button.dataset.size === selectedDetailSize));
       }
-      if (event.target.closest("#detailQtyMinus")) {
-        selectedDetailQuantity = Math.max(1, selectedDetailQuantity - 1);
-        const value = productDetail.querySelector("#detailQtyValue");
-        if (value) value.textContent = selectedDetailQuantity;
-      }
-      if (event.target.closest("#detailQtyPlus")) {
-        selectedDetailQuantity += 1;
-        const value = productDetail.querySelector("#detailQtyValue");
-        if (value) value.textContent = selectedDetailQuantity;
-      }
-      if (event.target.closest("#detailAdd")) addToCart(selectedProductSlug, selectedDetailSize, selectedDetailQuantity);
+      const favorite = event.target.closest("button[data-toggle-favorite]");
+      if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
+      if (event.target.closest("#detailAdd")) addToCart(selectedProductSlug, selectedDetailSize, 1);
     });
     backToProducts.addEventListener("click", closeProduct);
+    backFromFavorites.addEventListener("click", closeFavoritesPage);
+    favoritesPageGrid.addEventListener("click", (event) => {
+      const removeFavorite = event.target.closest("[data-remove-favorite]");
+      if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
+      const openFavorite = event.target.closest("[data-account-open-product]");
+      if (openFavorite) openProduct(openFavorite.dataset.accountOpenProduct);
+    });
     cartItems.addEventListener("click", (event) => {
       const openFromCart = event.target.closest("button[data-cart-open-product]");
       if (openFromCart) {
@@ -799,6 +1146,66 @@
       }
       const button = event.target.closest("button[data-remove]");
       if (button) removeFromCart(button.dataset.remove);
+    });
+    accountMini.addEventListener("click", () => openAccount(account ? "resumo" : "entrar"));
+    accountClose.addEventListener("click", closeAccount);
+    drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
+    accountDrawer.addEventListener("click", (event) => {
+      const tabButton = event.target.closest("[data-account-tab]");
+      if (tabButton) { accountMessage = ""; activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
+      if (event.target.closest("[data-focus-email]")) { accountDrawer.querySelector('input[name="email"]')?.focus(); return; }
+      if (event.target.closest("[data-logout-account]")) { logoutAccount(); return; }
+      if (event.target.closest("[data-continue-guest]")) { accountMessage = ""; closeAccount(); return; }
+      if (event.target.closest("[data-open-favorites-page]")) { openFavoritesPage(); return; }
+      const removeFavorite = event.target.closest("[data-remove-favorite]");
+      if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
+      const openFavorite = event.target.closest("[data-account-open-product]");
+      if (openFavorite) { closeAccount(); openProduct(openFavorite.dataset.accountOpenProduct); return; }
+    });
+    accountDrawer.addEventListener("submit", (event) => {
+      const form = event.target.closest("form[data-account-form]");
+      if (!form) return;
+      event.preventDefault();
+      const data = formDataObject(form);
+      if (form.dataset.accountForm === "create") {
+        const email = normalize(data.email);
+        const existing = users.find((user) => normalize(user.email) === email);
+        if (existing) {
+          accountMessage = "Este e-mail ja possui cadastro. Entre com e-mail e senha.";
+          activeAccountTab = "entrar";
+          renderAccount();
+          return;
+        }
+        account = { ...data, newsletter: Boolean(form.elements.newsletter?.checked), createdAt: new Date().toISOString() };
+        users.push(account);
+        saveUsers();
+        accountMessage = "";
+        activeAccountTab = "resumo";
+        saveAccount();
+        return;
+      }
+      if (form.dataset.accountForm === "login") {
+        const email = normalize(data.email);
+        const user = users.find((entry) => normalize(entry.email) === email && String(entry.password || "") === String(data.password || ""));
+        if (!user) {
+          accountMessage = "Conta nao encontrada. Cadastre-se antes de entrar ou confira e-mail e senha.";
+          activeAccountTab = "entrar";
+          renderAccount();
+          return;
+        }
+        account = { ...user, lastLoginAt: new Date().toISOString() };
+        accountMessage = "";
+        activeAccountTab = "resumo";
+        saveAccount();
+        return;
+      }
+      if (form.dataset.accountForm === "profile" || form.dataset.accountForm === "address") {
+        account = { ...(account || { createdAt: new Date().toISOString() }), ...data, updatedAt: new Date().toISOString() };
+        users = users.map((user) => normalize(user.email) === normalize(account.email) ? { ...user, ...account } : user);
+        saveUsers();
+        activeAccountTab = form.dataset.accountForm === "address" ? "endereco" : "dados";
+        saveAccount();
+      }
     });
     cartMini.addEventListener("click", openCart);
     cartClose.addEventListener("click", closeCart);
@@ -816,10 +1223,11 @@
     renderFilters();
     renderProducts();
     renderCart();
+    renderAccount();
+    renderFavoritesPage();
     updateScrollState();
     const hashSlug = location.hash.startsWith("#produto-") ? location.hash.replace("#produto-", "") : null;
     if (hashSlug) openProduct(hashSlug);
   </script>
 </body>
 </html>
-
