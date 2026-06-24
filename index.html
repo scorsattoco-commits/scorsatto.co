@@ -1082,18 +1082,15 @@
       selectedProductSlug = slug;
       selectedDetailSize = product.sizes?.[0] ?? null;
       const images = uniqueImages(product);
-      const factsHtml = productFacts(product).map(([label, value]) => `<div class="product-fact"><span>${label}</span><strong>${value}</strong></div>`).join("");
       productDetail.innerHTML = `
         <div class="detail-gallery">
           <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${product.name}"></div>
           <div class="thumb-row">${images.map((image) => `<button class="thumb" type="button" data-image="${image}"><img src="${image}" alt="${product.name}"></button>`).join("")}</div>
         </div>
         <div class="detail-copy">
-          ${isAvailableNow(product) ? '<span class="availability-badge">Disponivel Agora</span>' : ""}
           <h2>${cleanName(product.name)}</h2>
           <div class="price">${currency.format(product.price)}</div>
-          <p class="detail-meta">${product.description || product.shortDescription || ""}</p>
-          <div class="product-facts">${factsHtml}</div>
+          <p class="detail-meta">Cor: ${colorFromName(product.name)}</p>
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${(product.sizes ?? []).map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
           <div class="detail-actions">
@@ -1134,7 +1131,6 @@
           </div>
           <div class="product-info">
             <div class="product-top"><h3 class="product-name">${cleanName(product.name)}</h3><div class="price">${currency.format(product.price)}</div></div>
-            <div class="product-brand">${brandFromProduct(product)} - ${productLine(product)}</div>
             <div class="details">${colorFromName(product.name)}<br>Tamanhos: ${product.sizes?.join(", ") || "consultar"}</div>
           </div>
         </article>
