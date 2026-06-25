@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-06-24T23:27:22.297Z",
+  "count": 11,
+  "items": [
+    {
+      "id": "sc-estoque-009",
+      "slug": "camiseta-lisa-branco-sc-estoque-009",
+      "name": "Camiseta Lisa - Branco",
+      "collection": "camisetas",
+      "source": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "sc-estoque-010",
+      "slug": "camiseta-nike-branco-sc-estoque-010",
+      "name": "Camiseta Nike - Branco",
+      "collection": "camisetas",
+      "source": "estoque-scorsatto/camiseta-nike-branco-sc-estoque-010-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/sc-estoque-010-camiseta-nike-branco-sc-estoque-010.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/sc-estoque-010-camiseta-nike-branco-sc-estoque-010.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "sc-estoque-011",
+      "slug": "casaco-jeans-preto-sc-estoque-011",
+      "name": "Casaco Jeans - Preto",
+      "collection": "jaquetas",
+      "source": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/sc-estoque-011-casaco-jeans-preto-sc-estoque-011.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/sc-estoque-011-casaco-jeans-preto-sc-estoque-011.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-15861",
+      "slug": "camiseta-algodao-egipcio-azul-marinho-15861",
+      "name": "Camiseta Algodao Egipcio - Azul Marinho",
+      "collection": "camisetas",
+      "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-15858",
+      "slug": "camiseta-algodao-egipcio-branco-15858",
+      "name": "Camiseta Algodao Egipcio - Branco",
+      "collection": "camisetas",
+      "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-15858-camiseta-algodao-egipcio-branco-15858.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-15858-camiseta-algodao-egipcio-branco-15858.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16157",
+      "slug": "calca-moletom-cinza-claro-16157",
+      "name": "Calca Moletom - Cinza Claro",
+      "collection": "calcas",
+      "source": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-133954-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16157-calca-moletom-cinza-claro-16157.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16157-calca-moletom-cinza-claro-16157.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16158",
+      "slug": "calca-moletom-azul-marinho-16158",
+      "name": "Calca Moletom - Azul Marinho",
+      "collection": "calcas",
+      "source": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-103938-2.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16158-calca-moletom-azul-marinho-16158.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16158-calca-moletom-azul-marinho-16158.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16012",
+      "slug": "casaco-moletom-azul-marinho-16012",
+      "name": "Casaco Moletom - Azul Marinho",
+      "collection": "casacos",
+      "source": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/sem-capuz/ralph/whatsapp-image-2026-06-09-at-153512-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16012-casaco-moletom-azul-marinho-16012.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16012-casaco-moletom-azul-marinho-16012.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16038",
+      "slug": "camiseta-pima-jersey-arm-bege-16038",
+      "name": "Camiseta Pima Jersey - Bege",
+      "collection": "camisetas",
+      "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184845-3.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16038-camiseta-pima-jersey-arm-bege-16038.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16038-camiseta-pima-jersey-arm-bege-16038.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16037",
+      "slug": "camiseta-pima-jersey-arm-azul-marinho-16037",
+      "name": "Camiseta Pima Jersey - Azul Marinho",
+      "collection": "camisetas",
+      "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184845-1.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16037-camiseta-pima-jersey-arm-azul-marinho-16037.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16037-camiseta-pima-jersey-arm-azul-marinho-16037.png",
+      "status": "pending_photoroom"
+    },
+    {
+      "id": "scp-16034",
+      "slug": "camiseta-pima-jersey-arm-branco-16034",
+      "name": "Camiseta Pima Jersey - Branco",
+      "collection": "camisetas",
+      "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184844-10.jpeg",
+      "sourceFile": "data/photoroom/site-pending/source/scp-16034-camiseta-pima-jersey-arm-branco-16034.jpg",
+      "outputExpected": "data/photoroom/site-pending/output/scp-16034-camiseta-pima-jersey-arm-branco-16034.png",
+      "status": "pending_photoroom"
+    }
+  ]
+}
