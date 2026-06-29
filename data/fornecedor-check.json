@@ -1,0 +1,1225 @@
+{
+  "summary": {
+    "generatedAt": "2026-06-29T22:22:49.976Z",
+    "checkedUrls": 172,
+    "ok": 171,
+    "failed": 1,
+    "unavailableSignal": 171,
+    "failures": [
+      {
+        "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-claro-4010160026",
+        "ok": false,
+        "status": 404,
+        "title": "O produto não foi encontrado!",
+        "hasUnavailable": false
+      }
+    ],
+    "checkedProducts": 172
+  },
+  "results": [
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-jeans-hb-azul-escur-302006079",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Jeans HB - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-jeans-xe-colors-cinza-escuro-089",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Jeans TH COLORS - Cinza Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-hb-azul-marinho-bermhb0009",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja HB - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-hb-preto-bermhb0008",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja HB - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-hb-preto-bermhb0016",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja HB - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-lct-azul-marinho-304018080",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja LCT - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-lct-preto-304018077",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja LCT - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-elastano-preto-304018045",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja RL Elastano - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-preto-1032",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-xe-azul-marinho-bermsarjaxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-xe-off-white-043",
+      "ok": true,
+      "status": 200,
+      "title": "Bermuda Sarja TH - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-arm-skinny-azul-escuro-401003084",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans ARM Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-arm-skinny-azul-escuro-401003108",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans ARM Skinny - Azul escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-claro-4010160026",
+      "ok": false,
+      "status": 404,
+      "title": "O produto não foi encontrado!",
+      "hasUnavailable": false
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-4010160006",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Azul escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-4010160011",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-copia-4010160014",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-marro-401016041",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-marrom-401016027",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-preto-estonado-4010160010",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans HB Skinny - Preto estonado | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-azul-escuro-401018037",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans LCT Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-preto-401018032",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans LCT Skinny - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-preto-401018036",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans LCT Skinny - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-rl-skinny-azul-escuro-premiumrl0003",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans RL Skinny - Azul escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-rl-slin-azul-escuro-premiumrl0002",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans RL SLIN - Azul escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-azul-escuro-calcajeansxe000011",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-azul-escuro-calcajeansxe000012",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-azul-escuro-calcajeansxe000014",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Azul Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-bege-calcajeansxe00001",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-calcajeansxe000016",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-claro-calcajeansxe00004",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Cinza Claro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-escuro-calcajeansxe00003",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Cinza Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-marrom-calcajeansxe00002",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-preto-calcajeansxe00005",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans XE Skinny - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-sknny-preto-038",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans TH Sknny - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-sknny-preto-estonado-037",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Jeans TH Sknny - Preto Estonado | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-moletom-xe-azul-marinho-calcamolxe00004",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Moletom XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-moletom-xe-cinza-cla-calcamolxe00003",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Moletom XE - Cinza Claro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-azul-marinho-404018066",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Sarja RL - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-azul-marinho-calcasarjaxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Sarja XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-preto-calcasarjaxe0002",
+      "ok": true,
+      "status": 200,
+      "title": "Calça Sarja XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-linho-rl-off-white-302902117",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social Linho RL - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-linho-rl-preto-302902114",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social Linho RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-branco-302902134",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social OXFORD RL - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-gelo-302902132",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social OXFORD RL - Gelo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902133",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social OXFORD RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-tricoline-rl-xadrez-preto-302902137",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social Tricoline RL - Xadrez Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-fio-60-bege-camisasocialxe0008",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Fio 60 - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-gran-camisasocialxe00010",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Tricoline - Branco xadrez grande | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-pequeno-camisasocialxe00012",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Tricoline - Branco xadrez Pequeno | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-cinza-xadrez-camisasocialxe00015",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Tricoline - Cinza xadrez | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-preto-xadrez-grande-camisasocialxe00011",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Tricoline - Preto xadrez grande | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-preto-xadrez-pequeno-camisasocialxe00013",
+      "ok": true,
+      "status": 200,
+      "title": "Camisa Social XE Tricoline - Preto xadrez Pequeno | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-azul-marinho-rl000030",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-bege-rl000023",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-branco-rl000013",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-preto-com-azul-rl000036",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Preto com Azul | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-preto-com-branco-rl000031",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Preto com Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-preto-rl000026",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0009",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0002",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0007",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-pret-algegipxe00010",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Algodão Egípcio XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-azul-marinho-mangalongaxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-bege-mangalongaxe00013",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-branco-mangalongaxe00010",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-cinza-claro-mangalongaxe0008",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Cinza Claro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-cinza-escuro-mangalongaxe0009",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Cinza Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-off-white-mangalongaxe0007",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta Manga Longa XE - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-azul-marinho-jerseyarm00019",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta PIMA JERSEY ARM - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-b-jerseyarm00016",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta PIMA JERSEY ARM - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00020",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta PIMA JERSEY ARM - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0054",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta PIMA JERSEY XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-azul-marinho-supimarl00004",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA RL - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl00002",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA RL - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-marrom-supimarl00005",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA RL - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-preto-supimarl00003",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-azul-marinho-supimaxe00015",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-azul-marinho-supimaxe0002",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe00011",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe00018",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe00017",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe0008",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe0001",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe00016",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe0007",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00012",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00013",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe0004",
+      "ok": true,
+      "status": 200,
+      "title": "Camiseta SUPIMA XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-hb-bege-polohb00025",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium HB - bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-azul-marinho-801118086",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-brancp-801118087",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-cinza-801118060",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-marrom-801118081",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-off-white-801118082",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Off white | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-preto-801118084",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium RL - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-golapoloxe050",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-bege-074",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium TH - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-bege-golapoloxe047",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-golapoloxe048",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-cinza-escuro-golapoloxe052",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Cinza Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-cinza-poloxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-marrom-073",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium TH - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-marrom-escuro-072",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium TH - Marrom Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-071",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium TH - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe044",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe046",
+      "ok": true,
+      "status": 200,
+      "title": "Gola Polo Premium XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-arm-bomber-azul-mari-1015545",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta ARM Bomber - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-arm-puffer-be-1015542",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta ARM Puffer - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-arm-puffer-cinza-1015543",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta ARM Puffer - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-corta-vento-xe-cinza-jaquetaxe00011",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta CORTA VENTO XE - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-corta-vento-xe-preto-jaquetaxe00012",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta CORTA VENTO XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-rl-cotele-bege-cotelerl0002",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta RL Cotele - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-rl-cotele-preto-cotelerl0001",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta RL Cotele - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-rl-sued-azul-marinho-suedrl0003",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta RL SUED - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-rl-sued-beg-suedrl0002",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta RL SUED - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-azul-marinho-0152",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta SOCIAL XE - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-bege-0144",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta SOCIAL XE - bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-preto-0151",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta SOCIAL XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-bomber-cinza-jaquetaxe0008",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Bomber - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-bomber-preto-jaquetaxe0007",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Bomber - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-bege-copia-pufferxe00010",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Gominho Grossa - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-bege-pufferxe0009",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Gominho Grossa - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-cinza-pufferxe0007",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Gominho Grossa - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-off-white-pufferxe0008",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Gominho Grossa - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-la-batida-be-jaquetaxe0006",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Lã batida - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-la-batida-cinza-jaquetaxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Lã batida - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-la-batida-preto-jaquetaxe0004",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE Lã batida - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-sued-cafe-suedxe0004",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE SUED - Café | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-sued-cinza-suedxe0002",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE SUED - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-sued-cre-suedxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE SUED - Creme | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-sued-preto-suedxe0001",
+      "ok": true,
+      "status": 200,
+      "title": "Jaqueta XE SUED - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/malha-texturizada-manga-longa-xe-marrom-mangalongaxe00015",
+      "ok": true,
+      "status": 200,
+      "title": "MALHA TEXTURIZADA MANGA LONGA XE - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-hb-azul-marinho-mauhb001",
+      "ok": true,
+      "status": 200,
+      "title": "Mauricinho Linho HB - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-hb-off-white-mauhb0019",
+      "ok": true,
+      "status": 200,
+      "title": "Mauricinho Linho HB - Off white | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-rl-off-white-linhorl00016",
+      "ok": true,
+      "status": 200,
+      "title": "Mauricinho Linho RL - Off white | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-xe-caqui-13427",
+      "ok": true,
+      "status": 200,
+      "title": "Mauricinho Linho XE - Caqui | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-xe-marrom-terra-13428",
+      "ok": true,
+      "status": 200,
+      "title": "Mauricinho Linho XE - Marrom terra | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-bege-molcapuzxe00073",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom C/ Capuz Premium XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-branco-molcapuzxe00058",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom C/ Capuz Premium XE - Branco | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-off-white-molcapuzxe00057",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom C/ Capuz Premium XE - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-ziper-xe-bege-molcapuzxe00076",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom C/ Capuz Ziper XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-ziper-xe-pre-molcapuzxe00073",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom C/ Capuz Ziper XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-azul-marinho-molsemrl0002",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz RL - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-cinza-esc-molsemrl0005",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz RL - Cinza Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-bege-molsemxe00030",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-bege-molsemxe00034",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz XE - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-cinza-claro-molsemxe00024",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz XE - Cinza Claro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-off-white-aaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz XE - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-off-white-molsemxe00039",
+      "ok": true,
+      "status": 200,
+      "title": "Moletom S/ Capuz XE - Off White | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-chumbo-suetermalhaxe0004",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter Gola Redonda XE - Cinza Chumbo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-claro-suetermalhaxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter Gola Redonda XE - Cinza Claro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-preto-suetermalhaxe0001",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter Gola Redonda XE - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-peruano-hb-gola-redonda-azul-marinho-sueterpremiumhb0005",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter PERUANO HB Gola Redonda - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-peruano-hb-gola-redonda-gelo-sueterpremiumhb0007",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter PERUANO HB Gola Redonda - Gelo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-peruano-xe-gola-redonda-azul-marinho-sueterpremiumxe0001",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter PERUANO XE Gola Redonda - Azul marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-peruano-xe-gola-redonda-be-sueterpremiumxe0006",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter PERUANO XE Gola Redonda - Bege | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-peruano-xe-gola-redonda-gelo-sueterpremiumxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter PERUANO XE Gola Redonda - Gelo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-copia-sueterpremium00017",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-sueterpremium00016",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-gel-sueterpremium00018",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Gelo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-marrom-escuro-sueterpremium00014",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Marrom Escuro | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-marrom-sueterpremium0008",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-preto-sueterpremium00015",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter RL Meio ziper - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-a-sueterziperxe0004",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter XE Meio ziper - Azul Marinho | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-c-sueterziperxe0005",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter XE Meio ziper - Cinza | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-gelo-sueterziperxe0002",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter XE Meio ziper - Gelo | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-marrom-sueterziperxe0003",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter XE Meio ziper - Marrom | Atacado Porto Alegre",
+      "hasUnavailable": true
+    },
+    {
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-preto-sueterziperxe0001",
+      "ok": true,
+      "status": 200,
+      "title": "Sueter XE Meio ziper - Preto | Atacado Porto Alegre",
+      "hasUnavailable": true
+    }
+  ]
+}

@@ -1,0 +1,1746 @@
+{
+  "generatedAt": "2026-06-29T22:24:29.896Z",
+  "totals": {
+    "products": 183,
+    "generatedFirst": 166,
+    "pendingManequim": 17,
+    "missingReference": 0,
+    "missingSize": 0,
+    "missingImage": 0,
+    "issues": 18
+  },
+  "byCollection": {
+    "sueteres": 20,
+    "calcas": 30,
+    "gola-polo": 20,
+    "camisetas": 36,
+    "manga-longa": 8,
+    "jaquetas": 28,
+    "camisa-social": 13,
+    "casacos": 12,
+    "bermudas": 16
+  },
+  "sameNameGroups": [
+    [
+      {
+        "id": "sc-estoque-001",
+        "ref": "SC-001",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "G"
+        ],
+        "first": "estoque-scorsatto/sueter-meio-ziper-marrom-sc-estoque-001-1.jpeg"
+      },
+      {
+        "id": "scp-16045",
+        "ref": "16045",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-16045.png"
+      },
+      {
+        "id": "scp-12444",
+        "ref": "12444",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "G"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-12444.png"
+      },
+      {
+        "id": "scp-16111",
+        "ref": "16111",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-16111.png"
+      }
+    ],
+    [
+      {
+        "id": "sc-estoque-003",
+        "ref": "SC-003",
+        "brand": "Hugo Boss",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-003-1.jpeg"
+      },
+      {
+        "id": "sc-estoque-004",
+        "ref": "SC-004",
+        "brand": "Hugo Boss",
+        "collection": "gola-polo",
+        "sizes": [
+          "G"
+        ],
+        "first": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-004-1.jpeg"
+      },
+      {
+        "id": "scp-14885",
+        "ref": "14885",
+        "brand": "Ralph Lauren",
+        "collection": "gola-polo",
+        "sizes": [
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-preto-14885.png"
+      },
+      {
+        "id": "scp-15743",
+        "ref": "15743",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-preto-15743.png"
+      },
+      {
+        "id": "scp-15664",
+        "ref": "15664",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-preto-15664.png"
+      },
+      {
+        "id": "scp-14043",
+        "ref": "14043",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-preto-14043.png"
+      }
+    ],
+    [
+      {
+        "id": "sc-estoque-005",
+        "ref": "SC-005",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "M"
+        ],
+        "first": "estoque-scorsatto/camiseta-supima-preto-sc-estoque-005-1.jpeg"
+      },
+      {
+        "id": "scp-15825",
+        "ref": "15825",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-preto-15825.png"
+      },
+      {
+        "id": "scp-15831",
+        "ref": "15831",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-preto-15831.png"
+      },
+      {
+        "id": "scp-15817",
+        "ref": "15817",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-preto-15817.png"
+      },
+      {
+        "id": "scp-15839",
+        "ref": "15839",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-preto-15839.png"
+      }
+    ],
+    [
+      {
+        "id": "sc-estoque-007",
+        "ref": "SC-007",
+        "brand": "Tommy Hilfiger",
+        "collection": "jaquetas",
+        "sizes": [
+          "M"
+        ],
+        "first": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg"
+      },
+      {
+        "id": "scp-15588",
+        "ref": "15588",
+        "brand": "Ralph Lauren",
+        "collection": "jaquetas",
+        "sizes": [
+          "P",
+          "G"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-cotele-bege-15588.png"
+      }
+    ],
+    [
+      {
+        "id": "sc-estoque-008",
+        "ref": "SC-008",
+        "brand": "SCORSATTO/curadoria sem marca",
+        "collection": "camisa-social",
+        "sizes": [
+          "M"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-cinza-sc-estoque-008.png"
+      },
+      {
+        "id": "scp-16011",
+        "ref": "16011",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisa-social",
+        "sizes": [
+          "P",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-cinza-16011.png"
+      }
+    ],
+    [
+      {
+        "id": "sc-estoque-012",
+        "ref": "SC-012",
+        "brand": "SCORSATTO/curadoria sem marca",
+        "collection": "jaquetas",
+        "sizes": [
+          "M"
+        ],
+        "first": "estoque-scorsatto/jaqueta-corta-vento-preto-sc-estoque-012-1.jpeg"
+      },
+      {
+        "id": "scp-16003",
+        "ref": "16003",
+        "brand": "Tommy Hilfiger",
+        "collection": "jaquetas",
+        "sizes": [
+          "P",
+          "M",
+          "G"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-corta-vento-preto-16003.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15833",
+        "ref": "15833",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15833.png"
+      },
+      {
+        "id": "scp-15840",
+        "ref": "15840",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15840.png"
+      },
+      {
+        "id": "scp-15815",
+        "ref": "15815",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15815.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15835",
+        "ref": "15835",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-branco-15835.png"
+      },
+      {
+        "id": "scp-15821",
+        "ref": "15821",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-branco-15821.png"
+      },
+      {
+        "id": "scp-15818",
+        "ref": "15818",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-branco-15818.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15838",
+        "ref": "15838",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-bege-15838.png"
+      },
+      {
+        "id": "scp-15816",
+        "ref": "15816",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-bege-15816.png"
+      },
+      {
+        "id": "scp-15824",
+        "ref": "15824",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-bege-15824.png"
+      },
+      {
+        "id": "scp-15836",
+        "ref": "15836",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-bege-15836.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15881",
+        "ref": "15881",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15881.png"
+      },
+      {
+        "id": "scp-15861",
+        "ref": "15861",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg"
+      },
+      {
+        "id": "scp-15178",
+        "ref": "15178",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15178.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15882",
+        "ref": "15882",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15882.png"
+      },
+      {
+        "id": "scp-12293",
+        "ref": "12293",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-12293.png"
+      },
+      {
+        "id": "scp-15179",
+        "ref": "15179",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15179.png"
+      },
+      {
+        "id": "scp-15184",
+        "ref": "15184",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15184.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15834",
+        "ref": "15834",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-marrom-15834.png"
+      },
+      {
+        "id": "scp-15841",
+        "ref": "15841",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "M",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-marrom-15841.png"
+      },
+      {
+        "id": "scp-15820",
+        "ref": "15820",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "P",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-marrom-15820.png"
+      },
+      {
+        "id": "scp-15814",
+        "ref": "15814",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-supima-marrom-15814.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15879",
+        "ref": "15879",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15879.png"
+      },
+      {
+        "id": "scp-15858",
+        "ref": "15858",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisetas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg"
+      },
+      {
+        "id": "scp-10168",
+        "ref": "10168",
+        "brand": "Ralph Lauren",
+        "collection": "camisetas",
+        "sizes": [
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-10168.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15747",
+        "ref": "15747",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P",
+          "M",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-azul-marinho-15747.png"
+      },
+      {
+        "id": "scp-14887",
+        "ref": "14887",
+        "brand": "Ralph Lauren",
+        "collection": "gola-polo",
+        "sizes": [
+          "M"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-azul-marinho-14887.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15671",
+        "ref": "15671",
+        "brand": "Hugo Boss",
+        "collection": "gola-polo",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-bege-15671.png"
+      },
+      {
+        "id": "scp-15667",
+        "ref": "15667",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-bege-15667.png"
+      },
+      {
+        "id": "scp-14039",
+        "ref": "14039",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-bege-14039.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15749",
+        "ref": "15749",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P",
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-15749.png"
+      },
+      {
+        "id": "scp-14664",
+        "ref": "14664",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-14664.png"
+      },
+      {
+        "id": "scp-11377",
+        "ref": "11377",
+        "brand": "Ralph Lauren",
+        "collection": "gola-polo",
+        "sizes": [
+          "M"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-11377.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15745",
+        "ref": "15745",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-branco-15745.png"
+      },
+      {
+        "id": "scp-14888",
+        "ref": "14888",
+        "brand": "Ralph Lauren",
+        "collection": "gola-polo",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-branco-14888.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-14882",
+        "ref": "14882",
+        "brand": "Ralph Lauren",
+        "collection": "gola-polo",
+        "sizes": [
+          "M",
+          "G"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14882.png"
+      },
+      {
+        "id": "scp-14042",
+        "ref": "14042",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14042.png"
+      },
+      {
+        "id": "scp-14040",
+        "ref": "14040",
+        "brand": "Tommy Hilfiger",
+        "collection": "gola-polo",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14040.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16006",
+        "ref": "16006",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisa-social",
+        "sizes": [
+          "P",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-preto-16006.png"
+      },
+      {
+        "id": "scp-15546",
+        "ref": "15546",
+        "brand": "Ralph Lauren",
+        "collection": "camisa-social",
+        "sizes": [
+          "P",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-preto-15546.png"
+      },
+      {
+        "id": "scp-16009",
+        "ref": "16009",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisa-social",
+        "sizes": [
+          "G",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-preto-16009.png"
+      },
+      {
+        "id": "scp-15223",
+        "ref": "15223",
+        "brand": "Ralph Lauren",
+        "collection": "camisa-social",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-preto-15223.png"
+      },
+      {
+        "id": "scp-13874",
+        "ref": "13874",
+        "brand": "Ralph Lauren",
+        "collection": "camisa-social",
+        "sizes": [
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-preto-13874.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16008",
+        "ref": "16008",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisa-social",
+        "sizes": [
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-branco-16008.png"
+      },
+      {
+        "id": "scp-16005",
+        "ref": "16005",
+        "brand": "Tommy Hilfiger",
+        "collection": "camisa-social",
+        "sizes": [
+          "P",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-branco-16005.png"
+      },
+      {
+        "id": "scp-15224",
+        "ref": "15224",
+        "brand": "Ralph Lauren",
+        "collection": "camisa-social",
+        "sizes": [
+          "P",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/camisa-social/camisa-social-branco-15224.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15707",
+        "ref": "15707",
+        "brand": "Ralph Lauren",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15707.png"
+      },
+      {
+        "id": "scp-15705",
+        "ref": "15705",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15705.png"
+      },
+      {
+        "id": "scp-15875",
+        "ref": "15875",
+        "brand": "Ralph Lauren",
+        "collection": "calcas",
+        "sizes": [
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15875.png"
+      },
+      {
+        "id": "scp-15278",
+        "ref": "15278",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40",
+          "48"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15278.png"
+      },
+      {
+        "id": "scp-14577",
+        "ref": "14577",
+        "brand": "Lacoste",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14577.png"
+      },
+      {
+        "id": "scp-15130",
+        "ref": "15130",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15130.png"
+      },
+      {
+        "id": "scp-14584",
+        "ref": "14584",
+        "brand": "Aramis",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14584.png"
+      },
+      {
+        "id": "scp-14575",
+        "ref": "14575",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14575.png"
+      },
+      {
+        "id": "scp-14036",
+        "ref": "14036",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14036.png"
+      },
+      {
+        "id": "scp-13274",
+        "ref": "13274",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-13274.png"
+      },
+      {
+        "id": "scp-8922",
+        "ref": "8922",
+        "brand": "Aramis",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-azul-escuro-8922.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15876",
+        "ref": "15876",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-cinza-15876.png"
+      },
+      {
+        "id": "scp-14673",
+        "ref": "14673",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-cinza-14673.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-14675",
+        "ref": "14675",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-14675.png"
+      },
+      {
+        "id": "scp-14035",
+        "ref": "14035",
+        "brand": "Lacoste",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-14035.png"
+      },
+      {
+        "id": "scp-13850",
+        "ref": "13850",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-13850.png"
+      },
+      {
+        "id": "scp-13112",
+        "ref": "13112",
+        "brand": "Lacoste",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-13112.png"
+      },
+      {
+        "id": "scp-14294",
+        "ref": "14294",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-14294.png"
+      },
+      {
+        "id": "scp-14293",
+        "ref": "14293",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-preto-14293.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-14672",
+        "ref": "14672",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40",
+          "44",
+          "46"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-marrom-14672.png"
+      },
+      {
+        "id": "scp-10378",
+        "ref": "10378",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-marrom-10378.png"
+      },
+      {
+        "id": "scp-8917",
+        "ref": "8917",
+        "brand": "Hugo Boss",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-jeans-marrom-8917.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15709",
+        "ref": "15709",
+        "brand": "Ralph Lauren",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-sarja-azul-marinho-15709.png"
+      },
+      {
+        "id": "scp-15290",
+        "ref": "15290",
+        "brand": "Tommy Hilfiger",
+        "collection": "calcas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/calcas/calca-sarja-azul-marinho-15290.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16048",
+        "ref": "16048",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-azul-marinho-16048.png"
+      },
+      {
+        "id": "scp-16112",
+        "ref": "16112",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-azul-marinho-16112.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16049",
+        "ref": "16049",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16049.png"
+      },
+      {
+        "id": "scp-16110",
+        "ref": "16110",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16110.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16047",
+        "ref": "16047",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-16047.png"
+      },
+      {
+        "id": "scp-16113",
+        "ref": "16113",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-16113.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15451",
+        "ref": "15451",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-15451.png"
+      },
+      {
+        "id": "scp-15446",
+        "ref": "15446",
+        "brand": "Hugo Boss",
+        "collection": "sueteres",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-15446.png"
+      },
+      {
+        "id": "scp-16154",
+        "ref": "16154",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-16154.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15449",
+        "ref": "15449",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-gola-redonda-azul-marinho-15449.png"
+      },
+      {
+        "id": "scp-15444",
+        "ref": "15444",
+        "brand": "Hugo Boss",
+        "collection": "sueteres",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-gola-redonda-azul-marinho-15444.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16046",
+        "ref": "16046",
+        "brand": "Ralph Lauren",
+        "collection": "sueteres",
+        "sizes": [
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-preto-16046.png"
+      },
+      {
+        "id": "scp-16109",
+        "ref": "16109",
+        "brand": "Tommy Hilfiger",
+        "collection": "sueteres",
+        "sizes": [
+          "P",
+          "G",
+          "XXG"
+        ],
+        "first": "generated/photoroom/site/sueteres/sueter-meio-ziper-preto-16109.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16150",
+        "ref": "16150",
+        "brand": "Tommy Hilfiger",
+        "collection": "jaquetas",
+        "sizes": [
+          "P",
+          "M"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-puffer-bege-16150.png"
+      },
+      {
+        "id": "scp-13043",
+        "ref": "13043",
+        "brand": "Aramis",
+        "collection": "jaquetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-puffer-bege-13043.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16148",
+        "ref": "16148",
+        "brand": "Tommy Hilfiger",
+        "collection": "jaquetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-puffer-cinza-16148.png"
+      },
+      {
+        "id": "scp-13044",
+        "ref": "13044",
+        "brand": "Aramis",
+        "collection": "jaquetas",
+        "sizes": [
+          "P"
+        ],
+        "first": "generated/photoroom/site/jaquetas/jaqueta-puffer-cinza-13044.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15894",
+        "ref": "15894",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-off-white-15894.png"
+      },
+      {
+        "id": "scp-16117",
+        "ref": "16117",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-off-white-16117.png"
+      },
+      {
+        "id": "scp-16124",
+        "ref": "16124",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-off-white-16124.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-16070",
+        "ref": "16070",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-bege-16070.png"
+      },
+      {
+        "id": "scp-16136",
+        "ref": "16136",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "M",
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-bege-16136.png"
+      },
+      {
+        "id": "scp-16115",
+        "ref": "16115",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "G",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-bege-16115.png"
+      },
+      {
+        "id": "scp-16119",
+        "ref": "16119",
+        "brand": "Tommy Hilfiger",
+        "collection": "casacos",
+        "sizes": [
+          "M",
+          "GG"
+        ],
+        "first": "generated/photoroom/site/casacos/casaco-moletom-bege-16119.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15153",
+        "ref": "15153",
+        "brand": "Tommy Hilfiger",
+        "collection": "bermudas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-azul-marinho-15153.png"
+      },
+      {
+        "id": "scp-15053",
+        "ref": "15053",
+        "brand": "Lacoste",
+        "collection": "bermudas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-azul-marinho-15053.png"
+      },
+      {
+        "id": "scp-9688",
+        "ref": "9688",
+        "brand": "Hugo Boss",
+        "collection": "bermudas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-azul-marinho-9688.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-15049",
+        "ref": "15049",
+        "brand": "Lacoste",
+        "collection": "bermudas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-preto-15049.png"
+      },
+      {
+        "id": "scp-13194",
+        "ref": "13194",
+        "brand": "Ralph Lauren",
+        "collection": "bermudas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-preto-13194.png"
+      },
+      {
+        "id": "scp-9687",
+        "ref": "9687",
+        "brand": "Hugo Boss",
+        "collection": "bermudas",
+        "sizes": [
+          "38",
+          "40"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-preto-9687.png"
+      },
+      {
+        "id": "scp-11435",
+        "ref": "11435",
+        "brand": "Hugo Boss",
+        "collection": "bermudas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-preto-11435.png"
+      },
+      {
+        "id": "scp-7968",
+        "ref": "7968",
+        "brand": "Ralph Lauren",
+        "collection": "bermudas",
+        "sizes": [
+          "38"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-sarja-preto-7968.png"
+      }
+    ],
+    [
+      {
+        "id": "scp-14960",
+        "ref": "14960",
+        "brand": "Hugo Boss",
+        "collection": "bermudas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-linho-off-white-14960.png"
+      },
+      {
+        "id": "scp-14778",
+        "ref": "14778",
+        "brand": "Ralph Lauren",
+        "collection": "bermudas",
+        "sizes": [
+          "GG"
+        ],
+        "first": "generated/photoroom/site/bermudas/bermuda-linho-off-white-14778.png"
+      }
+    ]
+  ],
+  "pendingManequim": [
+    {
+      "id": "sc-estoque-001",
+      "ref": "SC-001",
+      "name": "Sueter Meio Ziper - Marrom",
+      "brand": "Ralph Lauren",
+      "collection": "sueteres",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/sueter-meio-ziper-marrom-sc-estoque-001-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-002",
+      "ref": "SC-002",
+      "name": "Calca Jeans - Azul Marinho",
+      "brand": "Ralph Lauren",
+      "collection": "calcas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/calca-jeans-azul-marinho-sc-estoque-002-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-003",
+      "ref": "SC-003",
+      "name": "Gola Polo Premium - Preto",
+      "brand": "Hugo Boss",
+      "collection": "gola-polo",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-003-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-004",
+      "ref": "SC-004",
+      "name": "Gola Polo Premium - Preto",
+      "brand": "Hugo Boss",
+      "collection": "gola-polo",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-004-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-005",
+      "ref": "SC-005",
+      "name": "Camiseta Supima - Preto",
+      "brand": "Ralph Lauren",
+      "collection": "camisetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/camiseta-supima-preto-sc-estoque-005-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-006",
+      "ref": "SC-006",
+      "name": "Camiseta Manga Longa - Preto",
+      "brand": "Tommy Hilfiger",
+      "collection": "manga-longa",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/camiseta-manga-longa-preto-sc-estoque-006-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-007",
+      "ref": "SC-007",
+      "name": "Jaqueta Cotele - Bege",
+      "brand": "Tommy Hilfiger",
+      "collection": "jaquetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-009",
+      "ref": "SC-009",
+      "name": "Camiseta Lisa - Branco",
+      "brand": "SCORSATTO/curadoria sem marca",
+      "collection": "camisetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-010",
+      "ref": "SC-010",
+      "name": "Camiseta Nike - Branco",
+      "brand": "Nike - excecao estoque",
+      "collection": "camisetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/camiseta-nike-branco-sc-estoque-010-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-011",
+      "ref": "SC-011",
+      "name": "Casaco Jeans - Preto",
+      "brand": "SCORSATTO/curadoria sem marca",
+      "collection": "jaquetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "sc-estoque-012",
+      "ref": "SC-012",
+      "name": "Jaqueta Corta Vento - Preto",
+      "brand": "SCORSATTO/curadoria sem marca",
+      "collection": "jaquetas",
+      "status": "foto_estoque_pendente_manequim",
+      "firstImage": "estoque-scorsatto/jaqueta-corta-vento-preto-sc-estoque-012-1.jpeg",
+      "sourceUrl": "estoque-proprio-scorsatto"
+    },
+    {
+      "id": "scp-15861",
+      "ref": "15861",
+      "name": "Camiseta Algodao Egipcio - Azul Marinho",
+      "brand": "Tommy Hilfiger",
+      "collection": "camisetas",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0005"
+    },
+    {
+      "id": "scp-15858",
+      "ref": "15858",
+      "name": "Camiseta Algodao Egipcio - Branco",
+      "brand": "Tommy Hilfiger",
+      "collection": "camisetas",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0002"
+    },
+    {
+      "id": "scp-16157",
+      "ref": "16157",
+      "name": "Calca Moletom - Cinza Claro",
+      "brand": "Tommy Hilfiger",
+      "collection": "calcas",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-133954-1.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/calca-moletom-xe-cinza-cla-calcamolxe00003"
+    },
+    {
+      "id": "scp-16158",
+      "ref": "16158",
+      "name": "Calca Moletom - Azul Marinho",
+      "brand": "Tommy Hilfiger",
+      "collection": "calcas",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-103938-2.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/calca-moletom-xe-azul-marinho-calcamolxe00004"
+    },
+    {
+      "id": "scp-16012",
+      "ref": "16012",
+      "name": "Casaco Moletom - Azul Marinho",
+      "brand": "Ralph Lauren",
+      "collection": "casacos",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/sem-capuz/ralph/whatsapp-image-2026-06-09-at-153512-1.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-azul-marinho-molsemrl0002"
+    },
+    {
+      "id": "scp-16038",
+      "ref": "16038",
+      "name": "Camiseta Pima Jersey - Bege",
+      "brand": "Aramis",
+      "collection": "camisetas",
+      "status": "foto_fornecedor_pendente_manequim",
+      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184845-3.jpeg",
+      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00020"
+    }
+  ],
+  "issues": [
+    {
+      "id": "sc-estoque-001",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Sueter Meio Ziper - Marrom",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-002",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Calca Jeans - Azul Marinho",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-003",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Gola Polo Premium - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-004",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Gola Polo Premium - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-005",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Supima - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-006",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Manga Longa - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-007",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Jaqueta Cotele - Bege",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-009",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Lisa - Branco",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-010",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Nike - Branco",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-011",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Casaco Jeans - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "sc-estoque-012",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Jaqueta Corta Vento - Preto",
+      "status": "foto_estoque_pendente_manequim"
+    },
+    {
+      "id": "scp-15861",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Algodao Egipcio - Azul Marinho",
+      "status": "foto_fornecedor_pendente_manequim"
+    },
+    {
+      "id": "scp-15858",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Algodao Egipcio - Branco",
+      "status": "foto_fornecedor_pendente_manequim"
+    },
+    {
+      "id": "scp-16157",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Calca Moletom - Cinza Claro",
+      "status": "foto_fornecedor_pendente_manequim"
+    },
+    {
+      "id": "scp-16158",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Calca Moletom - Azul Marinho",
+      "status": "foto_fornecedor_pendente_manequim"
+    },
+    {
+      "id": "scp-16012",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Casaco Moletom - Azul Marinho",
+      "status": "foto_fornecedor_pendente_manequim"
+    },
+    {
+      "id": "scp-16012",
+      "type": "bloqueado_validacao_fornecedor",
+      "name": "Casaco Moletom - Azul Marinho",
+      "detail": "nome azul marinho, mas imagem/fonte observada anteriormente aparenta off white; nao gerar/publicar sem confirmacao"
+    },
+    {
+      "id": "scp-16038",
+      "type": "imagem_fora_padrao_manequim",
+      "name": "Camiseta Pima Jersey - Bege",
+      "status": "foto_fornecedor_pendente_manequim"
+    }
+  ]
+}
