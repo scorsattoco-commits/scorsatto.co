@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-29T22:24:29.896Z",
+  "generatedAt": "2026-06-29T23:36:10.111Z",
   "totals": {
     "products": 183,
-    "generatedFirst": 166,
-    "pendingManequim": 17,
+    "generatedFirst": 171,
+    "pendingManequim": 12,
     "missingReference": 0,
     "missingSize": 0,
     "missingImage": 0,
-    "issues": 18
+    "issues": 13
   },
   "byCollection": {
     "sueteres": 20,
@@ -25,7 +25,6 @@
       {
         "id": "sc-estoque-001",
         "ref": "SC-001",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "G"
@@ -35,7 +34,6 @@
       {
         "id": "scp-16045",
         "ref": "16045",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -49,7 +47,6 @@
       {
         "id": "scp-12444",
         "ref": "12444",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -60,7 +57,6 @@
       {
         "id": "scp-16111",
         "ref": "16111",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -76,7 +72,6 @@
       {
         "id": "sc-estoque-003",
         "ref": "SC-003",
-        "brand": "Hugo Boss",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -86,7 +81,6 @@
       {
         "id": "sc-estoque-004",
         "ref": "SC-004",
-        "brand": "Hugo Boss",
         "collection": "gola-polo",
         "sizes": [
           "G"
@@ -96,7 +90,6 @@
       {
         "id": "scp-14885",
         "ref": "14885",
-        "brand": "Ralph Lauren",
         "collection": "gola-polo",
         "sizes": [
           "M",
@@ -107,7 +100,6 @@
       {
         "id": "scp-15743",
         "ref": "15743",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -117,7 +109,6 @@
       {
         "id": "scp-15664",
         "ref": "15664",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -127,7 +118,6 @@
       {
         "id": "scp-14043",
         "ref": "14043",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -139,7 +129,6 @@
       {
         "id": "sc-estoque-005",
         "ref": "SC-005",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "M"
@@ -149,7 +138,6 @@
       {
         "id": "scp-15825",
         "ref": "15825",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -161,7 +149,6 @@
       {
         "id": "scp-15831",
         "ref": "15831",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -173,7 +160,6 @@
       {
         "id": "scp-15817",
         "ref": "15817",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -184,7 +170,6 @@
       {
         "id": "scp-15839",
         "ref": "15839",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "GG"
@@ -196,7 +181,6 @@
       {
         "id": "sc-estoque-007",
         "ref": "SC-007",
-        "brand": "Tommy Hilfiger",
         "collection": "jaquetas",
         "sizes": [
           "M"
@@ -206,7 +190,6 @@
       {
         "id": "scp-15588",
         "ref": "15588",
-        "brand": "Ralph Lauren",
         "collection": "jaquetas",
         "sizes": [
           "P",
@@ -219,7 +202,6 @@
       {
         "id": "sc-estoque-008",
         "ref": "SC-008",
-        "brand": "SCORSATTO/curadoria sem marca",
         "collection": "camisa-social",
         "sizes": [
           "M"
@@ -229,7 +211,6 @@
       {
         "id": "scp-16011",
         "ref": "16011",
-        "brand": "Tommy Hilfiger",
         "collection": "camisa-social",
         "sizes": [
           "P",
@@ -244,7 +225,6 @@
       {
         "id": "sc-estoque-012",
         "ref": "SC-012",
-        "brand": "SCORSATTO/curadoria sem marca",
         "collection": "jaquetas",
         "sizes": [
           "M"
@@ -254,7 +234,6 @@
       {
         "id": "scp-16003",
         "ref": "16003",
-        "brand": "Tommy Hilfiger",
         "collection": "jaquetas",
         "sizes": [
           "P",
@@ -268,7 +247,6 @@
       {
         "id": "scp-15833",
         "ref": "15833",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -280,7 +258,6 @@
       {
         "id": "scp-15840",
         "ref": "15840",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -292,7 +269,6 @@
       {
         "id": "scp-15815",
         "ref": "15815",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "GG",
@@ -305,7 +281,6 @@
       {
         "id": "scp-15835",
         "ref": "15835",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -318,7 +293,6 @@
       {
         "id": "scp-15821",
         "ref": "15821",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -330,7 +304,6 @@
       {
         "id": "scp-15818",
         "ref": "15818",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "GG"
@@ -342,7 +315,6 @@
       {
         "id": "scp-15838",
         "ref": "15838",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -355,7 +327,6 @@
       {
         "id": "scp-15816",
         "ref": "15816",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -367,7 +338,6 @@
       {
         "id": "scp-15824",
         "ref": "15824",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "M",
@@ -378,7 +348,6 @@
       {
         "id": "scp-15836",
         "ref": "15836",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -391,7 +360,6 @@
       {
         "id": "scp-15881",
         "ref": "15881",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -402,18 +370,16 @@
       {
         "id": "scp-15861",
         "ref": "15861",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
           "M"
         ],
-        "first": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg"
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861.png"
       },
       {
         "id": "scp-15178",
         "ref": "15178",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -427,7 +393,6 @@
       {
         "id": "scp-15882",
         "ref": "15882",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P"
@@ -437,7 +402,6 @@
       {
         "id": "scp-12293",
         "ref": "12293",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P"
@@ -447,7 +411,6 @@
       {
         "id": "scp-15179",
         "ref": "15179",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P"
@@ -457,7 +420,6 @@
       {
         "id": "scp-15184",
         "ref": "15184",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -471,7 +433,6 @@
       {
         "id": "scp-15834",
         "ref": "15834",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -484,7 +445,6 @@
       {
         "id": "scp-15841",
         "ref": "15841",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -497,7 +457,6 @@
       {
         "id": "scp-15820",
         "ref": "15820",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "P",
@@ -509,7 +468,6 @@
       {
         "id": "scp-15814",
         "ref": "15814",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "GG"
@@ -521,7 +479,6 @@
       {
         "id": "scp-15879",
         "ref": "15879",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "GG"
@@ -531,17 +488,15 @@
       {
         "id": "scp-15858",
         "ref": "15858",
-        "brand": "Tommy Hilfiger",
         "collection": "camisetas",
         "sizes": [
           "GG"
         ],
-        "first": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg"
+        "first": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15858.png"
       },
       {
         "id": "scp-10168",
         "ref": "10168",
-        "brand": "Ralph Lauren",
         "collection": "camisetas",
         "sizes": [
           "XXG"
@@ -553,7 +508,6 @@
       {
         "id": "scp-15747",
         "ref": "15747",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P",
@@ -566,7 +520,6 @@
       {
         "id": "scp-14887",
         "ref": "14887",
-        "brand": "Ralph Lauren",
         "collection": "gola-polo",
         "sizes": [
           "M"
@@ -578,7 +531,6 @@
       {
         "id": "scp-15671",
         "ref": "15671",
-        "brand": "Hugo Boss",
         "collection": "gola-polo",
         "sizes": [
           "P",
@@ -591,7 +543,6 @@
       {
         "id": "scp-15667",
         "ref": "15667",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -601,7 +552,6 @@
       {
         "id": "scp-14039",
         "ref": "14039",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -613,7 +563,6 @@
       {
         "id": "scp-15749",
         "ref": "15749",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P",
@@ -625,7 +574,6 @@
       {
         "id": "scp-14664",
         "ref": "14664",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P"
@@ -635,7 +583,6 @@
       {
         "id": "scp-11377",
         "ref": "11377",
-        "brand": "Ralph Lauren",
         "collection": "gola-polo",
         "sizes": [
           "M"
@@ -647,7 +594,6 @@
       {
         "id": "scp-15745",
         "ref": "15745",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "G",
@@ -659,7 +605,6 @@
       {
         "id": "scp-14888",
         "ref": "14888",
-        "brand": "Ralph Lauren",
         "collection": "gola-polo",
         "sizes": [
           "GG"
@@ -671,7 +616,6 @@
       {
         "id": "scp-14882",
         "ref": "14882",
-        "brand": "Ralph Lauren",
         "collection": "gola-polo",
         "sizes": [
           "M",
@@ -682,7 +626,6 @@
       {
         "id": "scp-14042",
         "ref": "14042",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P",
@@ -693,7 +636,6 @@
       {
         "id": "scp-14040",
         "ref": "14040",
-        "brand": "Tommy Hilfiger",
         "collection": "gola-polo",
         "sizes": [
           "P",
@@ -706,7 +648,6 @@
       {
         "id": "scp-16006",
         "ref": "16006",
-        "brand": "Tommy Hilfiger",
         "collection": "camisa-social",
         "sizes": [
           "P",
@@ -718,7 +659,6 @@
       {
         "id": "scp-15546",
         "ref": "15546",
-        "brand": "Ralph Lauren",
         "collection": "camisa-social",
         "sizes": [
           "P",
@@ -729,7 +669,6 @@
       {
         "id": "scp-16009",
         "ref": "16009",
-        "brand": "Tommy Hilfiger",
         "collection": "camisa-social",
         "sizes": [
           "G",
@@ -740,7 +679,6 @@
       {
         "id": "scp-15223",
         "ref": "15223",
-        "brand": "Ralph Lauren",
         "collection": "camisa-social",
         "sizes": [
           "P"
@@ -750,7 +688,6 @@
       {
         "id": "scp-13874",
         "ref": "13874",
-        "brand": "Ralph Lauren",
         "collection": "camisa-social",
         "sizes": [
           "XXG"
@@ -762,7 +699,6 @@
       {
         "id": "scp-16008",
         "ref": "16008",
-        "brand": "Tommy Hilfiger",
         "collection": "camisa-social",
         "sizes": [
           "G",
@@ -774,7 +710,6 @@
       {
         "id": "scp-16005",
         "ref": "16005",
-        "brand": "Tommy Hilfiger",
         "collection": "camisa-social",
         "sizes": [
           "P",
@@ -786,7 +721,6 @@
       {
         "id": "scp-15224",
         "ref": "15224",
-        "brand": "Ralph Lauren",
         "collection": "camisa-social",
         "sizes": [
           "P",
@@ -799,7 +733,6 @@
       {
         "id": "scp-15707",
         "ref": "15707",
-        "brand": "Ralph Lauren",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -810,7 +743,6 @@
       {
         "id": "scp-15705",
         "ref": "15705",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -821,7 +753,6 @@
       {
         "id": "scp-15875",
         "ref": "15875",
-        "brand": "Ralph Lauren",
         "collection": "calcas",
         "sizes": [
           "40"
@@ -831,7 +762,6 @@
       {
         "id": "scp-15278",
         "ref": "15278",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -843,7 +773,6 @@
       {
         "id": "scp-14577",
         "ref": "14577",
-        "brand": "Lacoste",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -854,7 +783,6 @@
       {
         "id": "scp-15130",
         "ref": "15130",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -864,7 +792,6 @@
       {
         "id": "scp-14584",
         "ref": "14584",
-        "brand": "Aramis",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -874,7 +801,6 @@
       {
         "id": "scp-14575",
         "ref": "14575",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -884,7 +810,6 @@
       {
         "id": "scp-14036",
         "ref": "14036",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -894,7 +819,6 @@
       {
         "id": "scp-13274",
         "ref": "13274",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -904,7 +828,6 @@
       {
         "id": "scp-8922",
         "ref": "8922",
-        "brand": "Aramis",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -916,7 +839,6 @@
       {
         "id": "scp-15876",
         "ref": "15876",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "40"
@@ -926,7 +848,6 @@
       {
         "id": "scp-14673",
         "ref": "14673",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -939,7 +860,6 @@
       {
         "id": "scp-14675",
         "ref": "14675",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -949,7 +869,6 @@
       {
         "id": "scp-14035",
         "ref": "14035",
-        "brand": "Lacoste",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -959,7 +878,6 @@
       {
         "id": "scp-13850",
         "ref": "13850",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -969,7 +887,6 @@
       {
         "id": "scp-13112",
         "ref": "13112",
-        "brand": "Lacoste",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -979,7 +896,6 @@
       {
         "id": "scp-14294",
         "ref": "14294",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -989,7 +905,6 @@
       {
         "id": "scp-14293",
         "ref": "14293",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38"
@@ -1001,7 +916,6 @@
       {
         "id": "scp-14672",
         "ref": "14672",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -1014,7 +928,6 @@
       {
         "id": "scp-10378",
         "ref": "10378",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -1025,7 +938,6 @@
       {
         "id": "scp-8917",
         "ref": "8917",
-        "brand": "Hugo Boss",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -1038,7 +950,6 @@
       {
         "id": "scp-15709",
         "ref": "15709",
-        "brand": "Ralph Lauren",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -1049,7 +960,6 @@
       {
         "id": "scp-15290",
         "ref": "15290",
-        "brand": "Tommy Hilfiger",
         "collection": "calcas",
         "sizes": [
           "38",
@@ -1062,7 +972,6 @@
       {
         "id": "scp-16048",
         "ref": "16048",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "XXG"
@@ -1072,7 +981,6 @@
       {
         "id": "scp-16112",
         "ref": "16112",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1087,7 +995,6 @@
       {
         "id": "scp-16049",
         "ref": "16049",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1101,7 +1008,6 @@
       {
         "id": "scp-16110",
         "ref": "16110",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1117,7 +1023,6 @@
       {
         "id": "scp-16047",
         "ref": "16047",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1131,7 +1036,6 @@
       {
         "id": "scp-16113",
         "ref": "16113",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1146,7 +1050,6 @@
       {
         "id": "scp-15451",
         "ref": "15451",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1159,7 +1062,6 @@
       {
         "id": "scp-15446",
         "ref": "15446",
-        "brand": "Hugo Boss",
         "collection": "sueteres",
         "sizes": [
           "P"
@@ -1169,7 +1071,6 @@
       {
         "id": "scp-16154",
         "ref": "16154",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P"
@@ -1181,7 +1082,6 @@
       {
         "id": "scp-15449",
         "ref": "15449",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1192,7 +1092,6 @@
       {
         "id": "scp-15444",
         "ref": "15444",
-        "brand": "Hugo Boss",
         "collection": "sueteres",
         "sizes": [
           "P"
@@ -1204,7 +1103,6 @@
       {
         "id": "scp-16046",
         "ref": "16046",
-        "brand": "Ralph Lauren",
         "collection": "sueteres",
         "sizes": [
           "XXG"
@@ -1214,7 +1112,6 @@
       {
         "id": "scp-16109",
         "ref": "16109",
-        "brand": "Tommy Hilfiger",
         "collection": "sueteres",
         "sizes": [
           "P",
@@ -1228,7 +1125,6 @@
       {
         "id": "scp-16150",
         "ref": "16150",
-        "brand": "Tommy Hilfiger",
         "collection": "jaquetas",
         "sizes": [
           "P",
@@ -1239,7 +1135,6 @@
       {
         "id": "scp-13043",
         "ref": "13043",
-        "brand": "Aramis",
         "collection": "jaquetas",
         "sizes": [
           "P"
@@ -1251,7 +1146,6 @@
       {
         "id": "scp-16148",
         "ref": "16148",
-        "brand": "Tommy Hilfiger",
         "collection": "jaquetas",
         "sizes": [
           "P"
@@ -1261,7 +1155,6 @@
       {
         "id": "scp-13044",
         "ref": "13044",
-        "brand": "Aramis",
         "collection": "jaquetas",
         "sizes": [
           "P"
@@ -1273,7 +1166,6 @@
       {
         "id": "scp-15894",
         "ref": "15894",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "GG"
@@ -1283,7 +1175,6 @@
       {
         "id": "scp-16117",
         "ref": "16117",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "M",
@@ -1294,7 +1185,6 @@
       {
         "id": "scp-16124",
         "ref": "16124",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "GG"
@@ -1306,7 +1196,6 @@
       {
         "id": "scp-16070",
         "ref": "16070",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "M",
@@ -1317,7 +1206,6 @@
       {
         "id": "scp-16136",
         "ref": "16136",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "M",
@@ -1329,7 +1217,6 @@
       {
         "id": "scp-16115",
         "ref": "16115",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "G",
@@ -1340,7 +1227,6 @@
       {
         "id": "scp-16119",
         "ref": "16119",
-        "brand": "Tommy Hilfiger",
         "collection": "casacos",
         "sizes": [
           "M",
@@ -1353,7 +1239,6 @@
       {
         "id": "scp-15153",
         "ref": "15153",
-        "brand": "Tommy Hilfiger",
         "collection": "bermudas",
         "sizes": [
           "38",
@@ -1364,7 +1249,6 @@
       {
         "id": "scp-15053",
         "ref": "15053",
-        "brand": "Lacoste",
         "collection": "bermudas",
         "sizes": [
           "38",
@@ -1375,7 +1259,6 @@
       {
         "id": "scp-9688",
         "ref": "9688",
-        "brand": "Hugo Boss",
         "collection": "bermudas",
         "sizes": [
           "38"
@@ -1387,7 +1270,6 @@
       {
         "id": "scp-15049",
         "ref": "15049",
-        "brand": "Lacoste",
         "collection": "bermudas",
         "sizes": [
           "38",
@@ -1398,7 +1280,6 @@
       {
         "id": "scp-13194",
         "ref": "13194",
-        "brand": "Ralph Lauren",
         "collection": "bermudas",
         "sizes": [
           "38",
@@ -1409,7 +1290,6 @@
       {
         "id": "scp-9687",
         "ref": "9687",
-        "brand": "Hugo Boss",
         "collection": "bermudas",
         "sizes": [
           "38",
@@ -1420,7 +1300,6 @@
       {
         "id": "scp-11435",
         "ref": "11435",
-        "brand": "Hugo Boss",
         "collection": "bermudas",
         "sizes": [
           "38"
@@ -1430,7 +1309,6 @@
       {
         "id": "scp-7968",
         "ref": "7968",
-        "brand": "Ralph Lauren",
         "collection": "bermudas",
         "sizes": [
           "38"
@@ -1442,7 +1320,6 @@
       {
         "id": "scp-14960",
         "ref": "14960",
-        "brand": "Hugo Boss",
         "collection": "bermudas",
         "sizes": [
           "GG"
@@ -1452,7 +1329,6 @@
       {
         "id": "scp-14778",
         "ref": "14778",
-        "brand": "Ralph Lauren",
         "collection": "bermudas",
         "sizes": [
           "GG"
@@ -1466,7 +1342,6 @@
       "id": "sc-estoque-001",
       "ref": "SC-001",
       "name": "Sueter Meio Ziper - Marrom",
-      "brand": "Ralph Lauren",
       "collection": "sueteres",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/sueter-meio-ziper-marrom-sc-estoque-001-1.jpeg",
@@ -1476,7 +1351,6 @@
       "id": "sc-estoque-002",
       "ref": "SC-002",
       "name": "Calca Jeans - Azul Marinho",
-      "brand": "Ralph Lauren",
       "collection": "calcas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/calca-jeans-azul-marinho-sc-estoque-002-1.jpeg",
@@ -1486,7 +1360,6 @@
       "id": "sc-estoque-003",
       "ref": "SC-003",
       "name": "Gola Polo Premium - Preto",
-      "brand": "Hugo Boss",
       "collection": "gola-polo",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-003-1.jpeg",
@@ -1496,7 +1369,6 @@
       "id": "sc-estoque-004",
       "ref": "SC-004",
       "name": "Gola Polo Premium - Preto",
-      "brand": "Hugo Boss",
       "collection": "gola-polo",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-004-1.jpeg",
@@ -1506,7 +1378,6 @@
       "id": "sc-estoque-005",
       "ref": "SC-005",
       "name": "Camiseta Supima - Preto",
-      "brand": "Ralph Lauren",
       "collection": "camisetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/camiseta-supima-preto-sc-estoque-005-1.jpeg",
@@ -1516,7 +1387,6 @@
       "id": "sc-estoque-006",
       "ref": "SC-006",
       "name": "Camiseta Manga Longa - Preto",
-      "brand": "Tommy Hilfiger",
       "collection": "manga-longa",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/camiseta-manga-longa-preto-sc-estoque-006-1.jpeg",
@@ -1526,7 +1396,6 @@
       "id": "sc-estoque-007",
       "ref": "SC-007",
       "name": "Jaqueta Cotele - Bege",
-      "brand": "Tommy Hilfiger",
       "collection": "jaquetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg",
@@ -1536,7 +1405,6 @@
       "id": "sc-estoque-009",
       "ref": "SC-009",
       "name": "Camiseta Lisa - Branco",
-      "brand": "SCORSATTO/curadoria sem marca",
       "collection": "camisetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg",
@@ -1546,7 +1414,6 @@
       "id": "sc-estoque-010",
       "ref": "SC-010",
       "name": "Camiseta Nike - Branco",
-      "brand": "Nike - excecao estoque",
       "collection": "camisetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/camiseta-nike-branco-sc-estoque-010-1.jpeg",
@@ -1556,7 +1423,6 @@
       "id": "sc-estoque-011",
       "ref": "SC-011",
       "name": "Casaco Jeans - Preto",
-      "brand": "SCORSATTO/curadoria sem marca",
       "collection": "jaquetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg",
@@ -1566,71 +1432,19 @@
       "id": "sc-estoque-012",
       "ref": "SC-012",
       "name": "Jaqueta Corta Vento - Preto",
-      "brand": "SCORSATTO/curadoria sem marca",
       "collection": "jaquetas",
       "status": "foto_estoque_pendente_manequim",
       "firstImage": "estoque-scorsatto/jaqueta-corta-vento-preto-sc-estoque-012-1.jpeg",
       "sourceUrl": "estoque-proprio-scorsatto"
     },
     {
-      "id": "scp-15861",
-      "ref": "15861",
-      "name": "Camiseta Algodao Egipcio - Azul Marinho",
-      "brand": "Tommy Hilfiger",
-      "collection": "camisetas",
-      "status": "foto_fornecedor_pendente_manequim",
-      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0005"
-    },
-    {
-      "id": "scp-15858",
-      "ref": "15858",
-      "name": "Camiseta Algodao Egipcio - Branco",
-      "brand": "Tommy Hilfiger",
-      "collection": "camisetas",
-      "status": "foto_fornecedor_pendente_manequim",
-      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0002"
-    },
-    {
-      "id": "scp-16157",
-      "ref": "16157",
-      "name": "Calca Moletom - Cinza Claro",
-      "brand": "Tommy Hilfiger",
-      "collection": "calcas",
-      "status": "foto_fornecedor_pendente_manequim",
-      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-133954-1.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/calca-moletom-xe-cinza-cla-calcamolxe00003"
-    },
-    {
-      "id": "scp-16158",
-      "ref": "16158",
-      "name": "Calca Moletom - Azul Marinho",
-      "brand": "Tommy Hilfiger",
-      "collection": "calcas",
-      "status": "foto_fornecedor_pendente_manequim",
-      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-103938-2.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/calca-moletom-xe-azul-marinho-calcamolxe00004"
-    },
-    {
       "id": "scp-16012",
       "ref": "16012",
       "name": "Casaco Moletom - Azul Marinho",
-      "brand": "Ralph Lauren",
       "collection": "casacos",
       "status": "foto_fornecedor_pendente_manequim",
       "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/sem-capuz/ralph/whatsapp-image-2026-06-09-at-153512-1.jpeg",
       "sourceUrl": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-azul-marinho-molsemrl0002"
-    },
-    {
-      "id": "scp-16038",
-      "ref": "16038",
-      "name": "Camiseta Pima Jersey - Bege",
-      "brand": "Aramis",
-      "collection": "camisetas",
-      "status": "foto_fornecedor_pendente_manequim",
-      "firstImage": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184845-3.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00020"
     }
   ],
   "issues": [
@@ -1701,30 +1515,6 @@
       "status": "foto_estoque_pendente_manequim"
     },
     {
-      "id": "scp-15861",
-      "type": "imagem_fora_padrao_manequim",
-      "name": "Camiseta Algodao Egipcio - Azul Marinho",
-      "status": "foto_fornecedor_pendente_manequim"
-    },
-    {
-      "id": "scp-15858",
-      "type": "imagem_fora_padrao_manequim",
-      "name": "Camiseta Algodao Egipcio - Branco",
-      "status": "foto_fornecedor_pendente_manequim"
-    },
-    {
-      "id": "scp-16157",
-      "type": "imagem_fora_padrao_manequim",
-      "name": "Calca Moletom - Cinza Claro",
-      "status": "foto_fornecedor_pendente_manequim"
-    },
-    {
-      "id": "scp-16158",
-      "type": "imagem_fora_padrao_manequim",
-      "name": "Calca Moletom - Azul Marinho",
-      "status": "foto_fornecedor_pendente_manequim"
-    },
-    {
       "id": "scp-16012",
       "type": "imagem_fora_padrao_manequim",
       "name": "Casaco Moletom - Azul Marinho",
@@ -1734,13 +1524,7 @@
       "id": "scp-16012",
       "type": "bloqueado_validacao_fornecedor",
       "name": "Casaco Moletom - Azul Marinho",
-      "detail": "nome azul marinho, mas imagem/fonte observada anteriormente aparenta off white; nao gerar/publicar sem confirmacao"
-    },
-    {
-      "id": "scp-16038",
-      "type": "imagem_fora_padrao_manequim",
-      "name": "Camiseta Pima Jersey - Bege",
-      "status": "foto_fornecedor_pendente_manequim"
+      "detail": "Nome indica azul marinho, mas imagem/fonte observada aparenta peca clara/off-white; nao gerar/publicar sem confirmacao do produto correto."
     }
   ]
 }

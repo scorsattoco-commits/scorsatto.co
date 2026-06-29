@@ -157,8 +157,10 @@
       "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100256.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.jpg",
       "outputExpected": "data/photoroom/site-pending/output/scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861.png",
+      "updatedAt": "2026-06-29T23:34:44.077Z"
     },
     {
       "id": "scp-15858",
@@ -169,8 +171,10 @@
       "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-05-11-at-100252-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/scp-15858-camiseta-algodao-egipcio-branco-15858.jpg",
       "outputExpected": "data/photoroom/site-pending/output/scp-15858-camiseta-algodao-egipcio-branco-15858.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15858.png",
+      "updatedAt": "2026-06-29T23:34:44.086Z"
     },
     {
       "id": "scp-16157",
@@ -181,8 +185,10 @@
       "source": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-133954-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/scp-16157-calca-moletom-cinza-claro-16157.jpg",
       "outputExpected": "data/photoroom/site-pending/output/scp-16157-calca-moletom-cinza-claro-16157.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/calcas/calca-moletom-cinza-claro-16157.png",
+      "updatedAt": "2026-06-29T23:34:44.086Z"
     },
     {
       "id": "scp-16158",
@@ -193,8 +199,10 @@
       "source": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-moletom/whatsapp-image-2026-06-22-at-103938-2.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/scp-16158-calca-moletom-azul-marinho-16158.jpg",
       "outputExpected": "data/photoroom/site-pending/output/scp-16158-calca-moletom-azul-marinho-16158.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/calcas/calca-moletom-azul-marinho-16158.png",
+      "updatedAt": "2026-06-29T23:34:44.086Z"
     },
     {
       "id": "scp-16012",
@@ -217,8 +225,11 @@
       "source": "https://img.irroba.com.br/fit-in/1000x1000/filters:fill(fff):quality(95)/camieeua/catalog/pima-jersey/whatsapp-image-2026-06-10-at-184845-3.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/scp-16038-camiseta-pima-jersey-arm-bege-16038.jpg",
       "outputExpected": "data/photoroom/site-pending/output/scp-16038-camiseta-pima-jersey-arm-bege-16038.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-pima-jersey-arm-bege-16038.png",
+      "updatedAt": "2026-06-29T23:34:44.086Z"
     }
-  ]
+  ],
+  "updatedAt": "2026-06-29T23:34:44.086Z"
 }

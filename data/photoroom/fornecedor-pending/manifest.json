@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-06-29T23:02:17.402Z",
+  "count": 5,
+  "items": [
+    {
+      "order": 1,
+      "id": "scp-15861",
+      "name": "Camiseta Algodao Egipcio - Azul Marinho",
+      "sourceFile": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\fornecedor-pending\\source\\01-scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.jpg",
+      "outputExpected": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\site-pending\\output\\scp-15861-camiseta-algodao-egipcio-azul-marinho-15861.png",
+      "status": "generated_imported",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861.png",
+      "updatedAt": "2026-06-29T23:34:44.087Z"
+    },
+    {
+      "order": 2,
+      "id": "scp-15858",
+      "name": "Camiseta Algodao Egipcio - Branco",
+      "sourceFile": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\fornecedor-pending\\source\\02-scp-15858-camiseta-algodao-egipcio-branco-15858.jpg",
+      "outputExpected": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\site-pending\\output\\scp-15858-camiseta-algodao-egipcio-branco-15858.png",
+      "status": "generated_imported",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15858.png",
+      "updatedAt": "2026-06-29T23:34:44.087Z"
+    },
+    {
+      "order": 3,
+      "id": "scp-16157",
+      "name": "Calca Moletom - Cinza Claro",
+      "sourceFile": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\fornecedor-pending\\source\\03-scp-16157-calca-moletom-cinza-claro-16157.jpg",
+      "outputExpected": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\site-pending\\output\\scp-16157-calca-moletom-cinza-claro-16157.png",
+      "status": "generated_imported",
+      "generatedPath": "generated/photoroom/site/calcas/calca-moletom-cinza-claro-16157.png",
+      "updatedAt": "2026-06-29T23:34:44.087Z"
+    },
+    {
+      "order": 4,
+      "id": "scp-16158",
+      "name": "Calca Moletom - Azul Marinho",
+      "sourceFile": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\fornecedor-pending\\source\\04-scp-16158-calca-moletom-azul-marinho-16158.jpg",
+      "outputExpected": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\site-pending\\output\\scp-16158-calca-moletom-azul-marinho-16158.png",
+      "status": "generated_imported",
+      "generatedPath": "generated/photoroom/site/calcas/calca-moletom-azul-marinho-16158.png",
+      "updatedAt": "2026-06-29T23:34:44.087Z"
+    },
+    {
+      "order": 5,
+      "id": "scp-16038",
+      "name": "Camiseta Pima Jersey - Bege",
+      "sourceFile": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\fornecedor-pending\\source\\05-scp-16038-camiseta-pima-jersey-arm-bege-16038.jpg",
+      "outputExpected": "C:\\Users\\aliss\\OneDrive\\Documentos\\SCORSATTO\\site-scorsatto\\data\\photoroom\\site-pending\\output\\scp-16038-camiseta-pima-jersey-arm-bege-16038.png",
+      "status": "generated_imported",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-pima-jersey-arm-bege-16038.png",
+      "updatedAt": "2026-06-29T23:34:44.087Z"
+    }
+  ],
+  "updatedAt": "2026-06-29T23:34:44.087Z"
+}
