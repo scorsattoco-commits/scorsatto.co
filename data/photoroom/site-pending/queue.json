@@ -25,8 +25,9 @@
       "source": "estoque-scorsatto/sueter-meio-ziper-marrom-sc-estoque-001-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-001-sueter-meio-ziper-marrom-sc-estoque-001.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-001-sueter-meio-ziper-marrom-sc-estoque-001.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.644Z"
     },
     {
       "id": "sc-estoque-002",
@@ -37,8 +38,9 @@
       "source": "estoque-scorsatto/calca-jeans-azul-marinho-sc-estoque-002-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-002-calca-jeans-azul-marinho-sc-estoque-002.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-002-calca-jeans-azul-marinho-sc-estoque-002.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-003",
@@ -49,8 +51,9 @@
       "source": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-003-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-003-gola-polo-premium-preto-sc-estoque-003.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-003-gola-polo-premium-preto-sc-estoque-003.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-004",
@@ -61,8 +64,10 @@
       "source": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-004-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-004-gola-polo-premium-preto-sc-estoque-004.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-004-gola-polo-premium-preto-sc-estoque-004.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/gola-polo/gola-polo-premium-preto-sc-estoque-004.png",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-005",
@@ -73,8 +78,9 @@
       "source": "estoque-scorsatto/camiseta-supima-preto-sc-estoque-005-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-005-camiseta-supima-preto-sc-estoque-005.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-005-camiseta-supima-preto-sc-estoque-005.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-006",
@@ -85,8 +91,9 @@
       "source": "estoque-scorsatto/camiseta-manga-longa-preto-sc-estoque-006-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-006-camiseta-manga-longa-preto-sc-estoque-006.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-006-camiseta-manga-longa-preto-sc-estoque-006.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-007",
@@ -97,8 +104,9 @@
       "source": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-007-jaqueta-cotele-bege-sc-estoque-007.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-007-jaqueta-cotele-bege-sc-estoque-007.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-009",
@@ -109,8 +117,9 @@
       "source": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-010",
@@ -121,8 +130,9 @@
       "source": "estoque-scorsatto/camiseta-nike-branco-sc-estoque-010-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-010-camiseta-nike-branco-sc-estoque-010.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-010-camiseta-nike-branco-sc-estoque-010.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_mannequin",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-011",
@@ -133,8 +143,9 @@
       "source": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-011-casaco-jeans-preto-sc-estoque-011.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-011-casaco-jeans-preto-sc-estoque-011.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "kept_existing_model_photo",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "sc-estoque-012",
@@ -145,8 +156,10 @@
       "source": "estoque-scorsatto/jaqueta-corta-vento-preto-sc-estoque-012-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-012-jaqueta-corta-vento-preto-sc-estoque-012.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-012-jaqueta-corta-vento-preto-sc-estoque-012.png",
-      "status": "pending_photoroom",
-      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags."
+      "status": "generated_imported",
+      "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
+      "generatedPath": "generated/photoroom/site/jaquetas/jaqueta-corta-vento-preto-sc-estoque-012.png",
+      "updatedAt": "2026-06-30T00:07:30.645Z"
     },
     {
       "id": "scp-15861",
@@ -231,5 +244,5 @@
       "updatedAt": "2026-06-29T23:34:44.086Z"
     }
   ],
-  "updatedAt": "2026-06-29T23:34:44.086Z"
+  "updatedAt": "2026-06-30T00:07:30.645Z"
 }
