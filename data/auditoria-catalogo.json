@@ -1,16 +1,28 @@
 {
-  "generatedAt": "2026-06-30T00:06:45.685Z",
-  "rule": "Pecas ja fotografadas em personagem/modelo ou ja em manequim limpo podem permanecer. Gerar somente fotos cruas/chapadas que nao estao em manequim/personagem.",
+  "generatedAt": "2026-06-30T22:23:36.371Z",
+  "rule": "Pecas ja fotografadas em personagem/modelo ou ja em manequim limpo podem permanecer. Gerar somente fotos cruas/chapadas, com artefato ou fora do padrao premium.",
   "totals": {
-    "products": 183,
-    "generatedFirst": 173,
-    "keptAsModel": 9,
-    "pendingManequim": 1,
+    "products": 182,
+    "generatedFirst": 174,
+    "keptAsModel": 8,
+    "pendingManequim": 0,
     "missingReference": 0,
     "missingSize": 0,
     "missingImage": 0,
-    "issues": 2
+    "supplierFirst": 0,
+    "issues": 0
   },
+  "correctedThisPass": [
+    "scp-14778",
+    "scp-13964",
+    "scp-15894",
+    "scp-16049",
+    "sc-estoque-009",
+    "scp-15925",
+    "scp-11377",
+    "scp-15336",
+    "scp-14053"
+  ],
   "byCollection": {
     "sueteres": 20,
     "calcas": 30,
@@ -19,7 +31,7 @@
     "manga-longa": 8,
     "jaquetas": 28,
     "camisa-social": 13,
-    "casacos": 12,
+    "casacos": 11,
     "bermudas": 16
   },
   "keptAsModel": [
@@ -66,13 +78,6 @@
       "firstImage": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg"
     },
     {
-      "id": "sc-estoque-009",
-      "ref": "SC-009",
-      "name": "Camiseta Lisa - Branco",
-      "status": "mantido_por_estar_em_personagem_modelo",
-      "firstImage": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg"
-    },
-    {
       "id": "sc-estoque-010",
       "ref": "SC-010",
       "name": "Camiseta Nike - Branco",
@@ -87,29 +92,6 @@
       "firstImage": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg"
     }
   ],
-  "pendingManequim": [
-    {
-      "id": "scp-16012",
-      "ref": "16012",
-      "name": "Casaco Moletom - Azul Marinho",
-      "collection": "casacos",
-      "status": "foto_fornecedor_pendente_validacao",
-      "firstImage": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/sem-capuz/ralph/whatsapp-image-2026-06-09-at-153512-1.jpeg",
-      "sourceUrl": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-azul-marinho-molsemrl0002"
-    }
-  ],
-  "issues": [
-    {
-      "id": "scp-16012",
-      "type": "imagem_pendente_validacao",
-      "name": "Casaco Moletom - Azul Marinho",
-      "status": "foto_fornecedor_pendente_validacao"
-    },
-    {
-      "id": "scp-16012",
-      "type": "bloqueado_validacao_fornecedor",
-      "name": "Casaco Moletom - Azul Marinho",
-      "detail": "Nome indica azul marinho, mas imagem/fonte aparenta peca clara/off-white; nao gerar/publicar sem confirmacao do produto correto."
-    }
-  ]
+  "pendingManequim": [],
+  "issues": []
 }

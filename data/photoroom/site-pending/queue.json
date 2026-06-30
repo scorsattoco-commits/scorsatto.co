@@ -117,9 +117,10 @@
       "source": "estoque-scorsatto/camiseta-lisa-branco-sc-estoque-009-1.jpeg",
       "sourceFile": "data/photoroom/site-pending/source/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.jpg",
       "outputExpected": "data/photoroom/site-pending/output/sc-estoque-009-camiseta-lisa-branco-sc-estoque-009.png",
-      "status": "kept_existing_model_photo",
+      "status": "generated_imported",
       "instruction": "Gerar no PhotoRoom Manequim Fantasma somente se a peca permanecer exatamente igual ao fornecedor/estoque: logo, tecido, cor, modelagem e tags.",
-      "updatedAt": "2026-06-30T00:07:30.645Z"
+      "updatedAt": "2026-06-30T22:23:36.392Z",
+      "generatedPath": "generated/photoroom/site/camisetas/camiseta-lisa-branco-sc-estoque-009.png"
     },
     {
       "id": "sc-estoque-010",
@@ -244,5 +245,5 @@
       "updatedAt": "2026-06-29T23:34:44.086Z"
     }
   ],
-  "updatedAt": "2026-06-30T00:07:30.645Z"
+  "updatedAt": "2026-06-30T22:23:36.392Z"
 }
