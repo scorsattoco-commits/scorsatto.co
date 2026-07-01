@@ -198,6 +198,21 @@
     .profile-action span { color: var(--muted); font-size: 12px; line-height: 1.45; }
     .account-list { display: grid; gap: 10px; }
     .account-card { border: 1px solid var(--line); padding: 12px; display: grid; gap: 6px; background: var(--white); color: inherit; text-align: left; }
+    .admin-switch { display: flex; flex-wrap: wrap; gap: 8px; }
+    .admin-switch button { min-height: 38px; border: 1px solid var(--line); background: var(--white); color: var(--black); padding: 0 12px; cursor: pointer; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .admin-switch button.active { background: var(--black); border-color: var(--black); color: var(--white); }
+    .backoffice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .metric-card { border: 1px solid var(--line); background: var(--paper); padding: 14px; display: grid; gap: 6px; }
+    .metric-card strong { font-size: 24px; line-height: 1; }
+    .metric-card span { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .backoffice-section { border: 1px solid var(--line); background: var(--white); padding: 14px; display: grid; gap: 10px; overflow: hidden; }
+    .backoffice-section h4 { margin: 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .backoffice-table-wrap { overflow-x: auto; }
+    .backoffice-table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 12px; }
+    .backoffice-table th, .backoffice-table td { border-top: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; line-height: 1.45; }
+    .backoffice-table th { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .backoffice-note { color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .backoffice-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
     .favorite-preview, .favorite-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .favorite-card { position: relative; border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; overflow: hidden; }
     .favorite-open { border: 0; background: transparent; padding: 0; color: inherit; text-align: left; cursor: pointer; display: grid; }
@@ -266,6 +281,7 @@
       .hero-cta { min-height: 38px; padding: 0 12px; font-size: 10px; letter-spacing: .08em; }
       .section-head { align-items: start; }
       .shop-note { margin-top: -6px; }
+      .profile-actions, .backoffice-grid { grid-template-columns: 1fr; }
     }
     @media (min-width: 760px) {
       .account-shell { grid-template-columns: 190px minmax(0, 1fr); align-items: start; }
@@ -536,6 +552,10 @@
     let orders = JSON.parse(localStorage.getItem("scorsattoOrdersV5") || "[]");
     let productOverrides = JSON.parse(localStorage.getItem("scorsattoProductOverridesV1") || "{}");
     let activeAdminSlug = PRODUCTS[0]?.slug || "";
+    let activeAdminView = "backoffice";
+    let backofficeData = null;
+    let backofficeLoadedAt = "";
+    let backofficeError = "";
     let adminVerified = false;
     let activeAccountTab = account ? "resumo" : "entrar";
 
@@ -921,6 +941,7 @@
       const current = cart.find((item) => item.key === key);
       if (current) current.quantity += quantity;
       else cart.push({ key, slug, size, quantity });
+      recordCustomerEvent("add_to_cart", slug, { size, quantity });
       saveCart();
       openCart();
     }
@@ -986,6 +1007,7 @@
           const product = PRODUCTS.find((entry) => entry.slug === item.slug);
           return { slug: item.slug, name: product?.name || item.slug, reference: product ? supplierReference(product) : "", size: item.size, quantity: item.quantity, price: product?.price || 0 };
         });
+        recordCustomerEvent("whatsapp_checkout", null, { items: orderItems });
         if (db) {
           await db.from("orders").insert({ user_id: account?.id || null, customer_name: account?.name || null, customer_phone: account?.phone || null, customer_city: account?.city || null, items: orderItems, status: "whatsapp" });
         } else {
@@ -1104,6 +1126,124 @@
       localStorage.setItem("scorsattoUsersV2", JSON.stringify(users));
     }
 
+    function productLabel(slug) {
+      const product = PRODUCTS.find((item) => item.slug === slug);
+      return product ? cleanName(product.name) + " (" + (supplierReference(product) || product.supplierProductId || "sem ref.") + ")" : slug || "Produto nao identificado";
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "-";
+      return new Date(value).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+    }
+
+    async function recordCustomerEvent(eventType, productSlug = null, metadata = {}) {
+      if (!db) return;
+      await db.from("customer_events").insert({
+        user_id: account?.id || null,
+        event_type: eventType,
+        product_slug: productSlug,
+        metadata: {
+          ...metadata,
+          path: location.pathname + location.hash,
+          source: "site",
+        },
+      });
+    }
+
+    async function loadBackofficeData(force = false) {
+      if (!db || !isAdminAccount()) return null;
+      if (backofficeData && !force) return backofficeData;
+      backofficeError = "";
+      const [profilesResult, cartsResult, favoritesResult, ordersResult, eventsResult] = await Promise.all([
+        db.from("profiles").select("*").order("created_at", { ascending: false }).limit(300),
+        db.from("cart_items").select("*").order("updated_at", { ascending: false }).limit(500),
+        db.from("favorites").select("*").order("created_at", { ascending: false }).limit(500),
+        db.from("orders").select("*").order("created_at", { ascending: false }).limit(300),
+        db.from("customer_events").select("*").order("created_at", { ascending: false }).limit(300),
+      ]);
+      const firstError = [profilesResult, cartsResult, favoritesResult, ordersResult, eventsResult].find((result) => result.error)?.error;
+      if (firstError) {
+        backofficeError = firstError.message || "Nao foi possivel carregar o backoffice.";
+        return null;
+      }
+      backofficeData = {
+        profiles: profilesResult.data || [],
+        carts: cartsResult.data || [],
+        favorites: favoritesResult.data || [],
+        orders: ordersResult.data || [],
+        events: eventsResult.data || [],
+      };
+      backofficeLoadedAt = formatDateTime(new Date().toISOString());
+      return backofficeData;
+    }
+
+    function customerName(userId) {
+      const profile = backofficeData?.profiles?.find((item) => item.id === userId);
+      return profile?.name || profile?.email || userId || "Visitante";
+    }
+
+    function groupedCartRows() {
+      const carts = backofficeData?.carts || [];
+      return Object.values(carts.reduce((acc, item) => {
+        const key = item.user_id || "visitante";
+        if (!acc[key]) acc[key] = { user_id: item.user_id, items: [], updated_at: item.updated_at };
+        acc[key].items.push(item);
+        if (new Date(item.updated_at) > new Date(acc[key].updated_at)) acc[key].updated_at = item.updated_at;
+        return acc;
+      }, {})).sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    }
+
+    function renderBackofficeTable(headers, rows, emptyText) {
+      if (!rows.length) return `<p class="backoffice-note">${emptyText}</p>`;
+      return `<div class="backoffice-table-wrap"><table class="backoffice-table"><thead><tr>${headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
+    }
+
+    function renderBackofficePanel() {
+      if (!db) return `<div class="account-card"><strong>Banco nao conectado</strong><span class="muted">Preencha o Supabase para ver clientes, carrinhos, pedidos e acessos.</span></div>`;
+      if (backofficeError) return `<div class="account-card"><strong>Permissao pendente</strong><span class="muted">${backofficeError}</span></div><button class="primary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>`;
+      if (!backofficeData) return `<div class="account-card"><strong>Backoffice pronto</strong><span class="muted">Clique em atualizar para carregar clientes, carrinhos, pedidos e acessos do Supabase.</span></div><button class="primary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>`;
+
+      const profiles = backofficeData.profiles || [];
+      const carts = backofficeData.carts || [];
+      const favoritesRows = backofficeData.favorites || [];
+      const ordersRows = backofficeData.orders || [];
+      const eventsRows = backofficeData.events || [];
+      const activeCarts = groupedCartRows();
+      const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
+      const orderTotal = ordersRows.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
+      const productViews = eventsRows.filter((event) => event.event_type === "product_view").length;
+
+      const profileRows = profiles.map((profile) => {
+        const cartCount = carts.filter((item) => item.user_id === profile.id).reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+        const favCount = favoritesRows.filter((item) => item.user_id === profile.id).length;
+        const orderCount = ordersRows.filter((item) => item.user_id === profile.id).length;
+        return `<tr><td><strong>${profile.name || "-"}</strong><br>${profile.email || "-"}</td><td>${profile.phone || "-"}</td><td>${profile.city || "-"} ${profile.state || ""}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${formatDateTime(profile.created_at)}</td></tr>`;
+      });
+
+      const cartRows = activeCarts.map((row) => `<tr><td>${customerName(row.user_id)}</td><td>${row.items.map((item) => `${productLabel(item.product_slug)}<br><span class="muted">Tam. ${item.size} - Qtd. ${item.quantity}</span>`).join("<br><br>")}</td><td>${formatDateTime(row.updated_at)}</td></tr>`);
+      const orderRows = ordersRows.map((order) => `<tr><td>${order.customer_name || customerName(order.user_id)}<br><span class="muted">${order.customer_phone || ""} ${order.customer_city || ""}</span></td><td>${(order.items || []).map((item) => `${item.name || productLabel(item.slug)}<br><span class="muted">Ref. ${item.reference || "-"} - Tam. ${item.size || "-"} - Qtd. ${item.quantity || 1}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`);
+      const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerName(event.user_id)}</td><td>${event.event_type}</td><td>${event.product_slug ? productLabel(event.product_slug) : "-"}</td></tr>`);
+
+      return `
+        <div class="backoffice-actions">
+          <span class="backoffice-note">Atualizado: ${backofficeLoadedAt || "-"}</span>
+          <button class="secondary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>
+        </div>
+        <div class="backoffice-grid">
+          <div class="metric-card"><strong>${profiles.length}</strong><span>Clientes cadastrados</span></div>
+          <div class="metric-card"><strong>${activeCarts.length}</strong><span>Carrinhos ativos</span></div>
+          <div class="metric-card"><strong>${ordersRows.length}</strong><span>Pedidos enviados</span></div>
+          <div class="metric-card"><strong>${currency.format(orderTotal)}</strong><span>Valor em pedidos</span></div>
+          <div class="metric-card"><strong>${favoritesRows.length}</strong><span>Favoritos salvos</span></div>
+          <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
+        </div>
+        <section class="backoffice-section"><h4>Clientes</h4>${renderBackofficeTable(["Cliente", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Cadastro"], profileRows, "Nenhum cliente cadastrado ainda.")}</section>
+        <section class="backoffice-section"><h4>Carrinhos ativos</h4><p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) ha mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Ultima atualizacao"], cartRows, "Nenhum carrinho ativo no banco.")}</section>
+        <section class="backoffice-section"><h4>Pedidos via WhatsApp</h4>${renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda.")}</section>
+        <section class="backoffice-section"><h4>Acessos e eventos recentes</h4>${renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda.")}</section>
+      `;
+    }
+
     function saveAccount() {
       if (account) {
         localStorage.setItem(accountStorageKey, JSON.stringify(account));
@@ -1150,6 +1290,7 @@
 
     function openAccount(tab = activeAccountTab) {
       activeAccountTab = tab;
+      if (activeAccountTab === "admin" && isAdminAccount()) loadBackofficeData();
       renderAccount();
       accountDrawer.classList.add("open");
       drawerOverlay.classList.add("open");
@@ -1217,6 +1358,28 @@
       activeAdminSlug = product.slug;
       const imagesText = (product.images || []).join("\n");
       const sizesText = (product.sizes || []).join(", ");
+      const catalogEditor = `
+        <form class="account-form" data-account-form="admin-product">
+          <label class="field"><span>Produto</span><select name="slug" data-admin-product-select>${PRODUCTS.map((item) => `<option value="${item.slug}"${item.slug === product.slug ? " selected" : ""}>${item.name}</option>`).join("")}</select></label>
+          <label class="field"><span>Nome exibido</span><input name="name" value="${product.name || ""}"></label>
+          <label class="field"><span>Preco</span><input name="price" type="number" step="0.01" value="${product.price || ""}"></label>
+          <label class="field"><span>Status</span><select name="status"><option value="disponivel"${product.status === "disponivel" ? " selected" : ""}>Disponivel agora</option><option value="sob-consulta"${product.status !== "disponivel" ? " selected" : ""}>Sob consulta</option></select></label>
+          <label class="field"><span>Tamanhos</span><input name="sizes" value="${sizesText}" placeholder="P, M, G, GG"></label>
+          <label class="field"><span>Fotos</span><textarea name="images" placeholder="Uma URL ou caminho por linha">${imagesText}</textarea></label>
+          <label class="field"><span>Descricao</span><textarea name="description">${product.description || ""}</textarea></label>
+          <label class="field-check"><input name="hidden" type="checkbox"${product.hidden ? " checked" : ""}> Ocultar produto da vitrine publica.</label>
+          <button class="primary-btn" type="submit">Salvar alteracoes</button>
+        </form>`;
+      return `
+        <section class="account-panel${activeAccountTab === "admin" ? " active" : ""}" data-panel="admin">
+          <h3>Backoffice SCORSATTO</h3>
+          <div class="account-card"><strong>Permissao ativa</strong><span class="muted">Acesso administrativo para ver clientes, carrinhos, pedidos, favoritos, eventos e editar o catalogo.</span></div>
+          <div class="admin-switch">
+            <button class="${activeAdminView === "backoffice" ? "active" : ""}" type="button" data-admin-view="backoffice">Backoffice</button>
+            <button class="${activeAdminView === "catalog" ? "active" : ""}" type="button" data-admin-view="catalog">Catalogo</button>
+          </div>
+          ${activeAdminView === "backoffice" ? renderBackofficePanel() : catalogEditor}
+        </section>`;
       return `
         <section class="account-panel${activeAccountTab === "admin" ? " active" : ""}" data-panel="admin">
           <h3>Admin do catálogo</h3>
@@ -1480,6 +1643,7 @@
     function openProduct(slug, scroll = true) {
       const product = PRODUCTS.find((item) => item.slug === slug);
       if (!product) return;
+      recordCustomerEvent("product_view", slug, { name: product.name, reference: supplierReference(product) || product.supplierProductId || "" });
       selectedProductSlug = slug;
       selectedDetailSize = product.sizes?.[0] ?? null;
       const images = uniqueImages(product);
@@ -1653,7 +1817,28 @@
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
     accountDrawer.addEventListener("click", (event) => {
       const tabButton = event.target.closest("[data-account-tab]");
-      if (tabButton) { accountMessage = ""; activeAccountTab = tabButton.dataset.accountTab; renderAccount(); return; }
+      if (tabButton) {
+        accountMessage = "";
+        activeAccountTab = tabButton.dataset.accountTab;
+        if (activeAccountTab === "admin" && isAdminAccount()) loadBackofficeData(true).then(renderAccount);
+        renderAccount();
+        return;
+      }
+      const adminView = event.target.closest("[data-admin-view]");
+      if (adminView && isAdminAccount()) {
+        activeAdminView = adminView.dataset.adminView;
+        activeAccountTab = "admin";
+        if (activeAdminView === "backoffice") loadBackofficeData(true).then(renderAccount);
+        renderAccount();
+        return;
+      }
+      if (event.target.closest("[data-refresh-backoffice]") && isAdminAccount()) {
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        loadBackofficeData(true).then(renderAccount);
+        renderAccount();
+        return;
+      }
       if (event.target.closest("[data-focus-email]")) { accountDrawer.querySelector('input[name="email"]')?.focus(); return; }
       if (event.target.closest("[data-logout-account]")) { logoutAccount(); return; }
       if (event.target.closest("[data-continue-guest]")) { accountMessage = ""; closeAccount(); return; }
@@ -1743,6 +1928,7 @@
     handleHashChange();
     initializeAccountState();
     loadProductOverrides();
+    recordCustomerEvent("page_view", null, { title: document.title });
     updateScrollState();
   </script>
 </body>
