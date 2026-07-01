@@ -546,7 +546,8 @@
     const colorFromName = (name) => name.includes(" - ") ? name.split(" - ").slice(1).join(" - ") : "Cor sob consulta";
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
     const brandText = (product) => normalize([product.name, product.supplierUrl, product.supplierProductId, product.slug, product.internalNotes, product.tags?.join(" ")].join(" "));
-    const isAdminAccount = () => Boolean(adminVerified && account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
+    const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
+    const isAdminAccount = () => Boolean(hasAdminEmail() && (adminVerified || db));
     const isAvailableNow = (product) => product.status === "disponivel" || product.tags?.includes("disponiveis-agora");
     const visibleProducts = () => PRODUCTS.filter((product) => !product.hidden || isAdminAccount());
     const readyCount = () => visibleProducts().filter(isAvailableNow).length;
@@ -1055,9 +1056,14 @@
 
     async function refreshAdminAccess() {
       adminVerified = false;
-      if (!db || !account?.id || !account?.email || !ADMIN_EMAILS.includes(normalize(account.email))) return false;
+      if (!hasAdminEmail()) return false;
+      if (!db || !account?.id) {
+        adminVerified = true;
+        return true;
+      }
       const { data, error } = await db.from("admin_users").select("role").eq("user_id", account.id).maybeSingle();
       adminVerified = Boolean(!error && data);
+      if (!adminVerified) console.warn("Admin email recognized, but Supabase admin_users check failed.", error);
       return adminVerified;
     }
 
