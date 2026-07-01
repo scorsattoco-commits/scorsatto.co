@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCORSATTO - Teste de Produto Agrupado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:#080807;
+      --ink:#1a1916;
+      --muted:#756f66;
+      --line:#dedbd2;
+      --paper:#f6f4ee;
+      --soft:#ebe7dc;
+      --white:#fff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--white); color: var(--black); font-family: Inter, Arial, sans-serif; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    .site-shell { min-height: 100vh; }
+    .topbar { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 22px clamp(16px, 4vw, 48px); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); position: sticky; top: 0; z-index: 10; }
+    .brand { font-family: "Cormorant Garamond", serif; font-size: 34px; letter-spacing: .16em; font-weight: 600; }
+    .nav { display: flex; gap: 8px; align-items: center; }
+    .nav span { min-height: 38px; display: inline-flex; align-items: center; padding: 0 16px; border: 1px solid transparent; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .nav .active { background: var(--black); color: var(--white); border-radius: 999px; }
+    main { max-width: 1400px; margin: 0 auto; padding: 32px clamp(14px, 3vw, 42px) 64px; display: grid; gap: 24px; }
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+    .section-head h1 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(42px, 7vw, 86px); font-weight: 500; letter-spacing: 0; line-height: .95; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 480px; line-height: 1.55; }
+    .preview-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .grid-preview { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; align-items: start; }
+    .product-card { display: grid; gap: 12px; }
+    .media { position: relative; background: var(--paper); aspect-ratio: 4 / 5; overflow: hidden; }
+    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .quick { position: absolute; left: 14px; right: 14px; bottom: 14px; min-height: 52px; border: 1px solid rgba(8,8,7,.12); background: rgba(255,255,255,.92); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .heart { position: absolute; top: 14px; right: 14px; width: 46px; height: 46px; border-radius: 999px; border: 1px solid rgba(8,8,7,.10); background: rgba(255,255,255,.92); font-size: 21px; line-height: 1; }
+    .title-row { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .title-row h2 { margin: 0; font-size: 19px; line-height: 1.25; }
+    .price { font-weight: 800; white-space: nowrap; font-size: 18px; }
+    .card-brand { color: #302e2a; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .card-meta { color: var(--muted); line-height: 1.55; }
+    .swatches { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 2px; }
+    .swatch { width: 26px; height: 26px; border-radius: 999px; border: 1px solid rgba(8,8,7,.22); background: var(--swatch); position: relative; }
+    .swatch.active::after { content: ""; position: absolute; inset: -5px; border: 1px solid var(--black); border-radius: 999px; }
+    .swatch span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; border-top: 1px solid var(--line); padding-top: 26px; }
+    .detail-gallery { background: var(--paper); min-height: 420px; display: grid; place-items: center; overflow: hidden; }
+    .detail-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .detail-info { display: grid; gap: 18px; align-content: start; }
+    .eyebrow { margin: 0; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .detail-info h2 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(42px, 6vw, 72px); font-weight: 500; line-height: .95; letter-spacing: 0; }
+    .detail-price { font-size: 22px; font-weight: 800; }
+    .description { margin: 0; color: var(--muted); line-height: 1.65; max-width: 620px; }
+    .control { display: grid; gap: 10px; }
+    .control-label { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .color-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .color-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 12px; border: 1px solid var(--line); background: var(--white); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .color-btn.active { border-color: var(--black); background: var(--black); color: var(--white); }
+    .color-dot { width: 14px; height: 14px; border-radius: 999px; background: var(--swatch); border: 1px solid rgba(0,0,0,.2); flex: 0 0 auto; }
+    .size-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .size-btn { min-width: 48px; min-height: 44px; border: 1px solid var(--line); background: var(--white); font-size: 13px; font-weight: 800; }
+    .size-btn.active { border-color: var(--black); background: var(--black); color: var(--white); }
+    .ref-box { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 13px 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .ref-box strong { color: var(--black); }
+    .actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .cta { min-height: 54px; border: 1px solid var(--black); background: var(--black); color: var(--white); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .ghost { min-height: 52px; border: 1px solid var(--line); background: var(--white); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .note { border: 1px solid var(--line); background: var(--paper); padding: 12px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    @media (min-width: 940px) {
+      .preview-layout { grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); align-items: start; }
+      .detail { grid-template-columns: minmax(0, 1fr) minmax(360px, .78fr); }
+      .actions { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .topbar { grid-template-columns: 1fr; }
+      .brand { font-size: 28px; }
+      .nav { overflow-x: auto; padding-bottom: 4px; }
+      .section-head { display: grid; }
+      main { padding-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="brand">SCORSATTO</div>
+      <nav class="nav" aria-label="Navegacao">
+        <span>Inicio</span>
+        <span class="active">Colecao</span>
+        <span>Disponiveis Agora</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section-head">
+        <h1>Teste de agrupamento</h1>
+        <p>Preview visual de um unico conjunto aprovado. Nada foi aplicado no site oficial. As pecas fora deste grupo continuam intactas.</p>
+      </section>
+
+      <section class="preview-layout">
+        <div class="grid-preview">
+          <article class="product-card">
+            <div class="media">
+              <img id="cardImage" alt="Gola Polo Premium Tommy Hilfiger">
+              <button class="heart" type="button" aria-label="Favoritar">♡</button>
+              <button class="quick" type="button">Ver produto</button>
+            </div>
+            <div class="title-row">
+              <h2>Gola Polo Premium</h2>
+              <div class="price">R$ 129,90</div>
+            </div>
+            <div class="card-brand">Tommy Hilfiger</div>
+            <div class="card-meta" id="cardMeta"></div>
+            <div class="swatches" id="cardSwatches"></div>
+          </article>
+        </div>
+
+        <section class="detail">
+          <div class="detail-gallery">
+            <img id="detailImage" alt="Gola Polo Premium Tommy Hilfiger">
+          </div>
+
+          <div class="detail-info">
+            <p class="eyebrow">Tommy Hilfiger</p>
+            <h2>Gola Polo Premium</h2>
+            <div class="detail-price">R$ 129,90</div>
+            <p class="description">Polo masculina premium com leitura limpa, logo discreto e presença versatil. Uma peça essencial para uso casual alinhado, mantendo o padrão de curadoria SCORSATTO.</p>
+
+            <div class="control">
+              <div class="control-label">Cor</div>
+              <div class="color-row" id="colorButtons"></div>
+            </div>
+
+            <div class="control">
+              <div class="control-label">Tamanho</div>
+              <div class="size-row" id="sizeButtons"></div>
+            </div>
+
+            <div class="ref-box">
+              Cor selecionada: <strong id="selectedColor"></strong><br>
+              Tamanho selecionado: <strong id="selectedSize"></strong><br>
+              Referencia no pedido: <strong id="selectedRefs"></strong>
+            </div>
+
+            <div class="actions">
+              <button class="cta" type="button">Adicionar ao carrinho</button>
+              <button class="ghost" type="button">Comprar pelo WhatsApp</button>
+            </div>
+
+            <div class="note">Comportamento esperado: ao trocar a cor, imagem, tamanhos e referencia mudam. Ao adicionar ao carrinho ou WhatsApp, vai a referencia real da cor/tamanho selecionado.</div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const variants = [
+      { color: "Azul Marinho", swatch: "#101b33", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-azul-marinho-15747.png", sizes: { P: ["golapoloxe050"], M: ["golapoloxe050"], GG: ["golapoloxe050"], XXG: ["golapoloxe050"] } },
+      { color: "Cinza Escuro", swatch: "#777874", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-cinza-15749.png", sizes: { P: ["golapoloxe052"], M: ["golapoloxe052"], GG: ["golapoloxe052"] } },
+      { color: "Cinza Claro", swatch: "#a0a09a", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-cinza-14664.png", sizes: { P: ["poloxe0003"] } },
+      { color: "Branco", swatch: "#f7f5ee", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-branco-15745.png", sizes: { G: ["golapoloxe048"], GG: ["golapoloxe048"], XXG: ["golapoloxe048"] } },
+      { color: "Preto", swatch: "#111111", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-preto-15743.png", sizes: { P: ["golapoloxe046", "golapoloxe044", "071"] } },
+      { color: "Bege", swatch: "#c5b59a", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-bege-14039.png", sizes: { P: ["074"] } },
+      { color: "Marrom Escuro", swatch: "#4b382d", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14042.png", sizes: { P: ["072"], M: ["072"] } },
+      { color: "Marrom", swatch: "#6b5544", image: "../generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14040.png", sizes: { P: ["073"], M: ["073"] } }
+    ];
+
+    let selectedVariant = variants[0];
+    let selectedSize = Object.keys(selectedVariant.sizes)[0];
+
+    const cardImage = document.querySelector("#cardImage");
+    const detailImage = document.querySelector("#detailImage");
+    const cardMeta = document.querySelector("#cardMeta");
+    const cardSwatches = document.querySelector("#cardSwatches");
+    const colorButtons = document.querySelector("#colorButtons");
+    const sizeButtons = document.querySelector("#sizeButtons");
+    const selectedColor = document.querySelector("#selectedColor");
+    const selectedSizeText = document.querySelector("#selectedSize");
+    const selectedRefs = document.querySelector("#selectedRefs");
+
+    function render() {
+      const sizes = Object.keys(selectedVariant.sizes);
+      if (!sizes.includes(selectedSize)) selectedSize = sizes[0];
+      cardImage.src = selectedVariant.image;
+      detailImage.src = selectedVariant.image;
+      cardMeta.innerHTML = `Cor: ${selectedVariant.color}<br>Tamanhos: ${sizes.join(", ")}`;
+      selectedColor.textContent = selectedVariant.color;
+      selectedSizeText.textContent = selectedSize;
+      selectedRefs.textContent = selectedVariant.sizes[selectedSize].join(" / ");
+
+      cardSwatches.innerHTML = variants.map((variant, index) => `
+        <button class="swatch${variant.color === selectedVariant.color ? " active" : ""}" type="button" data-color="${index}" style="--swatch:${variant.swatch}">
+          <span>${variant.color}</span>
+        </button>
+      `).join("");
+
+      colorButtons.innerHTML = variants.map((variant, index) => `
+        <button class="color-btn${variant.color === selectedVariant.color ? " active" : ""}" type="button" data-color="${index}">
+          <span class="color-dot" style="--swatch:${variant.swatch}"></span>${variant.color}
+        </button>
+      `).join("");
+
+      sizeButtons.innerHTML = sizes.map((size) => `
+        <button class="size-btn${size === selectedSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>
+      `).join("");
+
+      document.querySelectorAll("[data-color]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedVariant = variants[Number(button.dataset.color)];
+          render();
+        });
+      });
+      document.querySelectorAll("[data-size]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedSize = button.dataset.size;
+          render();
+        });
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
