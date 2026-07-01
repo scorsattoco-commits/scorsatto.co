@@ -672,12 +672,20 @@
       if (!material || normalize(base).includes(normalize(material))) return base;
       return `${base} ${material}`;
     }
-    function displayProductName(product) {
+    function productTitleName(product) {
+      let title = productBaseName(product);
       const brand = brandFromProduct(product);
-      const base = productBaseName(product);
-      const color = colorFromName(product.name);
-      const name = normalize(base).startsWith(normalize(brand)) ? base : `${brand} ${base}`;
-      return color && color !== "Cor sob consulta" ? `${name} - ${color}` : name;
+      const removableBrands = [...BRANDS.map((item) => item.label), brand, "Marca sob curadoria"].filter(Boolean);
+      removableBrands
+        .sort((a, b) => b.length - a.length)
+        .forEach((label) => {
+          const normalizedLabel = normalize(label);
+          if (normalize(title).startsWith(normalizedLabel + " ")) title = title.slice(label.length).trim();
+        });
+      return title || productBaseName(product);
+    }
+    function displayProductName(product) {
+      return productTitleName(product);
     }
     function shortProductDescription(product) {
       const material = productMaterial(product);
@@ -1552,7 +1560,7 @@
       if (!["todos", "clientes", "leads", "visitantes"].includes(activeBackofficeSegment)) activeBackofficeSegment = "todos";
       const customerKeys = activeBackofficeSegment === "todos" ? allCustomerKeys : allCustomerKeys.filter((key) => customerStage(key) === activeBackofficeSegment);
       if (!activeBackofficeCustomerId && customerKeys.length) activeBackofficeCustomerId = customerKeys[0];
-      if (activeBackofficeCustomerId && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
+      if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__" && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
       const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
       const orderTotal = ordersRows.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
       const productViews = eventsRows.filter((event) => event.event_type === "product_view").length;
@@ -1596,7 +1604,7 @@
           <div class="metric-card"><strong>${favoritesRows.length}</strong><span>Favoritos salvos</span></div>
           <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
         </div>
-        ${renderCustomerDetail(activeBackofficeCustomerId)}
+        ${activeBackofficeCustomerId === "__closed__" ? "" : renderCustomerDetail(activeBackofficeCustomerId)}
         <section class="backoffice-section"><h4>${activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads sem cadastro completo" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos"}</h4><p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}</section>
         <section class="backoffice-section"><h4>Carrinhos ativos</h4><p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}</section>
         <section class="backoffice-section"><h4>Pedidos via WhatsApp</h4>${renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda.")}</section>
@@ -2231,7 +2239,7 @@
         return;
       }
       if (event.target.closest("[data-close-backoffice-customer]") && isAdminAccount()) {
-        activeBackofficeCustomerId = "";
+        activeBackofficeCustomerId = "__closed__";
         renderAccount();
         return;
       }
@@ -2273,7 +2281,7 @@
         return;
       }
       if (event.target.closest("[data-close-backoffice-customer]") && isAdminAccount()) {
-        activeBackofficeCustomerId = "";
+        activeBackofficeCustomerId = "__closed__";
         renderBackofficeStandalone();
       }
     });
