@@ -207,7 +207,14 @@
     .metric-card strong { font-size: 24px; line-height: 1; }
     .metric-card span { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .backoffice-section { border: 1px solid var(--line); background: var(--white); padding: 14px; display: grid; gap: 10px; overflow: hidden; }
+    details.backoffice-section { display: block; }
+    details.backoffice-section > *:not(summary) { margin-top: 10px; }
+    .backoffice-section summary { display: flex; justify-content: space-between; gap: 12px; align-items: center; cursor: pointer; list-style: none; }
+    .backoffice-section summary::-webkit-details-marker { display: none; }
     .backoffice-section h4 { margin: 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .section-toggle { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+    details[open] .section-toggle::before { content: "Minimizar guia"; }
+    details:not([open]) .section-toggle::before { content: "Maximizar guia"; }
     .backoffice-table-wrap { overflow-x: auto; }
     .backoffice-table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 12px; }
     .backoffice-table th, .backoffice-table td { border-top: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; line-height: 1.45; }
@@ -599,6 +606,7 @@
     let activeAdminSlug = PRODUCTS[0]?.slug || "";
     let activeAdminView = "backoffice";
     let activeBackofficeCustomerId = "";
+    let minimizedBackofficeCustomerId = "";
     let activeBackofficeSegment = "todos";
     let backofficeData = null;
     let backofficeLoadedAt = "";
@@ -652,9 +660,12 @@
       const normalized = normalize(value).trim();
       if (TITLE_FIXES[normalized]) return TITLE_FIXES[normalized];
       return String(value || "")
+        .toLocaleLowerCase("pt-BR")
         .replace(/\s+/g, " ")
         .trim()
-        .replace(/\b\w/g, (char) => char.toUpperCase())
+        .split(" ")
+        .map((word) => word ? word[0].toLocaleUpperCase("pt-BR") + word.slice(1) : "")
+        .join(" ")
         .replace(/\bCalca\b/g, "Calça")
         .replace(/\bSueter\b/g, "Suéter")
         .replace(/\bZiper\b/g, "Zíper")
@@ -957,7 +968,7 @@
       };
       const notes = {
         inicio: "",
-        "disponiveis-agora": `Peças já disponíveis no estoque SCORSATTO. A Nike aparece apenas como exceção única de estoque, fora da curadoria principal.`,
+        "disponiveis-agora": `Peças já disponíveis no estoque SCORSATTO.`,
         todos: `${readyCount()} peças em pronta entrega e ${consultationCount()} sob consulta com fornecedor antes da finalização.`,
       };
       const [eyebrow, title] = copy[active] ?? ["Coleção", category.label + "."];
@@ -1482,6 +1493,10 @@
       return `<div class="backoffice-table-wrap"><table class="backoffice-table"><thead><tr>${headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
     }
 
+    function renderBackofficeSection(title, content, open = true) {
+      return `<details class="backoffice-section"${open ? " open" : ""}><summary><h4>${safeHtml(title)}</h4><span class="section-toggle"></span></summary>${content}</details>`;
+    }
+
     function renderCustomerDetail(key) {
       if (!key) return "";
       const profile = profileByCustomerKey(key);
@@ -1511,7 +1526,7 @@
               <h4>${safeHtml(info.name)}</h4>
               <p class="backoffice-note">${safeHtml(info.detail)}${contact.name || contact.email || contact.phone ? "" : " · cliente ainda não informou dados pessoais"}</p>
             </div>
-            <button class="secondary-btn" type="button" data-close-backoffice-customer>Fechar ficha</button>
+            <button class="secondary-btn" type="button" data-close-backoffice-customer>Minimizar ficha</button>
           </div>
           <div class="backoffice-grid">
             <div class="metric-card"><strong>${carts.reduce((sum, item) => sum + Number(item.quantity || 1), 0)}</strong><span>Itens no carrinho</span></div>
@@ -1531,10 +1546,10 @@
             <div class="customer-field"><span>CEP</span><strong>${safeHtml(addressRecord?.zip || "Não informado")}</strong></div>
             <div class="customer-field"><span>Cadastro / última atividade</span><strong>${safeHtml(formatDateTime(profile?.created_at) || "-")} / ${safeHtml(formatDateTime(customerLastActivity(key)))}</strong></div>
           </div>
-          <section class="backoffice-section"><h4>Carrinho atual</h4>${cartLines}</section>
-          <section class="backoffice-section"><h4>Pedidos</h4>${orderLines}</section>
-          <section class="backoffice-section"><h4>Favoritos</h4><div class="pill-row">${favLines}</div></section>
-          <section class="backoffice-section"><h4>Linha do tempo</h4><div class="customer-timeline">${eventLines}</div></section>
+          ${renderBackofficeSection("Carrinho atual", cartLines, true)}
+          ${renderBackofficeSection("Pedidos", orderLines, false)}
+          ${renderBackofficeSection("Favoritos", `<div class="pill-row">${favLines}</div>`, false)}
+          ${renderBackofficeSection("Linha do tempo", `<div class="customer-timeline">${eventLines}</div>`, false)}
         </section>
       `;
     }
@@ -1588,6 +1603,9 @@
         return `<tr><td>${customerButton(key)}</td><td>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`;
       });
       const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerButton(customerKey(event.user_id))}</td><td>${safeHtml(eventLabel(event.event_type))}</td><td>${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</td></tr>`);
+      const minimizedFicha = activeBackofficeCustomerId === "__closed__" && minimizedBackofficeCustomerId
+        ? renderBackofficeSection("Ficha minimizada", `<p class="backoffice-note">${safeHtml(customerDisplay(minimizedBackofficeCustomerId).name)} está recolhido para reduzir informação na tela.</p><button class="secondary-btn" type="button" data-restore-backoffice-customer>Maximizar ficha</button>`, false)
+        : "";
 
       return `
         <div class="backoffice-actions">
@@ -1604,11 +1622,11 @@
           <div class="metric-card"><strong>${favoritesRows.length}</strong><span>Favoritos salvos</span></div>
           <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
         </div>
-        ${activeBackofficeCustomerId === "__closed__" ? "" : renderCustomerDetail(activeBackofficeCustomerId)}
-        <section class="backoffice-section"><h4>${activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads sem cadastro completo" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos"}</h4><p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}</section>
-        <section class="backoffice-section"><h4>Carrinhos ativos</h4><p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}</section>
-        <section class="backoffice-section"><h4>Pedidos via WhatsApp</h4>${renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda.")}</section>
-        <section class="backoffice-section"><h4>Acessos e eventos recentes</h4>${renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda.")}</section>
+        ${activeBackofficeCustomerId === "__closed__" ? minimizedFicha : renderCustomerDetail(activeBackofficeCustomerId)}
+        ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads sem cadastro completo" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
+        ${renderBackofficeSection("Carrinhos ativos", `<p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}`, false)}
+        ${renderBackofficeSection("Pedidos via WhatsApp", renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda."), false)}
+        ${renderBackofficeSection("Acessos e eventos recentes", renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda."), false)}
       `;
     }
 
@@ -2233,13 +2251,21 @@
       const backofficeCustomer = event.target.closest("[data-backoffice-customer]");
       if (backofficeCustomer && isAdminAccount()) {
         activeBackofficeCustomerId = decodeURIComponent(backofficeCustomer.dataset.backofficeCustomer || "");
+        minimizedBackofficeCustomerId = "";
         activeAdminView = "backoffice";
         activeAccountTab = "admin";
         renderAccount();
         return;
       }
       if (event.target.closest("[data-close-backoffice-customer]") && isAdminAccount()) {
+        if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__") minimizedBackofficeCustomerId = activeBackofficeCustomerId;
         activeBackofficeCustomerId = "__closed__";
+        renderAccount();
+        return;
+      }
+      if (event.target.closest("[data-restore-backoffice-customer]") && isAdminAccount()) {
+        activeBackofficeCustomerId = minimizedBackofficeCustomerId || "";
+        minimizedBackofficeCustomerId = "";
         renderAccount();
         return;
       }
@@ -2266,6 +2292,7 @@
       if (segment && isAdminAccount()) {
         activeBackofficeSegment = segment.dataset.backofficeSegment;
         activeBackofficeCustomerId = "";
+        minimizedBackofficeCustomerId = "";
         renderBackofficeStandalone();
         return;
       }
@@ -2277,11 +2304,19 @@
       const backofficeCustomer = event.target.closest("[data-backoffice-customer]");
       if (backofficeCustomer && isAdminAccount()) {
         activeBackofficeCustomerId = decodeURIComponent(backofficeCustomer.dataset.backofficeCustomer || "");
+        minimizedBackofficeCustomerId = "";
         renderBackofficeStandalone();
         return;
       }
       if (event.target.closest("[data-close-backoffice-customer]") && isAdminAccount()) {
+        if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__") minimizedBackofficeCustomerId = activeBackofficeCustomerId;
         activeBackofficeCustomerId = "__closed__";
+        renderBackofficeStandalone();
+        return;
+      }
+      if (event.target.closest("[data-restore-backoffice-customer]") && isAdminAccount()) {
+        activeBackofficeCustomerId = minimizedBackofficeCustomerId || "";
+        minimizedBackofficeCustomerId = "";
         renderBackofficeStandalone();
       }
     });
