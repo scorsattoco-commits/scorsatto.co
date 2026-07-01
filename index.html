@@ -214,6 +214,20 @@
     .backoffice-table th { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
     .backoffice-note { color: var(--muted); font-size: 12px; line-height: 1.55; }
     .backoffice-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+    .customer-button { border: 0; background: transparent; color: inherit; padding: 0; text-align: left; cursor: pointer; display: grid; gap: 3px; }
+    .customer-button strong { text-decoration: underline; text-underline-offset: 4px; }
+    .customer-button small { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .customer-detail { border: 1px solid var(--black); background: var(--paper); padding: 14px; display: grid; gap: 14px; }
+    .customer-detail-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .customer-detail-head h4 { margin: 0; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+    .customer-detail-head .secondary-btn { width: auto; min-height: 34px; padding: 0 10px; white-space: nowrap; }
+    .customer-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .customer-field { border-top: 1px solid var(--line); padding-top: 9px; display: grid; gap: 3px; font-size: 12px; line-height: 1.45; }
+    .customer-field span { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .customer-timeline { display: grid; gap: 8px; }
+    .customer-line { border-top: 1px solid var(--line); padding-top: 9px; font-size: 12px; line-height: 1.45; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mini-pill { border: 1px solid var(--line); background: var(--white); padding: 4px 7px; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; }
     .favorite-preview, .favorite-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .favorite-card { position: relative; border: 1px solid var(--line); background: var(--white); padding: 0; display: grid; color: inherit; text-align: left; overflow: hidden; }
     .favorite-open { border: 0; background: transparent; padding: 0; color: inherit; text-align: left; cursor: pointer; display: grid; }
@@ -283,6 +297,9 @@
       .section-head { align-items: start; }
       .shop-note { margin-top: -6px; }
       .profile-actions, .backoffice-grid { grid-template-columns: 1fr; }
+      .customer-detail-head { display: grid; }
+      .customer-detail-head .secondary-btn { width: 100%; }
+      .customer-detail-grid { grid-template-columns: 1fr; }
     }
     @media (min-width: 760px) {
       .account-shell { grid-template-columns: 190px minmax(0, 1fr); align-items: start; }
@@ -554,6 +571,7 @@
     let productOverrides = JSON.parse(localStorage.getItem("scorsattoProductOverridesV1") || "{}");
     let activeAdminSlug = PRODUCTS[0]?.slug || "";
     let activeAdminView = "backoffice";
+    let activeBackofficeCustomerId = "";
     let backofficeData = null;
     let backofficeLoadedAt = "";
     let backofficeError = "";
@@ -1254,16 +1272,95 @@
       return backofficeData;
     }
 
+    function safeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function customerKey(value) {
+      return value || "__visitor__";
+    }
+
+    function shortCustomerId(value) {
+      if (!value || value === "__visitor__") return "sem conta";
+      return String(value).length > 12 ? String(value).slice(0, 8) + "..." + String(value).slice(-4) : String(value);
+    }
+
+    function profileByCustomerKey(key) {
+      return (backofficeData?.profiles || []).find((item) => item.id === key) || null;
+    }
+
+    function orderByCustomerKey(key) {
+      if (!String(key).startsWith("order:")) return null;
+      return (backofficeData?.orders || []).find((item) => "order:" + item.id === key) || null;
+    }
+
+    function customerDisplay(key) {
+      const profile = profileByCustomerKey(key);
+      const order = orderByCustomerKey(key);
+      const name = profile?.name || profile?.email || order?.customer_name || (key === "__visitor__" ? "Visitante sem cadastro" : "Lead identificado");
+      const detail = profile?.email || profile?.phone || order?.customer_phone || shortCustomerId(key);
+      return { name, detail };
+    }
+
     function customerName(userId) {
-      const profile = backofficeData?.profiles?.find((item) => item.id === userId);
-      return profile?.name || profile?.email || userId || "Visitante";
+      return customerDisplay(customerKey(userId)).name;
+    }
+
+    function customerButton(key) {
+      const info = customerDisplay(key);
+      return `<button class="customer-button" type="button" data-backoffice-customer="${encodeURIComponent(key)}"><strong>${safeHtml(info.name)}</strong><small>${safeHtml(info.detail)}</small></button>`;
+    }
+
+    function eventLabel(type) {
+      const labels = {
+        page_view: "Acessou o site",
+        product_view: "Viu produto",
+        cart_add: "Adicionou ao carrinho",
+        cart_remove: "Removeu do carrinho",
+        favorite_add: "Favoritou peça",
+        favorite_remove: "Removeu favorito",
+        whatsapp_checkout: "Foi para WhatsApp",
+      };
+      return labels[type] || type || "-";
+    }
+
+    function customerRecords() {
+      const keys = new Set();
+      (backofficeData?.profiles || []).forEach((item) => keys.add(item.id));
+      (backofficeData?.carts || []).forEach((item) => keys.add(customerKey(item.user_id)));
+      (backofficeData?.favorites || []).forEach((item) => keys.add(customerKey(item.user_id)));
+      (backofficeData?.events || []).forEach((item) => keys.add(customerKey(item.user_id)));
+      (backofficeData?.orders || []).forEach((item) => keys.add(item.user_id ? item.user_id : "order:" + item.id));
+      return [...keys].filter(Boolean).sort((a, b) => {
+        const lastA = customerLastActivity(a);
+        const lastB = customerLastActivity(b);
+        return new Date(lastB || 0) - new Date(lastA || 0);
+      });
+    }
+
+    function customerMatch(item, key) {
+      if (key === "__visitor__") return !item.user_id;
+      if (String(key).startsWith("order:")) return "order:" + item.id === key;
+      return item.user_id === key;
+    }
+
+    function customerLastActivity(key) {
+      const dates = [
+        ...((backofficeData?.carts || []).filter((item) => customerMatch(item, key)).map((item) => item.updated_at || item.created_at)),
+        ...((backofficeData?.favorites || []).filter((item) => customerMatch(item, key)).map((item) => item.created_at)),
+        ...((backofficeData?.orders || []).filter((item) => customerMatch(item, key)).map((item) => item.created_at)),
+        ...((backofficeData?.events || []).filter((item) => customerMatch(item, key)).map((item) => item.created_at)),
+        profileByCustomerKey(key)?.updated_at,
+        profileByCustomerKey(key)?.created_at,
+      ].filter(Boolean);
+      return dates.sort((a, b) => new Date(b) - new Date(a))[0] || "";
     }
 
     function groupedCartRows() {
       const carts = backofficeData?.carts || [];
       return Object.values(carts.reduce((acc, item) => {
-        const key = item.user_id || "visitante";
-        if (!acc[key]) acc[key] = { user_id: item.user_id, items: [], updated_at: item.updated_at };
+        const key = customerKey(item.user_id);
+        if (!acc[key]) acc[key] = { key, user_id: item.user_id, items: [], updated_at: item.updated_at };
         acc[key].items.push(item);
         if (new Date(item.updated_at) > new Date(acc[key].updated_at)) acc[key].updated_at = item.updated_at;
         return acc;
@@ -1273,6 +1370,58 @@
     function renderBackofficeTable(headers, rows, emptyText) {
       if (!rows.length) return `<p class="backoffice-note">${emptyText}</p>`;
       return `<div class="backoffice-table-wrap"><table class="backoffice-table"><thead><tr>${headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
+    }
+
+    function renderCustomerDetail(key) {
+      if (!key) return "";
+      const profile = profileByCustomerKey(key);
+      const orderSeed = orderByCustomerKey(key);
+      const info = customerDisplay(key);
+      const carts = (backofficeData?.carts || []).filter((item) => customerMatch(item, key));
+      const favs = (backofficeData?.favorites || []).filter((item) => customerMatch(item, key));
+      const orders = (backofficeData?.orders || []).filter((item) => customerMatch(item, key));
+      const events = (backofficeData?.events || []).filter((item) => customerMatch(item, key)).slice(0, 20);
+      const cartTotal = carts.reduce((sum, item) => {
+        const product = PRODUCTS.find((entry) => entry.slug === item.product_slug);
+        return sum + Number(product?.price || 0) * Number(item.quantity || 1);
+      }, 0);
+      const orderTotal = orders.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
+      const address = [profile?.address, profile?.number, profile?.complement, profile?.neighborhood].filter(Boolean).join(", ");
+      const city = [profile?.city || orderSeed?.customer_city, profile?.state].filter(Boolean).join(" - ");
+      const cartLines = carts.map((item) => `<div class="customer-line"><strong>${productLabel(item.product_slug)}</strong><br><span class="muted">Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span></div>`).join("") || "<p class='backoffice-note'>Sem carrinho ativo.</p>";
+      const favLines = favs.map((item) => `<span class="mini-pill">${safeHtml(productLabel(item.product_slug))}</span>`).join("") || "<span class='backoffice-note'>Nenhum favorito salvo.</span>";
+      const orderLines = orders.map((order) => `<div class="customer-line"><strong>${formatDateTime(order.created_at)} - ${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</strong><br>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</div>`).join("") || "<p class='backoffice-note'>Nenhum pedido registrado.</p>";
+      const eventLines = events.map((event) => `<div class="customer-line"><strong>${formatDateTime(event.created_at)} - ${safeHtml(eventLabel(event.event_type))}</strong><br><span class="muted">${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</span></div>`).join("") || "<p class='backoffice-note'>Nenhum evento registrado.</p>";
+
+      return `
+        <section class="customer-detail" id="customerDetail">
+          <div class="customer-detail-head">
+            <div>
+              <h4>${safeHtml(info.name)}</h4>
+              <p class="backoffice-note">${safeHtml(info.detail)} · ID ${safeHtml(shortCustomerId(key))}</p>
+            </div>
+            <button class="secondary-btn" type="button" data-close-backoffice-customer>Fechar ficha</button>
+          </div>
+          <div class="backoffice-grid">
+            <div class="metric-card"><strong>${carts.reduce((sum, item) => sum + Number(item.quantity || 1), 0)}</strong><span>Itens no carrinho</span></div>
+            <div class="metric-card"><strong>${currency.format(cartTotal)}</strong><span>Valor do carrinho</span></div>
+            <div class="metric-card"><strong>${orders.length}</strong><span>Pedidos</span></div>
+            <div class="metric-card"><strong>${currency.format(orderTotal)}</strong><span>Total em pedidos</span></div>
+          </div>
+          <div class="customer-detail-grid">
+            <div class="customer-field"><span>Nome</span><strong>${safeHtml(profile?.name || orderSeed?.customer_name || "Não informado")}</strong></div>
+            <div class="customer-field"><span>E-mail</span><strong>${safeHtml(profile?.email || "Não informado")}</strong></div>
+            <div class="customer-field"><span>WhatsApp</span><strong>${safeHtml(profile?.phone || orderSeed?.customer_phone || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Cidade</span><strong>${safeHtml(city || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Endereço</span><strong>${safeHtml(address || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Cadastro / última atividade</span><strong>${safeHtml(formatDateTime(profile?.created_at) || "-")} / ${safeHtml(formatDateTime(customerLastActivity(key)))}</strong></div>
+          </div>
+          <section class="backoffice-section"><h4>Carrinho atual</h4>${cartLines}</section>
+          <section class="backoffice-section"><h4>Pedidos</h4>${orderLines}</section>
+          <section class="backoffice-section"><h4>Favoritos</h4><div class="pill-row">${favLines}</div></section>
+          <section class="backoffice-section"><h4>Linha do tempo</h4><div class="customer-timeline">${eventLines}</div></section>
+        </section>
+      `;
     }
 
     function renderBackofficePanel() {
@@ -1286,20 +1435,31 @@
       const ordersRows = backofficeData.orders || [];
       const eventsRows = backofficeData.events || [];
       const activeCarts = groupedCartRows();
+      const customerKeys = customerRecords();
+      if (!activeBackofficeCustomerId && customerKeys.length) activeBackofficeCustomerId = customerKeys[0];
+      if (activeBackofficeCustomerId && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
       const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
       const orderTotal = ordersRows.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
       const productViews = eventsRows.filter((event) => event.event_type === "product_view").length;
+      const identifiedVisitors = customerKeys.filter((key) => !profileByCustomerKey(key)).length;
 
-      const profileRows = profiles.map((profile) => {
-        const cartCount = carts.filter((item) => item.user_id === profile.id).reduce((sum, item) => sum + Number(item.quantity || 1), 0);
-        const favCount = favoritesRows.filter((item) => item.user_id === profile.id).length;
-        const orderCount = ordersRows.filter((item) => item.user_id === profile.id).length;
-        return `<tr><td><strong>${profile.name || "-"}</strong><br>${profile.email || "-"}</td><td>${profile.phone || "-"}</td><td>${profile.city || "-"} ${profile.state || ""}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${formatDateTime(profile.created_at)}</td></tr>`;
+      const customerRows = customerKeys.map((key) => {
+        const profile = profileByCustomerKey(key);
+        const seedOrder = orderByCustomerKey(key);
+        const cartCount = carts.filter((item) => customerMatch(item, key)).reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+        const favCount = favoritesRows.filter((item) => customerMatch(item, key)).length;
+        const orderCount = ordersRows.filter((item) => customerMatch(item, key)).length;
+        const eventCount = eventsRows.filter((item) => customerMatch(item, key)).length;
+        const city = [profile?.city || seedOrder?.customer_city || "", profile?.state || ""].filter(Boolean).join(" - ") || "-";
+        return `<tr><td>${customerButton(key)}</td><td>${safeHtml(profile?.phone || seedOrder?.customer_phone || "-")}</td><td>${safeHtml(city)}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${eventCount}</td><td>${formatDateTime(customerLastActivity(key))}</td></tr>`;
       });
 
-      const cartRows = activeCarts.map((row) => `<tr><td>${customerName(row.user_id)}</td><td>${row.items.map((item) => `${productLabel(item.product_slug)}<br><span class="muted">Tam. ${item.size} - Qtd. ${item.quantity}</span>`).join("<br><br>")}</td><td>${formatDateTime(row.updated_at)}</td></tr>`);
-      const orderRows = ordersRows.map((order) => `<tr><td>${order.customer_name || customerName(order.user_id)}<br><span class="muted">${order.customer_phone || ""} ${order.customer_city || ""}</span></td><td>${(order.items || []).map((item) => `${item.name || productLabel(item.slug)}<br><span class="muted">Ref. ${item.reference || "-"} - Tam. ${item.size || "-"} - Qtd. ${item.quantity || 1}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`);
-      const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerName(event.user_id)}</td><td>${event.event_type}</td><td>${event.product_slug ? productLabel(event.product_slug) : "-"}</td></tr>`);
+      const cartRows = activeCarts.map((row) => `<tr><td>${customerButton(row.key)}</td><td>${row.items.map((item) => `${productLabel(item.product_slug)}<br><span class="muted">Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${formatDateTime(row.updated_at)}</td></tr>`);
+      const orderRows = ordersRows.map((order) => {
+        const key = order.user_id ? order.user_id : "order:" + order.id;
+        return `<tr><td>${customerButton(key)}</td><td>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`;
+      });
+      const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerButton(customerKey(event.user_id))}</td><td>${safeHtml(eventLabel(event.event_type))}</td><td>${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</td></tr>`);
 
       return `
         <div class="backoffice-actions">
@@ -1308,14 +1468,16 @@
         </div>
         <div class="backoffice-grid">
           <div class="metric-card"><strong>${profiles.length}</strong><span>Clientes cadastrados</span></div>
+          <div class="metric-card"><strong>${identifiedVisitors}</strong><span>Leads identificados</span></div>
           <div class="metric-card"><strong>${activeCarts.length}</strong><span>Carrinhos ativos</span></div>
           <div class="metric-card"><strong>${ordersRows.length}</strong><span>Pedidos enviados</span></div>
           <div class="metric-card"><strong>${currency.format(orderTotal)}</strong><span>Valor em pedidos</span></div>
           <div class="metric-card"><strong>${favoritesRows.length}</strong><span>Favoritos salvos</span></div>
           <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
         </div>
-        <section class="backoffice-section"><h4>Clientes</h4>${renderBackofficeTable(["Cliente", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Cadastro"], profileRows, "Nenhum cliente cadastrado ainda.")}</section>
-        <section class="backoffice-section"><h4>Carrinhos ativos</h4><p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) ha mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Ultima atualizacao"], cartRows, "Nenhum carrinho ativo no banco.")}</section>
+        ${renderCustomerDetail(activeBackofficeCustomerId)}
+        <section class="backoffice-section"><h4>Clientes e leads</h4><p class="backoffice-note">Clique em qualquer cliente para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum cliente ou lead identificado ainda.")}</section>
+        <section class="backoffice-section"><h4>Carrinhos ativos</h4><p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}</section>
         <section class="backoffice-section"><h4>Pedidos via WhatsApp</h4>${renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda.")}</section>
         <section class="backoffice-section"><h4>Acessos e eventos recentes</h4>${renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda.")}</section>
       `;
@@ -1899,6 +2061,19 @@
         activeAdminView = "backoffice";
         activeAccountTab = "admin";
         loadBackofficeData(true).then(renderAccount);
+        renderAccount();
+        return;
+      }
+      const backofficeCustomer = event.target.closest("[data-backoffice-customer]");
+      if (backofficeCustomer && isAdminAccount()) {
+        activeBackofficeCustomerId = decodeURIComponent(backofficeCustomer.dataset.backofficeCustomer || "");
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        renderAccount();
+        return;
+      }
+      if (event.target.closest("[data-close-backoffice-customer]") && isAdminAccount()) {
+        activeBackofficeCustomerId = "";
         renderAccount();
         return;
       }
