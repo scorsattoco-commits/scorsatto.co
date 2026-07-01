@@ -1249,20 +1249,22 @@
       if (!db || !isAdminAccount()) return null;
       if (backofficeData && !force) return backofficeData;
       backofficeError = "";
-      const [profilesResult, cartsResult, favoritesResult, ordersResult, eventsResult] = await Promise.all([
+      const [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult] = await Promise.all([
         db.from("profiles").select("*").order("created_at", { ascending: false }).limit(300),
+        db.from("addresses").select("*").order("updated_at", { ascending: false }).limit(300),
         db.from("cart_items").select("*").order("updated_at", { ascending: false }).limit(500),
         db.from("favorites").select("*").order("created_at", { ascending: false }).limit(500),
         db.from("orders").select("*").order("created_at", { ascending: false }).limit(300),
         db.from("customer_events").select("*").order("created_at", { ascending: false }).limit(300),
       ]);
-      const firstError = [profilesResult, cartsResult, favoritesResult, ordersResult, eventsResult].find((result) => result.error)?.error;
+      const firstError = [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult].find((result) => result.error)?.error;
       if (firstError) {
         backofficeError = firstError.message || "Não foi possível carregar o backoffice.";
         return null;
       }
       backofficeData = {
         profiles: profilesResult.data || [],
+        addresses: addressesResult.data || [],
         carts: cartsResult.data || [],
         favorites: favoritesResult.data || [],
         orders: ordersResult.data || [],
@@ -1289,6 +1291,10 @@
       return (backofficeData?.profiles || []).find((item) => item.id === key) || null;
     }
 
+    function addressByCustomerKey(key) {
+      return (backofficeData?.addresses || []).find((item) => item.user_id === key) || null;
+    }
+
     function orderByCustomerKey(key) {
       if (!String(key).startsWith("order:")) return null;
       return (backofficeData?.orders || []).find((item) => "order:" + item.id === key) || null;
@@ -1298,7 +1304,7 @@
       const profile = profileByCustomerKey(key);
       const order = orderByCustomerKey(key);
       const name = profile?.name || profile?.email || order?.customer_name || (key === "__visitor__" ? "Visitante sem cadastro" : "Lead identificado");
-      const detail = profile?.email || profile?.phone || order?.customer_phone || shortCustomerId(key);
+      const detail = profile?.email || profile?.phone || order?.customer_phone || (key === "__visitor__" ? "Sem login" : "Sem cadastro completo");
       return { name, detail };
     }
 
@@ -1327,6 +1333,7 @@
     function customerRecords() {
       const keys = new Set();
       (backofficeData?.profiles || []).forEach((item) => keys.add(item.id));
+      (backofficeData?.addresses || []).forEach((item) => keys.add(item.user_id));
       (backofficeData?.carts || []).forEach((item) => keys.add(customerKey(item.user_id)));
       (backofficeData?.favorites || []).forEach((item) => keys.add(customerKey(item.user_id)));
       (backofficeData?.events || []).forEach((item) => keys.add(customerKey(item.user_id)));
@@ -1352,6 +1359,8 @@
         ...((backofficeData?.events || []).filter((item) => customerMatch(item, key)).map((item) => item.created_at)),
         profileByCustomerKey(key)?.updated_at,
         profileByCustomerKey(key)?.created_at,
+        addressByCustomerKey(key)?.updated_at,
+        addressByCustomerKey(key)?.created_at,
       ].filter(Boolean);
       return dates.sort((a, b) => new Date(b) - new Date(a))[0] || "";
     }
@@ -1375,6 +1384,7 @@
     function renderCustomerDetail(key) {
       if (!key) return "";
       const profile = profileByCustomerKey(key);
+      const addressRecord = addressByCustomerKey(key);
       const orderSeed = orderByCustomerKey(key);
       const info = customerDisplay(key);
       const carts = (backofficeData?.carts || []).filter((item) => customerMatch(item, key));
@@ -1386,8 +1396,7 @@
         return sum + Number(product?.price || 0) * Number(item.quantity || 1);
       }, 0);
       const orderTotal = orders.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
-      const address = [profile?.address, profile?.number, profile?.complement, profile?.neighborhood].filter(Boolean).join(", ");
-      const city = [profile?.city || orderSeed?.customer_city, profile?.state].filter(Boolean).join(" - ");
+      const city = [addressRecord?.city || profile?.city || orderSeed?.customer_city, addressRecord?.state || profile?.state].filter(Boolean).join(" - ");
       const cartLines = carts.map((item) => `<div class="customer-line"><strong>${productLabel(item.product_slug)}</strong><br><span class="muted">Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span></div>`).join("") || "<p class='backoffice-note'>Sem carrinho ativo.</p>";
       const favLines = favs.map((item) => `<span class="mini-pill">${safeHtml(productLabel(item.product_slug))}</span>`).join("") || "<span class='backoffice-note'>Nenhum favorito salvo.</span>";
       const orderLines = orders.map((order) => `<div class="customer-line"><strong>${formatDateTime(order.created_at)} - ${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</strong><br>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</div>`).join("") || "<p class='backoffice-note'>Nenhum pedido registrado.</p>";
@@ -1398,7 +1407,7 @@
           <div class="customer-detail-head">
             <div>
               <h4>${safeHtml(info.name)}</h4>
-              <p class="backoffice-note">${safeHtml(info.detail)} · ID ${safeHtml(shortCustomerId(key))}</p>
+              <p class="backoffice-note">${safeHtml(info.detail)}${profile || orderSeed ? "" : " · cliente ainda não informou dados pessoais"}</p>
             </div>
             <button class="secondary-btn" type="button" data-close-backoffice-customer>Fechar ficha</button>
           </div>
@@ -1412,8 +1421,12 @@
             <div class="customer-field"><span>Nome</span><strong>${safeHtml(profile?.name || orderSeed?.customer_name || "Não informado")}</strong></div>
             <div class="customer-field"><span>E-mail</span><strong>${safeHtml(profile?.email || "Não informado")}</strong></div>
             <div class="customer-field"><span>WhatsApp</span><strong>${safeHtml(profile?.phone || orderSeed?.customer_phone || "Não informado")}</strong></div>
-            <div class="customer-field"><span>Cidade</span><strong>${safeHtml(city || "Não informado")}</strong></div>
-            <div class="customer-field"><span>Endereço</span><strong>${safeHtml(address || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Endereço</span><strong>${safeHtml(addressRecord?.address || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Número</span><strong>${safeHtml(addressRecord?.number || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Complemento</span><strong>${safeHtml(addressRecord?.complement || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Bairro</span><strong>${safeHtml(addressRecord?.neighborhood || "Não informado")}</strong></div>
+            <div class="customer-field"><span>Cidade / UF</span><strong>${safeHtml(city || "Não informado")}</strong></div>
+            <div class="customer-field"><span>CEP</span><strong>${safeHtml(addressRecord?.zip || "Não informado")}</strong></div>
             <div class="customer-field"><span>Cadastro / última atividade</span><strong>${safeHtml(formatDateTime(profile?.created_at) || "-")} / ${safeHtml(formatDateTime(customerLastActivity(key)))}</strong></div>
           </div>
           <section class="backoffice-section"><h4>Carrinho atual</h4>${cartLines}</section>
@@ -1445,12 +1458,13 @@
 
       const customerRows = customerKeys.map((key) => {
         const profile = profileByCustomerKey(key);
+        const addressRecord = addressByCustomerKey(key);
         const seedOrder = orderByCustomerKey(key);
         const cartCount = carts.filter((item) => customerMatch(item, key)).reduce((sum, item) => sum + Number(item.quantity || 1), 0);
         const favCount = favoritesRows.filter((item) => customerMatch(item, key)).length;
         const orderCount = ordersRows.filter((item) => customerMatch(item, key)).length;
         const eventCount = eventsRows.filter((item) => customerMatch(item, key)).length;
-        const city = [profile?.city || seedOrder?.customer_city || "", profile?.state || ""].filter(Boolean).join(" - ") || "-";
+        const city = [addressRecord?.city || profile?.city || seedOrder?.customer_city || "", addressRecord?.state || profile?.state || ""].filter(Boolean).join(" - ") || "-";
         return `<tr><td>${customerButton(key)}</td><td>${safeHtml(profile?.phone || seedOrder?.customer_phone || "-")}</td><td>${safeHtml(city)}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${eventCount}</td><td>${formatDateTime(customerLastActivity(key))}</td></tr>`;
       });
 
