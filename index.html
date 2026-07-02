@@ -1932,6 +1932,15 @@
     }
 
     function handleHashChange() {
+      const adminRoutes = {
+        "#admin-grupos": "groups",
+        "#admin-catalogo": "catalog",
+        "#admin-backoffice": "backoffice",
+      };
+      if (adminRoutes[location.hash]) {
+        openAdminPage(adminRoutes[location.hash], false);
+        return;
+      }
       if (location.hash === "#backoffice") {
         openBackofficePage(true);
         return;
@@ -2819,10 +2828,20 @@
       renderBackofficeStandalone();
     }
 
+    async function openAdminPage(view = "backoffice", updateHash = true) {
+      activeAdminView = view || "backoffice";
+      activeAccountTab = "admin";
+      if (updateHash) {
+        const route = activeAdminView === "groups" ? "#admin-grupos" : activeAdminView === "catalog" ? "#admin-catalogo" : "#admin-backoffice";
+        history.replaceState(null, "", route);
+      }
+      await openBackofficePage(true);
+    }
+
     function closeBackofficePage(updateHash = true) {
       backofficePage?.classList.remove("open");
       document.body.style.overflow = "";
-      if (updateHash && location.hash === "#backoffice") history.replaceState(null, "", "#inicio");
+      if (updateHash && ["#backoffice", "#admin-grupos", "#admin-catalogo", "#admin-backoffice"].includes(location.hash)) history.replaceState(null, "", "#inicio");
     }
 
     function renderAccount() {
@@ -3254,18 +3273,24 @@
     accountMini.addEventListener("click", () => openAccount(account ? "resumo" : "entrar"));
     accountClose.addEventListener("click", closeAccount);
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
-    accountDrawer.addEventListener("click", (event) => {
-      const openAdminPage = event.target.closest("[data-open-admin-page]");
-      if (openAdminPage && isAdminAccount()) {
-        activeAdminView = openAdminPage.dataset.openAdminPage || "backoffice";
-        history.replaceState(null, "", "#backoffice");
-        openBackofficePage(true);
+    document.addEventListener("click", (event) => {
+      const openAdmin = event.target.closest("[data-open-admin-page]");
+      if (openAdmin && isAdminAccount()) {
+        event.preventDefault();
+        event.stopPropagation();
+        openAdminPage(openAdmin.dataset.openAdminPage || "backoffice");
         return;
       }
+      const adminView = event.target.closest(".backoffice-page [data-admin-view]");
+      if (adminView && isAdminAccount()) {
+        event.preventDefault();
+        event.stopPropagation();
+        openAdminPage(adminView.dataset.adminView || "backoffice");
+      }
+    }, true);
+    accountDrawer.addEventListener("click", (event) => {
       if (event.target.closest("[data-open-backoffice-page]") && isAdminAccount()) {
-        activeAdminView = "backoffice";
-        history.replaceState(null, "", "#backoffice");
-        openBackofficePage(true);
+        openAdminPage("backoffice");
         return;
       }
       const tabButton = event.target.closest("[data-account-tab]");
@@ -3278,10 +3303,7 @@
       }
       const adminView = event.target.closest("[data-admin-view]");
       if (adminView && isAdminAccount()) {
-        activeAdminView = adminView.dataset.adminView;
-        activeAccountTab = "admin";
-        if (activeAdminView === "backoffice") loadBackofficeData(true).then(renderAccount);
-        renderAccount();
+        openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
       if (event.target.closest("[data-new-group-draft]") && isAdminAccount()) {
@@ -3378,9 +3400,7 @@
       }
       const adminView = event.target.closest("[data-admin-view]");
       if (adminView && isAdminAccount()) {
-        activeAdminView = adminView.dataset.adminView;
-        if (activeAdminView === "backoffice") loadBackofficeData(true).then(renderBackofficeStandalone);
-        renderBackofficeStandalone();
+        openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
       const removeAdminImage = event.target.closest("[data-remove-admin-image]");
