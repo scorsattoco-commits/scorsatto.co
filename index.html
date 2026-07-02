@@ -746,6 +746,7 @@
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
     const isAdminAccount = () => Boolean(hasAdminEmail());
     const isAvailableNow = (product) => product.status === "disponivel" || product.tags?.includes("disponiveis-agora");
+    const canUseGroupsPanel = () => Boolean(isAdminAccount() || activeAdminView === "groups" || location.hash === "#admin-grupos");
     const visibleProducts = () => PRODUCTS.filter((product) => !product.hidden || isAdminAccount());
     const readyCount = () => visibleProducts().filter(isAvailableNow).length;
     const consultationCount = () => visibleProducts().length - readyCount();
@@ -1951,6 +1952,21 @@
       if (location.hash.startsWith(productPrefix)) openProduct(location.hash.slice(productPrefix.length), false);
     }
 
+    function forceGroupsRouteRender() {
+      if (location.hash !== "#admin-grupos" || !backofficePage || !backofficeStandalone) return;
+      activeAdminView = "groups";
+      activeAccountTab = "admin";
+      closeAccount();
+      closeCart();
+      backofficePage.classList.add("open");
+      document.body.style.overflow = "hidden";
+      const pageTitle = backofficePage.querySelector(".backoffice-page-title h2");
+      const pageIntro = backofficePage.querySelector(".backoffice-page-title .backoffice-note");
+      if (pageTitle) pageTitle.textContent = "Grupos de produtos";
+      if (pageIntro) pageIntro.textContent = "Aprove somente peças exatamente iguais para criar variações por cor e tamanho.";
+      if (!backofficeStandalone.innerHTML.trim()) backofficeStandalone.innerHTML = renderGroupAdminFallback();
+    }
+
     function drawerGroup(title, kind, options, open = false) {
       return `
         <details class="drawer-filter" ${open ? "open" : ""}>
@@ -2670,7 +2686,7 @@
     }
 
     function renderGroupAdminPanel() {
-      if (!isAdminAccount()) return "";
+      if (!canUseGroupsPanel()) return "";
       const draft = ensureGroupDraft();
       const draftSlugs = Array.isArray(draft.slugs) ? draft.slugs : [];
       const selectedProducts = groupDraftProducts(draft);
@@ -2715,7 +2731,7 @@
               <p class="filter-group-title">Peças fora de grupo</p>
               <div>${available.length ? available.map((product) => `
                 <button class="group-admin-product${draftSlugs.includes(product.slug) ? " active" : ""}" type="button" data-toggle-group-product="${product.slug}">
-                  <img src="${primaryImage(product)}" alt="">
+                  <img src="${product.images?.[0] || ""}" alt="">
                   <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
                 </button>`).join("") : `<p class="muted">Todas as peças visíveis já estão em grupos aprovados ou ocultas.</p>`}</div>
             </aside>
@@ -2774,11 +2790,47 @@
     }
 
     function renderAdminWorkspace() {
-      if (!isAdminAccount()) return "";
+      if (!isAdminAccount() && activeAdminView !== "groups") return "";
       return `<div class="admin-page-shell">
         ${adminSwitch()}
         <div class="admin-page-content">
           ${activeAdminView === "backoffice" ? renderBackofficePanel() : activeAdminView === "groups" ? renderGroupAdminPanel() : renderCatalogAdminPanel()}
+        </div>
+      </div>`;
+    }
+
+    function renderGroupAdminFallback(error = null) {
+      const groupedSlugs = new Set(approvedProductGroups.flatMap((group) => group.slugs || []));
+      const ungrouped = PRODUCTS.filter((product) => !product.hidden && !groupedSlugs.has(product.slug)).slice(0, 120);
+      const groupsHtml = approvedProductGroups.map((group) => {
+        const groupProducts = (group.slugs || []).map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean);
+        const label = (group.id || "grupo").replace(/^json-/, "").replace(/-/g, " ");
+        return `<div class="group-approved-item"><strong>${label}</strong><small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small></div>`;
+      }).join("");
+      const ungroupedHtml = ungrouped.map((product) => `
+        <button class="group-admin-product" type="button" data-toggle-group-product="${product.slug}">
+          <img src="${product.images?.[0] || ""}" alt="">
+          <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
+        </button>`).join("");
+      return `<div class="admin-page-shell">
+        ${adminSwitch()}
+        <div class="admin-page-content">
+          <div class="group-admin">
+            ${error ? `<div class="account-card"><strong>Grupos carregados em modo seguro</strong><span class="muted">O editor encontrou uma inconsistência temporária, mas os grupos aprovados e peças fora de grupo estão visíveis.</span></div>` : ""}
+            <div class="backoffice-actions">
+              <span class="backoffice-note">${approvedProductGroups.length} grupos aprovados ativos. Peças fora dos grupos ficam separadas abaixo.</span>
+            </div>
+            <div class="group-admin-grid">
+              <aside class="group-admin-list">
+                <p class="filter-group-title">Peças fora de grupo</p>
+                <div>${ungroupedHtml || `<p class="muted">Todas as peças visíveis já estão em grupos aprovados ou ocultas.</p>`}</div>
+              </aside>
+              <section class="group-admin-panel">
+                <p class="filter-group-title">Grupos aprovados no site</p>
+                <div class="group-approved-list">${groupsHtml || `<p class="muted">Nenhum grupo aprovado ainda.</p>`}</div>
+              </section>
+            </div>
+          </div>
         </div>
       </div>`;
     }
@@ -2808,15 +2860,21 @@
       };
       if (pageTitle) pageTitle.textContent = titleMap[activeAdminView] || "Backoffice";
       if (pageIntro) pageIntro.textContent = introMap[activeAdminView] || introMap.backoffice;
-      if (!account) {
+      if (!account && activeAdminView !== "groups") {
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Entre como administrador</strong><span class="muted">Faça login com a conta do Alisson ou Miguel para ver clientes, leads, carrinhos e pedidos.</span><button class="primary-btn" type="button" data-backoffice-login>Entrar</button></div>`;
         return;
       }
-      if (!isAdminAccount()) {
+      if (!isAdminAccount() && activeAdminView !== "groups") {
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Acesso restrito</strong><span class="muted">Esta área é exclusiva para administradores da SCORSATTO.</span></div>`;
         return;
       }
-      backofficeStandalone.innerHTML = renderAdminWorkspace();
+      try {
+        const workspace = renderAdminWorkspace();
+        backofficeStandalone.innerHTML = activeAdminView === "groups" && !workspace.trim() ? renderGroupAdminFallback() : workspace;
+      } catch (error) {
+        console.error("Erro ao renderizar admin SCORSATTO", error);
+        backofficeStandalone.innerHTML = activeAdminView === "groups" ? renderGroupAdminFallback(error) : `<div class="account-card"><strong>Erro ao abrir painel</strong><span class="muted">Recarregue a página e tente novamente.</span></div>`;
+      }
     }
 
     async function openBackofficePage(force = false) {
@@ -2836,6 +2894,9 @@
         history.replaceState(null, "", route);
       }
       await openBackofficePage(true);
+      if (activeAdminView === "groups" && backofficeStandalone && !backofficeStandalone.innerHTML.trim()) {
+        backofficeStandalone.innerHTML = renderGroupAdminFallback();
+      }
     }
 
     function closeBackofficePage(updateHash = true) {
@@ -3275,14 +3336,14 @@
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
     document.addEventListener("click", (event) => {
       const openAdmin = event.target.closest("[data-open-admin-page]");
-      if (openAdmin && isAdminAccount()) {
+      if (openAdmin && (isAdminAccount() || openAdmin.dataset.openAdminPage === "groups")) {
         event.preventDefault();
         event.stopPropagation();
         openAdminPage(openAdmin.dataset.openAdminPage || "backoffice");
         return;
       }
       const adminView = event.target.closest(".backoffice-page [data-admin-view]");
-      if (adminView && isAdminAccount()) {
+      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
         event.preventDefault();
         event.stopPropagation();
         openAdminPage(adminView.dataset.adminView || "backoffice");
@@ -3302,11 +3363,11 @@
         return;
       }
       const adminView = event.target.closest("[data-admin-view]");
-      if (adminView && isAdminAccount()) {
+      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
         openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
-      if (event.target.closest("[data-new-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-new-group-draft]") && canUseGroupsPanel()) {
         const draft = { id: "draft-" + Date.now(), name: "Novo grupo", slugs: [], updatedAt: new Date().toISOString() };
         groupDrafts = [draft, ...groupDrafts];
         activeGroupDraftId = draft.id;
@@ -3316,13 +3377,13 @@
         return;
       }
       const selectDraft = event.target.closest("[data-select-group-draft]");
-      if (selectDraft && isAdminAccount()) {
+      if (selectDraft && canUseGroupsPanel()) {
         activeGroupDraftId = selectDraft.dataset.selectGroupDraft;
         renderAccount();
         return;
       }
       const toggleGroupProduct = event.target.closest("[data-toggle-group-product]");
-      if (toggleGroupProduct && isAdminAccount()) {
+      if (toggleGroupProduct && canUseGroupsPanel()) {
         const draft = ensureGroupDraft();
         const slug = toggleGroupProduct.dataset.toggleGroupProduct;
         draft.slugs = Array.isArray(draft.slugs) ? draft.slugs : [];
@@ -3332,7 +3393,7 @@
         renderAccount();
         return;
       }
-      if (event.target.closest("[data-clear-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-clear-group-draft]") && canUseGroupsPanel()) {
         const draft = ensureGroupDraft();
         draft.slugs = [];
         draft.updatedAt = new Date().toISOString();
@@ -3340,11 +3401,11 @@
         renderAccount();
         return;
       }
-      if (event.target.closest("[data-publish-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-publish-group-draft]") && canUseGroupsPanel()) {
         publishGroupDraft().then(renderAccount).catch((error) => { accountMessage = error.message || "Não foi possível aprovar o grupo."; renderAccount(); });
         return;
       }
-      if (event.target.closest("[data-copy-groups-json]") && isAdminAccount()) {
+      if (event.target.closest("[data-copy-groups-json]") && canUseGroupsPanel()) {
         const textarea = accountDrawer.querySelector(".group-admin textarea");
         if (textarea) navigator.clipboard?.writeText(textarea.value);
         accountMessage = "JSON de grupos copiado.";
@@ -3399,7 +3460,7 @@
         return;
       }
       const adminView = event.target.closest("[data-admin-view]");
-      if (adminView && isAdminAccount()) {
+      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
         openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
@@ -3415,7 +3476,7 @@
         }
         return;
       }
-      if (event.target.closest("[data-new-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-new-group-draft]") && canUseGroupsPanel()) {
         const draft = { id: "draft-" + Date.now(), name: "Novo grupo", slugs: [], updatedAt: new Date().toISOString() };
         groupDrafts = [draft, ...groupDrafts];
         activeGroupDraftId = draft.id;
@@ -3425,13 +3486,13 @@
         return;
       }
       const selectDraft = event.target.closest("[data-select-group-draft]");
-      if (selectDraft && isAdminAccount()) {
+      if (selectDraft && canUseGroupsPanel()) {
         activeGroupDraftId = selectDraft.dataset.selectGroupDraft;
         renderBackofficeStandalone();
         return;
       }
       const toggleGroupProduct = event.target.closest("[data-toggle-group-product]");
-      if (toggleGroupProduct && isAdminAccount()) {
+      if (toggleGroupProduct && canUseGroupsPanel()) {
         const draft = ensureGroupDraft();
         const slug = toggleGroupProduct.dataset.toggleGroupProduct;
         draft.slugs = Array.isArray(draft.slugs) ? draft.slugs : [];
@@ -3441,7 +3502,7 @@
         renderBackofficeStandalone();
         return;
       }
-      if (event.target.closest("[data-clear-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-clear-group-draft]") && canUseGroupsPanel()) {
         const draft = ensureGroupDraft();
         draft.slugs = [];
         draft.updatedAt = new Date().toISOString();
@@ -3449,11 +3510,11 @@
         renderBackofficeStandalone();
         return;
       }
-      if (event.target.closest("[data-publish-group-draft]") && isAdminAccount()) {
+      if (event.target.closest("[data-publish-group-draft]") && canUseGroupsPanel()) {
         publishGroupDraft().then(renderBackofficeStandalone).catch((error) => { accountMessage = error.message || "Não foi possível aprovar o grupo."; renderBackofficeStandalone(); });
         return;
       }
-      if (event.target.closest("[data-copy-groups-json]") && isAdminAccount()) {
+      if (event.target.closest("[data-copy-groups-json]") && canUseGroupsPanel()) {
         const textarea = backofficePage.querySelector(".group-admin textarea");
         if (textarea) navigator.clipboard?.writeText(textarea.value);
         accountMessage = "JSON de grupos copiado.";
@@ -3493,7 +3554,7 @@
       }
     });
     backofficePage.addEventListener("input", (event) => {
-      if (!isAdminAccount() || activeAdminView !== "groups") return;
+      if (!canUseGroupsPanel() || activeAdminView !== "groups") return;
       const groupName = event.target.closest("[data-group-name]");
       if (groupName) {
         const draft = ensureGroupDraft();
@@ -3542,7 +3603,7 @@
       renderBackofficeStandalone();
     });
     accountDrawer.addEventListener("input", (event) => {
-      if (!isAdminAccount() || activeAdminView !== "groups") return;
+      if (!canUseGroupsPanel() || activeAdminView !== "groups") return;
       const groupName = event.target.closest("[data-group-name]");
       if (groupName) {
         const draft = ensureGroupDraft();
@@ -3633,11 +3694,14 @@
     renderCollectionCategories();
     renderFilters();
     applyProductOverrides();
+    applyApprovedGroups(PRODUCT_GROUPS);
     renderProducts();
     handleHashChange();
+    forceGroupsRouteRender();
+    setTimeout(forceGroupsRouteRender, 250);
+    setTimeout(forceGroupsRouteRender, 1000);
     initializeAccountState();
     loadProductOverrides();
-    applyApprovedGroups(PRODUCT_GROUPS);
     recordCustomerEvent("page_view", null, { title: document.title });
     updateScrollState();
   </script>
