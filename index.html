@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -237,6 +237,12 @@
     .group-admin-selected-item { border: 1px solid var(--line); background: var(--white); padding: 9px; display: flex; justify-content: space-between; gap: 10px; align-items: start; font-size: 12px; line-height: 1.4; }
     .group-admin-selected-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; }
     .group-admin textarea { min-height: 190px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; line-height: 1.45; }
+    .admin-photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+    .admin-photo-card { border: 1px solid var(--line); background: var(--white); display: grid; gap: 8px; padding: 8px; }
+    .admin-photo-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
+    .admin-photo-card button { min-height: 34px; border: 1px solid var(--line); background: var(--white); cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .admin-page-shell { display: grid; gap: 16px; }
+    .admin-page-content { display: grid; gap: 14px; }
     .backoffice-page { position: fixed; inset: 0; z-index: 70; background: var(--white); color: var(--black); overflow: auto; display: none; }
     .backoffice-page.open { display: block; }
     .backoffice-page-inner { max-width: 1440px; margin: 0 auto; padding: 22px 16px 54px; display: grid; gap: 18px; }
@@ -1802,7 +1808,7 @@
         todos: ["Coleção", "Escolha por categoria."],
       };
       const notes = {
-        inicio: "A cada 3 dias, uma seleção complementar de peças para compor presença: malha, parte de baixo e camada.",
+        inicio: "",
         "disponiveis-agora": "",
         todos: `${readyCount()} peças em pronta entrega e ${consultationCount()} sob consulta com fornecedor antes da finalização.`,
       };
@@ -2637,39 +2643,73 @@
         </div>`;
     }
 
-    function renderAdminPanel() {
-      if (!isAdminAccount()) return "";
+    function renderCatalogAdminPanel() {
       const product = PRODUCTS.find((item) => item.slug === activeAdminSlug) || PRODUCTS[0];
       if (!product) return "<p class='muted'>Nenhum produto disponível para edição.</p>";
       activeAdminSlug = product.slug;
       const imagesText = (product.images || []).join("\n");
       const sizesText = (product.sizes || []).join(", ");
-      const catalogEditor = `
+      return `
         <form class="account-form" data-account-form="admin-product">
           <label class="field"><span>Produto</span><select name="slug" data-admin-product-select>${PRODUCTS.map((item) => `<option value="${item.slug}"${item.slug === product.slug ? " selected" : ""}>${displayProductName(item)} - Ref. ${supplierReference(item) || item.supplierProductId || "sob consulta"}</option>`).join("")}</select></label>
+          <div class="admin-photo-grid">
+            ${(product.images || []).map((image, index) => `<div class="admin-photo-card"><img src="${image}" alt=""><button type="button" data-remove-admin-image="${index}">Remover foto</button></div>`).join("") || `<p class="muted">Produto sem foto cadastrada.</p>`}
+          </div>
+          <label class="field"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
           <label class="field"><span>Nome exibido</span><input name="name" value="${product.name || ""}"></label>
           <label class="field"><span>Preço</span><input name="price" type="number" step="0.01" value="${product.price || ""}"></label>
           <label class="field"><span>Status</span><select name="status"><option value="disponivel"${product.status === "disponivel" ? " selected" : ""}>Disponível agora</option><option value="sob-consulta"${product.status !== "disponivel" ? " selected" : ""}>Sob consulta</option></select></label>
           <label class="field"><span>Tamanhos</span><input name="sizes" value="${sizesText}" placeholder="P, M, G, GG"></label>
-          <label class="field"><span>Fotos</span><textarea name="images" placeholder="Uma URL ou caminho por linha">${imagesText}</textarea></label>
+          <label class="field"><span>Fotos atuais</span><textarea name="images" placeholder="Uma URL ou caminho por linha">${imagesText}</textarea></label>
           <label class="field"><span>Descrição</span><textarea name="description">${product.description || ""}</textarea></label>
           <label class="field-check"><input name="hidden" type="checkbox"${product.hidden ? " checked" : ""}> Ocultar produto da vitrine pública.</label>
           <button class="primary-btn" type="submit">Salvar alterações</button>
         </form>`;
+    }
+
+    function adminSwitch() {
+      return `<div class="admin-switch">
+        <button class="${activeAdminView === "backoffice" ? "active" : ""}" type="button" data-admin-view="backoffice">Backoffice</button>
+        <button class="${activeAdminView === "catalog" ? "active" : ""}" type="button" data-admin-view="catalog">Catálogo</button>
+        <button class="${activeAdminView === "groups" ? "active" : ""}" type="button" data-admin-view="groups">Grupos</button>
+      </div>`;
+    }
+
+    function renderAdminWorkspace() {
+      if (!isAdminAccount()) return "";
+      return `<div class="admin-page-shell">
+        ${adminSwitch()}
+        <div class="admin-page-content">
+          ${activeAdminView === "backoffice" ? renderBackofficePanel() : activeAdminView === "groups" ? renderGroupAdminPanel() : renderCatalogAdminPanel()}
+        </div>
+      </div>`;
+    }
+
+    function renderAdminPanel() {
+      if (!isAdminAccount()) return "";
       return `
         <section class="account-panel${activeAccountTab === "admin" ? " active" : ""}" data-panel="admin">
           <h3>Backoffice SCORSATTO</h3>
-          <div class="account-card"><strong>Permissão ativa</strong><span class="muted">Acesso administrativo para ver clientes, carrinhos, pedidos, favoritos, eventos e editar o catálogo.</span></div>
-          <div class="admin-switch">
-            <button class="${activeAdminView === "backoffice" ? "active" : ""}" type="button" data-admin-view="backoffice">Backoffice</button>
-            <button class="${activeAdminView === "catalog" ? "active" : ""}" type="button" data-admin-view="catalog">Catálogo</button>
-            <button class="${activeAdminView === "groups" ? "active" : ""}" type="button" data-admin-view="groups">Grupos</button>
+          <div class="account-card"><strong>Painel em tela cheia</strong><span class="muted">Abra Backoffice, Catálogo e Grupos em uma área ampla para operar sem limitação da aba Minha conta.</span></div>
+          <div class="profile-actions">
+            <button class="profile-action" type="button" data-open-admin-page="backoffice"><strong>Backoffice</strong><span>Clientes, leads, carrinhos e acessos.</span></button>
+            <button class="profile-action" type="button" data-open-admin-page="catalog"><strong>Catálogo</strong><span>Editar texto, preço, status e fotos.</span></button>
+            <button class="profile-action" type="button" data-open-admin-page="groups"><strong>Grupos</strong><span>Aprovar variações iguais com segurança.</span></button>
           </div>
-          ${activeAdminView === "backoffice" ? `<div class="account-card"><strong>Backoffice em tela própria</strong><span class="muted">Abra clientes, leads, carrinhos e pedidos em uma página ampla, sem ficar preso à aba Minha conta.</span><button class="primary-btn" type="button" data-open-backoffice-page>Abrir backoffice</button></div>` : activeAdminView === "groups" ? renderGroupAdminPanel() : catalogEditor}
         </section>`;
     }
     function renderBackofficeStandalone() {
       if (!backofficeStandalone) return;
+      const pageTitle = backofficePage?.querySelector(".backoffice-page-title h2");
+      const pageIntro = backofficePage?.querySelector(".backoffice-page-title .backoffice-note");
+      const titleMap = { backoffice: "Backoffice", catalog: "Catálogo", groups: "Grupos de produtos" };
+      const introMap = {
+        backoffice: "Clientes, leads, carrinhos, pedidos, favoritos e acessos em uma tela própria para operação.",
+        catalog: "Edite produtos, textos, tamanhos, preços, disponibilidade e fotos em tela ampla.",
+        groups: "Aprove somente peças exatamente iguais para criar variações por cor e tamanho.",
+      };
+      if (pageTitle) pageTitle.textContent = titleMap[activeAdminView] || "Backoffice";
+      if (pageIntro) pageIntro.textContent = introMap[activeAdminView] || introMap.backoffice;
       if (!account) {
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Entre como administrador</strong><span class="muted">Faça login com a conta do Alisson ou Miguel para ver clientes, leads, carrinhos e pedidos.</span><button class="primary-btn" type="button" data-backoffice-login>Entrar</button></div>`;
         return;
@@ -2678,7 +2718,7 @@
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Acesso restrito</strong><span class="muted">Esta área é exclusiva para administradores da SCORSATTO.</span></div>`;
         return;
       }
-      backofficeStandalone.innerHTML = renderBackofficePanel();
+      backofficeStandalone.innerHTML = renderAdminWorkspace();
     }
 
     async function openBackofficePage(force = false) {
@@ -2686,7 +2726,7 @@
       closeCart();
       backofficePage?.classList.add("open");
       document.body.style.overflow = "hidden";
-      if (isAdminAccount()) await loadBackofficeData(force);
+      if (isAdminAccount() && activeAdminView === "backoffice") await loadBackofficeData(force);
       renderBackofficeStandalone();
     }
 
@@ -2758,7 +2798,7 @@
                 <button class="profile-action" type="button" data-account-tab="favoritos"><strong>Favoritos</strong><span>${favorites.length} peça(s) salva(s).</span></button>
                 <button class="profile-action" type="button" data-account-tab="endereco"><strong>Endereços</strong><span>Cadastre seu local de entrega.</span></button>
                 <button class="profile-action" type="button" data-account-tab="pedidos"><strong>Pedidos</strong><span>Acompanhe seu histórico.</span></button>
-                ${isAdminAccount() ? '<button class="profile-action" type="button" data-open-backoffice-page><strong>Backoffice</strong><span>Clientes, leads, carrinhos, pedidos e acessos.</span></button><button class="profile-action" type="button" data-account-tab="admin"><strong>Catálogo</strong><span>Editar fotos, preços e disponibilidade.</span></button>' : ""}
+                ${isAdminAccount() ? '<button class="profile-action" type="button" data-open-admin-page="backoffice"><strong>Backoffice</strong><span>Clientes, leads, carrinhos, pedidos e acessos.</span></button><button class="profile-action" type="button" data-open-admin-page="catalog"><strong>Catálogo</strong><span>Editar fotos, preços e disponibilidade.</span></button><button class="profile-action" type="button" data-open-admin-page="groups"><strong>Grupos</strong><span>Aprovar agrupamentos de produtos.</span></button>' : ""}
               </div>
               <div class="account-summary"><strong>Favoritos recentes</strong>${favoriteCards(4, true)}<button class="secondary-btn" type="button" data-open-favorites-page>Ver todos os favoritos</button></div>
             </section>
@@ -3126,7 +3166,15 @@
     accountClose.addEventListener("click", closeAccount);
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
     accountDrawer.addEventListener("click", (event) => {
+      const openAdminPage = event.target.closest("[data-open-admin-page]");
+      if (openAdminPage && isAdminAccount()) {
+        activeAdminView = openAdminPage.dataset.openAdminPage || "backoffice";
+        history.replaceState(null, "", "#backoffice");
+        openBackofficePage(true);
+        return;
+      }
       if (event.target.closest("[data-open-backoffice-page]") && isAdminAccount()) {
+        activeAdminView = "backoffice";
         history.replaceState(null, "", "#backoffice");
         openBackofficePage(true);
         return;
@@ -3238,6 +3286,69 @@
         openAccount("entrar");
         return;
       }
+      const adminView = event.target.closest("[data-admin-view]");
+      if (adminView && isAdminAccount()) {
+        activeAdminView = adminView.dataset.adminView;
+        if (activeAdminView === "backoffice") loadBackofficeData(true).then(renderBackofficeStandalone);
+        renderBackofficeStandalone();
+        return;
+      }
+      const removeAdminImage = event.target.closest("[data-remove-admin-image]");
+      if (removeAdminImage && isAdminAccount()) {
+        const form = removeAdminImage.closest("form");
+        const textarea = form?.elements.images;
+        if (textarea) {
+          const index = Number(removeAdminImage.dataset.removeAdminImage);
+          const images = cleanList(textarea.value).filter((_, itemIndex) => itemIndex !== index);
+          textarea.value = images.join("\n");
+          removeAdminImage.closest(".admin-photo-card")?.remove();
+        }
+        return;
+      }
+      if (event.target.closest("[data-new-group-draft]") && isAdminAccount()) {
+        const draft = { id: "draft-" + Date.now(), name: "Novo grupo", slugs: [], updatedAt: new Date().toISOString() };
+        groupDrafts = [draft, ...groupDrafts];
+        activeGroupDraftId = draft.id;
+        groupSearchTerm = "";
+        saveGroupDrafts();
+        renderBackofficeStandalone();
+        return;
+      }
+      const selectDraft = event.target.closest("[data-select-group-draft]");
+      if (selectDraft && isAdminAccount()) {
+        activeGroupDraftId = selectDraft.dataset.selectGroupDraft;
+        renderBackofficeStandalone();
+        return;
+      }
+      const toggleGroupProduct = event.target.closest("[data-toggle-group-product]");
+      if (toggleGroupProduct && isAdminAccount()) {
+        const draft = ensureGroupDraft();
+        const slug = toggleGroupProduct.dataset.toggleGroupProduct;
+        draft.slugs = draft.slugs.includes(slug) ? draft.slugs.filter((item) => item !== slug) : [...draft.slugs, slug];
+        draft.updatedAt = new Date().toISOString();
+        saveGroupDrafts();
+        renderBackofficeStandalone();
+        return;
+      }
+      if (event.target.closest("[data-clear-group-draft]") && isAdminAccount()) {
+        const draft = ensureGroupDraft();
+        draft.slugs = [];
+        draft.updatedAt = new Date().toISOString();
+        saveGroupDrafts();
+        renderBackofficeStandalone();
+        return;
+      }
+      if (event.target.closest("[data-publish-group-draft]") && isAdminAccount()) {
+        publishGroupDraft().then(renderBackofficeStandalone).catch((error) => { accountMessage = error.message || "Não foi possível aprovar o grupo."; renderBackofficeStandalone(); });
+        return;
+      }
+      if (event.target.closest("[data-copy-groups-json]") && isAdminAccount()) {
+        const textarea = backofficePage.querySelector(".group-admin textarea");
+        if (textarea) navigator.clipboard?.writeText(textarea.value);
+        accountMessage = "JSON de grupos copiado.";
+        renderBackofficeStandalone();
+        return;
+      }
       const segment = event.target.closest("[data-backoffice-segment]");
       if (segment && isAdminAccount()) {
         activeBackofficeSegment = segment.dataset.backofficeSegment;
@@ -3269,6 +3380,55 @@
         minimizedBackofficeCustomerId = "";
         renderBackofficeStandalone();
       }
+    });
+    backofficePage.addEventListener("input", (event) => {
+      if (!isAdminAccount() || activeAdminView !== "groups") return;
+      const groupName = event.target.closest("[data-group-name]");
+      if (groupName) {
+        const draft = ensureGroupDraft();
+        draft.name = groupName.value || "Novo grupo";
+        draft.updatedAt = new Date().toISOString();
+        saveGroupDrafts();
+        return;
+      }
+      const groupSearch = event.target.closest("[data-group-search]");
+      if (groupSearch) {
+        groupSearchTerm = groupSearch.value || "";
+        renderBackofficeStandalone();
+      }
+    });
+    backofficePage.addEventListener("change", (event) => {
+      const adminSelect = event.target.closest("[data-admin-product-select]");
+      if (!adminSelect || !isAdminAccount()) return;
+      activeAdminSlug = adminSelect.value;
+      activeAdminView = "catalog";
+      renderBackofficeStandalone();
+    });
+    backofficePage.addEventListener("submit", async (event) => {
+      const form = event.target.closest("form[data-account-form='admin-product']");
+      if (!form || !isAdminAccount()) return;
+      event.preventDefault();
+      const data = formDataObject(form);
+      const images = cleanList(data.images);
+      if (data.newImage?.trim()) images.push(data.newImage.trim());
+      activeAdminSlug = data.slug;
+      const override = {
+        name: data.name,
+        price: Number(data.price || 0),
+        status: data.status,
+        sizes: cleanList(data.sizes),
+        images: [...new Set(images)],
+        description: data.description,
+        hidden: Boolean(form.elements.hidden?.checked),
+      };
+      try {
+        await saveProductOverride(data.slug, override);
+        accountMessage = "Produto atualizado no painel admin.";
+      } catch (error) {
+        accountMessage = error.message || "Não foi possível salvar a alteração no banco.";
+      }
+      activeAdminView = "catalog";
+      renderBackofficeStandalone();
     });
     accountDrawer.addEventListener("input", (event) => {
       if (!isAdminAccount() || activeAdminView !== "groups") return;
