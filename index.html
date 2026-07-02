@@ -234,10 +234,13 @@
     .group-admin-product small { color: var(--muted); font-size: 11px; line-height: 1.4; }
     .group-admin-panel { border: 1px solid var(--line); background: var(--paper); padding: 14px; display: grid; gap: 12px; align-self: start; }
     .group-approved-list { display: grid; gap: 8px; max-height: 300px; overflow: auto; border: 1px solid var(--line); background: var(--white); padding: 10px; }
-    .group-approved-item { display: grid; gap: 5px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .group-approved-item { display: grid; gap: 7px; padding: 10px 0; border-bottom: 1px solid var(--line); }
     .group-approved-item:last-child { border-bottom: 0; }
     .group-approved-item strong { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
     .group-approved-item small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .group-approved-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .group-approved-actions button { min-height: 30px; border: 1px solid var(--line); background: var(--white); color: var(--black); padding: 0 10px; cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .group-approved-actions button:hover { border-color: var(--black); }
     .group-admin-selected { display: grid; gap: 8px; }
     .group-admin-selected-item { border: 1px solid var(--line); background: var(--white); padding: 9px; display: flex; justify-content: space-between; gap: 10px; align-items: start; font-size: 12px; line-height: 1.4; }
     .group-admin-selected-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; }
@@ -1448,6 +1451,7 @@
       });
       return {
         id: group.id || "admin-" + Date.now(),
+        name: group.name || "",
         canonicalSlug: slugs.includes(group.canonicalSlug) ? group.canonicalSlug : slugs[0],
         slugs,
         labels,
@@ -1466,6 +1470,7 @@
       const slugs = [...new Set([...fromSlugs, ...fromIds])].filter((slug) => PRODUCTS.some((product) => product.slug === slug));
       return {
         id: draft.id || "draft-" + Date.now(),
+        groupId: draft.groupId || "",
         name: draft.name || "Novo grupo",
         slugs,
         updatedAt: draft.updatedAt || new Date().toISOString(),
@@ -1518,11 +1523,43 @@
       products.forEach((product) => { labels[product.slug] = variantColorName(product); });
       const slugName = normalize(draft.name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       return normalizeGroupPayload({
-        id: "admin-" + (slugName || draft.id),
+        id: draft.groupId || "admin-" + (slugName || draft.id),
+        name: draft.name,
         canonicalSlug: products[0]?.slug,
         slugs: products.map((product) => product.slug),
         labels,
       });
+    }
+
+    function groupDisplayName(group) {
+      return (group?.name || group?.id || "grupo").replace(/^json-/, "").replace(/^admin-/, "").replace(/-/g, " ");
+    }
+
+    function loadApprovedGroupIntoDraft(groupId) {
+      const group = approvedProductGroups.find((item) => item.id === groupId);
+      if (!group) return false;
+      const draft = {
+        id: "edit-" + group.id,
+        groupId: group.id,
+        name: groupDisplayName(group),
+        slugs: [...(group.slugs || [])],
+        updatedAt: new Date().toISOString(),
+      };
+      groupDrafts = [draft, ...groupDrafts.filter((item) => item.id !== draft.id)];
+      activeGroupDraftId = draft.id;
+      groupSearchTerm = "";
+      saveGroupDrafts();
+      return true;
+    }
+
+    function removeApprovedGroup(groupId) {
+      approvedProductGroups = approvedProductGroups.filter((group) => group.id !== groupId);
+      localStorage.setItem("scorsattoPublishedGroupsV1", JSON.stringify(approvedProductGroups));
+      groupDrafts = groupDrafts.filter((draft) => draft.groupId !== groupId && draft.id !== "edit-" + groupId);
+      activeGroupDraftId = groupDrafts[0]?.id || "";
+      saveGroupDrafts();
+      renderFilters();
+      renderProducts();
     }
 
     async function loadApprovedProductGroups() {
@@ -2698,14 +2735,22 @@
         .slice(0, 160);
       const approvedHtml = approvedProductGroups.map((group) => {
         const groupProducts = (group.slugs || []).map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean);
-        const label = group.id.replace(/^json-/, "").replace(/-/g, " ");
-        return `<div class="group-approved-item"><strong>${label}</strong><small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small></div>`;
+        const label = groupDisplayName(group);
+        return `<div class="group-approved-item">
+          <strong>${label}</strong>
+          <small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small>
+          <div class="group-approved-actions">
+            <button type="button" data-edit-approved-group="${group.id}">Editar</button>
+            <button type="button" data-remove-approved-group="${group.id}">Remover grupo</button>
+          </div>
+        </div>`;
       }).join("");
       const exportJson = JSON.stringify({
         generatedAt: new Date().toISOString(),
         rule: "Aplicar somente grupos aprovados no backoffice SCORSATTO. Peças fora dos grupos permanecem individuais.",
         groups: groupDrafts.map((item) => ({
           name: item.name,
+          groupId: item.groupId || "",
           status: "same",
           products: groupDraftProducts(item).map((product) => ({
             id: product.id,
@@ -2738,7 +2783,7 @@
             <section class="group-admin-panel">
               <p class="filter-group-title">Grupos aprovados no site</p>
               <div class="group-approved-list">${approvedHtml || `<p class="muted">Nenhum grupo aprovado ainda.</p>`}</div>
-              <label class="field"><span>Nome do grupo aprovado</span><input data-group-name value="${draft.name}"></label>
+              <label class="field"><span>${draft.groupId ? "Editando grupo aprovado" : "Nome do novo grupo"}</span><input data-group-name value="${draft.name}"></label>
               <div class="group-admin-selected">
                 ${selectedProducts.length ? selectedProducts.map((product) => `
                   <div class="group-admin-selected-item">
@@ -2747,7 +2792,7 @@
                   </div>`).join("") : `<p class="muted">Selecione duas ou mais peças iguais para aprovar um grupo.</p>`}
               </div>
               <div class="backoffice-actions">
-                <button class="primary-btn" type="button" data-publish-group-draft ${selectedProducts.length < 2 ? "disabled" : ""}>Aprovar grupo</button>
+                <button class="primary-btn" type="button" data-publish-group-draft ${selectedProducts.length < 2 ? "disabled" : ""}>${draft.groupId ? "Salvar grupo" : "Aprovar grupo"}</button>
                 <button class="secondary-btn" type="button" data-clear-group-draft>Limpar grupo</button>
                 <button class="secondary-btn" type="button" data-copy-groups-json>Copiar JSON</button>
               </div>
@@ -2804,8 +2849,15 @@
       const ungrouped = PRODUCTS.filter((product) => !product.hidden && !groupedSlugs.has(product.slug)).slice(0, 120);
       const groupsHtml = approvedProductGroups.map((group) => {
         const groupProducts = (group.slugs || []).map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean);
-        const label = (group.id || "grupo").replace(/^json-/, "").replace(/-/g, " ");
-        return `<div class="group-approved-item"><strong>${label}</strong><small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small></div>`;
+        const label = groupDisplayName(group);
+        return `<div class="group-approved-item">
+          <strong>${label}</strong>
+          <small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small>
+          <div class="group-approved-actions">
+            <button type="button" data-edit-approved-group="${group.id}">Editar</button>
+            <button type="button" data-remove-approved-group="${group.id}">Remover grupo</button>
+          </div>
+        </div>`;
       }).join("");
       const ungroupedHtml = ungrouped.map((product) => `
         <button class="group-admin-product" type="button" data-toggle-group-product="${product.slug}">
@@ -3367,6 +3419,19 @@
         openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
+      const editApprovedGroup = event.target.closest("[data-edit-approved-group]");
+      if (editApprovedGroup && canUseGroupsPanel()) {
+        if (loadApprovedGroupIntoDraft(editApprovedGroup.dataset.editApprovedGroup)) accountMessage = "Grupo carregado para edição.";
+        renderAccount();
+        return;
+      }
+      const removeApprovedGroupButton = event.target.closest("[data-remove-approved-group]");
+      if (removeApprovedGroupButton && canUseGroupsPanel()) {
+        removeApprovedGroup(removeApprovedGroupButton.dataset.removeApprovedGroup);
+        accountMessage = "Grupo removido. As peças voltaram a ficar individuais.";
+        renderAccount();
+        return;
+      }
       if (event.target.closest("[data-new-group-draft]") && canUseGroupsPanel()) {
         const draft = { id: "draft-" + Date.now(), name: "Novo grupo", slugs: [], updatedAt: new Date().toISOString() };
         groupDrafts = [draft, ...groupDrafts];
@@ -3462,6 +3527,19 @@
       const adminView = event.target.closest("[data-admin-view]");
       if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
         openAdminPage(adminView.dataset.adminView || "backoffice");
+        return;
+      }
+      const editApprovedGroup = event.target.closest("[data-edit-approved-group]");
+      if (editApprovedGroup && canUseGroupsPanel()) {
+        if (loadApprovedGroupIntoDraft(editApprovedGroup.dataset.editApprovedGroup)) accountMessage = "Grupo carregado para edição.";
+        renderBackofficeStandalone();
+        return;
+      }
+      const removeApprovedGroupButton = event.target.closest("[data-remove-approved-group]");
+      if (removeApprovedGroupButton && canUseGroupsPanel()) {
+        removeApprovedGroup(removeApprovedGroupButton.dataset.removeApprovedGroup);
+        accountMessage = "Grupo removido. As peças voltaram a ficar individuais.";
+        renderBackofficeStandalone();
         return;
       }
       const removeAdminImage = event.target.closest("[data-remove-admin-image]");
