@@ -233,6 +233,11 @@
     .group-admin-product strong { font-size: 12px; line-height: 1.3; }
     .group-admin-product small { color: var(--muted); font-size: 11px; line-height: 1.4; }
     .group-admin-panel { border: 1px solid var(--line); background: var(--paper); padding: 14px; display: grid; gap: 12px; align-self: start; }
+    .group-approved-list { display: grid; gap: 8px; max-height: 300px; overflow: auto; border: 1px solid var(--line); background: var(--white); padding: 10px; }
+    .group-approved-item { display: grid; gap: 5px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .group-approved-item:last-child { border-bottom: 0; }
+    .group-approved-item strong { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+    .group-approved-item small { color: var(--muted); font-size: 11px; line-height: 1.45; }
     .group-admin-selected { display: grid; gap: 8px; }
     .group-admin-selected-item { border: 1px solid var(--line); background: var(--white); padding: 9px; display: flex; justify-content: space-between; gap: 10px; align-items: start; font-size: 12px; line-height: 1.4; }
     .group-admin-selected-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; }
@@ -736,7 +741,7 @@
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
     const brandText = (product) => normalize([product.name, product.supplierUrl, product.supplierProductId, product.slug, product.internalNotes, product.tags?.join(" ")].join(" "));
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
-    const isAdminAccount = () => Boolean(hasAdminEmail() && (adminVerified || db));
+    const isAdminAccount = () => Boolean(hasAdminEmail());
     const isAvailableNow = (product) => product.status === "disponivel" || product.tags?.includes("disponiveis-agora");
     const visibleProducts = () => PRODUCTS.filter((product) => !product.hidden || isAdminAccount());
     const readyCount = () => visibleProducts().filter(isAvailableNow).length;
@@ -834,13 +839,11 @@
                 "canonicalSlug": "camiseta-algodao-egipcio-azul-marinho-15881",
                 "slugs": [
                       "camiseta-algodao-egipcio-azul-marinho-15881",
-                      "camiseta-algodao-egipcio-preto-15882",
-                      "camiseta-algodao-egipcio-branco-15879"
+                      "camiseta-algodao-egipcio-preto-15882"
                 ],
                 "labels": {
                       "camiseta-algodao-egipcio-azul-marinho-15881": "Azul Marinho",
-                      "camiseta-algodao-egipcio-preto-15882": "Preto",
-                      "camiseta-algodao-egipcio-branco-15879": "Branco"
+                      "camiseta-algodao-egipcio-preto-15882": "Preto"
                 }
           },
           {
@@ -857,6 +860,20 @@
                       "camiseta-supima-bege-15838": "Bege",
                       "camiseta-supima-preto-15839": "Preto",
                       "camiseta-supima-marrom-15841": "Marrom"
+                }
+          },
+          {
+                "id": "json-egipcio-tommy-1-2",
+                "canonicalSlug": "camiseta-algodao-egipcio-azul-marinho-15881",
+                "slugs": [
+                      "camiseta-algodao-egipcio-azul-marinho-15881",
+                      "camiseta-algodao-egipcio-preto-15882",
+                      "camiseta-algodao-egipcio-branco-15879"
+                ],
+                "labels": {
+                      "camiseta-algodao-egipcio-azul-marinho-15881": "Azul Marinho",
+                      "camiseta-algodao-egipcio-preto-15882": "Preto",
+                      "camiseta-algodao-egipcio-branco-15879": "Branco"
                 }
           },
           {
@@ -898,6 +915,40 @@
                 }
           },
           {
+                "id": "json-rl-supima-2",
+                "canonicalSlug": "camiseta-supima-azul-marinho-15840",
+                "slugs": [
+                      "camiseta-supima-azul-marinho-15840",
+                      "camiseta-supima-bege-15838",
+                      "camiseta-supima-preto-15839",
+                      "camiseta-supima-marrom-15841",
+                      "camiseta-supima-preto-sc-estoque-005"
+                ],
+                "labels": {
+                      "camiseta-supima-azul-marinho-15840": "Azul Marinho",
+                      "camiseta-supima-bege-15838": "Bege",
+                      "camiseta-supima-preto-15839": "Preto",
+                      "camiseta-supima-marrom-15841": "Marrom",
+                      "camiseta-supima-preto-sc-estoque-005": "Preto"
+                }
+          },
+          {
+                "id": "json-rl-supima-3",
+                "canonicalSlug": "camiseta-supima-azul-marinho-15840",
+                "slugs": [
+                      "camiseta-supima-azul-marinho-15840",
+                      "camiseta-supima-bege-15838",
+                      "camiseta-supima-preto-15839",
+                      "camiseta-supima-marrom-15841"
+                ],
+                "labels": {
+                      "camiseta-supima-azul-marinho-15840": "Azul Marinho",
+                      "camiseta-supima-bege-15838": "Bege",
+                      "camiseta-supima-preto-15839": "Preto",
+                      "camiseta-supima-marrom-15841": "Marrom"
+                }
+          },
+          {
                 "id": "json-mang-longa-tommy-1",
                 "canonicalSlug": "camiseta-manga-longa-off-white-15923",
                 "slugs": [
@@ -910,7 +961,7 @@
                 "labels": {
                       "camiseta-manga-longa-off-white-15923": "Off White",
                       "camiseta-manga-longa-bege-15929": "Bege",
-                      "camiseta-manga-longa-cinza-15925": "Cinza Escuro",
+                      "camiseta-manga-longa-cinza-15925": "Cinza",
                       "camiseta-manga-longa-azul-marinho-15921": "Azul Marinho",
                       "camiseta-manga-longa-cinza-claro-15924": "Cinza Claro"
                 }
@@ -931,14 +982,14 @@
                 ],
                 "labels": {
                       "gola-polo-premium-azul-marinho-15747": "Azul Marinho",
-                      "gola-polo-premium-cinza-15749": "Cinza Escuro",
+                      "gola-polo-premium-cinza-15749": "Cinza",
                       "gola-polo-premium-branco-15745": "Branco",
                       "gola-polo-premium-preto-14043": "Preto",
                       "gola-polo-premium-preto-15743": "Preto",
                       "gola-polo-premium-cinza-14664": "Cinza",
                       "gola-polo-premium-bege-14039": "Bege",
                       "gola-polo-premium-marrom-14040": "Marrom",
-                      "gola-polo-premium-marrom-14042": "Marrom Escuro"
+                      "gola-polo-premium-marrom-14042": "Marrom"
                 }
           },
           {
@@ -1067,7 +1118,7 @@
                       "sueter-meio-ziper-cinza-claro-16049": "Cinza Claro",
                       "sueter-meio-ziper-cinza-16047": "Cinza",
                       "sueter-meio-ziper-preto-16046": "Preto",
-                      "sueter-meio-ziper-marrom-16045": "Marrom Escuro",
+                      "sueter-meio-ziper-marrom-16045": "Marrom",
                       "sueter-meio-ziper-marrom-12444": "Marrom"
                 }
           },
@@ -1105,7 +1156,7 @@
                       "sueter-gola-redonda-azul-marinho-15449": "Azul Marinho",
                       "sueter-gola-redonda-bege-15856": "Bege",
                       "sueter-gola-redonda-preto-16152": "Preto",
-                      "sueter-gola-redonda-cinza-16155": "Cinza Escuro",
+                      "sueter-gola-redonda-cinza-16155": "Cinza",
                       "sueter-gola-redonda-cinza-claro-16154": "Cinza Claro"
                 }
           },
@@ -1132,7 +1183,7 @@
                 ],
                 "labels": {
                       "jaqueta-suede-creme-15864": "Creme",
-                      "jaqueta-suede-marrom-15865": "Marrom Escuro",
+                      "jaqueta-suede-marrom-15865": "Marrom",
                       "jaqueta-suede-cinza-15863": "Cinza",
                       "jaqueta-suede-preto-15862": "Preto"
                 }
@@ -1299,7 +1350,7 @@
                       "bermuda-linho-caqui-14846"
                 ],
                 "labels": {
-                      "bermuda-linho-marrom-14847": "Marrom Escuro",
+                      "bermuda-linho-marrom-14847": "Marrom",
                       "bermuda-linho-caqui-14846": "Caqui"
                 }
           },
@@ -1354,6 +1405,7 @@
                 }
           }
     ];
+
     approvedProductGroups = [...PRODUCT_GROUPS];
 
     function productGroup(product) {
@@ -2586,10 +2638,17 @@
       if (!isAdminAccount()) return "";
       const draft = ensureGroupDraft();
       const selectedProducts = groupDraftProducts(draft);
+      const groupedSlugs = new Set(approvedProductGroups.flatMap((group) => group.slugs || []));
       const available = PRODUCTS
-        .filter((product) => !isAvailableNow(product) && !product.hidden)
+        .filter((product) => !product.hidden)
+        .filter((product) => !groupedSlugs.has(product.slug) || draft.slugs.includes(product.slug))
         .filter((product) => !groupSearchTerm || productGroupDraftLabel(product).toLowerCase().includes(groupSearchTerm.toLowerCase()))
-        .slice(0, 90);
+        .slice(0, 160);
+      const approvedHtml = approvedProductGroups.map((group) => {
+        const groupProducts = (group.slugs || []).map((slug) => PRODUCTS.find((product) => product.slug === slug)).filter(Boolean);
+        const label = group.id.replace(/^json-/, "").replace(/-/g, " ");
+        return `<div class="group-approved-item"><strong>${label}</strong><small>${groupProducts.map((product) => `${brandFromProduct(product)} ${displayProductName(product)} (${variantColorName(product)} / Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"})`).join(" | ")}</small></div>`;
+      }).join("");
       const exportJson = JSON.stringify({
         generatedAt: new Date().toISOString(),
         rule: "Aplicar somente grupos aprovados no backoffice SCORSATTO. Peças fora dos grupos permanecem individuais.",
@@ -2610,20 +2669,23 @@
       return `
         <div class="group-admin">
           <div class="backoffice-actions">
-            <span class="backoffice-note">Aprove apenas peças exatamente iguais. Peças fora dos grupos permanecem sem alteração.</span>
+            <span class="backoffice-note">${approvedProductGroups.length} grupos aprovados ativos. Peças fora dos grupos ficam abaixo para você decidir se entram em novo grupo.</span>
             <button class="secondary-btn" type="button" data-new-group-draft>Novo grupo</button>
           </div>
           <div class="group-admin-grid">
             <aside class="group-admin-list">
-              <label class="field"><span>Buscar peça</span><input data-group-search value="${groupSearchTerm}" placeholder="Marca, peça, cor ou referência"></label>
+              <label class="field"><span>Buscar peça fora de grupo</span><input data-group-search value="${groupSearchTerm}" placeholder="Marca, peça, cor ou referência"></label>
               <div class="account-tabs">${groupDrafts.map((item) => `<button class="account-tab${item.id === draft.id ? " active" : ""}" type="button" data-select-group-draft="${item.id}">${item.name}</button>`).join("")}</div>
-              <div>${available.map((product) => `
+              <p class="filter-group-title">Peças fora de grupo</p>
+              <div>${available.length ? available.map((product) => `
                 <button class="group-admin-product${draft.slugs.includes(product.slug) ? " active" : ""}" type="button" data-toggle-group-product="${product.slug}">
                   <img src="${primaryImage(product)}" alt="">
                   <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
-                </button>`).join("")}</div>
+                </button>`).join("") : `<p class="muted">Todas as peças visíveis já estão em grupos aprovados ou ocultas.</p>`}</div>
             </aside>
             <section class="group-admin-panel">
+              <p class="filter-group-title">Grupos aprovados no site</p>
+              <div class="group-approved-list">${approvedHtml || `<p class="muted">Nenhum grupo aprovado ainda.</p>`}</div>
               <label class="field"><span>Nome do grupo aprovado</span><input data-group-name value="${draft.name}"></label>
               <div class="group-admin-selected">
                 ${selectedProducts.length ? selectedProducts.map((product) => `
