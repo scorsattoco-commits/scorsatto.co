@@ -1651,6 +1651,7 @@
     }
 
     function homeCuratedSlugs() {
+      if (homeCuratedSlugs.cacheBucket === rotationBucket() && homeCuratedSlugs.cache) return homeCuratedSlugs.cache;
       const bucket = rotationBucket();
       const slots = [
         ["camisetas", "manga-longa", "gola-polo"],
@@ -1685,7 +1686,9 @@
           chosen.push(product.slug);
           if (group) usedGroups.add(group.id);
         });
-      return new Set(chosen);
+      homeCuratedSlugs.cacheBucket = bucket;
+      homeCuratedSlugs.cache = new Set(chosen);
+      return homeCuratedSlugs.cache;
     }
 
     function isHomeCurated(product) {
@@ -3363,12 +3366,7 @@
     handleHashChange();
     initializeAccountState();
     loadProductOverrides();
-    loadApprovedProductGroups().then(() => {
-      updateShopHeader();
-      renderFilters();
-      renderProducts();
-      renderAccount();
-    });
+    applyApprovedGroups(PRODUCT_GROUPS);
     recordCustomerEvent("page_view", null, { title: document.title });
     updateScrollState();
   </script>
