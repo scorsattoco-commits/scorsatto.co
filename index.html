@@ -120,7 +120,7 @@
     .detail-layout { display: grid; gap: 28px; }
     .detail-gallery { display: grid; gap: 10px; }
     .detail-main { aspect-ratio: 3/4; background: var(--soft); overflow: hidden; }
-    .detail-main img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+    .detail-main img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
     .thumb-row { display: flex; gap: 8px; overflow-x: auto; }
     .thumb { width: 72px; height: 92px; border: 1px solid var(--line); background: var(--soft); cursor: pointer; padding: 0; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
@@ -749,12 +749,88 @@
       return [...new Set((product.images ?? []).filter(Boolean))];
     }
 
+    const PRODUCT_GROUPS = [
+      {
+        id: "tommy-gola-polo-premium-logo-1",
+        canonicalSlug: "gola-polo-premium-azul-marinho-15747",
+        slugs: [
+          "gola-polo-premium-azul-marinho-15747",
+          "gola-polo-premium-cinza-15749",
+          "gola-polo-premium-cinza-14664",
+          "gola-polo-premium-branco-15745",
+          "gola-polo-premium-preto-15743",
+          "gola-polo-premium-preto-15664",
+          "gola-polo-premium-preto-14043",
+          "gola-polo-premium-bege-14039",
+          "gola-polo-premium-marrom-14042",
+          "gola-polo-premium-marrom-14040",
+        ],
+        labels: {
+          "gola-polo-premium-cinza-15749": "Cinza Escuro",
+          "gola-polo-premium-cinza-14664": "Cinza Claro",
+          "gola-polo-premium-preto-14043": "Preto",
+          "gola-polo-premium-bege-14039": "Bege",
+          "gola-polo-premium-marrom-14042": "Marrom Escuro",
+          "gola-polo-premium-marrom-14040": "Marrom",
+        },
+      },
+    ];
+
+    function productGroup(product) {
+      return PRODUCT_GROUPS.find((group) => product && group.slugs.includes(product.slug));
+    }
+
+    function groupCanonical(group) {
+      return PRODUCTS.find((item) => item.slug === group?.canonicalSlug);
+    }
+
+    function variantColorName(product) {
+      return productGroup(product)?.labels?.[product.slug] || colorFromName(product.name);
+    }
+
+    function groupedReference(product) {
+      const reference = supplierReference(product) || product.supplierProductId || "";
+      return reference || "sob consulta";
+    }
+
+    function variantOptionKey(product) {
+      return normalize(variantColorName(product));
+    }
+
+    function variantOptions(product) {
+      const options = new Map();
+      productVariants(product).forEach((variant) => {
+        const key = variantOptionKey(variant);
+        if (!options.has(key)) options.set(key, { representative: variant, variants: [] });
+        options.get(key).variants.push(variant);
+      });
+      return [...options.values()];
+    }
+
+    function variantOptionReferences(product) {
+      return [...new Set(variantOptions(product).find((option) => option.variants.some((variant) => variant.slug === product.slug))?.variants.map(groupedReference) || [groupedReference(product)])];
+    }
+
     function productVariants(product) {
-      return product ? [product] : [];
+      const group = productGroup(product);
+      if (!group) return product ? [product] : [];
+      return group.slugs.map((slug) => PRODUCTS.find((item) => item.slug === slug)).filter(Boolean);
     }
 
     function groupedProducts(products) {
-      return products;
+      const output = [];
+      const usedGroups = new Set();
+      products.forEach((product) => {
+        const group = productGroup(product);
+        if (!group) {
+          output.push(product);
+          return;
+        }
+        if (usedGroups.has(group.id)) return;
+        usedGroups.add(group.id);
+        output.push(groupCanonical(group) || product);
+      });
+      return output;
     }
 
     function variantSizes(product) {
@@ -762,7 +838,13 @@
     }
 
     function variantColors(product) {
-      return [...new Set(productVariants(product).map((item) => colorFromName(item.name)))];
+      return [...new Set(productVariants(product).map(variantColorName))];
+    }
+
+    function productCardMeta(product) {
+      const variants = productVariants(product);
+      if (variants.length <= 1) return `Cor: ${variantColorName(product)}<br>Tamanhos: ${variantSizes(product).join(", ") || "consultar"}`;
+      return `Cores: ${variantColors(product).join(", ")}<br>Tamanhos: ${variantSizes(product).join(", ") || "consultar"}`;
     }
 
     function termMatch(product, option) {
@@ -1133,7 +1215,7 @@
           <div class="cart-item">
             <button class="cart-product" type="button" data-cart-open-product="${product.slug}" aria-label="Abrir ${product.name}">
               <img src="${product.images?.[0] || ""}" alt="${displayProductName(product)}">
-              <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>Ref.: ${supplierReference(product) || "sob consulta"} - Tam: ${item.size} - Qtd: ${item.quantity}</small></span>
+              <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>Ref.: ${orderReference(product)} - Tam: ${item.size} - Qtd: ${item.quantity}</small></span>
             </button>
             <button class="remove" type="button" data-remove="${item.key}">remover</button>
           </div>
@@ -1145,14 +1227,14 @@
       const message = cart.length
         ? "Olá, gostaria de finalizar meu pedido:%0A%0A" + cart.map((item) => {
           const product = PRODUCTS.find((entry) => entry.slug === item.slug);
-          return "Produto: " + (product ? displayProductName(product) : item.slug) + "%0AReferência: " + (product ? supplierReference(product) || "Sem referencia informada" : "Sem referencia informada") + "%0ATamanho: " + item.size + "%0AQuantidade: " + item.quantity + "%0A";
+          return "Produto: " + (product ? displayProductName(product) : item.slug) + "%0AReferência: " + (product ? orderReference(product) || "Sem referencia informada" : "Sem referencia informada") + "%0ATamanho: " + item.size + "%0AQuantidade: " + item.quantity + "%0A";
         }).join("%0A")
         : "Olá, gostaria de conhecer a coleção da SCORSATTO.";
       const customer = account ? "%0ACliente: " + encodeURIComponent(account.name || "") + "%0AWhatsApp: " + encodeURIComponent(account.phone || "") + "%0ACidade: " + encodeURIComponent(account.city || "") : "";
       if (cart.length) {
         const orderItems = cart.map((item) => {
           const product = PRODUCTS.find((entry) => entry.slug === item.slug);
-          return { slug: item.slug, name: product ? displayProductName(product) : item.slug, reference: product ? supplierReference(product) : "", size: item.size, quantity: item.quantity, price: product?.price || 0 };
+          return { slug: item.slug, name: product ? displayProductName(product) : item.slug, reference: product ? orderReference(product) : "", size: item.size, quantity: item.quantity, price: product?.price || 0 };
         });
         recordCustomerEvent("whatsapp_checkout", null, { items: orderItems });
         if (db) {
@@ -1174,6 +1256,10 @@
       const slug = url.split("/").filter(Boolean).pop() || "";
       const parts = slug.split("-").filter(Boolean);
       return parts.length ? parts[parts.length - 1] : "";
+    }
+
+    function orderReference(product) {
+      return variantOptionReferences(product).join(" / ") || supplierReference(product) || "sob consulta";
     }
 
     function accountCartKey() {
@@ -1275,7 +1361,7 @@
 
     function productLabel(slug) {
       const product = PRODUCTS.find((item) => item.slug === slug);
-      return product ? displayProductName(product) + " (" + (supplierReference(product) || product.supplierProductId || "sem ref.") + ")" : slug || "Produto não identificado";
+      return product ? displayProductName(product) + " (" + (orderReference(product) || product.supplierProductId || "sem ref.") + ")" : slug || "Produto não identificado";
     }
 
     function formatDateTime(value) {
@@ -1707,7 +1793,7 @@
           <button class="favorite-remove" type="button" data-remove-favorite="${product.slug}" aria-label="Remover favorito">x</button>
           <button class="favorite-open" type="button" data-account-open-product="${product.slug}">
             <img src="${product.images?.[0] || ""}" alt="${displayProductName(product)}">
-            <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>${colorFromName(product.name)}<br>Ref.: ${supplierReference(product) || "sob consulta"}</small></span>
+            <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>${variantColorName(product)}<br>Ref.: ${orderReference(product)}</small></span>
           </button>
         </article>`).join("")}</div>`;
     }
@@ -2050,6 +2136,7 @@
       selectedDetailSize = product.sizes?.[0] ?? null;
       const images = uniqueImages(product);
       const variants = productVariants(product);
+      const options = variantOptions(product);
       productDetail.innerHTML = `
         <div class="detail-gallery">
           <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${displayProductName(product)}"></div>
@@ -2059,11 +2146,11 @@
           <h2>${displayProductName(product)}</h2>
           <div class="price">${currency.format(product.price)}</div>
           <p class="detail-meta">Marca: ${brandFromProduct(product)}</p>
-          <p class="detail-meta">Cor: ${colorFromName(product.name)}</p>
+          <p class="detail-meta">Cor: ${variantColorName(product)}</p>
           <p class="detail-meta">Tamanhos disponíveis: ${(product.sizes ?? []).join(", ") || "sob consulta"}</p>
-          <p class="reference-line">Ref.: ${supplierReference(product) || "sob consulta"}</p>
+          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
           <p class="detail-description">${shortProductDescription(product)}</p>
-          ${variants.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${variants.map((variant) => `<button class="variant-btn${variant.slug === product.slug ? " active" : ""}" type="button" data-variant-slug="${variant.slug}"><span class="variant-dot" style="--swatch:${swatchColor(colorFromName(variant.name))}"></span>${colorFromName(variant.name)}</button>`).join("")}</div>` : ""}
+          ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span>${variantColorName(option.representative)}</button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${(product.sizes ?? []).map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
           <div class="detail-actions">
@@ -2106,7 +2193,7 @@
           <div class="product-info">
             <div class="product-top"><h3 class="product-name">${displayProductName(product)}</h3><div class="price">${currency.format(product.price)}</div></div>
             <div class="brand-line">${brandFromProduct(product)}</div>
-            <div class="details">Cor: ${colorFromName(product.name)}<br>Tamanhos: ${variantSizes(product).join(", ") || "consultar"}${productVariants(product).length > 1 ? `<div class="card-colors">${variantColors(product).map((color) => `<span class="card-color-dot" style="--swatch:${swatchColor(color)}"></span>`).join("")}</div>` : ""}</div>
+            <div class="details">${productCardMeta(product)}${productVariants(product).length > 1 ? `<div class="card-colors">${variantColors(product).map((color) => `<span class="card-color-dot" style="--swatch:${swatchColor(color)}"></span>`).join("")}</div>` : ""}</div>
           </div>
         </article>
       `).join("");
