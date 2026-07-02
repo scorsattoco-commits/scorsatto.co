@@ -251,6 +251,16 @@
     .admin-photo-card button { min-height: 34px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .admin-page-shell { display: grid; gap: 16px; }
     .admin-page-content { display: grid; gap: 14px; }
+    .admin-health-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .admin-health-card { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 12px; display: grid; gap: 5px; }
+    .admin-health-card strong { font-size: 22px; line-height: 1; }
+    .admin-health-card span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .admin-alert-list { display: grid; gap: 7px; }
+    .admin-alert { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 9px 10px; display: grid; gap: 3px; font-size: 12px; line-height: 1.45; }
+    .admin-alert strong { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .admin-alert.ok strong { color: #1c5b37; }
+    .admin-alert.warn strong { color: #765b19; }
+    .admin-alert.danger strong { color: #8d2c22; }
     .backoffice-page { position: fixed; inset: 0; z-index: 70; background: var(--white); color: var(--black); overflow: auto; display: none; }
     .backoffice-page.open { display: block; }
     .backoffice-page-inner { max-width: 1440px; margin: 0 auto; padding: 22px 16px 54px; display: grid; gap: 18px; }
@@ -344,7 +354,7 @@
       .hero-cta { min-height: 38px; padding: 0 12px; font-size: 10px; letter-spacing: .08em; }
       .section-head { align-items: start; }
       .shop-note { margin-top: -6px; }
-      .profile-actions, .backoffice-grid { grid-template-columns: 1fr; }
+      .profile-actions, .backoffice-grid, .admin-health-grid { grid-template-columns: 1fr; }
       .customer-detail-head { display: grid; }
       .customer-detail-head .secondary-btn { width: 100%; }
       .customer-detail-grid { grid-template-columns: 1fr; }
@@ -491,10 +501,10 @@
 
   <section class="trust-band" aria-label="Confianca">
     <div class="trust-list">
-      <span>Produtos selecionados</span>
+      <span>Curadoria masculina premium</span>
+      <span>Compra assistida pelo WhatsApp</span>
       <span>Envio para todo o Brasil</span>
-      <span>Atendimento personalizado</span>
-      <span>Grupo exclusivo de lan&ccedil;amentos</span>
+      <span>Trocas e medidas orientadas no atendimento</span>
     </div>
   </section>
 
@@ -554,7 +564,7 @@
     <div class="footer-inner">
       <div class="footer-line"></div>
       <div class="footer-mark">SCORSATTO &copy; 2026</div>
-      <div class="footer-small">O essencial bem feito.<br>Rio Grande do Sul &bull; Brasil<br>WhatsApp para atendimento, trocas e curadoria<br>Todos os direitos reservados.</div>
+      <div class="footer-small">O essencial bem feito.<br>Rio Grande do Sul &bull; Brasil<br>Atendimento para compra assistida, troca, entrega e curadoria<br>Todos os direitos reservados.</div>
       <div class="footer-links">
         <a href="https://www.instagram.com/scorsatto.co/" target="_blank" rel="noreferrer">Instagram</a>
         <a href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto." target="_blank" rel="noreferrer">WhatsApp</a>
@@ -1852,6 +1862,57 @@
       return "Curadoria SCORSATTO";
     }
 
+    function hasStandardImage(product) {
+      return (product.images || []).some((image) => image.includes("generated/photoroom/site/") || image.includes("estoque-scorsatto/"));
+    }
+
+    function imageStatus(product) {
+      if (!(product.images || []).length) return { level: "danger", label: "Sem foto", detail: "Produto sem imagem cadastrada." };
+      if (hasStandardImage(product)) return { level: "ok", label: "Foto padrão", detail: "Imagem no padrão visual SCORSATTO." };
+      return { level: "warn", label: "Foto do fornecedor", detail: "Revisar quando houver nova imagem padrão disponível." };
+    }
+
+    function referenceStatus(product) {
+      const ref = supplierReference(product) || product.supplierProductId || "";
+      if (!ref || ref === "sob consulta") return { level: "danger", label: "Sem referência", detail: "Adicionar referência antes de vender." };
+      return { level: "ok", label: "Referência ok", detail: `Ref.: ${ref}` };
+    }
+
+    function groupStatus(product) {
+      const group = productGroup(product);
+      if (group) return { level: "ok", label: "Agrupado", detail: groupDisplayName(group) };
+      return { level: "warn", label: "Individual", detail: "Permanece separado até aprovação manual." };
+    }
+
+    function similarGroupCandidates(product) {
+      const group = productGroup(product);
+      const groupSlugs = new Set(group?.slugs || []);
+      return visibleProducts().filter((candidate) => {
+        if (candidate.slug === product.slug || candidate.hidden) return false;
+        if (groupSlugs.has(candidate.slug)) return false;
+        if (candidate.collection !== product.collection) return false;
+        if (brandFromProduct(candidate) !== brandFromProduct(product)) return false;
+        if (normalize(productTitleName(candidate)) !== normalize(productTitleName(product))) return false;
+        if (normalize(productMaterial(candidate)) !== normalize(productMaterial(product))) return false;
+        return true;
+      }).slice(0, 8);
+    }
+
+    function groupingStatus(product) {
+      const candidates = similarGroupCandidates(product);
+      if (!candidates.length) return { level: "ok", label: "Sem alerta de grupo", detail: "Nenhuma peça semelhante pendente." };
+      return { level: "warn", label: "Possível agrupamento", detail: `${candidates.length} peça(s) semelhante(s): ${candidates.map((item) => `${variantColorName(item)} / Ref. ${supplierReference(item) || item.supplierProductId || "-"}`).join(" | ")}` };
+    }
+
+    function catalogDiagnostics() {
+      const products = visibleProducts();
+      const standardImages = products.filter(hasStandardImage).length;
+      const withoutReference = products.filter((product) => !(supplierReference(product) || product.supplierProductId)).length;
+      const grouped = new Set(approvedProductGroups.flatMap((group) => group.slugs || [])).size;
+      const possibleGroups = products.filter((product) => similarGroupCandidates(product).length).length;
+      return { products, standardImages, withoutReference, grouped, possibleGroups };
+    }
+
     function productFacts(product) {
       return [
         ["Marca", brandFromProduct(product)],
@@ -1909,18 +1970,22 @@
       if (homeCuratedSlugs.cacheBucket === rotationBucket() && homeCuratedSlugs.cache) return homeCuratedSlugs.cache;
       const bucket = rotationBucket();
       const slots = [
-        ["camisetas", "manga-longa", "gola-polo"],
+        ["camisetas", "gola-polo"],
         ["calcas"],
         ["jaquetas", "casacos", "sueteres"],
+        ["manga-longa", "camisa-social"],
         ["bermudas"],
+        ["camisetas", "gola-polo", "manga-longa"],
+        ["calcas"],
+        ["jaquetas", "casacos", "sueteres"],
       ];
       const chosen = [];
       const usedGroups = new Set();
       const pool = visibleProducts().filter((product) => product.curated && !product.hidden);
-      slots.forEach((collections) => {
+      slots.forEach((collections, slotIndex) => {
         const candidate = pool
           .filter((product) => collections.includes(product.collection))
-          .sort((a, b) => productCuratedScore(b, bucket) - productCuratedScore(a, bucket))
+          .sort((a, b) => productCuratedScore(b, bucket + slotIndex) - productCuratedScore(a, bucket + slotIndex))
           .find((product) => {
             const group = productGroup(product);
             return !group || !usedGroups.has(group.id);
@@ -2057,7 +2122,7 @@
         todos: ["Coleção", "Escolha por categoria."],
       };
       const notes = {
-        inicio: "",
+        inicio: "Uma edição enxuta de peças que conversam entre si: base, parte de baixo, camada e presença.",
         "disponiveis-agora": "",
         todos: `${readyCount()} peças em pronta entrega e ${consultationCount()} sob consulta com fornecedor antes da finalização.`,
       };
@@ -2256,17 +2321,19 @@
     }
 
     async function checkoutWhatsApp() {
-      const message = cart.length
-        ? "Olá, gostaria de finalizar meu pedido:%0A%0A" + cart.map((item) => {
-          const product = PRODUCTS.find((entry) => entry.slug === item.slug);
-          return "Produto: " + (product ? displayProductName(product) : item.slug) + "%0AReferência: " + (product ? orderReference(product) || "Sem referencia informada" : "Sem referencia informada") + "%0ATamanho: " + item.size + "%0AQuantidade: " + item.quantity + "%0A";
-        }).join("%0A")
-        : "Olá, gostaria de conhecer a coleção da SCORSATTO.";
-      const customer = account ? "%0ACliente: " + encodeURIComponent(account.name || "") + "%0AWhatsApp: " + encodeURIComponent(account.phone || "") + "%0ACidade: " + encodeURIComponent(account.city || "") : "";
       if (cart.length) {
         const orderItems = cart.map((item) => {
           const product = PRODUCTS.find((entry) => entry.slug === item.slug);
-          return { slug: item.slug, name: product ? displayProductName(product) : item.slug, reference: product ? orderReference(product) : "", size: item.size, quantity: item.quantity, price: product?.price || 0 };
+          return {
+            slug: item.slug,
+            name: product ? displayProductName(product) : item.slug,
+            brand: product ? brandFromProduct(product) : "",
+            color: product ? variantColorName(product) : "",
+            reference: product ? orderReference(product) : "",
+            size: item.size,
+            quantity: item.quantity,
+            price: product?.price || 0
+          };
         });
         recordCustomerEvent("whatsapp_checkout", null, { items: orderItems });
         if (db) {
@@ -2276,7 +2343,41 @@
           localStorage.setItem("scorsattoOrdersV5", JSON.stringify(orders));
         }
       }
-      window.open("https://wa.me/5554997055401?text=" + message + customer, "_blank", "noreferrer");
+      const total = cart.reduce((sum, item) => {
+        const product = PRODUCTS.find((entry) => entry.slug === item.slug);
+        return sum + Number(product?.price || 0) * Number(item.quantity || 1);
+      }, 0);
+      const lines = cart.length
+        ? [
+            "Olá, quero finalizar meu pedido SCORSATTO.",
+            "",
+            "Origem: carrinho do site",
+            account?.name ? `Cliente: ${account.name}` : "Cliente: visitante",
+            account?.email ? `E-mail: ${account.email}` : "",
+            account?.phone ? `WhatsApp: ${account.phone}` : "",
+            account?.city ? `Cidade: ${account.city}${account.state ? " - " + account.state : ""}` : "",
+            "",
+            "Itens:",
+            ...cart.flatMap((item, index) => {
+              const product = PRODUCTS.find((entry) => entry.slug === item.slug);
+              const price = Number(product?.price || 0);
+              return [
+                `${index + 1}. ${product ? displayProductName(product) : item.slug}`,
+                `Marca: ${product ? brandFromProduct(product) : "-"}`,
+                `Cor: ${product ? variantColorName(product) : "-"}`,
+                `Tamanho: ${item.size}`,
+                `Quantidade: ${item.quantity}`,
+                `Referência: ${product ? orderReference(product) || "sob consulta" : "sob consulta"}`,
+                `Valor: ${currency.format(price)}`,
+                ""
+              ];
+            }),
+            `Total estimado: ${currency.format(total)}`,
+            "",
+            "Pode confirmar disponibilidade, entrega e forma de pagamento?"
+          ].filter(Boolean)
+        : ["Olá, gostaria de conhecer a coleção da SCORSATTO."];
+      window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noreferrer");
     }
 
     function supplierReference(product) {
@@ -2941,9 +3042,20 @@
       activeAdminSlug = product.slug;
       const imagesText = (product.images || []).join("\n");
       const sizesText = (product.sizes || []).join(", ");
+      const diagnostics = catalogDiagnostics();
+      const alerts = [imageStatus(product), referenceStatus(product), groupStatus(product), groupingStatus(product)];
       return `
+        <div class="admin-health-grid">
+          <div class="admin-health-card"><strong>${diagnostics.products.length}</strong><span>Produtos públicos</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.standardImages}</strong><span>Com foto padrão</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.grouped}</strong><span>Peças em grupos</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.possibleGroups}</strong><span>Alertas de grupo</span></div>
+        </div>
         <form class="account-form" data-account-form="admin-product">
           <label class="field"><span>Produto</span><select name="slug" data-admin-product-select>${PRODUCTS.map((item) => `<option value="${item.slug}"${item.slug === product.slug ? " selected" : ""}>${displayProductName(item)} - Ref. ${supplierReference(item) || item.supplierProductId || "sob consulta"}</option>`).join("")}</select></label>
+          <div class="admin-alert-list">
+            ${alerts.map((item) => `<div class="admin-alert ${item.level}"><strong>${safeHtml(item.label)}</strong><span>${safeHtml(item.detail)}</span></div>`).join("")}
+          </div>
           <div class="admin-photo-grid">
             ${(product.images || []).map((image, index) => `<div class="admin-photo-card"><img src="${image}" alt=""><button type="button" data-remove-admin-image="${index}">Remover foto</button></div>`).join("") || `<p class="muted">Produto sem foto cadastrada.</p>`}
           </div>
