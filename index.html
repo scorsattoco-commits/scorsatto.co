@@ -739,12 +739,145 @@
     function shortProductDescription(product) {
       const material = productMaterial(product);
       const color = colorFromName(product.name);
-      const base = productBaseName(product);
-      const materialText = material && !normalize(base).includes(normalize(material)) ? ` em ${material.toLowerCase()}` : "";
-      const colorText = color && color !== "Cor sob consulta" ? ` na cor ${color.toLowerCase()}` : "";
-      return `${base}${materialText}${colorText}, selecionada pela SCORSATTO pela versatilidade, acabamento limpo e presença discreta.`;
+      const colorText = color && color !== "Cor sob consulta" ? color.toLowerCase() : "";
+      const materialText = material ? material.toLowerCase() : "";
+      const text = productText(product);
+      const seed = [...String(product.slug || product.id || product.name)].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const pick = (items) => items[seed % items.length];
+      const withColor = (fallback = "neutra") => colorText || fallback;
+      const withMaterial = (fallback = "acabamento") => materialText || fallback;
+      const category = product.collection || "";
+
+      if (category === "gola-polo") {
+        return pick([
+          `Polo ${withColor()} com visual alinhado e logo discreto. Uma escolha segura para composições casuais com mais presença.`,
+          `Gola polo ${withColor()} de leitura limpa, pensada para transitar entre o casual e o arrumado sem excesso.`,
+          `Polo masculina ${withColor()} com caimento versátil e acabamento sóbrio. Funciona bem sozinha ou sob uma terceira peça.`,
+        ]);
+      }
+      if (category === "camisetas") {
+        const opening = materialText ? `Camiseta de ${withMaterial()}` : "Camiseta";
+        const shade = colorText ? ` em ${colorText}` : "";
+        return pick([
+          `${opening}${shade} com visual essencial e toque refinado. Base fácil para composições limpas no dia a dia.`,
+          `${opening}${shade} de presença discreta, feita para entrar no guarda-roupa como peça-chave de uso recorrente.`,
+          `${opening}${shade} com caimento simples e leitura premium. Ideal para combinações casuais bem resolvidas.`,
+        ]);
+      }
+      if (category === "manga-longa") {
+        return pick([
+          `Manga longa ${withColor()} com textura sutil e caimento confortável. Uma peça de meia-estação para uso casual alinhado.`,
+          `Camiseta manga longa ${withColor()} com visual limpo e presença moderada. Funciona bem sozinha ou em sobreposição.`,
+          `Manga longa ${withColor()} de proposta essencial, pensada para compor looks simples com mais estrutura.`,
+        ]);
+      }
+      if (category === "camisa-social") {
+        return pick([
+          `Camisa ${withColor()} com estrutura limpa e leitura masculina. Boa escolha para produções alinhadas sem formalidade excessiva.`,
+          `Camisa social ${withColor()} de presença sóbria, feita para compor combinações mais elegantes com naturalidade.`,
+          `Camisa ${withColor()} com acabamento visual discreto e caimento organizado. Uma base refinada para ocasiões mais arrumadas.`,
+        ]);
+      }
+      if (category === "calcas") {
+        if (text.includes("moletom")) {
+          return pick([
+            `Calça de moletom ${withColor()} com conforto evidente e visual controlado. Ideal para uma proposta casual sem parecer relaxada demais.`,
+            `Moletom ${withColor()} em versão mais limpa, com cintura prática e leitura urbana. Combina bem com malhas e camisetas premium.`,
+            `Calça moletom ${withColor()} de caimento confortável, pensada para dias de ritmo leve com aparência bem cuidada.`,
+          ]);
+        }
+        if (text.includes("sarja")) {
+          return pick([
+            `Calça sarja ${withColor()} com estrutura casual e visual alinhado. Uma alternativa versátil ao jeans para composições mais limpas.`,
+            `Sarja ${withColor()} de presença discreta, com leitura fácil para usar com polos, camisas e malhas.`,
+            `Calça em sarja ${withColor()} com acabamento sóbrio e boa adaptação ao dia a dia. Simples, masculina e funcional.`,
+          ]);
+        }
+        return pick([
+          `Calça jeans ${withColor()} com visual direto e fácil de combinar. Uma base masculina para diferentes camadas e ocasiões casuais.`,
+          `Jeans ${withColor()} com leitura limpa, pensado para sustentar o look sem roubar a atenção das outras peças.`,
+          `Calça jeans ${withColor()} de presença clássica, boa para composições casuais com camiseta, polo ou jaqueta.`,
+        ]);
+      }
+      if (category === "bermudas") {
+        if (text.includes("linho")) {
+          return pick([
+            `Bermuda em linho ${withColor()} com leveza visual e acabamento casual refinado. Boa para dias quentes sem perder elegância.`,
+            `Linho ${withColor()} em versão descontraída, com aparência limpa e fácil de combinar com camisetas ou polos.`,
+            `Bermuda linho ${withColor()} de leitura leve, pensada para uma rotina de verão com mais presença.`,
+          ]);
+        }
+        if (text.includes("sarja")) {
+          return pick([
+            `Bermuda sarja ${withColor()} com estrutura casual e visual limpo. Uma peça prática para composições de verão mais arrumadas.`,
+            `Sarja ${withColor()} em versão curta, com presença discreta e boa combinação com polos e camisetas essenciais.`,
+            `Bermuda em sarja ${withColor()} de acabamento sóbrio, feita para manter conforto sem perder forma.`,
+          ]);
+        }
+        return pick([
+          `Bermuda jeans ${withColor()} com leitura casual e resistente. Uma base simples para dias quentes com visual masculino.`,
+          `Jeans ${withColor()} em versão curta, com presença direta e fácil combinação com peças essenciais.`,
+          `Bermuda jeans ${withColor()} de visual prático, pensada para uma composição casual bem resolvida.`,
+        ]);
+      }
+      if (category === "jaquetas") {
+        if (text.includes("cotele")) {
+          return pick([
+            `Jaqueta cotelê ${withColor()} com textura marcada e visual limpo. Uma terceira peça para elevar composições casuais com naturalidade.`,
+            `Cotelê ${withColor()} em jaqueta de presença discreta, ideal para adicionar textura sem pesar o visual.`,
+            `Jaqueta em cotelê ${withColor()} com caimento estruturado e leitura sofisticada. Funciona bem sobre camisetas e malhas.`,
+          ]);
+        }
+        if (text.includes("corta vento")) {
+          return pick([
+            `Corta-vento ${withColor()} com aparência técnica e construção leve. Uma camada prática para dias instáveis sem perder presença.`,
+            `Jaqueta corta-vento ${withColor()} de visual limpo, pensada para proteção leve e uso urbano.`,
+            `Corta-vento ${withColor()} com linhas simples e acabamento discreto. Boa opção para completar looks casuais com funcionalidade.`,
+          ]);
+        }
+        if (text.includes("bomber")) {
+          return pick([
+            `Jaqueta bomber ${withColor()} com volume controlado e presença urbana. Uma camada versátil para elevar o básico.`,
+            `Bomber ${withColor()} de leitura minimalista, feita para compor com camiseta, polo ou malha sem excesso.`,
+            `Jaqueta bomber ${withColor()} com visual sóbrio e caimento direto. Uma terceira peça fácil de usar em diferentes combinações.`,
+          ]);
+        }
+        return pick([
+          `Jaqueta ${withColor()} com estrutura limpa e presença moderada. Uma terceira peça para dar acabamento ao visual.`,
+          `Camada ${withColor()} de leitura sóbria, pensada para completar composições casuais com mais intenção.`,
+          `Jaqueta ${withColor()} de visual versátil e masculino. Boa para criar profundidade sem deixar o look carregado.`,
+        ]);
+      }
+      if (category === "casacos") {
+        return pick([
+          `Casaco ${withColor()} com toque confortável e visual limpo. Uma camada essencial para dias mais frios com aparência cuidada.`,
+          `Moletom ${withColor()} de presença discreta, pensado para conforto sem abrir mão de uma leitura mais alinhada.`,
+          `Casaco ${withColor()} com caimento simples e acabamento sóbrio. Funciona bem em combinações casuais de frio.`,
+        ]);
+      }
+      if (category === "sueteres") {
+        const shape = text.includes("meio ziper") || text.includes("meio ziper") ? "meio zíper" : "gola redonda";
+        return pick([
+          `Suéter ${shape} ${withColor()} com textura discreta e visual refinado. Uma camada fácil para composições de frio mais elegantes.`,
+          `Malha ${withColor()} de leitura limpa, pensada para aquecer sem perder leveza visual.`,
+          `Suéter ${withColor()} com presença sóbria e caimento versátil. Ideal para usar sozinho ou sob jaquetas e casacos.`,
+        ]);
+      }
+      return pick([
+        `${displayProductName(product)} ${withColor()} com visual limpo e proposta essencial. Uma peça fácil para composições masculinas bem resolvidas.`,
+        `${displayProductName(product)} ${withColor()} de leitura sóbria, pensada para uso recorrente com aparência cuidada.`,
+        `${displayProductName(product)} ${withColor()} com acabamento discreto e presença versátil no guarda-roupa.`,
+      ]);
     }
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
+    function refreshEditorialDescriptions() {
+      PRODUCTS.forEach((product) => {
+        const description = shortProductDescription(product);
+        product.shortDescription = description;
+        product.description = description;
+      });
+    }
+    refreshEditorialDescriptions();
     const brandText = (product) => normalize([product.name, product.supplierUrl, product.supplierProductId, product.slug, product.internalNotes, product.tags?.join(" ")].join(" "));
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
     const isAdminAccount = () => Boolean(hasAdminEmail());
