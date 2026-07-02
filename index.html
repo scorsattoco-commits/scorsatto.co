@@ -641,7 +641,10 @@
     let backofficeError = "";
     let adminVerified = false;
     let approvedProductGroups = [];
-    let groupDrafts = JSON.parse(localStorage.getItem("scorsattoGroupDraftsV1") || "[]");
+    let groupDrafts = (() => {
+      try { return JSON.parse(localStorage.getItem("scorsattoGroupDraftsV1") || "[]"); }
+      catch { return []; }
+    })();
     let activeGroupDraftId = groupDrafts[0]?.id || "";
     let groupSearchTerm = "";
     let activeAccountTab = account ? "resumo" : "entrar";
@@ -1455,7 +1458,29 @@
       approvedProductGroups = normalized.length ? normalized : [...PRODUCT_GROUPS];
     }
 
+    function normalizeGroupDraft(draft) {
+      if (!draft || typeof draft !== "object") return null;
+      const fromSlugs = Array.isArray(draft.slugs) ? draft.slugs : [];
+      const fromIds = Array.isArray(draft.productIds) ? draft.productIds.map((id) => PRODUCTS.find((product) => product.id === id)?.slug).filter(Boolean) : [];
+      const slugs = [...new Set([...fromSlugs, ...fromIds])].filter((slug) => PRODUCTS.some((product) => product.slug === slug));
+      return {
+        id: draft.id || "draft-" + Date.now(),
+        name: draft.name || "Novo grupo",
+        slugs,
+        updatedAt: draft.updatedAt || new Date().toISOString(),
+      };
+    }
+
+    function normalizeGroupDrafts() {
+      groupDrafts = (Array.isArray(groupDrafts) ? groupDrafts : []).map(normalizeGroupDraft).filter(Boolean);
+      if (!groupDrafts.length) {
+        groupDrafts = [{ id: "draft-" + Date.now(), name: "Novo grupo", slugs: [], updatedAt: new Date().toISOString() }];
+      }
+      if (!groupDrafts.some((draft) => draft.id === activeGroupDraftId)) activeGroupDraftId = groupDrafts[0].id;
+    }
+
     function saveGroupDrafts() {
+      normalizeGroupDrafts();
       localStorage.setItem("scorsattoGroupDraftsV1", JSON.stringify(groupDrafts));
     }
 
@@ -1464,6 +1489,7 @@
     }
 
     function activeGroupDraft() {
+      normalizeGroupDrafts();
       if (!activeGroupDraftId || !groupDrafts.some((draft) => draft.id === activeGroupDraftId)) {
         activeGroupDraftId = groupDrafts[0]?.id || "";
       }
@@ -2637,11 +2663,12 @@
     function renderGroupAdminPanel() {
       if (!isAdminAccount()) return "";
       const draft = ensureGroupDraft();
+      const draftSlugs = Array.isArray(draft.slugs) ? draft.slugs : [];
       const selectedProducts = groupDraftProducts(draft);
       const groupedSlugs = new Set(approvedProductGroups.flatMap((group) => group.slugs || []));
       const available = PRODUCTS
         .filter((product) => !product.hidden)
-        .filter((product) => !groupedSlugs.has(product.slug) || draft.slugs.includes(product.slug))
+        .filter((product) => !groupedSlugs.has(product.slug) || draftSlugs.includes(product.slug))
         .filter((product) => !groupSearchTerm || productGroupDraftLabel(product).toLowerCase().includes(groupSearchTerm.toLowerCase()))
         .slice(0, 160);
       const approvedHtml = approvedProductGroups.map((group) => {
@@ -2678,7 +2705,7 @@
               <div class="account-tabs">${groupDrafts.map((item) => `<button class="account-tab${item.id === draft.id ? " active" : ""}" type="button" data-select-group-draft="${item.id}">${item.name}</button>`).join("")}</div>
               <p class="filter-group-title">Peças fora de grupo</p>
               <div>${available.length ? available.map((product) => `
-                <button class="group-admin-product${draft.slugs.includes(product.slug) ? " active" : ""}" type="button" data-toggle-group-product="${product.slug}">
+                <button class="group-admin-product${draftSlugs.includes(product.slug) ? " active" : ""}" type="button" data-toggle-group-product="${product.slug}">
                   <img src="${primaryImage(product)}" alt="">
                   <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
                 </button>`).join("") : `<p class="muted">Todas as peças visíveis já estão em grupos aprovados ou ocultas.</p>`}</div>
@@ -3276,6 +3303,7 @@
       if (toggleGroupProduct && isAdminAccount()) {
         const draft = ensureGroupDraft();
         const slug = toggleGroupProduct.dataset.toggleGroupProduct;
+        draft.slugs = Array.isArray(draft.slugs) ? draft.slugs : [];
         draft.slugs = draft.slugs.includes(slug) ? draft.slugs.filter((item) => item !== slug) : [...draft.slugs, slug];
         draft.updatedAt = new Date().toISOString();
         saveGroupDrafts();
@@ -3386,6 +3414,7 @@
       if (toggleGroupProduct && isAdminAccount()) {
         const draft = ensureGroupDraft();
         const slug = toggleGroupProduct.dataset.toggleGroupProduct;
+        draft.slugs = Array.isArray(draft.slugs) ? draft.slugs : [];
         draft.slugs = draft.slugs.includes(slug) ? draft.slugs.filter((item) => item !== slug) : [...draft.slugs, slug];
         draft.updatedAt = new Date().toISOString();
         saveGroupDrafts();
