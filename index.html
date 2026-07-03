@@ -156,6 +156,11 @@
     .faq-list { display: grid; gap: 18px; }
     .faq-item { border-top: 1px solid var(--line); padding-top: 18px; }
     .faq-item strong { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .policy-section { border-top: 1px solid var(--line); background: var(--white); }
+    .policy-grid { display: grid; gap: 18px; }
+    .policy-card { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 8px; }
+    .policy-card strong { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .policy-card span { color: var(--muted); font-size: 13px; line-height: 1.7; }
     .trust-band { border-top: 1px solid var(--line); background: var(--white); padding: 22px 16px; }
     .trust-list { max-width: 1440px; margin: 0 auto; display: grid; gap: 10px; color: #2c2c28; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
     .curation-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); padding: clamp(28px, 4vw, 52px) 16px; }
@@ -392,6 +397,7 @@
       .product-fact { grid-template-columns: 140px 1fr; gap: 16px; }
       .trust-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
+      .policy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .curation-inner { grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); }
       .curation-fields { grid-template-columns: 1fr 1fr; }
       .curation-button { justify-self: start; min-width: 190px; }
@@ -523,6 +529,21 @@
     </section>
   </main>
 
+  <section class="section policy-section" id="entrega-trocas">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow">Atendimento</p>
+        <h2>Entrega e trocas.</h2>
+        <p class="muted">Compra assistida, com confirmação de disponibilidade e orientação antes do envio.</p>
+      </div>
+      <div class="policy-grid">
+        <div class="policy-card"><strong>Entrega</strong><span>Enviamos para todo o Brasil. Prazo, frete e disponibilidade são confirmados no atendimento pelo WhatsApp antes da finalização.</span></div>
+        <div class="policy-card"><strong>Trocas</strong><span>A troca é orientada pelo atendimento SCORSATTO. Antes da compra, ajudamos a conferir tamanho, medidas e caimento para reduzir erro de escolha.</span></div>
+        <div class="policy-card"><strong>Compra assistida</strong><span>Se a peça estiver sob consulta, confirmamos estoque, tamanho e referência com o fornecedor antes de seguir com o pedido.</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="curation-strip" aria-label="Curadoria privada SCORSATTO">
     <div class="curation-inner">
       <div>
@@ -619,8 +640,8 @@
         <nav class="footer-column" aria-label="Atendimento">
           <h3 class="footer-heading">Atendimento</h3>
           <a class="footer-link" href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto." target="_blank" rel="noreferrer">WhatsApp</a>
-          <a class="footer-link" href="#sobre">Entrega</a>
-          <a class="footer-link" href="#sobre">Trocas</a>
+          <a class="footer-link" href="#entrega-trocas">Entrega</a>
+          <a class="footer-link" href="#entrega-trocas">Trocas</a>
         </nav>
         <nav class="footer-column" aria-label="Conta">
           <h3 class="footer-heading">Conta</h3>
@@ -945,6 +966,22 @@
         `${displayProductName(product)} ${withColor()} com acabamento discreto e presença versátil no guarda-roupa.`,
       ]);
     }
+    function productEditorialLine(product) {
+      const category = product.collection || "";
+      const color = colorFromName(product.name);
+      const colorText = color && color !== "Cor sob consulta" ? color.toLowerCase() : "";
+      const seed = [...String(product.slug || product.id || product.name)].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const pick = (items) => items[seed % items.length];
+      if (category === "gola-polo") return pick(["Uma polo para dias em que simplicidade precisa parecer intencional.", "Presença limpa para transitar entre o casual e o alinhado.", "Clássica sem esforço, com a discrição que sustenta bons looks."]);
+      if (category === "camisetas") return pick(["Base essencial para composições limpas e bem resolvidas.", "A peça certa quando o simples precisa parecer bem escolhido.", "Visual direto, pensado para sustentar o guarda-roupa sem excesso."]);
+      if (category === "manga-longa") return pick(["Uma camada leve para deixar o casual mais estruturado.", "Boa presença para meia-estação, sem perder simplicidade.", "Funciona sozinha ou em sobreposição, com leitura discreta."]);
+      if (category === "camisa-social") return pick(["Estrutura suficiente para elevar a rotina sem formalidade demais.", "Uma camisa para ocasiões em que o detalhe importa mais que o excesso.", "Leitura refinada para composições masculinas bem alinhadas."]);
+      if (category === "calcas") return pick(["A base do look, escolhida para equilibrar conforto e presença.", "Parte de baixo versátil para sustentar combinações limpas.", "Uma peça de apoio forte para camiseta, polo ou terceira camada."]);
+      if (category === "bermudas") return pick(["Leveza para dias quentes, mantendo o visual arrumado.", "Uma escolha casual com presença controlada.", "Conforto de verão com acabamento mais pensado."]);
+      if (category === "jaquetas") return pick(["Terceira peça para transformar o básico em composição.", "Camada final com presença, sem perder discrição.", "A peça que fecha o visual com mais estrutura."]);
+      if (category === "casacos" || category === "sueteres") return pick(["Camada essencial para dias frios com aparência bem cuidada.", "Textura e presença para elevar combinações simples.", "Uma peça de conforto com leitura mais refinada."]);
+      return colorText ? `Peça ${colorText} para compor presença com discrição.` : "Peça selecionada para compor presença com discrição.";
+    }
     const productText = (product) => normalize([product.name, product.collection, product.shortDescription, product.description, product.supplierUrl, product.images?.join(" "), product.internalNotes, product.tags?.join(" ")].join(" "));
     function refreshEditorialDescriptions() {
       PRODUCTS.forEach((product) => {
@@ -993,8 +1030,15 @@
     function swatchColor(label) {
       return SWATCHES[label] || SWATCHES[COLORS.find((color) => color.terms.some((term) => normalize(label).includes(normalize(term))))?.label] || "#f5f5f1";
     }
+    function isStandardScorsattoImage(image) {
+      return String(image || "").includes("generated/photoroom/site/");
+    }
     function uniqueImages(product) {
-      return [...new Set((product.images ?? []).filter(Boolean))];
+      const images = [...new Set((product.images ?? []).filter(Boolean))];
+      return images.sort((a, b) => Number(isStandardScorsattoImage(b)) - Number(isStandardScorsattoImage(a)));
+    }
+    function productImage(product) {
+      return uniqueImages(product)[0] || "";
     }
 
     const PRODUCT_GROUPS = [
@@ -2183,7 +2227,7 @@
     function updateShopHeader() {
       const category = currentCategory();
       const copy = {
-        inicio: ["Início", "Seleção SCORSATTO da vez."],
+        inicio: ["Início", "Seleção da semana."],
         "disponiveis-agora": ["Pronta entrega", ""],
         todos: ["Coleção", "Escolha por categoria."],
       };
@@ -2377,7 +2421,7 @@
         return `
           <div class="cart-item">
             <button class="cart-product" type="button" data-cart-open-product="${product.slug}" aria-label="Abrir ${product.name}">
-              <img src="${product.images?.[0] || ""}" alt="${displayProductName(product)}">
+              <img src="${productImage(product)}" alt="${displayProductName(product)}">
               <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>Ref.: ${orderReference(product)} - Tam: ${item.size} - Qtd: ${item.quantity}</small></span>
             </button>
             <button class="remove" type="button" data-remove="${item.key}">remover</button>
@@ -2443,6 +2487,28 @@
             "Pode confirmar disponibilidade, entrega e forma de pagamento?"
           ].filter(Boolean)
         : ["Olá, gostaria de conhecer a coleção da SCORSATTO."];
+      window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noreferrer");
+    }
+
+    function openContextWhatsApp() {
+      const product = selectedProductSlug ? PRODUCTS.find((item) => item.slug === selectedProductSlug) : null;
+      const lines = product ? [
+        "Olá, gostaria de atendimento sobre esta peça SCORSATTO.",
+        "",
+        `Produto: ${displayProductName(product)}`,
+        `Marca: ${brandFromProduct(product)}`,
+        `Cor: ${variantColorName(product)}`,
+        `Tamanhos: ${variantOptionSizes(product).join(", ") || "sob consulta"}`,
+        `Referência: ${variantOptionReferences(product).join(" / ") || orderReference(product) || "sob consulta"}`,
+        `Valor: ${currency.format(product.price)}`,
+        `Link: ${location.origin}${location.pathname}#produto-${product.slug}`,
+        "",
+        "Pode confirmar disponibilidade e me orientar no tamanho?"
+      ] : [
+        "Olá, gostaria de conhecer a coleção da SCORSATTO.",
+        "Pode me ajudar com a curadoria?"
+      ];
+      recordCustomerEvent(product ? "whatsapp_product" : "whatsapp_contact", product?.slug || null, product ? { reference: orderReference(product) } : {});
       window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noreferrer");
     }
 
@@ -2752,6 +2818,18 @@
       return "leads";
     }
 
+    function customerHasCart(key) {
+      return (backofficeData?.carts || []).some((item) => customerMatch(item, key));
+    }
+
+    function customerHasOrder(key) {
+      return (backofficeData?.orders || []).some((item) => customerMatch(item, key) || (!item.user_id && String(key).startsWith("order:") && "order:" + item.id === key));
+    }
+
+    function customerHasCurationLead(key) {
+      return (backofficeData?.events || []).some((item) => customerMatch(item, key) && item.event_type === "newsletter_signup");
+    }
+
     function customerDisplay(key) {
       const contact = customerContact(key);
       const stage = customerStage(key);
@@ -2773,11 +2851,15 @@
       const labels = {
         page_view: "Acessou o site",
         product_view: "Viu produto",
+        add_to_cart: "Adicionou ao carrinho",
         cart_add: "Adicionou ao carrinho",
+        remove_from_cart: "Removeu do carrinho",
         cart_remove: "Removeu do carrinho",
         favorite_add: "Favoritou peça",
         favorite_remove: "Removeu favorito",
         whatsapp_checkout: "Foi para WhatsApp",
+        whatsapp_product: "Chamou sobre produto",
+        whatsapp_contact: "Chamou no WhatsApp",
         newsletter_signup: "Assinou curadoria",
       };
       return labels[type] || type || "-";
@@ -2911,11 +2993,21 @@
       const segmentCounts = {
         todos: allCustomerKeys.length,
         clientes: allCustomerKeys.filter((key) => customerStage(key) === "clientes").length,
-        leads: allCustomerKeys.filter((key) => customerStage(key) === "leads").length,
+        leads: allCustomerKeys.filter((key) => customerStage(key) === "leads" || customerHasCurationLead(key)).length,
+        carrinhos: allCustomerKeys.filter(customerHasCart).length,
+        pedidos: allCustomerKeys.filter(customerHasOrder).length,
         visitantes: allCustomerKeys.filter((key) => customerStage(key) === "visitantes").length,
       };
-      if (!["todos", "clientes", "leads", "visitantes"].includes(activeBackofficeSegment)) activeBackofficeSegment = "todos";
-      const customerKeys = activeBackofficeSegment === "todos" ? allCustomerKeys : allCustomerKeys.filter((key) => customerStage(key) === activeBackofficeSegment);
+      if (!["todos", "clientes", "leads", "carrinhos", "pedidos", "visitantes"].includes(activeBackofficeSegment)) activeBackofficeSegment = "todos";
+      const customerKeys = activeBackofficeSegment === "todos"
+        ? allCustomerKeys
+        : activeBackofficeSegment === "carrinhos"
+          ? allCustomerKeys.filter(customerHasCart)
+          : activeBackofficeSegment === "pedidos"
+            ? allCustomerKeys.filter(customerHasOrder)
+            : activeBackofficeSegment === "leads"
+              ? allCustomerKeys.filter((key) => customerStage(key) === "leads" || customerHasCurationLead(key))
+              : allCustomerKeys.filter((key) => customerStage(key) === activeBackofficeSegment);
       if (!activeBackofficeCustomerId && customerKeys.length) activeBackofficeCustomerId = customerKeys[0];
       if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__" && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
       const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
@@ -2924,7 +3016,9 @@
       const identifiedVisitors = segmentCounts.leads;
       const segmentButtons = [
         ["clientes", `Clientes (${segmentCounts.clientes})`],
-        ["leads", `Leads (${segmentCounts.leads})`],
+        ["leads", `Leads da curadoria (${segmentCounts.leads})`],
+        ["carrinhos", `Carrinhos ativos (${segmentCounts.carrinhos})`],
+        ["pedidos", `Pedidos WhatsApp (${segmentCounts.pedidos})`],
         ["visitantes", `Visitantes (${segmentCounts.visitantes})`],
         ["todos", `Todos (${segmentCounts.todos})`],
       ].map(([segment, label]) => `<button class="${activeBackofficeSegment === segment ? "active" : ""}" type="button" data-backoffice-segment="${segment}">${label}</button>`).join("");
@@ -2965,7 +3059,7 @@
           <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
         </div>
         ${activeBackofficeCustomerId === "__closed__" ? minimizedFicha : renderCustomerDetail(activeBackofficeCustomerId)}
-        ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads sem cadastro completo" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
+        ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads da curadoria" : activeBackofficeSegment === "carrinhos" ? "Carrinhos ativos" : activeBackofficeSegment === "pedidos" ? "Pedidos via WhatsApp" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
         ${renderBackofficeSection("Carrinhos ativos", `<p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}`, false)}
         ${renderBackofficeSection("Pedidos via WhatsApp", renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda."), false)}
         ${renderBackofficeSection("Acessos e eventos recentes", renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda."), false)}
@@ -3048,7 +3142,7 @@
         <article class="favorite-card">
           <button class="favorite-remove" type="button" data-remove-favorite="${product.slug}" aria-label="Remover favorito">x</button>
           <button class="favorite-open" type="button" data-account-open-product="${product.slug}">
-            <img src="${product.images?.[0] || ""}" alt="${displayProductName(product)}">
+            <img src="${productImage(product)}" alt="${displayProductName(product)}">
             <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>${variantColorName(product)}<br>Ref.: ${orderReference(product)}</small></span>
           </button>
         </article>`).join("")}</div>`;
@@ -3133,7 +3227,7 @@
               <p class="filter-group-title">Peças fora de grupo</p>
               <div>${available.length ? available.map((product) => `
                 <button class="group-admin-product${draftSlugs.includes(product.slug) ? " active" : ""}" type="button" data-toggle-group-product="${product.slug}">
-                  <img src="${product.images?.[0] || ""}" alt="">
+                  <img src="${productImage(product)}" alt="">
                   <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
                 </button>`).join("") : `<p class="muted">Todas as peças visíveis já estão em grupos aprovados ou ocultas.</p>`}</div>
             </aside>
@@ -3229,7 +3323,7 @@
       }).join("");
       const ungroupedHtml = ungrouped.map((product) => `
         <button class="group-admin-product" type="button" data-toggle-group-product="${product.slug}">
-          <img src="${product.images?.[0] || ""}" alt="">
+          <img src="${productImage(product)}" alt="">
           <span><strong>${displayProductName(product)}</strong><small>${brandFromProduct(product)} | ${variantColorName(product)} | Ref. ${supplierReference(product) || product.supplierProductId || "sob consulta"}</small></span>
         </button>`).join("");
       return `<div class="admin-page-shell">
@@ -3593,7 +3687,7 @@
           <p class="detail-meta">Cor: ${variantColorName(product)}</p>
           <p class="detail-meta">Tamanhos disponíveis: ${optionSizes.join(", ") || "sob consulta"}</p>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
-          <p class="detail-description">${shortProductDescription(product)}</p>
+          <p class="detail-description"><strong>${productEditorialLine(product)}</strong><br>${shortProductDescription(product)}</p>
           ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
@@ -3631,7 +3725,7 @@
           <div class="product-media">
             ${isAvailableNow(product) ? '<span class="availability-badge">Disponível agora</span>' : ""}
             <button class="product-save${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-card-favorite="${product.slug}" aria-label="Salvar favorito">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
-            <img src="${product.images?.[0] || ""}" alt="${displayProductName(product)}" loading="lazy">
+            <img src="${productImage(product)}" alt="${displayProductName(product)}" loading="lazy">
             <button class="quick-buy" type="button" data-open-product="${product.slug}">Ver produto</button>
           </div>
           <div class="product-info">
@@ -3800,7 +3894,7 @@
       try {
         await recordCurationLead({ name, phone });
         form.reset();
-        if (curationLeadMessage) curationLeadMessage.textContent = "Pronto. Você entrou na lista privada SCORSATTO.";
+        if (curationLeadMessage) curationLeadMessage.textContent = "Perfeito. Quando uma peça com seu perfil entrar, avisamos pelo WhatsApp.";
       } catch (error) {
         console.error(error);
         if (curationLeadMessage) curationLeadMessage.textContent = "Não foi possível salvar agora. Chame a SCORSATTO pelo WhatsApp.";
@@ -4164,7 +4258,7 @@
     cartMini.addEventListener("click", openCart);
     cartClose.addEventListener("click", closeCart);
     checkout.addEventListener("click", checkoutWhatsApp);
-    whatsappFloat.addEventListener("click", () => window.open("https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto.", "_blank", "noreferrer"));
+    whatsappFloat.addEventListener("click", openContextWhatsApp);
     search.addEventListener("input", renderProducts);
     window.addEventListener("hashchange", handleHashChange);
     window.addEventListener("scroll", updateScrollState, { passive: true });
