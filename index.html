@@ -158,6 +158,18 @@
     .faq-item strong { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
     .trust-band { border-top: 1px solid var(--line); background: var(--white); padding: 22px 16px; }
     .trust-list { max-width: 1440px; margin: 0 auto; display: grid; gap: 10px; color: #2c2c28; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .curation-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); padding: clamp(28px, 4vw, 52px) 16px; }
+    .curation-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 28px; align-items: end; }
+    .curation-eyebrow { margin: 0 0 10px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .curation-title { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(38px, 5vw, 76px); line-height: .95; font-weight: 500; letter-spacing: 0; }
+    .curation-copy { max-width: 620px; margin: 16px 0 0; color: #44443f; font-size: 15px; line-height: 1.75; }
+    .curation-form { display: grid; gap: 10px; width: 100%; }
+    .curation-fields { display: grid; gap: 10px; }
+    .curation-input { width: 100%; min-height: 48px; border: 1px solid #cfcfca; border-radius: var(--radius-control); background: var(--white); padding: 0 14px; color: var(--black); font: inherit; outline: none; }
+    .curation-input:focus { border-color: var(--black); }
+    .curation-button { min-height: 48px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); cursor: pointer; padding: 0 18px; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .curation-message, .curation-privacy { margin: 2px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .curation-message { min-height: 17px; color: #2f2f2b; font-weight: 600; }
     .floating-whatsapp { position: fixed; right: 16px; bottom: 16px; z-index: 25; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #111; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 40px rgba(0,0,0,.18); transition: transform .2s ease; cursor: pointer; }
     .floating-whatsapp:hover { transform: translateY(-2px); }
     .floating-whatsapp svg { width: 23px; height: 23px; fill: currentColor; }
@@ -325,12 +337,18 @@
     .primary-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: var(--radius-control); border: 1px solid var(--black); background: var(--black); color: var(--white); padding: 0 20px; font-size: 12px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; transition: transform .22s ease, opacity .22s ease; cursor: pointer; }
     .primary-btn:hover { transform: translateY(-2px); opacity: .9; }
     .remove { border: 0; background: transparent; color: var(--muted); cursor: pointer; }
-    footer { padding: 30px 16px 38px; background: var(--white); color: var(--black); border-top: 1px solid var(--line); }
-    .footer-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 18px; text-align: center; }
-    .footer-line { height: 1px; background: var(--line); margin-bottom: 16px; }
-    .footer-mark { font-family: "Cormorant Garamond", serif; font-size: 22px; letter-spacing: .14em; font-weight: 600; }
-    .footer-small { color: var(--muted); font-size: 12px; line-height: 1.8; }
-    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    footer { padding: 38px 16px 42px; background: var(--white); color: var(--black); border-top: 1px solid var(--line); }
+    .footer-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 34px; }
+    .footer-brand { display: grid; gap: 12px; align-content: start; }
+    .footer-mark { font-family: "Cormorant Garamond", serif; font-size: 30px; line-height: 1; letter-spacing: .16em; font-weight: 600; }
+    .footer-small { max-width: 360px; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .footer-columns { display: grid; gap: 24px; }
+    .footer-column { display: grid; gap: 10px; align-content: start; }
+    .footer-heading { margin: 0 0 2px; color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .footer-link { color: #4e4e49; text-decoration: none; font-size: 13px; line-height: 1.5; }
+    .footer-link:hover { color: var(--black); text-decoration: underline; text-underline-offset: 4px; }
+    .footer-bottom { border-top: 1px solid var(--line); padding-top: 18px; display: flex; flex-wrap: wrap; gap: 10px 18px; justify-content: space-between; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
@@ -374,6 +392,12 @@
       .product-fact { grid-template-columns: 140px 1fr; gap: 16px; }
       .trust-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
+      .curation-inner { grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); }
+      .curation-fields { grid-template-columns: 1fr 1fr; }
+      .curation-button { justify-self: start; min-width: 190px; }
+      .footer-inner { grid-template-columns: minmax(260px, .7fr) minmax(0, 1fr); }
+      .footer-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .footer-bottom { grid-column: 1 / -1; }
     }
     @media (min-width: 1120px) {
       .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -499,6 +523,25 @@
     </section>
   </main>
 
+  <section class="curation-strip" aria-label="Curadoria privada SCORSATTO">
+    <div class="curation-inner">
+      <div>
+        <p class="curation-eyebrow">Lista privada</p>
+        <h2 class="curation-title">Receba a curadoria SCORSATTO</h2>
+        <p class="curation-copy">Novas peças, reposições e seleções de pronta entrega enviadas com discrição. Sem excesso. Apenas o essencial bem feito.</p>
+      </div>
+      <form class="curation-form" id="curationLeadForm">
+        <div class="curation-fields">
+          <input class="curation-input" name="name" type="text" placeholder="Seu nome" autocomplete="name" required>
+          <input class="curation-input" name="phone" type="tel" placeholder="WhatsApp" autocomplete="tel" required>
+        </div>
+        <button class="curation-button" type="submit">Entrar na lista</button>
+        <p class="curation-message" id="curationLeadMessage" aria-live="polite"></p>
+        <p class="curation-privacy">Usamos seu contato apenas para avisos de curadoria, reposições e atendimento SCORSATTO.</p>
+      </form>
+    </div>
+  </section>
+
   <section class="trust-band" aria-label="Confianca">
     <div class="trust-list">
       <span>Curadoria masculina premium</span>
@@ -562,13 +605,34 @@
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-line"></div>
-      <div class="footer-mark">SCORSATTO &copy; 2026</div>
-      <div class="footer-small">O essencial bem feito.<br>Rio Grande do Sul &bull; Brasil<br>Atendimento para compra assistida, troca, entrega e curadoria<br>Todos os direitos reservados.</div>
-      <div class="footer-links">
-        <a href="https://www.instagram.com/scorsatto.co/" target="_blank" rel="noreferrer">Instagram</a>
-        <a href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto." target="_blank" rel="noreferrer">WhatsApp</a>
-        <a href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20entrar%20no%20Grupo%20Exclusivo%20da%20Scorsatto." target="_blank" rel="noreferrer">Grupo Exclusivo</a>
+      <div class="footer-brand">
+        <div class="footer-mark">SCORSATTO</div>
+        <div class="footer-small">Menos tendência. Mais presença.<br>O essencial bem feito.</div>
+      </div>
+      <div class="footer-columns">
+        <nav class="footer-column" aria-label="SCORSATTO">
+          <h3 class="footer-heading">SCORSATTO</h3>
+          <a class="footer-link" href="#sobre">Sobre</a>
+          <a class="footer-link" href="#produtos" data-filter-link="todos">Curadoria</a>
+          <a class="footer-link" href="#produtos" data-filter-link="disponiveis-agora">Pronta entrega</a>
+        </nav>
+        <nav class="footer-column" aria-label="Atendimento">
+          <h3 class="footer-heading">Atendimento</h3>
+          <a class="footer-link" href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto." target="_blank" rel="noreferrer">WhatsApp</a>
+          <a class="footer-link" href="#sobre">Entrega</a>
+          <a class="footer-link" href="#sobre">Trocas</a>
+        </nav>
+        <nav class="footer-column" aria-label="Conta">
+          <h3 class="footer-heading">Conta</h3>
+          <a class="footer-link" href="#entrar" data-open-account-footer="entrar">Entrar</a>
+          <a class="footer-link" href="#favoritos" data-open-favorites-page>Favoritos</a>
+          <a class="footer-link" href="#carrinho" data-open-cart-footer>Carrinho</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>SCORSATTO &copy; 2026</span>
+        <span>Rio Grande do Sul &bull; Brasil</span>
+        <span>Todos os direitos reservados.</span>
       </div>
     </div>
   </footer>
@@ -611,6 +675,8 @@
     const accountPanels = document.querySelector("#accountPanels");
     const backofficePage = document.querySelector("#backofficePage");
     const backofficeStandalone = document.querySelector("#backofficeStandalone");
+    const curationLeadForm = document.querySelector("#curationLeadForm");
+    const curationLeadMessage = document.querySelector("#curationLeadMessage");
     const cartMini = document.querySelector("#cartMini");
     const cartCount = document.querySelector("#cartCount");
     const cartDrawer = document.querySelector("#cartDrawer");
@@ -2545,6 +2611,54 @@
       });
     }
 
+    function localLeadId(phone = "") {
+      const normalized = String(phone || "").replace(/\D/g, "");
+      return "lead:" + (normalized || (crypto.randomUUID?.() || Date.now()));
+    }
+
+    async function recordCurationLead({ name, phone }) {
+      const cleanName = String(name || "").trim();
+      const cleanPhone = String(phone || "").trim();
+      const leadId = account?.id || localLeadId(cleanPhone);
+      const customer = {
+        name: cleanName,
+        email: account?.email || "",
+        phone: cleanPhone,
+        city: account?.city || "",
+        state: account?.state || "",
+      };
+      if (db) {
+        await db.from("customer_events").insert({
+          user_id: account?.id || null,
+          event_type: "newsletter_signup",
+          product_slug: null,
+          metadata: {
+            leadId,
+            customer,
+            path: location.pathname + location.hash,
+            source: "curadoria_footer",
+          },
+        });
+        if (account?.id) {
+          await db.from("profiles").upsert({
+            id: account.id,
+            name: cleanName || account.name || "",
+            phone: cleanPhone || account.phone || "",
+            email: account.email || "",
+            city: account.city || "",
+            state: (account.state || "").toUpperCase(),
+            newsletter: true,
+            updated_at: new Date().toISOString(),
+          });
+        }
+      }
+      const localLeads = JSON.parse(localStorage.getItem("scorsattoLocalLeadsV1") || "[]");
+      localLeads.unshift({ id: leadId, name: cleanName, phone: cleanPhone, createdAt: new Date().toISOString(), source: "curadoria_footer" });
+      localStorage.setItem("scorsattoLocalLeadsV1", JSON.stringify(localLeads.slice(0, 50)));
+      backofficeData = null;
+      return leadId;
+    }
+
     async function loadBackofficeData(force = false) {
       if (!db || !isAdminAccount()) return null;
       if (backofficeData && !force) return backofficeData;
@@ -2582,16 +2696,22 @@
       return value || "__visitor__";
     }
 
+    function eventCustomerKey(event) {
+      return event?.user_id || event?.metadata?.leadId || "__visitor__";
+    }
+
     function shortCustomerId(value) {
       if (!value || value === "__visitor__") return "sem conta";
       return String(value).length > 12 ? String(value).slice(0, 8) + "..." + String(value).slice(-4) : String(value);
     }
 
     function profileByCustomerKey(key) {
+      if (String(key).startsWith("lead:")) return null;
       return (backofficeData?.profiles || []).find((item) => item.id === key) || null;
     }
 
     function addressByCustomerKey(key) {
+      if (String(key).startsWith("lead:")) return null;
       return (backofficeData?.addresses || []).find((item) => item.user_id === key) || null;
     }
 
@@ -2625,6 +2745,7 @@
     }
 
     function customerStage(key) {
+      if (String(key).startsWith("lead:")) return "leads";
       const contact = customerContact(key);
       if (contact.profile || contact.name || contact.email || contact.phone) return "clientes";
       if (key === "__visitor__") return "visitantes";
@@ -2657,6 +2778,7 @@
         favorite_add: "Favoritou peça",
         favorite_remove: "Removeu favorito",
         whatsapp_checkout: "Foi para WhatsApp",
+        newsletter_signup: "Assinou curadoria",
       };
       return labels[type] || type || "-";
     }
@@ -2667,7 +2789,7 @@
       (backofficeData?.addresses || []).forEach((item) => keys.add(item.user_id));
       (backofficeData?.carts || []).forEach((item) => keys.add(customerKey(item.user_id)));
       (backofficeData?.favorites || []).forEach((item) => keys.add(customerKey(item.user_id)));
-      (backofficeData?.events || []).forEach((item) => keys.add(customerKey(item.user_id)));
+      (backofficeData?.events || []).forEach((item) => keys.add(eventCustomerKey(item)));
       (backofficeData?.orders || []).forEach((item) => keys.add(item.user_id ? item.user_id : "order:" + item.id));
       return [...keys].filter(Boolean).sort((a, b) => {
         const lastA = customerLastActivity(a);
@@ -2677,7 +2799,8 @@
     }
 
     function customerMatch(item, key) {
-      if (key === "__visitor__") return !item.user_id;
+      if (String(key).startsWith("lead:")) return eventCustomerKey(item) === key;
+      if (key === "__visitor__") return !item.user_id && !item.metadata?.leadId;
       if (String(key).startsWith("order:")) return "order:" + item.id === key;
       return item.user_id === key;
     }
@@ -2821,7 +2944,7 @@
         const key = order.user_id ? order.user_id : "order:" + order.id;
         return `<tr><td>${customerButton(key)}</td><td>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`;
       });
-      const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerButton(customerKey(event.user_id))}</td><td>${safeHtml(eventLabel(event.event_type))}</td><td>${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</td></tr>`);
+      const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerButton(eventCustomerKey(event))}</td><td>${safeHtml(eventLabel(event.event_type))}</td><td>${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</td></tr>`);
       const minimizedFicha = activeBackofficeCustomerId === "__closed__" && minimizedBackofficeCustomerId
         ? renderBackofficeSection("Ficha minimizada", `<p class="backoffice-note">${safeHtml(customerDisplay(minimizedBackofficeCustomerId).name)} está recolhido para reduzir informação na tela.</p><button class="secondary-btn" type="button" data-restore-backoffice-customer>Maximizar ficha</button>`, false)
         : "";
@@ -3632,6 +3755,22 @@
     accountClose.addEventListener("click", closeAccount);
     drawerOverlay.addEventListener("click", () => { closeAccount(); closeCart(); });
     document.addEventListener("click", (event) => {
+      const openAccountFooter = event.target.closest("[data-open-account-footer]");
+      if (openAccountFooter) {
+        event.preventDefault();
+        openAccount(openAccountFooter.dataset.openAccountFooter || "entrar");
+        return;
+      }
+      if (event.target.closest("[data-open-cart-footer]")) {
+        event.preventDefault();
+        openCart();
+        return;
+      }
+      if (event.target.closest("footer [data-open-favorites-page]")) {
+        event.preventDefault();
+        openFavoritesPage();
+        return;
+      }
       const openAdmin = event.target.closest("[data-open-admin-page]");
       if (openAdmin && (isAdminAccount() || openAdmin.dataset.openAdminPage === "groups")) {
         event.preventDefault();
@@ -3646,6 +3785,29 @@
         openAdminPage(adminView.dataset.adminView || "backoffice");
       }
     }, true);
+    if (curationLeadForm) curationLeadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const name = form.elements.name?.value || "";
+      const phone = form.elements.phone?.value || "";
+      if (!name.trim() || !phone.trim()) {
+        if (curationLeadMessage) curationLeadMessage.textContent = "Informe nome e WhatsApp para entrar na lista.";
+        return;
+      }
+      const button = form.querySelector("button[type='submit']");
+      if (button) button.disabled = true;
+      if (curationLeadMessage) curationLeadMessage.textContent = "Salvando seu contato...";
+      try {
+        await recordCurationLead({ name, phone });
+        form.reset();
+        if (curationLeadMessage) curationLeadMessage.textContent = "Pronto. Você entrou na lista privada SCORSATTO.";
+      } catch (error) {
+        console.error(error);
+        if (curationLeadMessage) curationLeadMessage.textContent = "Não foi possível salvar agora. Chame a SCORSATTO pelo WhatsApp.";
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
     accountDrawer.addEventListener("click", (event) => {
       if (event.target.closest("[data-open-backoffice-page]") && isAdminAccount()) {
         openAdminPage("backoffice");
