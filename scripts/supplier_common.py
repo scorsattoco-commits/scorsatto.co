@@ -245,5 +245,5 @@ def is_scorsatto_candidate(item, categories=None, brands=None):
             "malha",
         )
     )
-    deny = any(token in text for token in ("feminino", "infantil", "regata", "oversized", "plus", "short doll"))
+    deny = any(token in text for token in ("feminino", "infantil", "regata", "oversized", "plus", "short doll", "tactel", "poliamida", "praia"))
     return allow_brand and allow_collection and allow_product and not deny and bool(item.get("sizes"))
