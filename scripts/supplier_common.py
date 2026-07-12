@@ -47,6 +47,17 @@ def parse_products_from_index(path=INDEX_PATH):
     return json.loads(match.group(1)), html, match.span(1)
 
 
+def parse_site_taxonomy(path=INDEX_PATH):
+    html = path.read_text(encoding="utf-8")
+    categories_match = re.search(r"const\s+CATEGORIES\s*=\s*(\[.*?\]);\s*const\s+BRANDS\s*=", html, re.S)
+    brands_match = re.search(r"const\s+BRANDS\s*=\s*(\[.*?\]);", html, re.S)
+    if not categories_match or not brands_match:
+        raise RuntimeError("Nao encontrei CATEGORIES/BRANDS no index.html")
+    categories = json.loads(categories_match.group(1))
+    brands = json.loads(brands_match.group(1))
+    return categories, brands
+
+
 def write_products_to_index(products, html, span, path=INDEX_PATH):
     payload = json.dumps(products, ensure_ascii=False, separators=(",", ":"))
     path.write_text(html[: span[0]] + payload + html[span[1] :], encoding="utf-8")
@@ -123,25 +134,40 @@ def parse_listing_products(html, base_url):
     return items
 
 
-def discover_relevant_category_urls():
+def category_terms_from_site(categories):
+    terms = set()
+    manual = {
+        "camisetas": ("camisetas", "camiseta", "algodao-egipcio", "algodao-supima", "supima", "pima", "texturizada"),
+        "manga-longa": ("manga-longa", "camiseta-manga-longa"),
+        "gola-polo": ("gola-polo", "gola polo"),
+        "camisa-social": ("camisa-social", "camisa social"),
+        "calcas": ("calcas", "calca", "calca-moletom"),
+        "sueteres": ("sueter", "sueteres"),
+        "jaquetas": ("jaquetas", "jaqueta", "bobojaco", "bomber", "puffer", "corta-vento"),
+        "casacos": ("casaco", "casacos", "casaco-de-moletom", "moletom"),
+        "bermudas": ("bermudas", "bermuda"),
+    }
+    for category in categories:
+        slug = category.get("slug") or ""
+        collection = category.get("collection") or ""
+        if collection:
+            terms.add(collection.lower())
+        if slug and slug not in ("todos", "disponiveis-agora"):
+            terms.add(slug.lower())
+        for value in manual.get(slug, ()):
+            terms.add(value.lower())
+        for spec in category.get("specs") or []:
+            for term in spec.get("terms") or []:
+                terms.add(str(term).lower().replace(" ", "-"))
+    return terms
+
+
+def discover_relevant_category_urls(categories=None):
+    if categories is None:
+        categories, _ = parse_site_taxonomy()
     xml = fetch_text("https://www.catalogopoa.com.br/sitemap_category.xml")
     urls = re.findall(r"<loc>(.*?)</loc>", xml)
-    allow = (
-        "bermudas",
-        "calcas",
-        "camisa-social",
-        "camisetas/algodao-egipcio",
-        "camisetas/algodao-supima",
-        "camisetas/manga-longa",
-        "camisetas/pima",
-        "camisetas/texturizada",
-        "gola-polo/premium",
-        "inverno/calca-moletom",
-        "inverno/camiseta-manga-longa",
-        "inverno/casaco-de-moletom",
-        "inverno/jaquetas-bobojaco",
-        "inverno/sueter",
-    )
+    allow = category_terms_from_site(categories)
     deny = ("feminino", "promocao", "promo", "plus", "regata", "tactel", "overs", "tamanhos-especiais")
     selected = []
     for url in urls:
@@ -151,9 +177,58 @@ def discover_relevant_category_urls():
     return selected
 
 
-def is_scorsatto_candidate(item):
+def brand_from_item(item, brands=None):
+    if brands is None:
+        _, brands = parse_site_taxonomy()
     text = f"{item.get('title','')} {item.get('url','')}".lower()
-    allow_brand = any(token in text for token in (" xe", "-xe", " th", "-th", " rl", "-rl", " hb", "-hb", " lct", "-lct", " arm", "-arm"))
+    for brand in brands:
+        if brand.get("selectableOnly"):
+            continue
+        codes = [str(code).lower() for code in brand.get("codes") or []]
+        terms = [str(term).lower() for term in brand.get("terms") or []]
+        code_hit = any(re.search(rf"(^|[-_\s]){re.escape(code)}($|[-_\s0-9])", text) for code in codes if code)
+        term_hit = any(term and term in text for term in terms)
+        if code_hit or term_hit:
+            return brand.get("label") or "Sem marca"
+    return ""
+
+
+def collection_from_item(item, categories=None):
+    if categories is None:
+        categories, _ = parse_site_taxonomy()
+    text = f"{item.get('title','')} {item.get('url','')} {item.get('categoryUrl','')}".lower()
+    checks = (
+        ("gola-polo", ("gola-polo", "gola polo")),
+        ("camisa-social", ("camisa-social", "camisa social")),
+        ("manga-longa", ("manga-longa", "manga longa")),
+        ("calcas", ("calcas", "calca", "calça")),
+        ("bermudas", ("bermuda", "bermudas")),
+        ("sueteres", ("sueter", "sueteres", "sweater")),
+        ("jaquetas", ("jaqueta", "jaquetas", "bobojaco", "bomber", "puffer", "corta-vento", "corta vento")),
+        ("casacos", ("casaco", "casacos", "moletom")),
+        ("camisetas", ("camiseta", "camisetas", "supima", "pima", "algodao", "algodão")),
+    )
+    site_collections = {c.get("collection") for c in categories if c.get("collection")}
+    for collection, tokens in checks:
+        if collection in site_collections and any(token in text for token in tokens):
+            return collection
+    return ""
+
+
+def enrich_supplier_item(item, categories=None, brands=None):
+    enriched = dict(item)
+    enriched["brandLabel"] = brand_from_item(enriched, brands)
+    enriched["collection"] = collection_from_item(enriched, categories)
+    return enriched
+
+
+def is_scorsatto_candidate(item, categories=None, brands=None):
+    categories = categories or parse_site_taxonomy()[0]
+    brands = brands or parse_site_taxonomy()[1]
+    item = enrich_supplier_item(item, categories, brands)
+    text = f"{item.get('title','')} {item.get('url','')} {item.get('categoryUrl','')}".lower()
+    allow_brand = bool(item.get("brandLabel"))
+    allow_collection = bool(item.get("collection"))
     allow_product = any(
         token in text
         for token in (
@@ -171,4 +246,4 @@ def is_scorsatto_candidate(item):
         )
     )
     deny = any(token in text for token in ("feminino", "infantil", "regata", "oversized", "plus", "short doll"))
-    return allow_brand and allow_product and not deny and bool(item.get("sizes"))
+    return allow_brand and allow_collection and allow_product and not deny and bool(item.get("sizes"))
