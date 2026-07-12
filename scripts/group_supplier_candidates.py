@@ -209,7 +209,12 @@ def esc(value):
     return _html.escape(str(value or ""))
 
 
-def card(item):
+def card(item, removable=False):
+    action = (
+        f'<button class="remove-item" type="button" data-remove-product="{esc(item.get("supplierProductId"))}">Excluir do grupo</button>'
+        if removable
+        else ""
+    )
     return f"""
       <article class="product-card" data-id="{esc(item.get('supplierProductId'))}">
         <img src="{esc(item.get('image'))}" alt="">
@@ -218,6 +223,7 @@ def card(item):
           <span>{esc(item.get('brandLabel'))} | {esc(item.get('collection'))} | {esc(item.get('detectedColor'))}</span>
           <span>Ref. {esc(item.get('supplierProductId'))} | tamanhos: {esc(', '.join(item.get('sizes') or []))}</span>
           <a href="{esc(item.get('url'))}" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+          {action}
         </div>
       </article>
     """
@@ -240,7 +246,7 @@ def write_grouped_preview(groups, singles, output_html, source_json):
                 </div>
                 <span class="status {esc(group['status'])}">{esc(group['status'])}</span>
               </header>
-              <div class="products">{''.join(card(item) for item in group['products'])}</div>
+              <div class="products">{''.join(card(item, removable=True) for item in group['products'])}</div>
             </section>
             """
         )
@@ -277,11 +283,15 @@ def write_grouped_preview(groups, singles, output_html, source_json):
     .status.revisar {{ background:#fff9df; color:#5c4714; }}
     .products {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1px; background:#ebe5dc; }}
     .product-card {{ background:#fff; padding:10px; display:grid; grid-template-columns:76px minmax(0,1fr); gap:10px; }}
+    .product-card.excluded {{ opacity:.45; background:#f4eee6; }}
+    .product-card.excluded img {{ filter: grayscale(1); }}
     .product-card img {{ width:76px; height:96px; object-fit:contain; background:#f8f6f0; }}
     .product-card div {{ display:grid; gap:5px; align-content:start; }}
     .product-card strong {{ font-size:12px; line-height:1.35; }}
     .product-card span, .product-card a {{ font-size:11px; line-height:1.4; color:#5f5b53; }}
     .product-card a {{ color:#111; font-weight:800; }}
+    .remove-item {{ width:max-content; min-height:28px; border-color:#b9aa97; background:#fff; color:#251f17; padding:0 8px; font-size:10px; }}
+    .product-card.excluded .remove-item {{ background:#111; border-color:#111; color:#fff; }}
     .panel {{ background:#fff; border:1px solid #ded8ce; border-radius:8px; padding:14px; display:grid; gap:12px; }}
     textarea {{ min-height:220px; padding:12px; font-family:Consolas,monospace; font-size:12px; }}
     @media (max-width: 860px) {{ .toolbar {{ grid-template-columns:1fr 1fr; }} .toolbar input[type="search"] {{ grid-column:1/-1; }} .group-head {{ grid-template-columns:1fr; }} }}
@@ -325,9 +335,20 @@ def write_grouped_preview(groups, singles, output_html, source_json):
     const groups = payload.groups || [];
     const byId = new Map(groups.map(group => [group.id, group]));
     const storageKey = 'scorsatto-fornecedor-grupos-aprovados-' + location.pathname;
+    const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-' + location.pathname;
     const selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+    const excludedByGroup = JSON.parse(localStorage.getItem(excludedKey) || '{{}}');
     const cards = Array.from(document.querySelectorAll('.group'));
     function save() {{ localStorage.setItem(storageKey, JSON.stringify([...selected])); }}
+    function saveExcluded() {{ localStorage.setItem(excludedKey, JSON.stringify(excludedByGroup)); }}
+    function groupExcludedSet(groupId) {{
+      excludedByGroup[groupId] = Array.isArray(excludedByGroup[groupId]) ? excludedByGroup[groupId] : [];
+      return new Set(excludedByGroup[groupId]);
+    }}
+    function activeProducts(group) {{
+      const excluded = groupExcludedSet(group.id);
+      return (group.products || []).filter(product => !excluded.has(String(product.supplierProductId || product.url || product.title)));
+    }}
     function sync() {{
       const q = document.getElementById('searchBox').value.trim().toLowerCase();
       const brand = document.getElementById('brandFilter').value;
@@ -338,6 +359,14 @@ def write_grouped_preview(groups, singles, output_html, source_json):
         card.classList.toggle('hidden', !show);
         const input = card.querySelector('.pick-group');
         input.checked = selected.has(input.value);
+        const excluded = groupExcludedSet(input.value);
+        card.querySelectorAll('.product-card').forEach(productCard => {{
+          const id = String(productCard.dataset.id || '');
+          const isExcluded = excluded.has(id);
+          productCard.classList.toggle('excluded', isExcluded);
+          const button = productCard.querySelector('[data-remove-product]');
+          if (button) button.textContent = isExcluded ? 'Voltar para o grupo' : 'Excluir do grupo';
+        }});
       }});
     }}
     document.querySelectorAll('.pick-group').forEach(input => input.addEventListener('change', () => {{
@@ -352,8 +381,28 @@ def write_grouped_preview(groups, singles, output_html, source_json):
       save();
       sync();
     }});
+    document.addEventListener('click', event => {{
+      const button = event.target.closest('[data-remove-product]');
+      if (!button) return;
+      const groupEl = button.closest('.group');
+      const input = groupEl?.querySelector('.pick-group');
+      if (!input) return;
+      const groupId = input.value;
+      const productId = String(button.dataset.removeProduct || '');
+      const excluded = groupExcludedSet(groupId);
+      if (excluded.has(productId)) excluded.delete(productId);
+      else excluded.add(productId);
+      excludedByGroup[groupId] = [...excluded];
+      saveExcluded();
+      sync();
+    }});
     document.getElementById('exportGroups').addEventListener('click', () => {{
-      const approvedGroups = [...selected].map(id => byId.get(id)).filter(Boolean);
+      const approvedGroups = [...selected].map(id => byId.get(id)).filter(Boolean).map(group => {{
+        const products = activeProducts(group);
+        const colors = [...new Set(products.map(product => product.detectedColor).filter(Boolean))];
+        const sizes = [...new Set(products.flatMap(product => product.sizes || []))];
+        return {{ ...group, products, colors, sizes, count: products.length, excludedProductIds: excludedByGroup[group.id] || [] }};
+      }}).filter(group => group.products.length >= 2);
       const exportPayload = {{
         generatedAt: new Date().toISOString(),
         rule: 'Aprovado pelo Alisson antes de inserir no site. Agrupar somente mesma marca, mesma categoria e mesma peca; cores e tamanhos como variacoes.',
