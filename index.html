@@ -87,8 +87,6 @@
     .active-filter { display: inline-flex; align-items: center; gap: 8px; }
     .clear-filters { display: none; color: var(--muted); }
     .clear-filters.visible { display: inline-flex; align-items: center; }
-    .assist-note { border: 1px solid var(--line); background: rgba(255,255,255,.72); padding: 12px 14px; margin: 0 0 18px; color: var(--muted); font-size: 12px; line-height: 1.55; }
-    .assist-note strong { color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .collection-categories { display: none; gap: 8px; flex-wrap: wrap; overflow: visible; padding: 0 0 10px; margin: -10px 0 16px; scrollbar-width: none; }
     .collection-categories::-webkit-scrollbar { display: none; }
     .collection-categories.visible { display: flex; }
@@ -497,7 +495,7 @@
       .product-fact { grid-template-columns: 140px 1fr; gap: 16px; }
       .trust-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
-      .policy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .policy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .curation-inner { grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); }
       .curation-fields { grid-template-columns: 1fr 1fr; }
       .curation-kit-fields { grid-column: 1 / -1; grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); }
@@ -571,7 +569,6 @@
         <div class="collection-categories" id="collectionCategories" aria-label="Categorias da colecao"></div>
         <div class="shop-layout">
           <div class="shop-main">
-            <div class="assist-note" id="assistNote"><strong>Compra assistida</strong><br>Pronta entrega envia mais rápido. Peças sob consulta passam por confirmação de tamanho, estoque e referência antes do pedido.</div>
             <div class="shop-tools">
               <input class="search" id="search" placeholder="Buscar por peça, marca, cor ou tamanho" />
               <div class="filter-trigger-wrap">
@@ -605,6 +602,55 @@
     </section>
 
     <div class="sticky-product-bar" id="stickyProductBar" aria-live="polite"></div>
+
+    <section class="curation-strip" aria-label="Curadoria privada SCORSATTO">
+      <div class="curation-inner">
+        <div>
+          <p class="curation-eyebrow">Lista privada</p>
+          <h2 class="curation-title">Receba uma seleção no seu perfil</h2>
+          <p class="curation-copy">Informe tamanho, ocasião e estilo. A SCORSATTO monta um kit completo com peças que combinam entre si.</p>
+        </div>
+        <form class="curation-form" id="curationLeadForm">
+          <div class="curation-fields">
+            <input class="curation-input" name="name" type="text" placeholder="Seu nome" autocomplete="name" required>
+            <input class="curation-input" name="phone" type="tel" placeholder="WhatsApp" autocomplete="tel" required>
+            <div class="curation-kit-fields">
+              <select class="curation-input curation-select" name="size" aria-label="Tamanho principal">
+                <option value="">Tamanho</option>
+                <option>P</option>
+                <option>M</option>
+                <option>G</option>
+                <option>GG</option>
+                <option>XXG</option>
+                <option>40</option>
+                <option>42</option>
+                <option>44</option>
+                <option>46</option>
+                <option>48</option>
+              </select>
+              <select class="curation-input curation-select" name="kitGoal" aria-label="Ocasião da seleção">
+                <option value="">Escolha uma ocasião</option>
+                <option>Dia a dia</option>
+                <option>Trabalho</option>
+                <option>Fim de semana</option>
+                <option>Jantar ou evento</option>
+                <option>Viagem</option>
+                <option>Frio / meia-estação</option>
+                <option>Calor / verão</option>
+                <option>Casual premium</option>
+                <option>Discreto e elegante</option>
+                <option>Pronta entrega</option>
+              </select>
+            </div>
+            <input class="curation-input curation-wide" name="kitNote" type="text" placeholder="Descreva o que você quer: cor, estilo, peça ou ocasião" autocomplete="off">
+          </div>
+          <div class="curation-kit-preview" id="curationKitPreview" aria-live="polite"></div>
+          <button class="curation-button" type="submit">Montar seleção para mim</button>
+          <p class="curation-message" id="curationLeadMessage" aria-live="polite"></p>
+          <p class="curation-privacy">Usamos seu contato apenas para curadoria e atendimento SCORSATTO.</p>
+        </form>
+      </div>
+    </section>
 
     <section class="curation-strip" aria-label="Cadastro SCORSATTO">
       <div class="curation-inner">
@@ -658,69 +704,19 @@
       <div class="section-head">
         <p class="eyebrow">Atendimento</p>
         <h2>Entrega e trocas.</h2>
-        <p class="muted">Compra assistida, com confirmação de disponibilidade e orientação antes do envio.</p>
+        <p class="muted">Pedido finalizado pelo WhatsApp, com orientação direta antes do envio.</p>
       </div>
       <div class="policy-grid">
-        <div class="policy-card"><strong>Entrega</strong><span>Enviamos para todo o Brasil. Prazo, frete e disponibilidade são confirmados no atendimento pelo WhatsApp antes da finalização.</span></div>
-        <div class="policy-card"><strong>Trocas</strong><span>A troca é orientada pelo atendimento SCORSATTO. Antes da compra, ajudamos a conferir tamanho, medidas e caimento para reduzir erro de escolha.</span></div>
-        <div class="policy-card"><strong>Compra assistida</strong><span>Se a peça estiver sob consulta, confirmamos estoque, tamanho e referência com o fornecedor antes de seguir com o pedido.</span></div>
+        <div class="policy-card"><strong>Entrega</strong><span>Envio para todo o Brasil. Prazo e frete são combinados no atendimento.</span></div>
+        <div class="policy-card"><strong>Trocas</strong><span>Ajudamos a conferir tamanho antes da compra e orientamos a troca quando precisar.</span></div>
       </div>
-    </div>
-  </section>
-
-  <section class="curation-strip" aria-label="Curadoria privada SCORSATTO">
-    <div class="curation-inner">
-      <div>
-        <p class="curation-eyebrow">Lista privada</p>
-        <h2 class="curation-title">Receba uma seleção no seu perfil</h2>
-        <p class="curation-copy">Informe tamanho e objetivo. A SCORSATTO monta uma seleção enxuta com peças que combinam entre si, sem excesso de mensagens.</p>
-      </div>
-      <form class="curation-form" id="curationLeadForm">
-        <div class="curation-fields">
-          <input class="curation-input" name="name" type="text" placeholder="Seu nome" autocomplete="name" required>
-          <input class="curation-input" name="phone" type="tel" placeholder="WhatsApp" autocomplete="tel" required>
-          <div class="curation-kit-fields">
-            <select class="curation-input curation-select" name="size" aria-label="Tamanho principal">
-              <option value="">Tamanho</option>
-              <option>P</option>
-              <option>M</option>
-              <option>G</option>
-              <option>GG</option>
-              <option>XXG</option>
-              <option>40</option>
-              <option>42</option>
-              <option>44</option>
-              <option>46</option>
-              <option>48</option>
-            </select>
-            <select class="curation-input curation-select" name="kitGoal" aria-label="Ocasião da seleção">
-              <option value="">Escolha uma ocasião</option>
-              <option>Dia a dia</option>
-              <option>Trabalho</option>
-              <option>Fim de semana</option>
-              <option>Jantar ou evento</option>
-              <option>Viagem</option>
-              <option>Frio / meia-estação</option>
-              <option>Calor / verão</option>
-              <option>Casual premium</option>
-              <option>Discreto e elegante</option>
-              <option>Pronta entrega</option>
-            </select>
-          </div>
-          <input class="curation-input curation-wide" name="kitNote" type="text" placeholder="Descreva o que você quer: cor, estilo, peça ou ocasião" autocomplete="off">
-        </div>
-        <div class="curation-kit-preview" id="curationKitPreview" aria-live="polite"></div>
-        <button class="curation-button" type="submit">Montar seleção para mim</button>
-        <p class="curation-message" id="curationLeadMessage" aria-live="polite"></p>
-        <p class="curation-privacy">Usamos seu contato apenas para curadoria, reposições e atendimento SCORSATTO.</p>
-      </form>
     </div>
   </section>
 
   <section class="trust-band" aria-label="Confianca">
     <div class="trust-list">
       <span>Curadoria masculina premium</span>
-      <span>Compra assistida pelo WhatsApp</span>
+      <span>Atendimento pelo WhatsApp</span>
       <span>Envio para todo o Brasil</span>
       <span>Trocas e medidas orientadas no atendimento</span>
     </div>
