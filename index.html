@@ -10042,7 +10042,8 @@
     function productVariants(product) {
       const group = productGroup(product);
       if (!group) return product ? [product] : [];
-      return group.slugs.map((slug) => PRODUCTS.find((item) => item.slug === slug)).filter(Boolean);
+      const variants = group.slugs.map((slug) => PRODUCTS.find((item) => item.slug === slug)).filter(Boolean);
+      return active === "disponiveis-agora" ? variants.filter(isAvailableNow) : variants;
     }
 
     function groupedProducts(products) {
