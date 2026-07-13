@@ -215,20 +215,23 @@
     .curation-form { display: grid; gap: 10px; width: 100%; }
     .curation-fields { display: grid; gap: 10px; }
     .curation-kit-fields { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .curation-wide { width: 100%; }
     .curation-input { width: 100%; min-height: 48px; border: 1px solid #cfcfca; border-radius: var(--radius-control); background: var(--white); padding: 0 14px; color: var(--black); font: inherit; outline: none; }
     .curation-input:focus { border-color: var(--black); }
     .curation-select { appearance: none; }
     .curation-button { min-height: 48px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); cursor: pointer; padding: 0 18px; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     .curation-message, .curation-privacy { margin: 2px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
     .curation-message { min-height: 17px; color: #2f2f2b; font-weight: 600; }
-    .curation-kit-preview { display: none; gap: 8px; margin-top: 4px; }
+    .curation-kit-preview { display: none; gap: 10px; margin: 4px 0; border: 1px solid #bdbdb5; border-radius: var(--radius-control); background: #fbfaf7; padding: 14px; box-shadow: 0 12px 32px rgba(0,0,0,.06); }
     .curation-kit-preview.visible { display: grid; }
-    .curation-kit-title { margin: 0; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .curation-kit-title { margin: 0; color: var(--black); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .curation-kit-list { display: grid; gap: 8px; }
     .curation-kit-item { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 10px; padding: 8px; align-items: center; }
     .curation-kit-item img { width: 54px; aspect-ratio: 3 / 4; object-fit: contain; background: var(--soft); mix-blend-mode: multiply; }
     .curation-kit-item strong { font-size: 12px; line-height: 1.25; }
     .curation-kit-item span { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .curation-kit-role { color: var(--black); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .curation-kit-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
     .floating-whatsapp { position: fixed; right: 16px; bottom: 16px; z-index: 25; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #111; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 40px rgba(0,0,0,.18); transition: transform .2s ease; cursor: pointer; }
     .floating-whatsapp:hover { transform: translateY(-2px); }
     .floating-whatsapp svg { width: 23px; height: 23px; fill: currentColor; }
@@ -498,6 +501,7 @@
       .curation-inner { grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); }
       .curation-fields { grid-template-columns: 1fr 1fr; }
       .curation-kit-fields { grid-column: 1 / -1; grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); }
+      .curation-wide { grid-column: 1 / -1; }
       .curation-button { justify-self: start; min-width: 190px; }
       .footer-inner { grid-template-columns: minmax(260px, .7fr) minmax(0, 1fr); }
       .footer-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -696,12 +700,17 @@
               <option>Fim de semana</option>
               <option>Jantar ou evento</option>
               <option>Viagem</option>
+              <option>Frio / meia-estação</option>
+              <option>Calor / verão</option>
+              <option>Casual premium</option>
+              <option>Discreto e elegante</option>
               <option>Pronta entrega</option>
             </select>
           </div>
+          <input class="curation-input curation-wide" name="kitNote" type="text" placeholder="Descreva o que você quer: cor, estilo, peça ou ocasião" autocomplete="off">
         </div>
-        <button class="curation-button" type="submit">Montar seleção para mim</button>
         <div class="curation-kit-preview" id="curationKitPreview" aria-live="polite"></div>
+        <button class="curation-button" type="submit">Montar seleção para mim</button>
         <p class="curation-message" id="curationLeadMessage" aria-live="polite"></p>
         <p class="curation-privacy">Usamos seu contato apenas para curadoria, reposições e atendimento SCORSATTO.</p>
       </form>
@@ -1286,13 +1295,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-preto-15825.png",
                                           "generated/detalhes/site/camisetas/camiseta-supima-preto-15825-detalhe.webp"
                             ],
-                            "sizes": ["M", "GG", "XXG"],
-                            "stock": {"M":1,"GG":1,"XXG":1},
+                            "sizes": [
+                                          "P",
+                                          "GG",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "GG": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -1836,13 +1853,19 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-bege-15836.png",
                                           "generated/detalhes/site/camisetas/camiseta-supima-bege-15836-detalhe.webp"
                             ],
-                            "sizes": ["M"],
-                            "stock": {"M":1},
+                            "sizes": [
+                                          "P",
+                                          "M"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -2463,13 +2486,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-cinza-claro-15924.png",
                                           "generated/detalhes/site/manga-longa/camiseta-manga-longa-cinza-claro-15924-detalhe.webp"
                             ],
-                            "sizes": ["M", "GG"],
-                            "stock": {"M":1,"GG":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "GG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "GG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -3258,13 +3289,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-branco-16008.png",
                                           "generated/detalhes/site/camisa-social/camisa-social-branco-16008-detalhe.webp"
                             ],
-                            "sizes": ["GG"],
-                            "stock": {"GG":1},
+                            "sizes": [
+                                          "G",
+                                          "GG",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "G": 1,
+                                          "GG": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -3497,13 +3536,19 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15224-camisa-social-branco-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/camisa-social/camisa-social-branco-15224-detalhe.webp"
                             ],
-                            "sizes": ["XXG"],
-                            "stock": {"XXG":1},
+                            "sizes": [
+                                          "P",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -3991,13 +4036,23 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-marrom-14672.png",
                                           "generated/detalhes/site/calcas/calca-jeans-marrom-14672-detalhe.webp"
                             ],
-                            "sizes": ["38", "40", "42", "44", "46"],
-                            "stock": {"38":1,"40":1,"42":1,"44":1,"46":1},
+                            "sizes": [
+                                          "38",
+                                          "40",
+                                          "44",
+                                          "46"
+                            ],
+                            "stock": {
+                                          "38": 1,
+                                          "40": 1,
+                                          "44": 1,
+                                          "46": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -4541,13 +4596,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16049.png",
                                           "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16049-detalhe.webp"
                             ],
-                            "sizes": ["XXG"],
-                            "stock": {"XXG":1},
+                            "sizes": [
+                                          "M",
+                                          "GG",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "M": 1,
+                                          "GG": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -4785,13 +4848,23 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-azul-marinho-16112.png",
                                           "generated/detalhes/site/sueteres/sueter-meio-ziper-azul-marinho-16112-detalhe.webp"
                             ],
-                            "sizes": ["XXG"],
-                            "stock": {"XXG":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -4963,13 +5036,25 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16110.png",
                                           "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16110-detalhe.webp"
                             ],
-                            "sizes": ["P", "M", "G", "XXG"],
-                            "stock": {"P":1,"M":1,"G":1,"XXG":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "GG",
+                                          "XXG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "GG": 1,
+                                          "XXG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5149,13 +5234,25 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-puffer-preto-16151.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-puffer-preto-16151-detalhe.webp"
                             ],
-                            "sizes": ["P", "GG"],
-                            "stock": {"P":1,"GG":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "GG",
+                                          "G1"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "GG": 1,
+                                          "G1": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5178,13 +5275,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16149-jaqueta-puffer-off-white-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-puffer-off-white-16149-detalhe.webp"
                             ],
-                            "sizes": ["G1"],
-                            "stock": {"G1":1},
+                            "sizes": [
+                                          "M",
+                                          "GG",
+                                          "G1"
+                            ],
+                            "stock": {
+                                          "M": 1,
+                                          "GG": 1,
+                                          "G1": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5207,13 +5312,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-corta-vento-preto-16003.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-corta-vento-preto-16003-detalhe.webp"
                             ],
-                            "sizes": ["P", "M"],
-                            "stock": {"P":1,"M":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5582,13 +5695,25 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16150-jaqueta-puffer-bege-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-puffer-bege-16150-detalhe.webp"
                             ],
-                            "sizes": ["P", "G1"],
-                            "stock": {"P":1,"G1":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "GG",
+                                          "G1"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "GG": 1,
+                                          "G1": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5720,13 +5845,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16002-jaqueta-corta-vento-cinza-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-corta-vento-cinza-16002-detalhe.webp"
                             ],
-                            "sizes": ["P", "M"],
-                            "stock": {"P":1,"M":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "GG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "GG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -5943,13 +6076,19 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-creme-15864.png",
                                           "generated/detalhes/site/jaquetas/jaqueta-suede-creme-15864-detalhe.webp"
                             ],
-                            "sizes": ["P"],
-                            "stock": {"P":1},
+                            "sizes": [
+                                          "P",
+                                          "M"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -6322,13 +6461,17 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14847-bermuda-linho-marrom-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/bermudas/bermuda-linho-marrom-14847-detalhe.webp"
                             ],
-                            "sizes": ["G", "GG"],
-                            "stock": {"G":1,"GG":1},
+                            "sizes": [
+                                          "GG"
+                            ],
+                            "stock": {
+                                          "GG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -6887,13 +7030,23 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16037-camiseta-pima-jersey-azul-marinho-aprovada-2026-07-11.png",
                                           "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-azul-marinho-16037-detalhe.webp"
                             ],
-                            "sizes": ["P", "M", "G"],
-                            "stock": {"P":1,"M":1,"G":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "GG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "GG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -7035,13 +7188,17 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-13622-bermuda-sarja-marrom-aprovada-2026-07-12.png",
                                           "generated/detalhes/site/bermudas/bermuda-sarja-marrom-13622-detalhe.webp"
                             ],
-                            "sizes": ["38", "42"],
-                            "stock": {"38":1,"42":1},
+                            "sizes": [
+                                          "38"
+                            ],
+                            "stock": {
+                                          "38": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -8265,13 +8422,23 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16276-gola-polo-premium-vinho-aprovada-2026-07-12.png",
                                           "generated/detalhes/site/gola-polo/gola-polo-premium-vinho-16276-detalhe.webp"
                             ],
-                            "sizes": ["M", "G", "GG"],
-                            "stock": {"M":1,"G":1,"GG":1},
+                            "sizes": [
+                                          "P",
+                                          "M",
+                                          "G",
+                                          "GG"
+                            ],
+                            "stock": {
+                                          "P": 1,
+                                          "M": 1,
+                                          "G": 1,
+                                          "GG": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -8423,13 +8590,21 @@
                             "supplierName": "Catálogo POA",
                             "status": "sob-consulta",
                             "curated": true,
-                            "lastCheckedAt": "2026-07-13",
+                            "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018073-calca-sarja-poliamida-cinza-escuro-aprovada-2026-07-12.png",
                                           "generated/detalhes/site/calcas/calca-sarja-poliamida-cinza-escuro-404018073-detalhe.webp"
                             ],
-                            "sizes": ["40", "42"],
-                            "stock": {"40":1,"42":1},
+                            "sizes": [
+                                          "40",
+                                          "42",
+                                          "46"
+                            ],
+                            "stock": {
+                                          "40": 1,
+                                          "42": 1,
+                                          "46": 1
+                            },
                             "composition": "Composição a confirmar no fornecedor antes da venda.",
                             "care": "Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem a sombra.",
                             "tags": [
@@ -10945,84 +11120,137 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return "lead:" + (normalized || (crypto.randomUUID?.() || Date.now()));
     }
 
-    function kitOccasionTerms(occasion = "") {
-      const value = normalize(occasion);
-      if (value.includes("trabalho")) return ["camisa", "polo", "calca", "sueter", "casaco"];
-      if (value.includes("jantar") || value.includes("evento")) return ["camisa", "polo", "calca", "jaqueta", "casaco"];
-      if (value.includes("fim")) return ["camiseta", "polo", "bermuda", "calca", "sueter"];
-      if (value.includes("viagem")) return ["camiseta", "polo", "calca", "jaqueta", "sueter"];
-      if (value.includes("pronta")) return ["disponivel"];
-      return ["camiseta", "polo", "calca", "sueter", "jaqueta"];
+    function kitContext(size = "", occasion = "", note = "") {
+      const query = normalize([occasion, note].filter(Boolean).join(" "));
+      const warm = /(frio|meia|inverno|noite|jantar|evento|trabalho|viagem)/.test(query);
+      const hot = /(calor|verao|praia|bermuda)/.test(query);
+      const formal = /(trabalho|jantar|evento|social|elegante|discreto|reuniao)/.test(query);
+      const ready = query.includes("pronta");
+      return { query, size, occasion, note, warm, hot, formal, ready };
     }
 
-    function kitProductScore(product, size = "", occasion = "") {
+    function kitSlots(context) {
+      if (context.hot) {
+        return [
+          { role: "Peça de cima", collections: ["camisetas", "gola-polo", "camisa-social"], required: true },
+          { role: "Parte de baixo", collections: ["bermudas"], required: true },
+          { role: "Camada leve", collections: ["camisa-social"], required: false },
+        ];
+      }
+      if (context.formal) {
+        return [
+          { role: "Peça de cima", collections: ["camisa-social", "gola-polo"], required: true },
+          { role: "Parte de baixo", collections: ["calcas"], required: true },
+          { role: "Terceira peça", collections: ["sueteres", "jaquetas", "casacos"], required: true },
+        ];
+      }
+      if (context.warm) {
+        return [
+          { role: "Base", collections: ["camisetas", "manga-longa", "gola-polo"], required: true },
+          { role: "Parte de baixo", collections: ["calcas"], required: true },
+          { role: "Camada", collections: ["sueteres", "jaquetas", "casacos"], required: true },
+        ];
+      }
+      return [
+        { role: "Peça de cima", collections: ["camisetas", "gola-polo", "manga-longa"], required: true },
+        { role: "Parte de baixo", collections: ["calcas", "bermudas"], required: true },
+        { role: "Complemento", collections: ["sueteres", "jaquetas", "casacos", "camisa-social"], required: false },
+      ];
+    }
+
+    function kitTextTerms(context) {
+      const terms = [];
+      const query = context.query;
+      ["camiseta", "camisa", "polo", "calca", "bermuda", "sueter", "jaqueta", "casaco", "preto", "branco", "azul", "marrom", "bege", "cinza", "off white"].forEach((term) => {
+        if (query.includes(normalize(term))) terms.push(normalize(term));
+      });
+      return terms;
+    }
+
+    function kitProductScore(product, context, slot) {
       if (!product || product.hidden) return -999;
       const text = productText(product);
       const category = normalize(product.collection || "");
       const sizes = variantOptionSizes(product);
       let score = isAvailableNow(product) ? 20 : 8;
-      if (size && sizes.includes(size)) score += 30;
-      if (size && !sizes.includes(size)) score -= 18;
-      kitOccasionTerms(occasion).forEach((term, index) => {
-        if (text.includes(term) || category.includes(term)) score += 22 - index * 3;
+      if (context.size && sizes.includes(context.size)) score += 34;
+      if (context.size && !sizes.includes(context.size)) score -= 24;
+      if (slot.collections.includes(product.collection)) score += 42;
+      kitTextTerms(context).forEach((term) => {
+        if (text.includes(term) || category.includes(term)) score += 18;
       });
-      if (normalize(occasion).includes("pronta") && !isAvailableNow(product)) score -= 45;
+      if (context.ready && !isAvailableNow(product)) score -= 55;
+      if (context.formal && ["camisa-social", "gola-polo", "calcas", "sueteres", "jaquetas"].includes(product.collection)) score += 12;
+      if (context.hot && ["bermudas", "camisetas", "gola-polo"].includes(product.collection)) score += 14;
+      if (context.warm && ["sueteres", "jaquetas", "casacos", "manga-longa"].includes(product.collection)) score += 12;
       if (productImage(product)) score += 8;
       if (hasStandardImage(product)) score += 6;
       return score;
     }
 
-    function suggestedKitProducts(size = "", occasion = "") {
-      const usedCollections = new Set();
-      const candidates = groupedProducts(visibleProducts())
-        .filter((product) => !product.hidden && productImage(product))
-        .map((product) => ({ product, score: kitProductScore(product, size, occasion) }))
+    function chooseKitProduct(pool, context, slot, usedSlugs) {
+      return pool
+        .filter((product) => slot.collections.includes(product.collection))
+        .filter((product) => !usedSlugs.has(product.slug))
+        .map((product) => ({ product, score: kitProductScore(product, context, slot) }))
         .filter((item) => item.score > 0)
-        .sort((a, b) => b.score - a.score || String(displayProductName(a.product)).localeCompare(displayProductName(b.product), "pt-BR"));
+        .sort((a, b) => b.score - a.score || String(displayProductName(a.product)).localeCompare(displayProductName(b.product), "pt-BR"))[0]?.product || null;
+    }
+
+    function suggestedKitProducts(size = "", occasion = "", note = "") {
+      const context = kitContext(size, occasion, note);
+      const pool = groupedProducts(visibleProducts())
+        .filter((product) => !product.hidden && productImage(product))
+        .filter((product) => product.status !== "vendido");
       const kit = [];
-      candidates.forEach(({ product }) => {
-        if (kit.length >= 3) return;
-        const collection = product.collection || product.slug;
-        if (usedCollections.has(collection) && kit.length < 2) return;
-        kit.push(product);
-        usedCollections.add(collection);
+      const usedSlugs = new Set();
+      kitSlots(context).forEach((slot) => {
+        const product = chooseKitProduct(pool, context, slot, usedSlugs);
+        if (product) {
+          kit.push({ ...product, kitRole: slot.role });
+          usedSlugs.add(product.slug);
+        }
       });
-      return kit.length ? kit : candidates.slice(0, 3).map((item) => item.product);
+      return kit;
     }
 
     function renderCurationKitPreview() {
       if (!curationLeadForm || !curationKitPreview) return [];
       const size = curationLeadForm.elements.size?.value || "";
       const occasion = curationLeadForm.elements.kitGoal?.value || "";
-      if (!size && !occasion) {
+      const note = curationLeadForm.elements.kitNote?.value || "";
+      if (!size && !occasion && !note.trim()) {
         curationKitPreview.classList.remove("visible");
         curationKitPreview.innerHTML = "";
         return [];
       }
-      const kit = suggestedKitProducts(size, occasion);
+      const kit = suggestedKitProducts(size, occasion, note);
       curationKitPreview.classList.toggle("visible", kit.length > 0);
       curationKitPreview.innerHTML = kit.length ? `
-        <p class="curation-kit-title">Prévia sugerida</p>
+        <p class="curation-kit-title">Kit sugerido completo</p>
         <div class="curation-kit-list">
           ${kit.map((product) => `<div class="curation-kit-item">
             <img src="${productImage(product)}" alt="${displayProductName(product)}">
-            <span><strong>${displayProductName(product)}</strong><br>${variantColorName(product)} · ${currency.format(product.price)}</span>
+            <span><b class="curation-kit-role">${safeHtml(product.kitRole || "Peça")}</b><br><strong>${displayProductName(product)}</strong><br>${variantColorName(product)} · ${currency.format(product.price)}</span>
           </div>`).join("")}
-        </div>` : "";
+        </div>
+        <p class="curation-kit-note">A seleção é uma prévia automática. No WhatsApp ajustamos cor, tamanho e disponibilidade antes de finalizar.</p>` : "";
       return kit;
     }
 
-    async function recordCurationLead({ name, phone, size = "", kitGoal = "", kitItems = [] }) {
+    async function recordCurationLead({ name, phone, size = "", kitGoal = "", kitNote = "", kitItems = [] }) {
       const cleanName = String(name || "").trim();
       const cleanPhone = String(phone || "").trim();
       const cleanSize = String(size || "").trim();
       const cleanKitGoal = String(kitGoal || "").trim();
+      const cleanKitNote = String(kitNote || "").trim();
       const cleanKitItems = Array.isArray(kitItems) ? kitItems.map((product) => ({
         slug: product.slug,
         name: displayProductName(product),
         color: variantColorName(product),
         price: product.price,
         reference: supplierReference(product) || product.supplierProductId || "",
+        role: product.kitRole || "",
       })) : [];
       const leadId = account?.id || localLeadId(cleanPhone);
       const customer = {
@@ -11046,6 +11274,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             customer,
             size: cleanSize,
             kitGoal: cleanKitGoal,
+            kitNote: cleanKitNote,
             kitItems: cleanKitItems,
             intent: cleanKitGoal ? "kit_request" : "curation",
             path: location.pathname + location.hash,
@@ -11067,7 +11296,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         }
       }
       const localLeads = JSON.parse(localStorage.getItem("scorsattoLocalLeadsV1") || "[]");
-      localLeads.unshift({ id: leadId, name: cleanName, phone: cleanPhone, size: cleanSize, kitGoal: cleanKitGoal, kitItems: cleanKitItems, createdAt: new Date().toISOString(), source: "curadoria_footer" });
+      localLeads.unshift({ id: leadId, name: cleanName, phone: cleanPhone, size: cleanSize, kitGoal: cleanKitGoal, kitNote: cleanKitNote, kitItems: cleanKitItems, createdAt: new Date().toISOString(), source: "curadoria_footer" });
       localStorage.setItem("scorsattoLocalLeadsV1", JSON.stringify(localLeads.slice(0, 50)));
       backofficeData = null;
       return leadId;
@@ -11087,6 +11316,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           customer: { name: lead.name || "", phone: lead.phone || "", email: lead.email || "", city: lead.city || "", state: lead.state || "" },
           size: lead.size || "",
           kitGoal: lead.kitGoal || "",
+          kitNote: lead.kitNote || "",
           kitItems: lead.kitItems || [],
           intent: lead.kitGoal ? "kit_request" : "curation",
           path: "lead local",
@@ -11446,8 +11676,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     function customerKitRequest(key) {
       return (backofficeData?.events || [])
         .filter((item) => customerMatch(item, key) && item.event_type === "newsletter_signup")
-        .map((item) => ({ size: item.metadata?.size || "", goal: item.metadata?.kitGoal || "", items: item.metadata?.kitItems || [], createdAt: item.created_at || "" }))
-        .find((item) => item.goal || item.size) || null;
+        .map((item) => ({ size: item.metadata?.size || "", goal: item.metadata?.kitGoal || "", note: item.metadata?.kitNote || "", items: item.metadata?.kitItems || [], createdAt: item.created_at || "" }))
+        .find((item) => item.goal || item.size || item.note) || null;
     }
 
     function customerHasKitRequest(key) {
@@ -11767,10 +11997,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const productLine = product ? `${displayProductName(product)} (${variantColorName(product)}${selectedDetailSize ? `, tam. ${selectedDetailSize}` : ""})` : "uma seleção da SCORSATTO";
       if (action.label === "Montar kit") {
         const kitLine = [kit?.goal, kit?.size ? `tam. ${kit.size}` : ""].filter(Boolean).join(" · ") || "uma seleção no seu perfil";
-        const itemLine = (kit?.items || []).slice(0, 3).map((item) => `- ${item.name}${item.color ? ` (${item.color})` : ""}`).join("\n");
+        const itemLine = (kit?.items || []).slice(0, 3).map((item) => `- ${item.role ? `${item.role}: ` : ""}${item.name}${item.color ? ` (${item.color})` : ""}`).join("\n");
         return [
           `Olá, ${firstName}! Aqui é da SCORSATTO.`,
           `Vi que você pediu para montar ${kitLine}.`,
+          kit?.note ? `Pelo que você escreveu: "${kit.note}".` : "",
           itemLine ? `Separei uma prévia:\n${itemLine}` : "",
           "Posso te mandar uma seleção enxuta com 2 ou 3 peças que combinam entre si?",
         ].filter(Boolean).join("\n");
@@ -11914,7 +12145,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <div class="metric-card"><strong>${customerSalesScore(key)}</strong><span>Score comercial</span></div>
           </div>
           <div class="customer-field"><span>Próxima ação sugerida</span><strong>${safeHtml(action.label)}</strong><small class="backoffice-note">${safeHtml(action.note)}</small><button class="copy-wa-btn" type="button" data-copy-customer-whatsapp="${encodeURIComponent(key)}">Copiar WhatsApp</button></div>
-          ${kitRequest ? `<div class="customer-field"><span>Pedido de kit</span><strong>${safeHtml([kitRequest.goal, kitRequest.size ? `Tam. ${kitRequest.size}` : ""].filter(Boolean).join(" · "))}</strong><small class="backoffice-note">${safeHtml((kitRequest.items || []).map((item) => item.name).join(" | ") || "Montar seleção com poucas peças, coerente com objetivo e tamanho informado.")}</small></div>` : ""}
+          ${kitRequest ? `<div class="customer-field"><span>Pedido de kit</span><strong>${safeHtml([kitRequest.goal, kitRequest.size ? `Tam. ${kitRequest.size}` : ""].filter(Boolean).join(" · ") || kitRequest.note)}</strong><small class="backoffice-note">${safeHtml([kitRequest.note, (kitRequest.items || []).map((item) => `${item.role ? `${item.role}: ` : ""}${item.name}`).join(" | ")].filter(Boolean).join(" · ") || "Montar seleção com poucas peças, coerente com objetivo e tamanho informado.")}</small></div>` : ""}
           <div class="customer-detail-grid">
             <div class="customer-field"><span>Nome</span><strong>${safeHtml(contact.name || "Não informado")}</strong></div>
             <div class="customer-field"><span>E-mail</span><strong>${safeHtml(contact.email || "Não informado")}</strong></div>
@@ -13111,6 +13342,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const phone = form.elements.phone?.value || "";
       const size = form.elements.size?.value || "";
       const kitGoal = form.elements.kitGoal?.value || "";
+      const kitNote = form.elements.kitNote?.value || "";
       const kitItems = renderCurationKitPreview();
       if (!name.trim() || !phone.trim()) {
         if (curationLeadMessage) curationLeadMessage.textContent = "Informe nome e WhatsApp para entrar na lista.";
@@ -13120,7 +13352,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (button) button.disabled = true;
       if (curationLeadMessage) curationLeadMessage.textContent = "Salvando seu contato...";
       try {
-        await recordCurationLead({ name, phone, size, kitGoal, kitItems });
+        await recordCurationLead({ name, phone, size, kitGoal, kitNote, kitItems });
         form.reset();
         renderCurationKitPreview();
         if (curationLeadMessage) curationLeadMessage.textContent = "Perfeito. Vamos te chamar para montar uma seleção no seu perfil.";
@@ -13132,7 +13364,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     if (curationLeadForm) curationLeadForm.addEventListener("change", (event) => {
-      if (event.target.matches("select[name='size'], select[name='kitGoal']")) renderCurationKitPreview();
+      if (event.target.matches("select[name='size'], select[name='kitGoal'], input[name='kitNote']")) renderCurationKitPreview();
+    });
+    if (curationLeadForm) curationLeadForm.addEventListener("input", (event) => {
+      if (event.target.matches("input[name='kitNote']")) renderCurationKitPreview();
     });
     accountDrawer.addEventListener("click", (event) => {
       if (event.target.closest("[data-open-backoffice-page]") && isAdminAccount()) {
