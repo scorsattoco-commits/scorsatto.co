@@ -8893,7 +8893,7 @@
     function productTitleName(product) {
       let title = productBaseName(product);
       const brand = brandFromProduct(product);
-      const removableBrands = [...BRANDS.map((item) => item.label), brand, "Marca sob curadoria"].filter(Boolean);
+      const removableBrands = [...BRANDS.map((item) => item.label), brand, "Marca sob curadoria", "Curadoria SCORSATTO"].filter(Boolean);
       removableBrands
         .sort((a, b) => b.length - a.length)
         .forEach((label) => {
@@ -10183,7 +10183,7 @@
 
     function brandFromProduct(product) {
       if (brandText(product).includes("nike")) return "Nike";
-      return productBrand(product)?.label ?? "Marca sob curadoria";
+      return productBrand(product)?.label ?? "Curadoria SCORSATTO";
     }
 
     function productLine(product) {
@@ -10500,7 +10500,7 @@
     function updateShopHeader() {
       const category = currentCategory();
       const copy = {
-        inicio: ["Início", "Seleção da semana."],
+        inicio: ["Início", "Seleção da semana"],
         "disponiveis-agora": ["Pronta entrega", ""],
         todos: ["Coleção", "Escolha por categoria."],
       };
@@ -10509,7 +10509,7 @@
         "disponiveis-agora": "",
         todos: "",
       };
-      const [eyebrow, title] = copy[active] ?? ["Coleção", category.label + "."];
+      const [eyebrow, title] = copy[active] ?? ["Coleção", category.label];
       if (shopEyebrow) shopEyebrow.textContent = eyebrow;
       if (produtosTitle) produtosTitle.textContent = title;
       if (shopNote) {
