@@ -11118,49 +11118,76 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function kitContext(size = "", occasion = "", note = "") {
       const query = normalize([occasion, note].filter(Boolean).join(" "));
-      const warm = /(frio|meia|inverno|noite|jantar|evento|trabalho|viagem)/.test(query);
+      const warm = /(frio|meia|inverno|noite)/.test(query);
       const hot = /(calor|verao|praia|bermuda)/.test(query);
       const formal = /(trabalho|jantar|evento|social|elegante|discreto|reuniao)/.test(query);
+      const wantsOuter = /(casaco|jaqueta|sueter|frio|meia|inverno|noite|camada|sobreposicao)/.test(query);
       const ready = query.includes("pronta");
-      return { query, size, occasion, note, warm, hot, formal, ready };
+      return { query, size, occasion, note, warm, hot, formal, wantsOuter, ready };
     }
 
     function kitSlots(context) {
       if (context.hot) {
-        return [
-          { role: "Peça de cima", collections: ["camisetas", "gola-polo", "camisa-social"], required: true },
-          { role: "Parte de baixo", collections: ["bermudas"], required: true },
-          { role: "Camada leve", collections: ["camisa-social"], required: false },
+        const slots = [
+          { role: "Peça de cima", type: "top", collections: ["camisetas", "gola-polo", "camisa-social"], required: true },
+          { role: "Parte de baixo", type: "bottom", collections: ["bermudas"], required: true },
         ];
+        if (context.wantsOuter) slots.push({ role: "Camada leve", type: "outer", collections: ["jaquetas"], required: false });
+        return slots;
       }
       if (context.formal) {
-        return [
-          { role: "Peça de cima", collections: ["camisa-social", "gola-polo"], required: true },
-          { role: "Parte de baixo", collections: ["calcas"], required: true },
-          { role: "Terceira peça", collections: ["sueteres", "jaquetas", "casacos"], required: true },
+        const slots = [
+          { role: "Peça de cima", type: "top", collections: ["camisa-social", "gola-polo"], required: true },
+          { role: "Parte de baixo", type: "bottom", collections: ["calcas"], required: true },
         ];
+        if (context.warm || context.wantsOuter) slots.push({ role: "Terceira peça", type: "outer", collections: ["sueteres", "jaquetas", "casacos"], required: false });
+        return slots;
       }
       if (context.warm) {
         return [
-          { role: "Base", collections: ["camisetas", "manga-longa", "gola-polo"], required: true },
-          { role: "Parte de baixo", collections: ["calcas"], required: true },
-          { role: "Camada", collections: ["sueteres", "jaquetas", "casacos"], required: true },
+          { role: "Base", type: "top", collections: ["camisetas", "manga-longa", "gola-polo"], required: true },
+          { role: "Parte de baixo", type: "bottom", collections: ["calcas"], required: true },
+          { role: "Camada", type: "outer", collections: ["sueteres", "jaquetas", "casacos"], required: true },
         ];
       }
-      return [
-        { role: "Peça de cima", collections: ["camisetas", "gola-polo", "manga-longa"], required: true },
-        { role: "Parte de baixo", collections: ["calcas", "bermudas"], required: true },
-        { role: "Complemento", collections: ["sueteres", "jaquetas", "casacos", "camisa-social"], required: false },
+      const slots = [
+        { role: "Peça de cima", type: "top", collections: ["camisetas", "gola-polo", "manga-longa"], required: true },
+        { role: "Parte de baixo", type: "bottom", collections: ["calcas", "bermudas"], required: true },
       ];
+      if (context.wantsOuter) slots.push({ role: "Complemento", type: "outer", collections: ["sueteres", "jaquetas", "casacos"], required: false });
+      return slots;
     }
 
     function kitTextTerms(context) {
       const terms = [];
       const query = context.query;
-      ["camiseta", "camisa", "polo", "calca", "bermuda", "sueter", "jaqueta", "casaco", "preto", "branco", "azul", "marrom", "bege", "cinza", "off white"].forEach((term) => {
-        if (query.includes(normalize(term))) terms.push(normalize(term));
+      ["camiseta", "camisa", "polo", "calca", "bermuda", "sueter", "jaqueta", "casaco", "preto", "preta", "branco", "branca", "azul", "marrom", "bege", "cinza", "off white"].forEach((term) => {
+        const cleanTerm = normalize(term);
+        const pattern = new RegExp(`(^|\\s)${cleanTerm.replace(/\s+/g, "\\s+")}(\\s|$)`);
+        if (pattern.test(query)) terms.push(cleanTerm);
       });
       return terms;
+    }
+
+    function kitTermMatchesProduct(term, product, text, category) {
+      const collection = product.collection || "";
+      if (term === "camisa") return collection === "camisa-social";
+      if (term === "camiseta") return collection === "camisetas" || collection === "manga-longa";
+      if (term === "polo") return collection === "gola-polo";
+      if (term === "calca") return collection === "calcas";
+      if (term === "bermuda") return collection === "bermudas";
+      if (term === "sueter") return collection === "sueteres";
+      if (term === "jaqueta") return collection === "jaquetas";
+      if (term === "casaco") return collection === "casacos";
+      if (term === "preta") term = "preto";
+      if (term === "branca") term = "branco";
+      const pattern = new RegExp(`(^|\\s)${term.replace(/\s+/g, "\\s+")}(\\s|$)`);
+      return pattern.test(text) || pattern.test(category);
+    }
+
+    function kitTermWeight(term) {
+      if (["camiseta", "camisa", "polo", "calca", "bermuda", "sueter", "jaqueta", "casaco"].includes(term)) return 90;
+      return 34;
     }
 
     function kitProductScore(product, context, slot) {
@@ -11173,21 +11200,23 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (context.size && !sizes.includes(context.size)) score -= 24;
       if (slot.collections.includes(product.collection)) score += 42;
       kitTextTerms(context).forEach((term) => {
-        if (text.includes(term) || category.includes(term)) score += 18;
+        if (kitTermMatchesProduct(term, product, text, category)) score += kitTermWeight(term);
       });
       if (context.ready && !isAvailableNow(product)) score -= 55;
       if (context.formal && ["camisa-social", "gola-polo", "calcas", "sueteres", "jaquetas"].includes(product.collection)) score += 12;
       if (context.hot && ["bermudas", "camisetas", "gola-polo"].includes(product.collection)) score += 14;
       if (context.warm && ["sueteres", "jaquetas", "casacos", "manga-longa"].includes(product.collection)) score += 12;
+      if (slot.type === "outer" && ["camisetas", "manga-longa", "camisa-social", "gola-polo"].includes(product.collection)) score -= 120;
       if (productImage(product)) score += 8;
       if (hasStandardImage(product)) score += 6;
       return score;
     }
 
-    function chooseKitProduct(pool, context, slot, usedSlugs) {
+    function chooseKitProduct(pool, context, slot, usedSlugs, usedTypes) {
       return pool
         .filter((product) => slot.collections.includes(product.collection))
         .filter((product) => !usedSlugs.has(product.slug))
+        .filter(() => !slot.type || !usedTypes.has(slot.type))
         .map((product) => ({ product, score: kitProductScore(product, context, slot) }))
         .filter((item) => item.score > 0)
         .sort((a, b) => b.score - a.score || String(displayProductName(a.product)).localeCompare(displayProductName(b.product), "pt-BR"))[0]?.product || null;
@@ -11200,11 +11229,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         .filter((product) => product.status !== "vendido");
       const kit = [];
       const usedSlugs = new Set();
+      const usedTypes = new Set();
       kitSlots(context).forEach((slot) => {
-        const product = chooseKitProduct(pool, context, slot, usedSlugs);
+        const product = chooseKitProduct(pool, context, slot, usedSlugs, usedTypes);
         if (product) {
           kit.push({ ...product, kitRole: slot.role });
           usedSlugs.add(product.slug);
+          if (slot.type) usedTypes.add(slot.type);
         }
       });
       return kit;
