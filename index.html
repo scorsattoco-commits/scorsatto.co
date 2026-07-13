@@ -249,6 +249,13 @@
     .priority-card strong, .funnel-step strong { font-size: 22px; line-height: 1; }
     .priority-card span, .funnel-step span { color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .priority-card small, .funnel-step small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .pipeline-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+    .pipeline-column { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 10px; display: grid; gap: 8px; align-content: start; }
+    .pipeline-column h5 { margin: 0; font-size: 10px; letter-spacing: .09em; text-transform: uppercase; display: flex; justify-content: space-between; gap: 8px; }
+    .pipeline-lead { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 9px; display: grid; gap: 4px; text-align: left; color: var(--black); cursor: pointer; }
+    .pipeline-lead strong { font-size: 12px; line-height: 1.3; }
+    .pipeline-lead span { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .score-pill { display: inline-flex; align-items: center; justify-content: center; width: max-content; min-height: 24px; border: 1px solid var(--line); border-radius: var(--radius-control); padding: 0 7px; color: var(--black); background: var(--white); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .backoffice-section { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 14px; display: grid; gap: 10px; overflow: hidden; }
     details.backoffice-section { display: block; }
     details.backoffice-section > *:not(summary) { margin-top: 10px; }
@@ -11465,6 +11472,91 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return `<div class="funnel-grid">${steps.map(([value, label, note]) => `<div class="funnel-step"><strong>${value}</strong><span>${safeHtml(label)}</span><small>${safeHtml(note)}</small></div>`).join("")}</div>`;
     }
 
+    function customerHasWhatsappIntent(key) {
+      return customerEvents(key).some((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type));
+    }
+
+    function customerHasSizeAlert(key) {
+      return customerEvents(key).some((event) => event.event_type === "size_alert_interest");
+    }
+
+    function customerCartIsAbandoned(key) {
+      const carts = (backofficeData?.carts || []).filter((item) => customerMatch(item, key));
+      if (!carts.length) return false;
+      const lastUpdate = carts.map((item) => item.updated_at || item.created_at).sort((a, b) => new Date(b || 0) - new Date(a || 0))[0];
+      return lastUpdate && new Date(lastUpdate) < new Date(Date.now() - 2 * 60 * 60 * 1000);
+    }
+
+    function customerSalesScore(key) {
+      const events = customerEvents(key);
+      const favs = (backofficeData?.favorites || []).filter((item) => customerMatch(item, key)).length;
+      let score = 0;
+      if (customerHasOrder(key)) score += 55;
+      if (customerHasWhatsappIntent(key)) score += 35;
+      if (customerHasCart(key)) score += customerCartIsAbandoned(key) ? 32 : 42;
+      if (customerHasSizeAlert(key)) score += 24;
+      if (customerHasCurationLead(key)) score += 18;
+      if (profileByCustomerKey(key)) score += 14;
+      score += Math.min(customerProductViewCount(key) * 4, 24);
+      score += Math.min(customerVisitCount(key) * 3, 18);
+      score += Math.min(favs * 5, 20);
+      const lastActivity = customerLastActivity(key);
+      if (lastActivity && new Date(lastActivity) < new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) score -= 18;
+      if (!events.length && !profileByCustomerKey(key) && !customerHasCurationLead(key)) score -= 10;
+      return Math.max(0, Math.min(100, score));
+    }
+
+    function customerPipelineStage(key) {
+      if (customerHasOrder(key)) return "pos-venda";
+      if (customerHasWhatsappIntent(key)) return "negociacao";
+      if (customerHasCart(key)) return customerCartIsAbandoned(key) ? "recuperar" : "carrinho";
+      if (customerHasSizeAlert(key) || customerProductViewCount(key) >= 2 || (backofficeData?.favorites || []).some((item) => customerMatch(item, key))) return "interesse";
+      if (profileByCustomerKey(key) || customerHasCurationLead(key)) return "lead";
+      return "visitante";
+    }
+
+    function customerNextAction(key) {
+      if (customerHasOrder(key)) return { label: "Confirmar pedido", note: "Acompanhar pagamento, separação ou envio.", urgency: 4 };
+      if (customerHasWhatsappIntent(key)) return { label: "Responder WhatsApp", note: "Cliente já sinalizou compra. Prioridade máxima.", urgency: 5 };
+      if (customerCartIsAbandoned(key)) return { label: "Recuperar carrinho", note: "Chamar com referência, tamanho e disponibilidade.", urgency: 5 };
+      if (customerHasCart(key)) return { label: "Acompanhar carrinho", note: "Ver se falta tamanho, cor ou prazo.", urgency: 4 };
+      if (customerHasSizeAlert(key)) return { label: "Avisar tamanho/cor", note: "Interesse direto em variação específica.", urgency: 4 };
+      if (customerHasCurationLead(key) || profileByCustomerKey(key)) return { label: "Chamar curadoria", note: "Pedir preferência de peça, tamanho e marca.", urgency: 3 };
+      if (customerProductViewCount(key) >= 2) return { label: "Oferecer seleção", note: "Visitou peças suficientes para abordagem consultiva.", urgency: 2 };
+      return { label: "Nutrir visita", note: "Ainda frio. Melhor reforçar cadastro e favoritos.", urgency: 1 };
+    }
+
+    function renderPipelineBoard(keys) {
+      const stages = [
+        ["visitante", "Visitante"],
+        ["lead", "Lead"],
+        ["interesse", "Interesse"],
+        ["carrinho", "Carrinho"],
+        ["recuperar", "Recuperar"],
+        ["negociacao", "WhatsApp"],
+        ["pos-venda", "Pós-venda"],
+      ];
+      return `<div class="pipeline-board">${stages.map(([stage, label]) => {
+        const stageKeys = keys.filter((key) => customerPipelineStage(key) === stage).sort((a, b) => customerSalesScore(b) - customerSalesScore(a));
+        const cards = stageKeys.slice(0, 5).map((key) => {
+          const info = customerDisplay(key);
+          const action = customerNextAction(key);
+          return `<button class="pipeline-lead" type="button" data-backoffice-customer="${encodeURIComponent(key)}"><strong>${safeHtml(info.name)}</strong><span>${safeHtml(action.label)}</span><em class="score-pill">Score ${customerSalesScore(key)}</em></button>`;
+        }).join("") || "<span class='backoffice-note'>Sem contatos.</span>";
+        return `<div class="pipeline-column"><h5><span>${safeHtml(label)}</span><b>${stageKeys.length}</b></h5>${cards}</div>`;
+      }).join("")}</div>`;
+    }
+
+    function renderContactAgenda(keys) {
+      const rows = keys
+        .map((key) => ({ key, score: customerSalesScore(key), action: customerNextAction(key), last: customerLastActivity(key) }))
+        .filter((item) => item.score >= 20 || item.action.urgency >= 3)
+        .sort((a, b) => b.action.urgency - a.action.urgency || b.score - a.score || new Date(b.last || 0) - new Date(a.last || 0))
+        .slice(0, 14)
+        .map((item) => `<tr><td>${customerButton(item.key)}</td><td><span class="score-pill">Score ${item.score}</span></td><td>${safeHtml(item.action.label)}</td><td>${safeHtml(item.action.note)}</td><td>${formatDateTime(item.last)}</td></tr>`);
+      return renderBackofficeTable(["Cliente", "Score", "Próxima ação", "Motivo", "Última atividade"], rows, "Nenhum contato prioritário agora.");
+    }
+
     function customerInsightCard(key) {
       const info = customerDisplay(key);
       const contact = customerContact(key);
@@ -11476,12 +11568,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const cartCount = carts.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
       const sessions = customerSessions(key).length || (events.length ? 1 : 0);
       const city = [contact.city, contact.state].filter(Boolean).join(" - ");
+      const action = customerNextAction(key);
       return `<button class="customer-insight-card${activeBackofficeCustomerId === key ? " active" : ""}" type="button" data-backoffice-customer="${encodeURIComponent(key)}">
         <span class="customer-insight-top">
           <strong>${safeHtml(info.name)}</strong>
           <em>${safeHtml(customerStatusLabel(key))}</em>
         </span>
         <small>${safeHtml(contact.email || contact.phone || city || info.detail)}</small>
+        <span class="score-pill">Score ${customerSalesScore(key)} · ${safeHtml(action.label)}</span>
         <span class="customer-insight-stats">
           <span><b>${customerVisitCount(key)}</b>Acessos</span>
           <span><b>${sessions}</b>Voltas</span>
@@ -11515,6 +11609,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const orderTotal = orders.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
       const city = [contact.city, contact.state].filter(Boolean).join(" - ");
       const config = leadSetting(key);
+      const action = customerNextAction(key);
       const cartLines = carts.map((item) => `<div class="customer-line"><strong>${productLabel(item.product_slug)}</strong><br><span class="muted">Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span></div>`).join("") || "<p class='backoffice-note'>Sem carrinho ativo.</p>";
       const favLines = favs.map((item) => `<span class="mini-pill">${safeHtml(productLabel(item.product_slug))}</span>`).join("") || "<span class='backoffice-note'>Nenhum favorito salvo.</span>";
       const orderLines = orders.map((order) => `<div class="customer-line"><strong>${formatDateTime(order.created_at)} - ${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</strong><br>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</div>`).join("") || "<p class='backoffice-note'>Nenhum pedido registrado.</p>";
@@ -11537,7 +11632,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <div class="metric-card"><strong>${currency.format(cartTotal)}</strong><span>Valor do carrinho</span></div>
             <div class="metric-card"><strong>${orders.length}</strong><span>Pedidos</span></div>
             <div class="metric-card"><strong>${currency.format(orderTotal)}</strong><span>Total em pedidos</span></div>
+            <div class="metric-card"><strong>${customerSalesScore(key)}</strong><span>Score comercial</span></div>
           </div>
+          <div class="customer-field"><span>Próxima ação sugerida</span><strong>${safeHtml(action.label)}</strong><small class="backoffice-note">${safeHtml(action.note)}</small></div>
           <div class="customer-detail-grid">
             <div class="customer-field"><span>Nome</span><strong>${safeHtml(contact.name || "Não informado")}</strong></div>
             <div class="customer-field"><span>E-mail</span><strong>${safeHtml(contact.email || "Não informado")}</strong></div>
@@ -11607,9 +11704,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
               ? allCustomerKeys.filter((key) => customerStage(key) === "leads" || customerHasCurationLead(key))
               : allCustomerKeys.filter((key) => customerStage(key) === activeBackofficeSegment);
       const searchNormalized = normalize(backofficeSearchTerm).trim();
-      const customerKeys = searchNormalized
+      const customerKeys = (searchNormalized
         ? segmentCustomerKeys.filter((key) => backofficeSearchText(key).includes(searchNormalized))
-        : segmentCustomerKeys;
+        : segmentCustomerKeys).sort((a, b) => customerSalesScore(b) - customerSalesScore(a) || new Date(customerLastActivity(b) || 0) - new Date(customerLastActivity(a) || 0));
       if (!activeBackofficeCustomerId && customerKeys.length) activeBackofficeCustomerId = customerKeys[0];
       if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__" && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
       const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
@@ -11651,7 +11748,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         const orderCount = ordersRows.filter((item) => customerMatch(item, key)).length;
         const eventCount = eventsRows.filter((item) => customerMatch(item, key)).length;
         const city = [contact.city, contact.state].filter(Boolean).join(" - ") || "-";
-        return `<tr><td>${customerButton(key)}</td><td>${safeHtml(contact.email || "-")}</td><td>${safeHtml(contact.phone || "-")}</td><td>${safeHtml(city)}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${eventCount}</td><td>${formatDateTime(customerLastActivity(key))}</td></tr>`;
+        return `<tr><td>${customerButton(key)}</td><td><span class="score-pill">Score ${customerSalesScore(key)}</span></td><td>${safeHtml(customerNextAction(key).label)}</td><td>${safeHtml(contact.email || "-")}</td><td>${safeHtml(contact.phone || "-")}</td><td>${safeHtml(city)}</td><td>${cartCount}</td><td>${favCount}</td><td>${orderCount}</td><td>${eventCount}</td><td>${formatDateTime(customerLastActivity(key))}</td></tr>`;
       });
 
       const cartRows = activeCarts.map((row) => `<tr><td>${customerButton(row.key)}</td><td>${row.items.map((item) => `${productLabel(item.product_slug)}<br><span class="muted">Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${formatDateTime(row.updated_at)}</td></tr>`);
@@ -11693,6 +11790,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         </div>`, false)}
         ${renderBackofficeSection("Fila de ação", renderPriorityCards(today, activeCarts, abandoned, eventsRows, ordersRows), true)}
         ${renderBackofficeSection("Funil de hoje", renderTodayFunnel(today, activeCarts), true)}
+        ${renderBackofficeSection("Pipeline comercial", renderPipelineBoard(allCustomerKeys), true)}
+        ${renderBackofficeSection("Agenda de contato", renderContactAgenda(allCustomerKeys), true)}
         ${renderBackofficeSection("Quem acessou hoje", renderBackofficeTable(["Visitante / cliente", "Cadastro", "Acessos", "Produtos vistos", "Última página", "Primeiro acesso", "Último acesso"], todayRows, "Nenhum acesso registrado hoje ainda."), true)}
         ${renderBackofficeSection("Cadastros feitos hoje", renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Origem", "Criado em"], todaySignupRows, "Nenhum cadastro novo hoje ainda."), todaySignupRows.length > 0)}
         ${renderBackofficeSection("Adicionar lead manual", `<form class="account-form" data-manual-lead-form><label class="field"><span>Nome</span><input name="name" placeholder="Nome do lead"></label><label class="field"><span>WhatsApp</span><input name="phone" placeholder="Telefone"></label><label class="field"><span>E-mail</span><input name="email" placeholder="E-mail"></label><button class="primary-btn" type="submit">Adicionar lead</button></form>`, false)}
@@ -11708,7 +11807,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${productViews}</strong><span>Produtos vistos</span></div>
         </div>
         ${activeBackofficeCustomerId === "__closed__" ? minimizedFicha : renderCustomerDetail(activeBackofficeCustomerId)}
-        ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads da curadoria" : activeBackofficeSegment === "carrinhos" ? "Carrinhos ativos" : activeBackofficeSegment === "pedidos" ? "Pedidos via WhatsApp" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
+        ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads da curadoria" : activeBackofficeSegment === "carrinhos" ? "Carrinhos ativos" : activeBackofficeSegment === "pedidos" ? "Pedidos via WhatsApp" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "Score", "Próxima ação", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
         ${renderBackofficeSection("Carrinhos ativos", `<p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}`, false)}
         ${renderBackofficeSection("Pedidos via WhatsApp", renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda."), false)}
         ${renderBackofficeSection("Acessos e eventos recentes", renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda."), false)}
