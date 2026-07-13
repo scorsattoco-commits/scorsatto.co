@@ -192,19 +192,21 @@
     .copy-wa-btn { width: max-content; min-height: 32px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); cursor: pointer; padding: 0 10px; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .secondary-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .about { background: var(--white); border-top: 1px solid var(--line); }
-    .about-grid { display: grid; gap: 34px; }
-    .about-copy { max-width: 760px; color: #292925; line-height: 1.8; }
-    .about-copy p { margin: 0 0 18px; }
-    .faq-list { display: grid; gap: 18px; }
-    .faq-item { border-top: 1px solid var(--line); padding-top: 18px; }
-    .faq-item strong { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .about-grid { display: grid; gap: 30px; }
+    .about-copy { max-width: 680px; color: #292925; line-height: 1.72; font-size: 15px; }
+    .about-copy p { margin: 0 0 14px; }
+    .about-signature { margin-top: 20px; color: var(--black); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .faq-list { display: grid; gap: 10px; }
+    .faq-item { border-top: 1px solid var(--line); padding-top: 14px; }
+    .faq-item strong { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+    .faq-item .muted { font-size: 12px; line-height: 1.55; }
     .policy-section { border-top: 1px solid var(--line); background: var(--white); }
-    .policy-grid { display: grid; gap: 18px; }
-    .policy-card { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 8px; }
-    .policy-card strong { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .policy-card span { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .trust-band { border-top: 1px solid var(--line); background: var(--white); padding: 22px 16px; }
-    .trust-list { max-width: 1440px; margin: 0 auto; display: grid; gap: 10px; color: #2c2c28; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .policy-grid { display: grid; gap: 12px; }
+    .policy-card { border: 1px solid var(--line); background: #fbfbf8; padding: 16px; display: grid; gap: 7px; }
+    .policy-card strong { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .policy-card span { color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .trust-band { border-top: 1px solid var(--line); background: var(--white); padding: 16px; }
+    .trust-list { max-width: 1440px; margin: 0 auto; display: grid; gap: 8px; color: #2c2c28; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
     .curation-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); padding: clamp(28px, 4vw, 52px) 16px; }
     .curation-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 28px; align-items: end; }
     .curation-eyebrow { margin: 0 0 10px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
@@ -230,6 +232,15 @@
     .curation-kit-item span { color: var(--muted); font-size: 11px; line-height: 1.35; }
     .curation-kit-role { color: var(--black); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .curation-kit-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .account-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fbfbf8; padding: 22px 16px; }
+    .account-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 18px; align-items: center; }
+    .account-strip-copy { display: grid; gap: 8px; }
+    .account-strip-copy .eyebrow { margin: 0; }
+    .account-strip-title { margin: 0; font-size: clamp(24px, 3vw, 42px); line-height: 1.05; font-family: "Cormorant Garamond", serif; font-weight: 500; letter-spacing: 0; }
+    .account-benefits { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; color: #3c3c37; font-size: 12px; }
+    .account-benefits li { border: 1px solid var(--line); background: var(--white); padding: 8px 10px; }
+    .account-strip-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .text-link-btn { border: 0; background: transparent; color: var(--black); cursor: pointer; padding: 0; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; }
     .floating-whatsapp { position: fixed; right: 16px; bottom: 16px; z-index: 25; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #111; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 40px rgba(0,0,0,.18); transition: transform .2s ease; cursor: pointer; }
     .floating-whatsapp:hover { transform: translateY(-2px); }
     .floating-whatsapp svg { width: 23px; height: 23px; fill: currentColor; }
@@ -495,7 +506,8 @@
       .product-fact { grid-template-columns: 140px 1fr; gap: 16px; }
       .trust-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr); }
-      .policy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .policy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .account-strip-inner { grid-template-columns: minmax(0, 1fr) auto; }
       .curation-inner { grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); }
       .curation-fields { grid-template-columns: 1fr 1fr; }
       .curation-kit-fields { grid-column: 1 / -1; grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); }
@@ -603,14 +615,22 @@
 
     <div class="sticky-product-bar" id="stickyProductBar" aria-live="polite"></div>
 
-    <section class="curation-strip" aria-label="Cadastro SCORSATTO">
-      <div class="curation-inner">
-        <div>
-          <p class="curation-eyebrow">Conta privada</p>
-          <h2 class="curation-title">Salve peças e receba reposições</h2>
-          <p class="curation-copy">Crie sua conta para manter favoritos, recuperar carrinho, receber aviso de pronta entrega e agilizar atendimento pelo WhatsApp.</p>
+    <section class="account-strip" aria-label="Conta SCORSATTO">
+      <div class="account-strip-inner">
+        <div class="account-strip-copy">
+          <p class="eyebrow">Conta SCORSATTO</p>
+          <h2 class="account-strip-title">Salve peças e volte direto ao que interessa.</h2>
+          <ul class="account-benefits">
+            <li>Favoritos salvos</li>
+            <li>Carrinho recuperado</li>
+            <li>Reposições avisadas</li>
+            <li>Atendimento mais rápido</li>
+          </ul>
         </div>
-        <button class="curation-button" type="button" data-open-account-inline="criar">Criar conta SCORSATTO</button>
+        <div class="account-strip-actions">
+          <button class="curation-button" type="button" data-open-account-inline="criar">Criar conta</button>
+          <button class="text-link-btn" type="button" data-open-account-inline="entrar">Já tenho conta</button>
+        </div>
       </div>
     </section>
 
@@ -635,16 +655,15 @@
           <h2>SCORSATTO</h2>
           <div class="about-copy">
             <p>Curadoria masculina premium feita em Serafina Corr&ecirc;a, no Rio Grande do Sul.</p>
-            <p>A SCORSATTO seleciona pe&ccedil;as de marcas reconhecidas pela qualidade, pelo caimento e pela presen&ccedil;a discreta. O foco est&aacute; no que permanece: bons tecidos, cores vers&aacute;teis e um guarda-roupa bem resolvido.</p>
-            <p>Trabalhamos com uma sele&ccedil;&atilde;o enxuta de Ralph Lauren, Tommy Hilfiger, Lacoste, Calvin Klein, Hugo Boss, Aramis e outras pe&ccedil;as aprovadas pela curadoria, sempre respeitando o padr&atilde;o visual da marca.</p>
-            <p>Menos tend&ecirc;ncia. Mais presen&ccedil;a.</p>
-            <p><strong>O essencial bem feito.</strong></p>
+            <p>Selecionamos pe&ccedil;as de marcas reconhecidas por tecido, caimento e presen&ccedil;a discreta. A ideia &eacute; simples: comprar menos por impulso e escolher melhor.</p>
+            <p>Pronta entrega e pe&ccedil;as sob consulta ficam reunidas em uma experi&ecirc;ncia direta, com atendimento humano pelo WhatsApp.</p>
+            <p class="about-signature">O essencial bem feito.</p>
           </div>
         </div>
         <div class="faq-list">
-          <div class="faq-item"><strong>Entrega</strong><span class="muted">Enviamos para todo o Brasil com atendimento pelo WhatsApp.</span></div>
-          <div class="faq-item"><strong>Novidades</strong><span class="muted">Lan&ccedil;amentos e reposi&ccedil;&otilde;es aparecem primeiro no Instagram e no Grupo Exclusivo SCORSATTO.</span></div>
-          <div class="faq-item"><strong>Trocas</strong><span class="muted">A orienta&ccedil;&atilde;o de tamanho e a troca s&atilde;o acompanhadas pelo nosso atendimento.</span></div>
+          <div class="faq-item"><strong>Curadoria</strong><span class="muted">Pe&ccedil;as escolhidas por versatilidade, acabamento e combina&ccedil;&atilde;o real no guarda-roupa.</span></div>
+          <div class="faq-item"><strong>Pronta entrega</strong><span class="muted">Itens dispon&iacute;veis agora aparecem em destaque para compra mais r&aacute;pida.</span></div>
+          <div class="faq-item"><strong>Sob consulta</strong><span class="muted">Quando a pe&ccedil;a depende do fornecedor, confirmamos tamanho e refer&ecirc;ncia antes do pedido.</span></div>
         </div>
       </div>
     </section>
@@ -654,22 +673,23 @@
     <div class="section-inner">
       <div class="section-head">
         <p class="eyebrow">Atendimento</p>
-        <h2>Entrega e trocas.</h2>
-        <p class="muted">Pedido finalizado pelo WhatsApp, com orientação direta antes do envio.</p>
+        <h2>Como funciona.</h2>
+        <p class="muted">Fluxo simples, com confirma&ccedil;&atilde;o humana antes do pagamento e do envio.</p>
       </div>
       <div class="policy-grid">
-        <div class="policy-card"><strong>Entrega</strong><span>Envio para todo o Brasil. Prazo e frete são combinados no atendimento.</span></div>
-        <div class="policy-card"><strong>Trocas</strong><span>Ajudamos a conferir tamanho antes da compra e orientamos a troca quando precisar.</span></div>
+        <div class="policy-card"><strong>1. Escolha</strong><span>Salve favoritos ou envie a pe&ccedil;a pelo WhatsApp.</span></div>
+        <div class="policy-card"><strong>2. Confirme</strong><span>Conferimos tamanho, disponibilidade, prazo e frete.</span></div>
+        <div class="policy-card"><strong>3. Receba</strong><span>Pedido enviado com acompanhamento e orienta&ccedil;&atilde;o de troca quando precisar.</span></div>
       </div>
     </div>
   </section>
 
   <section class="trust-band" aria-label="Confianca">
     <div class="trust-list">
-      <span>Curadoria masculina premium</span>
-      <span>Atendimento pelo WhatsApp</span>
-      <span>Envio para todo o Brasil</span>
-      <span>Trocas e medidas orientadas no atendimento</span>
+      <span>Curadoria premium</span>
+      <span>WhatsApp direto</span>
+      <span>Envio nacional</span>
+      <span>Trocas orientadas</span>
     </div>
   </section>
 
