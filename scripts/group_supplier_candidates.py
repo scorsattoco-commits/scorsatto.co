@@ -409,14 +409,7 @@ def write_grouped_preview(groups, singles, output_html, source_json):
         approvedGroupCount: approvedGroups.length,
         approvedGroups
       }};
-      const json = JSON.stringify(exportPayload, null, 2);
-      document.getElementById('exportBox').value = json;
-      const blob = new Blob([json], {{ type: 'application/json' }});
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'scorsatto-grupos-aprovados-para-fotos-{today_slug()}.json';
-      link.click();
-      URL.revokeObjectURL(link.href);
+      document.getElementById('exportBox').value = JSON.stringify(exportPayload, null, 2);
     }});
     sync();
   </script>
@@ -429,12 +422,7 @@ def main():
     day = today_slug()
     source = ROOT / "data" / "fornecedor-varreduras" / f"varredura-fornecedor-{day}.json"
     if not source.exists():
-        candidates = sorted((ROOT / "data" / "fornecedor-varreduras").glob("varredura-fornecedor-*.json"))
-        candidates = [path for path in candidates if "agrupada" not in path.name]
-        if not candidates:
-            raise RuntimeError(f"Varredura nao encontrada: {source}")
-        source = candidates[-1]
-        day = source.stem.replace("varredura-fornecedor-", "")
+        raise RuntimeError(f"Varredura nao encontrada: {source}")
     data = json.loads(source.read_text(encoding="utf-8"))
     candidates = data.get("candidates") or []
     groups, singles = group_items(candidates)

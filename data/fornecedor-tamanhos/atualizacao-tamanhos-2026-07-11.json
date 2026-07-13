@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-11T20:48:53Z",
-  "apply": false,
+  "generatedAt": "2026-07-11T20:56:33Z",
+  "apply": true,
   "checked": 170,
-  "changed": 13,
+  "changed": 11,
   "failures": [
     {
       "id": "scp-16009",
@@ -87,32 +87,6 @@
   ],
   "changes": [
     {
-      "id": "scp-15825",
-      "name": "Camiseta Supima - Preto",
-      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00012",
-      "oldSizes": [
-        "P",
-        "GG",
-        "XXG"
-      ],
-      "newSizes": [
-        "GG",
-        "XXG"
-      ]
-    },
-    {
-      "id": "scp-15836",
-      "name": "Camiseta Supima - Bege",
-      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe00018",
-      "oldSizes": [
-        "P",
-        "M"
-      ],
-      "newSizes": [
-        "M"
-      ]
-    },
-    {
       "id": "scp-15924",
       "name": "Camiseta Manga Longa - Cinza Claro",
       "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-cinza-claro-mangalongaxe0008",
@@ -131,9 +105,10 @@
       "name": "Camisa Social - Branco",
       "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-pequeno-camisasocialxe00012",
       "oldSizes": [
+        "P",
+        "M",
         "G",
-        "GG",
-        "XXG"
+        "GG"
       ],
       "newSizes": [
         "G",
