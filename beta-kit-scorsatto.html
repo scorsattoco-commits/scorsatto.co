@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SCORSATTO.CO | O essencial bem feito</title>
+  <title>SCORSATTO Beta | Kit por ocasião</title>
   <meta name="description" content="SCORSATTO.CO: moda masculina premium com curadoria enxuta e compra pelo WhatsApp." />
-  <link rel="canonical" href="https://usescorsatto.com.br/" />
+  <link rel="canonical" href="https://usescorsatto.com.br/beta-kit-scorsatto.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SCORSATTO" />
   <meta property="og:title" content="SCORSATTO.CO | O essencial bem feito" />
@@ -16,7 +16,7 @@
   <meta name="twitter:title" content="SCORSATTO.CO | O essencial bem feito" />
   <meta name="twitter:description" content="Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp." />
   <meta name="twitter:image" content="https://usescorsatto.com.br/generated/aprovadas/site/2026-07-11/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11.png" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content="noindex, nofollow" />
   <meta name="application-name" content="SCORSATTO" />
   <meta name="apple-mobile-web-app-title" content="SCORSATTO" />
   <meta name="theme-color" content="#ffffff" />
@@ -602,6 +602,55 @@
     </section>
 
     <div class="sticky-product-bar" id="stickyProductBar" aria-live="polite"></div>
+
+    <section class="curation-strip" aria-label="Curadoria privada SCORSATTO">
+      <div class="curation-inner">
+        <div>
+          <p class="curation-eyebrow">Lista privada</p>
+          <h2 class="curation-title">Receba uma seleção no seu perfil</h2>
+          <p class="curation-copy">Informe tamanho, ocasião e estilo. A SCORSATTO monta um kit completo com peças que combinam entre si.</p>
+        </div>
+        <form class="curation-form" id="curationLeadForm">
+          <div class="curation-fields">
+            <input class="curation-input" name="name" type="text" placeholder="Seu nome" autocomplete="name" required>
+            <input class="curation-input" name="phone" type="tel" placeholder="WhatsApp" autocomplete="tel" required>
+            <div class="curation-kit-fields">
+              <select class="curation-input curation-select" name="size" aria-label="Tamanho principal">
+                <option value="">Tamanho</option>
+                <option>P</option>
+                <option>M</option>
+                <option>G</option>
+                <option>GG</option>
+                <option>XXG</option>
+                <option>40</option>
+                <option>42</option>
+                <option>44</option>
+                <option>46</option>
+                <option>48</option>
+              </select>
+              <select class="curation-input curation-select" name="kitGoal" aria-label="Ocasião da seleção">
+                <option value="">Escolha uma ocasião</option>
+                <option>Dia a dia</option>
+                <option>Trabalho</option>
+                <option>Fim de semana</option>
+                <option>Jantar ou evento</option>
+                <option>Viagem</option>
+                <option>Frio / meia-estação</option>
+                <option>Calor / verão</option>
+                <option>Casual premium</option>
+                <option>Discreto e elegante</option>
+                <option>Pronta entrega</option>
+              </select>
+            </div>
+            <input class="curation-input curation-wide" name="kitNote" type="text" placeholder="Descreva o que você quer: cor, estilo, peça ou ocasião" autocomplete="off">
+          </div>
+          <div class="curation-kit-preview" id="curationKitPreview" aria-live="polite"></div>
+          <button class="curation-button" type="submit">Montar seleção para mim</button>
+          <p class="curation-message" id="curationLeadMessage" aria-live="polite"></p>
+          <p class="curation-privacy">Usamos seu contato apenas para curadoria e atendimento SCORSATTO.</p>
+        </form>
+      </div>
+    </section>
 
     <section class="curation-strip" aria-label="Cadastro SCORSATTO">
       <div class="curation-inner">
