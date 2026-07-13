@@ -984,7 +984,7 @@
                             "id": "sc-estoque-008",
                             "supplierProductId": "SC-008",
                             "slug": "camisa-social-cinza-sc-estoque-008",
-                            "name": "Camisa Social - Cinza",
+                            "name": "Camisa Social Xadrez - Cinza",
                             "collection": "camisa-social",
                             "price": 199.9,
                             "cost": 0,
@@ -1054,7 +1054,7 @@
                             "id": "sc-estoque-010",
                             "supplierProductId": "SC-010",
                             "slug": "camiseta-nike-branco-sc-estoque-010",
-                            "name": "Camiseta Nike - Branco",
+                            "name": "Camiseta Nike Essencial - Branco",
                             "collection": "camisetas",
                             "price": 129.9,
                             "cost": 0,
@@ -1089,7 +1089,7 @@
                             "id": "sc-estoque-011",
                             "supplierProductId": "SC-011",
                             "slug": "casaco-jeans-preto-sc-estoque-011",
-                            "name": "Casaco Jeans - Preto",
+                            "name": "Jaqueta Jeans - Preto",
                             "collection": "jaquetas",
                             "price": 299.9,
                             "cost": 0,
@@ -1124,7 +1124,7 @@
                             "id": "sc-estoque-012",
                             "supplierProductId": "SC-012",
                             "slug": "jaqueta-corta-vento-preto-sc-estoque-012",
-                            "name": "Jaqueta Corta Vento - Preto",
+                            "name": "Jaqueta Corta-Vento - Preto",
                             "collection": "jaquetas",
                             "price": 279.9,
                             "cost": 0,
@@ -3115,7 +3115,7 @@
                             "id": "scp-16011",
                             "supplierProductId": "16011",
                             "slug": "camisa-social-cinza-16011",
-                            "name": "Camisa Social - Cinza",
+                            "name": "Camisa Social Xadrez - Cinza",
                             "collection": "camisa-social",
                             "price": 199.9,
                             "cost": 105,
@@ -5212,7 +5212,7 @@
                             "id": "scp-16003",
                             "supplierProductId": "16003",
                             "slug": "jaqueta-corta-vento-preto-16003",
-                            "name": "Jaqueta Corta Vento - Preto",
+                            "name": "Jaqueta Corta-Vento - Preto",
                             "collection": "jaquetas",
                             "price": 279.9,
                             "cost": 160,
@@ -5745,7 +5745,7 @@
                             "id": "scp-16002",
                             "supplierProductId": "16002",
                             "slug": "jaqueta-corta-vento-cinza-16002",
-                            "name": "Jaqueta Corta Vento - Cinza",
+                            "name": "Jaqueta Corta-Vento - Cinza",
                             "collection": "jaquetas",
                             "price": 279.9,
                             "cost": 160,
@@ -10782,7 +10782,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         `Marca: ${brandFromProduct(product)}`,
         `Cor: ${variantColorName(product)}`,
         `Tamanho escolhido: ${selectedDetailSize || "a definir"}`,
-        `Tamanhos disponíveis: ${variantOptionSizes(product).join(", ") || "sob consulta"}`,
+        `Tamanhos: ${variantOptionSizes(product).join(", ") || "sob consulta"}`,
         `Referência: ${variantOptionReferences(product).join(" / ") || orderReference(product) || "sob consulta"}`,
         `Disponibilidade: ${availabilityText(product)}`,
         `Valor: ${currency.format(product.price)}`,
@@ -10795,6 +10795,30 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       ].filter(Boolean);
       recordCustomerEvent(product ? "whatsapp_product" : "whatsapp_contact", product?.slug || null, product ? { reference: orderReference(product), size: selectedDetailSize || "" } : {});
       window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noreferrer");
+    }
+
+    function primaryProductActionLabel(product) {
+      return isAvailableNow(product) ? "Adicionar ao carrinho" : "Consultar pelo WhatsApp";
+    }
+
+    function handlePrimaryProductAction(product) {
+      if (!product) return;
+      if (!isAvailableNow(product)) {
+        openContextWhatsApp();
+        return;
+      }
+      const cartProduct = variantForSize(product, selectedDetailSize);
+      addToCart(cartProduct?.slug || product.slug, selectedDetailSize, 1);
+    }
+
+    function handleSizeAlert(product) {
+      if (!product) return;
+      recordCustomerEvent("size_alert_interest", product.slug, { size: selectedDetailSize || "", reference: orderReference(product) });
+      if (!account) {
+        openAccount("criar");
+        return;
+      }
+      openContextWhatsApp();
     }
 
     function supplierReference(product) {
@@ -12312,6 +12336,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const optionSizes = variantOptionSizes(product);
       const hasAvailableSizes = optionSizes.length > 0;
       const editorialBlocks = productEditorialBlocks(product);
+      const primaryActionLabel = primaryProductActionLabel(product);
       productDetail.innerHTML = `
         <div class="detail-gallery">
           <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${displayProductName(product)}"></div>
@@ -12326,14 +12351,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <p class="detail-meta">Medidas: largura e comprimento podem ser confirmados no atendimento.</p>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
           <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
-          ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie uma conta para guardar favoritos, receber reposições e facilitar atendimento pelo WhatsApp.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
+          ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para salvar favoritos, continuar o carrinho depois e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
           ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
           <div class="detail-actions">
-            <button class="primary-btn" id="detailAdd" type="button"${hasAvailableSizes ? "" : " disabled"}>Adicionar ao carrinho</button>
+            <button class="primary-btn" id="detailAdd" type="button"${hasAvailableSizes ? "" : " disabled"}>${primaryActionLabel}</button>
             <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
           </div>
+          <button class="secondary-btn" type="button" data-size-alert>Avise-me sobre tamanho ou cor</button>
+          <p class="detail-meta">Atendimento SCORSATTO confirma tamanho, estoque e envio antes do pedido.</p>
         </div>
       `;
       productDetailSection.classList.add("open");
@@ -12376,13 +12403,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return;
       }
       const sizeText = selectedDetailSize ? `Tam. ${selectedDetailSize}` : "Tamanho sob consulta";
+      const actionLabel = primaryProductActionLabel(product);
       stickyProductBar.innerHTML = `
         <button class="sticky-product-close" type="button" data-sticky-close aria-label="Fechar barra">×</button>
         <div class="sticky-product-info">
           <span class="sticky-product-title">${displayProductName(product)}</span>
           <span class="sticky-product-meta">${currency.format(product.price)} · ${sizeText}</span>
         </div>
-        <button class="sticky-product-action" type="button" data-sticky-add>Adicionar</button>
+        <button class="sticky-product-action" type="button" data-sticky-add>${actionLabel === "Adicionar ao carrinho" ? "Adicionar" : "Consultar"}</button>
       `;
     }
 
@@ -12510,10 +12538,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
       const inlineAccount = event.target.closest("[data-open-account-inline]");
       if (inlineAccount) openAccount(inlineAccount.dataset.openAccountInline || "criar");
+      if (event.target.closest("[data-size-alert]")) {
+        const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
+        handleSizeAlert(selectedProduct);
+        return;
+      }
       if (event.target.closest("#detailAdd")) {
         const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
-        const cartProduct = selectedProduct ? variantForSize(selectedProduct, selectedDetailSize) : null;
-        addToCart(cartProduct?.slug || selectedProductSlug, selectedDetailSize, 1);
+        handlePrimaryProductAction(selectedProduct);
       }
     });
     if (stickyProductBar) stickyProductBar.addEventListener("click", (event) => {
@@ -12523,8 +12555,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
       if (!event.target.closest("[data-sticky-add]")) return;
       const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
-      const cartProduct = selectedProduct ? variantForSize(selectedProduct, selectedDetailSize) : null;
-      addToCart(cartProduct?.slug || selectedProductSlug, selectedDetailSize, 1);
+      handlePrimaryProductAction(selectedProduct);
     });
     backToProducts.addEventListener("click", closeProduct);
     backFromFavorites.addEventListener("click", closeFavoritesPage);

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCORSATTO | Auditoria de fotos suspeitas</title>
+  <style>
+    :root { --paper:#f7f6f2; --white:#fff; --ink:#111; --muted:#68645e; --line:#ddd9d0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, Arial, sans-serif; overflow-x: hidden; }
+    header { background: var(--white); border-bottom: 1px solid var(--line); padding: 24px 16px; }
+    .wrap { max-width: 1280px; margin: 0 auto; }
+    .brand { font-family: Georgia, "Times New Roman", serif; letter-spacing: .18em; font-size: 20px; }
+    h1 { margin: 22px 0 8px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(40px, 7vw, 78px); line-height: .95; font-weight: 400; }
+    p { margin: 0; color: var(--muted); line-height: 1.65; }
+    main { padding: 18px 16px 44px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .pill { border: 1px solid var(--line); background: var(--white); padding: 8px 10px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; max-width: 100%; overflow-wrap: anywhere; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .card { background: var(--white); border: 1px solid var(--line); display: grid; grid-template-columns: 128px minmax(0, 1fr); min-height: 190px; }
+    .photo { background: #efeee9; display: grid; place-items: center; overflow: hidden; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+    .body { padding: 12px; display: grid; gap: 8px; align-content: start; }
+    h2 { margin: 0; font-size: 14px; line-height: 1.25; }
+    small { color: var(--muted); line-height: 1.4; overflow-wrap: anywhere; }
+    .reason { border-top: 1px solid var(--line); padding-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    button { min-height: 32px; border: 1px solid var(--line); background: var(--white); cursor: pointer; font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    button.active[data-vote="aprovar"] { background: #143b25; color: #fff; border-color: #143b25; }
+    button.active[data-vote="refazer"] { background: #725117; color: #fff; border-color: #725117; }
+    button.active[data-vote="reprovar"] { background: #7f2727; color: #fff; border-color: #7f2727; }
+    @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } .card { grid-template-columns: 112px minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">SCORSATTO</div>
+      <h1>Fotos suspeitas</h1>
+      <p>Preview de auditoria. Nada aqui troca foto do site. Marque as imagens que devem ser refeitas no padrão SCORSATTO.</p>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <div class="toolbar">
+        <span class="pill" id="count">Carregando...</span>
+        <span class="pill">Critério: estoque antigo, fornecedor ou PhotoRoom não aprovado</span>
+      </div>
+      <section class="grid" id="grid"></section>
+    </div>
+  </main>
+  <script>
+    const stateKey = "scorsatto-auditoria-fotos-suspeitas-2026-07-13";
+    const state = JSON.parse(localStorage.getItem(stateKey) || "{}");
+    const grid = document.querySelector("#grid");
+    const count = document.querySelector("#count");
+
+    function reasonFor(product) {
+      const images = product.images || [];
+      const first = String(images[0] || "");
+      const all = images.join(" ");
+      if (!images.length) return "Sem imagem cadastrada.";
+      if (first.includes("estoque-scorsatto/")) return "Foto de estoque antigo/fornecedor. Conferir fundo, corte, etiqueta e padrao visual.";
+      if (first.includes("generated/photoroom/site/")) return "Imagem PhotoRoom ou proposta antiga. Conferir se ficou premium e fiel ao tecido.";
+      if (!all.includes("generated/detalhes/site/")) return "Sem segunda foto de detalhe cadastrada.";
+      return "";
+    }
+
+    function vote(id, value, card) {
+      state[id] = value;
+      localStorage.setItem(stateKey, JSON.stringify(state));
+      card.querySelectorAll("button").forEach((button) => button.classList.toggle("active", button.dataset.vote === value));
+    }
+
+    async function load() {
+      const html = await fetch("../index.html?v=" + Date.now()).then((res) => res.text());
+      const match = html.match(/const PRODUCTS = ([\s\S]*?);\s*const CATEGORIES = /);
+      const products = match ? JSON.parse(match[1]) : [];
+      const suspects = products
+        .map((product) => ({ ...product, reason: reasonFor(product) }))
+        .filter((product) => product.reason)
+        .slice(0, 80);
+      count.textContent = `${suspects.length} foto(s) para revisar`;
+      grid.innerHTML = suspects.map((product) => {
+        const image = product.images?.[0] || "";
+        const selected = state[product.slug] || "";
+        return `
+          <article class="card" data-id="${product.slug}">
+            <div class="photo"><img src="../${image}" alt="${product.name}"></div>
+            <div class="body">
+              <h2>${product.name}</h2>
+              <small>${product.supplierName || ""}<br>Ref.: ${product.supplierProductId || "sob consulta"}<br>${image}</small>
+              <div class="reason">${product.reason}</div>
+              <div class="actions">
+                <button type="button" data-vote="aprovar" class="${selected === "aprovar" ? "active" : ""}">Aprovar</button>
+                <button type="button" data-vote="refazer" class="${selected === "refazer" ? "active" : ""}">Refazer</button>
+                <button type="button" data-vote="reprovar" class="${selected === "reprovar" ? "active" : ""}">Reprovar</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    grid.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-vote]");
+      if (!button) return;
+      vote(button.closest("[data-id]").dataset.id, button.dataset.vote, button.closest("[data-id]"));
+    });
+
+    load().catch(() => {
+      count.textContent = "Nao foi possivel carregar o catalogo.";
+    });
+  </script>
+</body>
+</html>
