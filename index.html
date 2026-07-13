@@ -129,6 +129,7 @@
     .detail-copy { max-width: 560px; }
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 10px 0 12px; }
+    .mobile-selection-preview { display: none; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
     .detail-description { margin: 14px 0 0; max-width: 520px; color: var(--muted); font-size: 14px; line-height: 1.7; }
     .detail-editorial { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0 0; }
@@ -411,6 +412,13 @@
       .shop-controls { justify-content: space-between; }
       .sort-select { flex: 1 1 160px; min-width: 0; }
       .detail-editorial { grid-template-columns: 1fr; }
+      .product-detail { padding-top: 28px; }
+      .detail-layout { gap: 16px; }
+      .detail-main { max-height: 58svh; }
+      .mobile-selection-preview { position: sticky; top: 91px; z-index: 12; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 10px; align-items: center; margin: 12px 0 14px; padding: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(14px); }
+      .mobile-selection-preview img { width: 72px; aspect-ratio: 3/4; object-fit: contain; background: var(--soft); mix-blend-mode: multiply; }
+      .mobile-selection-preview strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+      .mobile-selection-preview span { color: var(--muted); font-size: 12px; line-height: 1.35; }
       body.has-sticky-product { padding-bottom: 74px; }
       .profile-actions, .backoffice-grid, .admin-health-grid { grid-template-columns: 1fr; }
       .customer-detail-head { display: grid; }
@@ -10280,7 +10288,6 @@
       return [
         ["Tecido", productFabricLine(product)],
         ["Caimento", productFitLine(product)],
-        ["Detalhes", productDetailLine(product)],
         ["Como usar", productStyleLine(product)],
       ];
     }
@@ -12306,6 +12313,10 @@
           <p class="detail-description"><strong>${productEditorialLine(product)}</strong><br>${shortProductDescription(product)}</p>
           <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie uma conta para guardar favoritos, receber reposições e facilitar atendimento pelo WhatsApp.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
+          <div class="mobile-selection-preview">
+            <img src="${images[0] || ""}" alt="${displayProductName(product)}">
+            <div><strong>${displayProductName(product)}</strong><span>${currency.format(product.price)} · ${selectedDetailSize ? "Tam. " + selectedDetailSize : "Escolha o tamanho"}</span></div>
+          </div>
           ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
@@ -12362,6 +12373,12 @@
         </div>
         <button class="sticky-product-action" type="button" data-sticky-add>Adicionar</button>
       `;
+    }
+
+    function updateMobileSelectionPreview() {
+      const product = selectedProductSlug ? PRODUCTS.find((item) => item.slug === selectedProductSlug) : null;
+      const preview = productDetail.querySelector(".mobile-selection-preview span");
+      if (product && preview) preview.textContent = `${currency.format(product.price)} · ${selectedDetailSize ? "Tam. " + selectedDetailSize : "Escolha o tamanho"}`;
     }
 
     function renderProducts() {
@@ -12471,10 +12488,16 @@
       if (size) {
         selectedDetailSize = size.dataset.size;
         productDetail.querySelectorAll(".size-btn").forEach((button) => button.classList.toggle("active", button.dataset.size === selectedDetailSize));
+        updateMobileSelectionPreview();
         renderStickyProductBar();
       }
       const variant = event.target.closest("button[data-variant-slug]");
-      if (variant) openProduct(variant.dataset.variantSlug, false);
+      if (variant) {
+        openProduct(variant.dataset.variantSlug, false);
+        if (window.matchMedia("(max-width: 759px)").matches) {
+          setTimeout(() => productDetail.querySelector(".mobile-selection-preview")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+        }
+      }
       const favorite = event.target.closest("button[data-toggle-favorite]");
       if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
       const inlineAccount = event.target.closest("[data-open-account-inline]");
