@@ -129,9 +129,7 @@
     .detail-copy { max-width: 560px; }
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 10px 0 12px; }
-    .mobile-selection-preview { display: none; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .detail-description { margin: 14px 0 0; max-width: 520px; color: var(--muted); font-size: 14px; line-height: 1.7; }
     .detail-editorial { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0 0; }
     .detail-editorial-item { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 5px; }
     .detail-editorial-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -159,12 +157,13 @@
     .size-btn:hover { transform: translateY(-1px); border-color: var(--black); }
     .size-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
     .detail-actions { display: grid; gap: 10px; margin-top: 20px; }
-    .sticky-product-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 35; display: none; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--line); box-shadow: 0 -18px 40px rgba(0,0,0,.08); backdrop-filter: blur(16px); }
+    .sticky-product-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 35; display: none; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--line); box-shadow: 0 -18px 40px rgba(0,0,0,.08); backdrop-filter: blur(16px); }
     .sticky-product-bar.open { display: grid; }
     .sticky-product-info { min-width: 0; display: grid; gap: 3px; }
     .sticky-product-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
     .sticky-product-meta { color: var(--muted); font-size: 12px; line-height: 1.2; }
     .sticky-product-action { min-width: 148px; min-height: 44px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); cursor: pointer; padding: 0 12px; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .sticky-product-close { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--black); cursor: pointer; font-size: 18px; line-height: 1; display: grid; place-items: center; }
     .secondary-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .about { background: var(--white); border-top: 1px solid var(--line); }
     .about-grid { display: grid; gap: 34px; }
@@ -414,11 +413,7 @@
       .detail-editorial { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
-      .detail-main { max-height: 58svh; }
-      .mobile-selection-preview { position: sticky; top: 91px; z-index: 12; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 10px; align-items: center; margin: 12px 0 14px; padding: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(14px); }
-      .mobile-selection-preview img { width: 72px; aspect-ratio: 3/4; object-fit: contain; background: var(--soft); mix-blend-mode: multiply; }
-      .mobile-selection-preview strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
-      .mobile-selection-preview span { color: var(--muted); font-size: 12px; line-height: 1.35; }
+      .detail-main { max-height: 60svh; }
       body.has-sticky-product { padding-bottom: 74px; }
       .profile-actions, .backoffice-grid, .admin-health-grid { grid-template-columns: 1fr; }
       .customer-detail-head { display: grid; }
@@ -10286,8 +10281,6 @@
 
     function productEditorialBlocks(product) {
       return [
-        ["Tecido", productFabricLine(product)],
-        ["Caimento", productFitLine(product)],
         ["Como usar", productStyleLine(product)],
       ];
     }
@@ -12310,13 +12303,8 @@
           <p class="detail-meta">Cor: ${variantColorName(product)}</p>
           <p class="detail-meta">Tamanhos disponíveis: ${optionSizes.join(", ") || "sob consulta"}</p>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
-          <p class="detail-description"><strong>${productEditorialLine(product)}</strong><br>${shortProductDescription(product)}</p>
           <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie uma conta para guardar favoritos, receber reposições e facilitar atendimento pelo WhatsApp.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
-          <div class="mobile-selection-preview">
-            <img src="${images[0] || ""}" alt="${displayProductName(product)}">
-            <div><strong>${displayProductName(product)}</strong><span>${currency.format(product.price)} · ${selectedDetailSize ? "Tam. " + selectedDetailSize : "Escolha o tamanho"}</span></div>
-          </div>
           ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
@@ -12367,6 +12355,7 @@
       }
       const sizeText = selectedDetailSize ? `Tam. ${selectedDetailSize}` : "Tamanho sob consulta";
       stickyProductBar.innerHTML = `
+        <button class="sticky-product-close" type="button" data-sticky-close aria-label="Fechar barra">×</button>
         <div class="sticky-product-info">
           <span class="sticky-product-title">${displayProductName(product)}</span>
           <span class="sticky-product-meta">${currency.format(product.price)} · ${sizeText}</span>
@@ -12375,10 +12364,10 @@
       `;
     }
 
-    function updateMobileSelectionPreview() {
-      const product = selectedProductSlug ? PRODUCTS.find((item) => item.slug === selectedProductSlug) : null;
-      const preview = productDetail.querySelector(".mobile-selection-preview span");
-      if (product && preview) preview.textContent = `${currency.format(product.price)} · ${selectedDetailSize ? "Tam. " + selectedDetailSize : "Escolha o tamanho"}`;
+    function closeStickyProductBar() {
+      if (!stickyProductBar) return;
+      stickyProductBar.classList.remove("open");
+      document.body.classList.remove("has-sticky-product");
     }
 
     function renderProducts() {
@@ -12488,15 +12477,12 @@
       if (size) {
         selectedDetailSize = size.dataset.size;
         productDetail.querySelectorAll(".size-btn").forEach((button) => button.classList.toggle("active", button.dataset.size === selectedDetailSize));
-        updateMobileSelectionPreview();
         renderStickyProductBar();
       }
       const variant = event.target.closest("button[data-variant-slug]");
       if (variant) {
         openProduct(variant.dataset.variantSlug, false);
-        if (window.matchMedia("(max-width: 759px)").matches) {
-          setTimeout(() => productDetail.querySelector(".mobile-selection-preview")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
-        }
+        setTimeout(() => productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
       }
       const favorite = event.target.closest("button[data-toggle-favorite]");
       if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
@@ -12509,6 +12495,10 @@
       }
     });
     if (stickyProductBar) stickyProductBar.addEventListener("click", (event) => {
+      if (event.target.closest("[data-sticky-close]")) {
+        closeStickyProductBar();
+        return;
+      }
       if (!event.target.closest("[data-sticky-add]")) return;
       const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
       const cartProduct = selectedProduct ? variantForSize(selectedProduct, selectedDetailSize) : null;
