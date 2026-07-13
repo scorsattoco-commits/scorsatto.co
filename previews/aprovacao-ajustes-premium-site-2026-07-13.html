@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCORSATTO | Aprovar ajustes premium</title>
+  <style>
+    :root {
+      --paper: #f7f6f2;
+      --white: #fff;
+      --ink: #111;
+      --muted: #66645e;
+      --line: #ddd9d0;
+      --ok: #123d25;
+      --bad: #762727;
+      --redo: #725117;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, Arial, sans-serif; }
+    header { padding: 28px 18px 18px; background: var(--white); border-bottom: 1px solid var(--line); }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .brand { font-family: Georgia, "Times New Roman", serif; letter-spacing: .18em; font-size: 20px; }
+    h1 { margin: 24px 0 8px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(42px, 7vw, 82px); line-height: .95; font-weight: 400; }
+    .intro { max-width: 720px; color: var(--muted); line-height: 1.7; font-size: 15px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pill { border: 1px solid var(--line); background: var(--white); padding: 8px 10px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    main { padding: 22px 18px 48px; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+    .summary div { border: 1px solid var(--line); background: var(--white); padding: 14px; display: grid; gap: 5px; }
+    .summary strong { font-size: 26px; line-height: 1; }
+    .summary span { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .grid { display: grid; gap: 12px; }
+    .card { border: 1px solid var(--line); background: var(--white); display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 0; }
+    .card-main { padding: 18px; border-right: 1px solid var(--line); }
+    .card-side { padding: 18px; display: grid; gap: 12px; align-content: start; }
+    .tag { display: inline-flex; width: max-content; border: 1px solid var(--line); padding: 5px 7px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { margin: 12px 0 8px; font-size: 18px; line-height: 1.25; }
+    p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 14px; }
+    .before-after { display: grid; gap: 8px; }
+    .row { border: 1px solid var(--line); padding: 10px; display: grid; gap: 5px; background: #fbfaf7; }
+    .row span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .row strong { font-size: 13px; line-height: 1.45; }
+    .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    button { min-height: 40px; border: 1px solid var(--line); background: var(--white); color: var(--ink); cursor: pointer; font-size: 11px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    button[data-vote="aprovar"].active { background: var(--ok); border-color: var(--ok); color: #fff; }
+    button[data-vote="reprovar"].active { background: var(--bad); border-color: var(--bad); color: #fff; }
+    button[data-vote="refazer"].active { background: var(--redo); border-color: var(--redo); color: #fff; }
+    textarea { width: 100%; min-height: 72px; border: 1px solid var(--line); padding: 10px; resize: vertical; font: inherit; font-size: 13px; }
+    .footer-actions { position: sticky; bottom: 0; border-top: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(14px); padding: 12px 18px; }
+    .footer-actions .wrap { display: flex; gap: 10px; justify-content: space-between; align-items: center; }
+    .status { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .primary { background: var(--ink); color: #fff; border-color: var(--ink); padding: 0 16px; }
+    @media (max-width: 760px) {
+      .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card { grid-template-columns: 1fr; }
+      .card-main { border-right: 0; border-bottom: 1px solid var(--line); }
+      .actions { grid-template-columns: 1fr; }
+      .footer-actions .wrap { display: grid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">SCORSATTO</div>
+      <h1>Ajustes premium para aprovar</h1>
+      <p class="intro">Esta pagina nao altera o site. Ela junta os ajustes que eu recomendo depois da auditoria de escrita, espaçamento, modelo e conversao. Aprove, reprove ou peça refacao por item.</p>
+      <div class="meta">
+        <span class="pill">Status: preview</span>
+        <span class="pill">Data: 13/07/2026</span>
+        <span class="pill">Aplicacao: somente apos aprovacao</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="summary" aria-label="Resumo">
+        <div><strong>8</strong><span>ajustes sugeridos</span></div>
+        <div><strong>5</strong><span>baixo risco</span></div>
+        <div><strong>2</strong><span>conversao</span></div>
+        <div><strong>1</strong><span>requer cuidado</span></div>
+      </section>
+
+      <section class="grid" id="cards"></section>
+    </div>
+  </main>
+
+  <div class="footer-actions">
+    <div class="wrap">
+      <div class="status" id="status">Nenhum item aprovado ainda.</div>
+      <button class="primary" type="button" id="exportSummary">Gerar resumo da decisao</button>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      {
+        id: "nav-pronta-entrega",
+        area: "Menu / vitrine",
+        title: "Trocar 'Disponiveis Agora' por 'Pronta entrega'",
+        why: "O cliente entende mais rapido. 'Pronta entrega' e linguagem direta de compra; 'Disponiveis agora' parece mais generico.",
+        risk: "Baixo. Nao altera produto, preco ou estoque.",
+        before: "Disponiveis Agora",
+        after: "Pronta entrega"
+      },
+      {
+        id: "badge-pronta-entrega",
+        area: "Cards de produto",
+        title: "Trocar selo do card para 'Pronta entrega'",
+        why: "Deixa a vitrine mais objetiva e reduz repeticao com a aba.",
+        risk: "Baixo. Apenas texto do selo.",
+        before: "Disponivel agora",
+        after: "Pronta entrega"
+      },
+      {
+        id: "cta-consulta",
+        area: "Produto sob consulta",
+        title: "Usar CTA diferente para produto sob consulta",
+        why: "Quando a peca nao e estoque proprio, o botao pode dizer 'Consultar disponibilidade' em vez de parecer compra imediata.",
+        risk: "Medio. Precisa testar carrinho/WhatsApp para nao quebrar fluxo.",
+        before: "Adicionar ao carrinho",
+        after: "Consultar disponibilidade"
+      },
+      {
+        id: "titulo-camiseta-lisa",
+        area: "Nome de modelo",
+        title: "Renomear 'Camiseta Lisa' com mais presenca",
+        why: "O nome atual e correto, mas simples demais para a vitrine premium. Sugestao sem inventar modelo: 'Camiseta Essencial Lisa'.",
+        risk: "Medio. Precisa sua aprovacao porque altera nome comercial.",
+        before: "Camiseta Lisa",
+        after: "Camiseta Essencial Lisa"
+      },
+      {
+        id: "cadastro-beneficio",
+        area: "Cadastro",
+        title: "Deixar o convite de conta mais util",
+        why: "Hoje o cadastro parece opcional. Melhor mostrar beneficio claro: salvar favoritos e receber aviso quando chegar tamanho/cor.",
+        risk: "Baixo. Apenas texto.",
+        before: "Crie sua conta para guardar favoritos, receber reposicoes e facilitar atendimento pelo WhatsApp.",
+        after: "Crie sua conta para salvar favoritos e receber aviso quando chegar seu tamanho ou cor."
+      },
+      {
+        id: "detalhe-tamanhos",
+        area: "Pagina do produto",
+        title: "Encurtar 'Tamanhos disponiveis' para 'Tamanhos'",
+        why: "Fica mais limpo e mais parecido com e-commerce premium. A informacao continua a mesma.",
+        risk: "Baixo. Apenas rotulo.",
+        before: "Tamanhos disponiveis: P, M, G",
+        after: "Tamanhos: P, M, G"
+      },
+      {
+        id: "espacamento-categorias",
+        area: "Espacamento",
+        title: "Subir levemente os botoes de categoria",
+        why: "Como removemos a frase abaixo do titulo, da para reduzir o respiro e deixar o bloco mais compacto.",
+        risk: "Baixo. Ajuste visual pequeno, precisa checar mobile.",
+        before: "Titulo com area vazia antes das categorias",
+        after: "Categorias mais proximas do titulo, sem parecer apertado"
+      },
+      {
+        id: "bloco-compra-assistida",
+        area: "Confianca",
+        title: "Criar explicacao curta de compra assistida",
+        why: "Ajuda o cliente a entender pronta entrega x fornecedor, sem parecer falta de estoque.",
+        risk: "Medio. Precisa ficar curto para nao poluir.",
+        before: "Informacao espalhada no rodape/politicas",
+        after: "Bloco discreto: 'Pronta entrega envia mais rapido. Sob consulta passa por confirmacao antes do pedido.'"
+      }
+    ];
+
+    const stateKey = "scorsatto-ajustes-premium-2026-07-13";
+    const state = JSON.parse(localStorage.getItem(stateKey) || "{}");
+    const cards = document.querySelector("#cards");
+    const status = document.querySelector("#status");
+
+    function save() {
+      localStorage.setItem(stateKey, JSON.stringify(state));
+      renderStatus();
+    }
+
+    function renderStatus() {
+      const votes = Object.values(state).map((entry) => entry.vote).filter(Boolean);
+      const approved = votes.filter((vote) => vote === "aprovar").length;
+      const rejected = votes.filter((vote) => vote === "reprovar").length;
+      const redo = votes.filter((vote) => vote === "refazer").length;
+      status.textContent = `${approved} aprovado(s), ${rejected} reprovado(s), ${redo} para refazer.`;
+    }
+
+    function render() {
+      cards.innerHTML = items.map((item) => {
+        const current = state[item.id] || {};
+        return `
+          <article class="card" data-id="${item.id}">
+            <div class="card-main">
+              <span class="tag">${item.area}</span>
+              <h2>${item.title}</h2>
+              <p>${item.why}</p>
+              <p><strong>Risco:</strong> ${item.risk}</p>
+            </div>
+            <div class="card-side">
+              <div class="before-after">
+                <div class="row"><span>Atual</span><strong>${item.before}</strong></div>
+                <div class="row"><span>Proposta</span><strong>${item.after}</strong></div>
+              </div>
+              <div class="actions">
+                <button type="button" data-vote="aprovar" class="${current.vote === "aprovar" ? "active" : ""}">Aprovar</button>
+                <button type="button" data-vote="reprovar" class="${current.vote === "reprovar" ? "active" : ""}">Reprovar</button>
+                <button type="button" data-vote="refazer" class="${current.vote === "refazer" ? "active" : ""}">Refazer</button>
+              </div>
+              <textarea placeholder="Observacao para este ajuste">${current.note || ""}</textarea>
+            </div>
+          </article>
+        `;
+      }).join("");
+      renderStatus();
+    }
+
+    cards.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-vote]");
+      if (!button) return;
+      const card = button.closest("[data-id]");
+      const id = card.dataset.id;
+      state[id] = state[id] || {};
+      state[id].vote = button.dataset.vote;
+      card.querySelectorAll("button[data-vote]").forEach((item) => item.classList.toggle("active", item === button));
+      save();
+    });
+
+    cards.addEventListener("input", (event) => {
+      if (event.target.tagName !== "TEXTAREA") return;
+      const id = event.target.closest("[data-id]").dataset.id;
+      state[id] = state[id] || {};
+      state[id].note = event.target.value;
+      save();
+    });
+
+    document.querySelector("#exportSummary").addEventListener("click", async () => {
+      const lines = items.map((item) => {
+        const current = state[item.id] || {};
+        return `${item.id}: ${current.vote || "sem decisao"}${current.note ? " | " + current.note : ""}`;
+      }).join("\\n");
+      await navigator.clipboard?.writeText(lines).catch(() => {});
+      status.textContent = "Resumo gerado. Se o navegador permitir, foi copiado para a area de transferencia.";
+    });
+
+    render();
+  </script>
+</body>
+</html>
