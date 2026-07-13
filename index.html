@@ -131,6 +131,14 @@
     .detail-copy h2 { margin: 10px 0 12px; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
     .detail-description { margin: 14px 0 0; max-width: 520px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .detail-editorial { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0 0; }
+    .detail-editorial-item { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 5px; }
+    .detail-editorial-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .detail-editorial-item strong { color: #242421; font-size: 12px; font-weight: 500; line-height: 1.5; }
+    .signup-nudge { border: 1px solid var(--line); background: var(--paper); padding: 12px; display: grid; gap: 8px; margin: 18px 0 0; }
+    .signup-nudge strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .signup-nudge span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .signup-nudge button { width: max-content; min-height: 34px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); padding: 0 12px; cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .variant-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 18px; }
     .variant-btn { width: 34px; height: 34px; border: 1px solid transparent; border-radius: 50%; background: transparent; color: var(--black); display: inline-grid; place-items: center; padding: 0; cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
     .variant-btn:hover { transform: translateY(-1px); }
@@ -331,6 +339,8 @@
     .favorite-card span { display: grid; gap: 4px; padding: 10px; }
     .favorite-card strong { font-size: 12px; line-height: 1.35; }
     .favorite-card small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .favorite-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 10px 10px; }
+    .favorite-actions button { min-height: 34px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); color: var(--black); cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .favorite-remove { position: absolute; top: 8px; right: 8px; z-index: 2; width: 30px; height: 30px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 18px; line-height: 1; }
     .favorites-page { display: none; background: var(--white); border-top: 1px solid var(--line); }
     .favorites-page.open { display: block; }
@@ -400,6 +410,7 @@
       .shop-note { margin-top: -6px; }
       .shop-controls { justify-content: space-between; }
       .sort-select { flex: 1 1 160px; min-width: 0; }
+      .detail-editorial { grid-template-columns: 1fr; }
       body.has-sticky-product { padding-bottom: 74px; }
       .profile-actions, .backoffice-grid, .admin-health-grid { grid-template-columns: 1fr; }
       .customer-detail-head { display: grid; }
@@ -527,6 +538,17 @@
     </section>
 
     <div class="sticky-product-bar" id="stickyProductBar" aria-live="polite"></div>
+
+    <section class="curation-strip" aria-label="Cadastro SCORSATTO">
+      <div class="curation-inner">
+        <div>
+          <p class="curation-eyebrow">Conta privada</p>
+          <h2 class="curation-title">Salve peças e receba reposições</h2>
+          <p class="curation-copy">Crie sua conta para manter favoritos, recuperar carrinho, receber aviso de pronta entrega e agilizar atendimento pelo WhatsApp.</p>
+        </div>
+        <button class="curation-button" type="button" data-open-account-inline="criar">Criar conta SCORSATTO</button>
+      </div>
+    </section>
 
     <section class="section favorites-page" id="favoritosPage" aria-labelledby="favoritos-title">
       <div class="section-inner">
@@ -711,7 +733,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-sc-estoque-001-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-sc-estoque-001-detalhe.webp"
                             ],
                             "sizes": [
                                           "G"
@@ -784,7 +806,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-003-gola-polo-premium-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-sc-estoque-003-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-sc-estoque-003-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -821,7 +843,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-preto-sc-estoque-004.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-sc-estoque-004-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-sc-estoque-004-detalhe.webp"
                             ],
                             "sizes": [
                                           "G"
@@ -857,7 +879,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-005-camiseta-supima-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-sc-estoque-005-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-sc-estoque-005-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -894,7 +916,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-006-camiseta-manga-longa-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-preto-sc-estoque-006-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-preto-sc-estoque-006-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -931,7 +953,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-007-jaqueta-cotelaa-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-bege-sc-estoque-007-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-bege-sc-estoque-007-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -968,7 +990,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-cinza-sc-estoque-008.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-sc-estoque-008-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-sc-estoque-008-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -1003,7 +1025,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-009-camiseta-lisa-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-lisa-branco-sc-estoque-009-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-lisa-branco-sc-estoque-009-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -1038,7 +1060,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/sc-estoque-010-camiseta-nike-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-nike-branco-sc-estoque-010-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-nike-branco-sc-estoque-010-detalhe.webp"
                             ],
                             "sizes": [
                                           "G"
@@ -1108,7 +1130,7 @@
                             "lastCheckedAt": "2026-06-23",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-corta-vento-preto-sc-estoque-012.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-preto-sc-estoque-012-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-preto-sc-estoque-012-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -1143,7 +1165,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15833.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15833-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15833-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1179,7 +1201,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-preto-15825.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15825-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15825-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1215,7 +1237,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-preto-15831.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15831-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15831-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1251,7 +1273,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15840.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15840-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15840-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1287,7 +1309,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15835-camiseta-supima-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15835-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15835-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1325,7 +1347,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15838-camiseta-supima-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15838-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15838-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1363,7 +1385,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15881.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15881-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15881-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1397,7 +1419,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15861-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1431,7 +1453,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-azul-marinho-15815.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15815-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-azul-marinho-15815-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG",
@@ -1465,7 +1487,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15817-camiseta-supima-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15817-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15817-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1499,7 +1521,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-bege-12290.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-bege-12290-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-bege-12290-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1535,7 +1557,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-bege-15816.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15816-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15816-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1571,7 +1593,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15821-camiseta-supima-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15821-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15821-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1607,7 +1629,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15882.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15882-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15882-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -1639,7 +1661,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-12293.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-12293-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-12293-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -1671,7 +1693,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-preto-15839.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15839-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-preto-15839-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -1703,7 +1725,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15824-camiseta-supima-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15824-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15824-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -1737,7 +1759,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-bege-15836.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15836-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-bege-15836-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1771,7 +1793,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-marrom-15834.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15834-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15834-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1807,7 +1829,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-marrom-15841.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15841-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15841-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -1845,7 +1867,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15879.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-15879-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-15879-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -1877,7 +1899,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-15858.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-15858-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-15858-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -1909,7 +1931,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-branco-10168.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-10168-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-branco-10168-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -1941,7 +1963,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15818-camiseta-supima-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15818-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-branco-15818-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -1973,7 +1995,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-supima-marrom-15820.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15820-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15820-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2009,7 +2031,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15179.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15179-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15179-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2041,7 +2063,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15814-camiseta-supima-marrom-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15814-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-supima-marrom-15814-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -2073,7 +2095,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-preto-15184.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15184-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-preto-15184-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2109,7 +2131,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15178.png",
-                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15178-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-algodao-egipcio-azul-marinho-15178-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2145,7 +2167,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisetas/camiseta-pima-preto-15644.png",
-                                          "generated/detalhes/site/camisetas/camiseta-pima-preto-15644-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-pima-preto-15644-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2181,7 +2203,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-off-white-15923.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-off-white-15923-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-off-white-15923-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2221,7 +2243,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-bege-15929.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-bege-15929-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-bege-15929-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2261,7 +2283,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-branco-15926.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-branco-15926-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-branco-15926-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2302,7 +2324,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-cinza-15925.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-cinza-15925-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-cinza-15925-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2336,7 +2358,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-azul-marinho-15921.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-azul-marinho-15921-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-azul-marinho-15921-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2370,7 +2392,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/manga-longa/camiseta-manga-longa-cinza-claro-15924.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-cinza-claro-15924-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-cinza-claro-15924-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2406,7 +2428,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16041-camiseta-manga-longa-marrom-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-marrom-16041-detalhe.jpg"
+                                          "generated/detalhes/site/manga-longa/camiseta-manga-longa-marrom-16041-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2440,7 +2462,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-azul-marinho-15747.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-15747-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-15747-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2477,7 +2499,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-bege-15671.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-15671-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-15671-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2516,7 +2538,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-preto-14885.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-14885-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-14885-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -2551,7 +2573,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-off-white-14883.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-off-white-14883-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-off-white-14883-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -2586,7 +2608,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-15749.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-15749-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-15749-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -2623,7 +2645,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15745-gola-polo-premium-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-15745-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-15745-detalhe.webp"
                             ],
                             "sizes": [
                                           "G",
@@ -2660,7 +2682,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-preto-15743.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-15743-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-15743-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2693,7 +2715,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-preto-15664.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-15664-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-15664-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2726,7 +2748,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-azul-marinho-14887.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-14887-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-14887-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -2759,7 +2781,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-preto-14043.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-14043-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-14043-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2792,7 +2814,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15667-gola-polo-premium-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-15667-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-15667-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2825,7 +2847,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14888-gola-polo-premium-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-14888-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-14888-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -2858,7 +2880,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-14664.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-14664-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-14664-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2891,7 +2913,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-bege-14039.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-14039-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-14039-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -2924,7 +2946,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-cinza-11377.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-11377-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-11377-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -2957,7 +2979,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14882.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14882-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14882-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -2992,7 +3014,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14042.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14042-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14042-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3027,7 +3049,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/gola-polo/gola-polo-premium-marrom-14040.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14040-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-14040-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3062,7 +3084,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-preto-16006.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-preto-16006-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-preto-16006-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3099,7 +3121,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-cinza-16011.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-16011-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-16011-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3138,7 +3160,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-preto-15546.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-preto-15546-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-preto-15546-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3173,7 +3195,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-branco-16008.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-branco-16008-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-branco-16008-detalhe.webp"
                             ],
                             "sizes": [
                                           "G",
@@ -3210,7 +3232,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-branco-16005.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-branco-16005-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-branco-16005-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3247,7 +3269,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15718-camisa-social-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-bege-15718-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-bege-15718-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3286,7 +3308,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-preto-16009.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-preto-16009-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-preto-16009-detalhe.webp"
                             ],
                             "sizes": [
                                           "G",
@@ -3321,7 +3343,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-preto-15223.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-preto-15223-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-preto-15223-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -3354,7 +3376,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-13877-camisa-social-off-white-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-off-white-13877-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-off-white-13877-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -3387,7 +3409,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-preto-13874.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-preto-13874-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-preto-13874-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -3420,7 +3442,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15224-camisa-social-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-branco-15224-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-branco-15224-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -3455,7 +3477,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/camisa-social/camisa-social-cinza-claro-15222.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-claro-15222-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-cinza-claro-15222-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -3488,7 +3510,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15707-calca-jeans-azul-escuro-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15707-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15707-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3522,7 +3544,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15705.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15705-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15705-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3554,7 +3576,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-cinza-15876.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-cinza-15876-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-cinza-15876-detalhe.webp"
                             ],
                             "sizes": [
                                           "40"
@@ -3586,7 +3608,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15875.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15875-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15875-detalhe.webp"
                             ],
                             "sizes": [
                                           "40"
@@ -3618,7 +3640,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-bege-14671.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-bege-14671-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-bege-14671-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3654,7 +3676,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15278.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15278-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15278-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3690,7 +3712,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-cinza-claro-14674.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-cinza-claro-14674-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-cinza-claro-14674-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3726,7 +3748,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14675-calca-jeans-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-14675-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-14675-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3758,7 +3780,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-preto-14035.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-14035-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-14035-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3790,7 +3812,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-preto-13850.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-13850-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-13850-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3822,7 +3844,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-13112-calca-jeans-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-13112-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-13112-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3854,7 +3876,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-cinza-14673.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-cinza-14673-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-cinza-14673-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3888,7 +3910,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14577.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14577-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14577-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3920,7 +3942,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-marrom-14672.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-marrom-14672-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-marrom-14672-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -3958,7 +3980,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-15130.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15130-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-15130-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -3990,7 +4012,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14584.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14584-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14584-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4022,7 +4044,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14575.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14575-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14575-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4054,7 +4076,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-14036.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14036-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-14036-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4086,7 +4108,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-13274.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-13274-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-13274-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4118,7 +4140,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-azul-escuro-8922.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-8922-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-azul-escuro-8922-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4150,7 +4172,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16157-calca-moletom-cinza-claro-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-moletom-cinza-claro-16157-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-moletom-cinza-claro-16157-detalhe.webp"
                             ],
                             "sizes": [
                                           "G",
@@ -4184,7 +4206,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15709-calca-sarja-azul-marinho-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-azul-marinho-15709-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-azul-marinho-15709-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -4218,7 +4240,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-sarja-azul-marinho-15290.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-azul-marinho-15290-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-azul-marinho-15290-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -4252,7 +4274,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15287-calca-sarja-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-preto-15287-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-preto-15287-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -4288,7 +4310,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16158-calca-moletom-azul-marinho-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/calcas/calca-moletom-azul-marinho-16158-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-moletom-azul-marinho-16158-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -4316,7 +4338,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-marrom-10378.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-marrom-10378-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-marrom-10378-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -4350,7 +4372,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-marrom-8917.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-marrom-8917-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-marrom-8917-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -4384,7 +4406,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-preto-14294.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-14294-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-14294-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4416,7 +4438,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/calcas/calca-jeans-preto-14293.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-preto-14293-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-preto-14293-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -4448,7 +4470,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-azul-marinho-16048.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-azul-marinho-16048-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-azul-marinho-16048-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -4480,7 +4502,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16049.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16049-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16049-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -4516,7 +4538,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-16047.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-16047-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-16047-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4556,7 +4578,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-15451.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-15451-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-15451-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4596,7 +4618,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-azul-marinho-15449.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-azul-marinho-15449-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-azul-marinho-15449-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4634,7 +4656,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15856-sueter-gola-redonda-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-bege-15856-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-bege-15856-detalhe.webp"
                             ],
                             "sizes": [
                                           "G1"
@@ -4666,7 +4688,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-preto-16046.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-preto-16046-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-preto-16046-detalhe.webp"
                             ],
                             "sizes": [
                                           "G",
@@ -4700,7 +4722,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-azul-marinho-15444.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-azul-marinho-15444-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-azul-marinho-15444-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -4732,7 +4754,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-azul-marinho-16112.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-azul-marinho-16112-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-azul-marinho-16112-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4770,7 +4792,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-16045.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-16045-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-16045-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4810,7 +4832,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-preto-16109.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-preto-16109-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-preto-16109-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4850,7 +4872,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-15446.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-15446-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-15446-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -4882,7 +4904,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-16113.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-16113-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-16113-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4920,7 +4942,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-cinza-claro-16110.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16110-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-cinza-claro-16110-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -4960,7 +4982,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-preto-16152.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-preto-16152-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-preto-16152-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -4988,7 +5010,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-12444.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-12444-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-12444-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5022,7 +5044,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-meio-ziper-marrom-16111.png",
-                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-16111-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-meio-ziper-marrom-16111-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5062,7 +5084,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-16155.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-16155-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-16155-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -5090,7 +5112,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/sueteres/sueter-gola-redonda-cinza-claro-16154.png",
-                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-16154-detalhe.jpg"
+                                          "generated/detalhes/site/sueteres/sueter-gola-redonda-cinza-claro-16154-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -5118,7 +5140,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-puffer-preto-16151.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-preto-16151-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-preto-16151-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5159,7 +5181,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16149-jaqueta-puffer-off-white-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-off-white-16149-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-off-white-16149-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -5196,7 +5218,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-corta-vento-preto-16003.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-preto-16003-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-preto-16003-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5233,7 +5255,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-texturizada-preto-15965.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-texturizada-preto-15965-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-texturizada-preto-15965-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5270,7 +5292,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-texturizada-cinza-15966.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-texturizada-cinza-15966-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-texturizada-cinza-15966-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5309,7 +5331,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-la-batida-preto-15678.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-preto-15678-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-preto-15678-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5342,7 +5364,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-cotele-preto-15587.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-preto-15587-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-preto-15587-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5377,7 +5399,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-azul-marinho-15573.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-azul-marinho-15573-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-azul-marinho-15573-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5410,7 +5432,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-la-batida-cinza-15679.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-cinza-15679-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-cinza-15679-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5447,7 +5469,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-preto-15862.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-preto-15862-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-preto-15862-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5480,7 +5502,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-bomber-azul-marinho-15336.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-bomber-azul-marinho-15336-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-bomber-azul-marinho-15336-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5513,7 +5535,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-social-preto-12951.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-social-preto-12951-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-social-preto-12951-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5546,7 +5568,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-social-azul-marinho-12950.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-social-azul-marinho-12950-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-social-azul-marinho-12950-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5579,7 +5601,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16150-jaqueta-puffer-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-bege-16150-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-bege-16150-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5620,7 +5642,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-puffer-cinza-16148.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-cinza-16148-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-cinza-16148-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5661,7 +5683,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-cinza-15863.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-cinza-15863-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-cinza-15863-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5694,7 +5716,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-cotele-bege-15588.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-bege-15588-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-cotele-bege-15588-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5729,7 +5751,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16002-jaqueta-corta-vento-cinza-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-cinza-16002-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-corta-vento-cinza-16002-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5766,7 +5788,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-la-batida-bege-15680.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-bege-15680-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-la-batida-bege-15680-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5799,7 +5821,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15572-jaqueta-suede-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-bege-15572-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-bege-15572-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -5828,7 +5850,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-puffer-cinza-13044.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-cinza-13044-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-cinza-13044-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5861,7 +5883,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-puffer-bege-13043.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-bege-13043-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-puffer-bege-13043-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5894,7 +5916,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-social-bege-12952.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-social-bege-12952-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-social-bege-12952-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5927,7 +5949,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-marrom-15865.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-marrom-15865-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-marrom-15865-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -5960,7 +5982,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/jaquetas/jaqueta-suede-creme-15864.png",
-                                          "generated/detalhes/site/jaquetas/jaqueta-suede-creme-15864-detalhe.jpg"
+                                          "generated/detalhes/site/jaquetas/jaqueta-suede-creme-15864-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -5995,7 +6017,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-off-white-15894.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-15894-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-15894-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6027,7 +6049,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16070-casaco-moletom-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16070-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16070-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -6061,7 +6083,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16117-casaco-moletom-off-white-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-16117-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-16117-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6093,7 +6115,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-branco-15895.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-branco-15895-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-branco-15895-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -6125,7 +6147,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-preto-16133.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-preto-16133-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-preto-16133-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -6153,7 +6175,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-bege-16136.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16136-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16136-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -6187,7 +6209,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16115-casaco-moletom-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16115-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16115-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6219,7 +6241,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-off-white-16124.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-16124-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-off-white-16124-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -6247,7 +6269,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-bege-16119.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16119-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-bege-16119-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6279,7 +6301,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-cinza-claro-16017.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-cinza-claro-16017-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-cinza-claro-16017-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -6313,7 +6335,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/casacos/casaco-moletom-cinza-16015.png",
-                                          "generated/detalhes/site/casacos/casaco-moletom-cinza-16015-detalhe.jpg"
+                                          "generated/detalhes/site/casacos/casaco-moletom-cinza-16015-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -6345,7 +6367,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14847-bermuda-linho-marrom-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-linho-marrom-14847-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-linho-marrom-14847-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6377,7 +6399,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14846-bermuda-linho-caqui-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-linho-caqui-14846-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-linho-caqui-14846-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6409,7 +6431,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-linho-azul-marinho-14053.png",
-                                          "generated/detalhes/site/bermudas/bermuda-linho-azul-marinho-14053-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-linho-azul-marinho-14053-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -6443,7 +6465,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-15153-bermuda-sarja-azul-marinho-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-15153-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-15153-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6477,7 +6499,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-sarja-azul-marinho-15053.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-15053-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-15053-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6511,7 +6533,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-sarja-preto-15049.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-15049-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-15049-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6545,7 +6567,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-13194-bermuda-sarja-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-13194-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-13194-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6579,7 +6601,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-9687-bermuda-sarja-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-9687-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-9687-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6613,7 +6635,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-linho-off-white-14960.png",
-                                          "generated/detalhes/site/bermudas/bermuda-linho-off-white-14960-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-linho-off-white-14960-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6645,7 +6667,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-linho-off-white-14778.png",
-                                          "generated/detalhes/site/bermudas/bermuda-linho-off-white-14778-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-linho-off-white-14778-detalhe.webp"
                             ],
                             "sizes": [
                                           "GG"
@@ -6677,7 +6699,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-sarja-off-white-14215.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-off-white-14215-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-off-white-14215-detalhe.webp"
                             ],
                             "sizes": [
                                           "40"
@@ -6709,7 +6731,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-sarja-preto-11435.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-11435-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-11435-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -6741,7 +6763,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-9688-bermuda-sarja-azul-marinho-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-9688-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-azul-marinho-9688-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -6773,7 +6795,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-7968-bermuda-sarja-preto-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-7968-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-preto-7968-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -6805,7 +6827,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-14208-bermuda-jeans-azul-escuro-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/bermudas/bermuda-jeans-azul-escuro-14208-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-jeans-azul-escuro-14208-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6839,7 +6861,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/photoroom/site/bermudas/bermuda-jeans-cinza-13964.png",
-                                          "generated/detalhes/site/bermudas/bermuda-jeans-cinza-13964-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-jeans-cinza-13964-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -6873,7 +6895,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16038-camiseta-pima-jersey-bege-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-bege-16038-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-bege-16038-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -6914,7 +6936,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16037-camiseta-pima-jersey-azul-marinho-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-azul-marinho-16037-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-azul-marinho-16037-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -6955,7 +6977,7 @@
                             "lastCheckedAt": "2026-06-30",
                             "images": [
                                           "generated/aprovadas/site/2026-07-11/scp-16034-camiseta-pima-jersey-branco-aprovada-2026-07-11.png",
-                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-branco-16034-detalhe.jpg"
+                                          "generated/detalhes/site/camisetas/camiseta-pima-jersey-arm-branco-16034-detalhe.webp"
                             ],
                             "sizes": [
                                           "M",
@@ -6992,7 +7014,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15051-bermuda-sarja-cinza-claro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-cinza-claro-15051-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-cinza-claro-15051-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7031,7 +7053,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15052-bermuda-sarja-cinza-escuro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-cinza-escuro-15052-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-cinza-escuro-15052-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -7072,7 +7094,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-13622-bermuda-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-13622-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-13622-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7111,7 +7133,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-13624-bermuda-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-13624-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-13624-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7150,7 +7172,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-6891-bermuda-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-6891-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-6891-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7189,7 +7211,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-8305-bermuda-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-8305-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-marrom-8305-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7228,7 +7250,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-11229-bermuda-sarja-verde-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/bermudas/bermuda-sarja-verde-11229-detalhe.jpg"
+                                          "generated/detalhes/site/bermudas/bermuda-sarja-verde-11229-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7267,7 +7289,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15710-calca-sarja-cinza-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-cinza-15710-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-cinza-15710-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7306,7 +7328,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15712-calca-sarja-gelo-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-gelo-15712-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-gelo-15712-detalhe.webp"
                             ],
                             "sizes": [
                                           "48"
@@ -7345,7 +7367,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-10312-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-10312-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-10312-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7384,7 +7406,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-12464-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-12464-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-12464-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -7425,7 +7447,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15711-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-15711-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-15711-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -7466,7 +7488,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16270-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-16270-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-16270-detalhe.webp"
                             ],
                             "sizes": [
                                           "38",
@@ -7509,7 +7531,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-9119-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-9119-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-9119-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7548,7 +7570,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-9958-calca-sarja-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-marrom-9958-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-marrom-9958-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -7587,7 +7609,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-10310-calca-sarja-verde-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-verde-10310-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-verde-10310-detalhe.webp"
                             ],
                             "sizes": [
                                           "48"
@@ -7626,7 +7648,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-13883-camisa-social-oxford-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-marrom-13883-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-marrom-13883-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -7666,7 +7688,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15219-camisa-social-oxford-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-marrom-15219-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-marrom-15219-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -7710,7 +7732,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16315-camisa-social-oxford-branco-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-branco-16315-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-branco-16315-detalhe.webp"
                             ],
                             "sizes": [
                                           "XXG"
@@ -7751,7 +7773,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16316-camisa-social-oxford-preto-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-preto-16316-detalhe.jpg"
+                                          "generated/detalhes/site/camisa-social/camisa-social-oxford-preto-16316-detalhe.webp"
                             ],
                             "sizes": [
                                           "P"
@@ -7792,7 +7814,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16281-gola-polo-premium-azul-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-16281-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-16281-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -7840,7 +7862,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16274-gola-polo-premium-azul-marinho-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-16274-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-azul-marinho-16274-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -7888,7 +7910,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16277-gola-polo-premium-bege-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-16277-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-bege-16277-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -7936,7 +7958,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16278-gola-polo-premium-branco-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-16278-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-branco-16278-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -7984,7 +8006,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16275-gola-polo-premium-cinza-claro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-claro-16275-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-claro-16275-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8032,7 +8054,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16283-gola-polo-premium-cinza-escuro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-escuro-16283-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-cinza-escuro-16283-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8080,7 +8102,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-15091-gola-polo-premium-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-15091-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-15091-detalhe.webp"
                             ],
                             "sizes": [
                                           "M"
@@ -8120,7 +8142,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16280-gola-polo-premium-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-16280-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-marrom-16280-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8166,7 +8188,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16284-gola-polo-premium-off-white-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-off-white-16284-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-off-white-16284-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8212,7 +8234,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16279-gola-polo-premium-preto-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-16279-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-preto-16279-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8260,7 +8282,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16282-gola-polo-premium-verde-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-verde-16282-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-verde-16282-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8306,7 +8328,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-16276-gola-polo-premium-vinho-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/gola-polo/gola-polo-premium-vinho-16276-detalhe.jpg"
+                                          "generated/detalhes/site/gola-polo/gola-polo-premium-vinho-16276-detalhe.webp"
                             ],
                             "sizes": [
                                           "P",
@@ -8352,7 +8374,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-13275-calca-jeans-skinny-azul-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-skinny-azul-13275-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-skinny-azul-13275-detalhe.webp"
                             ],
                             "sizes": [
                                           "38"
@@ -8392,7 +8414,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-14897-calca-jeans-skinny-azul-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-jeans-skinny-azul-14897-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-jeans-skinny-azul-14897-detalhe.webp"
                             ],
                             "sizes": [
                                           "48"
@@ -8432,7 +8454,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018072-calca-sarja-poliamida-marrom-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-marrom-404018072-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-marrom-404018072-detalhe.webp"
                             ],
                             "sizes": [
                                           "44",
@@ -8474,7 +8496,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018073-calca-sarja-poliamida-cinza-escuro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-cinza-escuro-404018073-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-cinza-escuro-404018073-detalhe.webp"
                             ],
                             "sizes": [
                                           "40",
@@ -8518,7 +8540,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018074-calca-sarja-poliamida-azul-marinho-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-azul-marinho-404018074-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-azul-marinho-404018074-detalhe.webp"
                             ],
                             "sizes": [
                                           "40",
@@ -8560,7 +8582,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018075-calca-sarja-poliamida-cinza-claro-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-cinza-claro-404018075-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-cinza-claro-404018075-detalhe.webp"
                             ],
                             "sizes": [
                                           "40",
@@ -8606,7 +8628,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018076-calca-sarja-poliamida-preto-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-preto-404018076-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-preto-404018076-detalhe.webp"
                             ],
                             "sizes": [],
                             "stock": {},
@@ -8642,7 +8664,7 @@
                             "lastCheckedAt": "2026-07-12",
                             "images": [
                                           "generated/aprovadas/site/2026-07-12/scp-404018077-calca-sarja-poliamida-off-white-aprovada-2026-07-12.png",
-                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-off-white-404018077-detalhe.jpg"
+                                          "generated/detalhes/site/calcas/calca-sarja-poliamida-off-white-404018077-detalhe.webp"
                             ],
                             "sizes": [
                                           "40",
@@ -10195,10 +10217,15 @@
     function catalogDiagnostics() {
       const products = visibleProducts();
       const standardImages = products.filter(hasStandardImage).length;
+      const detailImages = products.filter((product) => (product.images || []).some((image) => String(image).includes("generated/detalhes/site/"))).length;
+      const ready = products.filter(isAvailableNow).length;
+      const sold = products.filter((product) => product.status === "vendido").length;
+      const consultation = products.length - ready - sold;
       const withoutReference = products.filter((product) => !(supplierReference(product) || product.supplierProductId)).length;
       const grouped = new Set(approvedProductGroups.flatMap((group) => group.slugs || [])).size;
       const possibleGroups = products.filter((product) => similarGroupCandidates(product).length).length;
-      return { products, standardImages, withoutReference, grouped, possibleGroups };
+      const missingDetail = products.length - detailImages;
+      return { products, standardImages, detailImages, ready, sold, consultation, missingDetail, withoutReference, grouped, possibleGroups };
     }
 
     function productFacts(product) {
@@ -10209,6 +10236,52 @@
         ["Referência", supplierReference(product) || "Sob consulta"],
         ["Composição", product.composition || "Consultar etiqueta original"],
         ["Cuidados", product.care || "Consultar etiqueta original antes da lavagem"],
+      ];
+    }
+
+    function productFabricLine(product) {
+      const text = productText(product);
+      if (text.includes("supima")) return "Algodão Supima, toque macio e visual limpo.";
+      if (text.includes("pima")) return "Malha Pima com toque suave e caimento leve.";
+      if (text.includes("algodao egipcio")) return "Algodão egípcio com acabamento refinado.";
+      if (text.includes("sarja")) return "Sarja com estrutura e textura visível.";
+      if (text.includes("poliamida")) return "Sarja com poliamida, toque técnico e leve.";
+      if (text.includes("suede")) return "Suede de toque aveludado.";
+      if (text.includes("cotele")) return "Cotelê com textura canelada.";
+      if (text.includes("linho")) return "Linho ou mistura de linho com aspecto natural.";
+      if (text.includes("moletom")) return "Moletom com proposta confortável e casual.";
+      return product.composition || "Tecido conforme etiqueta original da peça.";
+    }
+
+    function productFitLine(product) {
+      const collection = product.collection || "";
+      if (collection === "calcas") return "Base reta/ajustada conforme o modelo, boa para compor com camiseta, polo ou terceira peça.";
+      if (collection === "bermudas") return "Caimento casual, pensado para dias quentes sem perder presença.";
+      if (collection === "camisa-social") return "Estrutura de camisa para elevar o visual sem excesso.";
+      if (collection === "jaquetas") return "Terceira peça com presença, ideal para finalizar o look.";
+      if (collection === "casacos" || collection === "sueteres") return "Camada confortável para frio e meia-estação.";
+      return "Caimento casual premium, pensado para uso recorrente.";
+    }
+
+    function productDetailLine(product) {
+      const ref = supplierReference(product) || product.supplierProductId || "sob consulta";
+      return `Foto de detalhe feita a partir da própria peça. Ref. ${ref}.`;
+    }
+
+    function productStyleLine(product) {
+      const collection = product.collection || "";
+      if (collection === "calcas" || collection === "bermudas") return "Combine com camiseta lisa, polo ou camisa leve.";
+      if (collection === "jaquetas" || collection === "casacos" || collection === "sueteres") return "Use sobre base neutra para deixar o visual mais completo.";
+      if (collection === "camisa-social") return "Funciona com sarja, jeans escuro ou composição casual alinhada.";
+      return "Funciona bem com sarja, jeans e sobreposições discretas.";
+    }
+
+    function productEditorialBlocks(product) {
+      return [
+        ["Tecido", productFabricLine(product)],
+        ["Caimento", productFitLine(product)],
+        ["Detalhes", productDetailLine(product)],
+        ["Como usar", productStyleLine(product)],
       ];
     }
 
@@ -10680,20 +10753,26 @@
       const lines = product ? [
         "Olá, gostaria de atendimento sobre esta peça SCORSATTO.",
         "",
+        account?.name ? `Cliente: ${account.name}` : "Cliente: visitante do site",
+        account?.phone ? `WhatsApp cadastrado: ${account.phone}` : "",
+        account?.city ? `Cidade: ${account.city}${account.state ? " - " + account.state : ""}` : "",
+        "",
         `Produto: ${displayProductName(product)}`,
         `Marca: ${brandFromProduct(product)}`,
         `Cor: ${variantColorName(product)}`,
-        `Tamanhos: ${variantOptionSizes(product).join(", ") || "sob consulta"}`,
+        `Tamanho escolhido: ${selectedDetailSize || "a definir"}`,
+        `Tamanhos disponíveis: ${variantOptionSizes(product).join(", ") || "sob consulta"}`,
         `Referência: ${variantOptionReferences(product).join(" / ") || orderReference(product) || "sob consulta"}`,
+        `Disponibilidade: ${availabilityText(product)}`,
         `Valor: ${currency.format(product.price)}`,
         `Link: ${location.origin}${location.pathname}#produto-${product.slug}`,
         "",
-        "Pode confirmar disponibilidade e me orientar no tamanho?"
+        "Pode confirmar disponibilidade, medidas e melhor tamanho para mim?"
       ] : [
         "Olá, gostaria de conhecer a coleção da SCORSATTO.",
         "Pode me ajudar com a curadoria?"
-      ];
-      recordCustomerEvent(product ? "whatsapp_product" : "whatsapp_contact", product?.slug || null, product ? { reference: orderReference(product) } : {});
+      ].filter(Boolean);
+      recordCustomerEvent(product ? "whatsapp_product" : "whatsapp_contact", product?.slug || null, product ? { reference: orderReference(product), size: selectedDetailSize || "" } : {});
       window.open("https://wa.me/5554997055401?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noreferrer");
     }
 
@@ -11430,6 +11509,7 @@
       const orderTotal = ordersRows.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
       const productViews = eventsRows.filter((event) => event.event_type === "product_view").length;
       const identifiedVisitors = segmentCounts.leads;
+      const catalog = catalogDiagnostics();
       const todayRows = today.todayVisitors.map((key) => {
         const customerEvents = today.todayEvents.filter((event) => customerMatch(event, key));
         const pageViews = customerEvents.filter((event) => event.event_type === "page_view").length;
@@ -11491,6 +11571,14 @@
           <div class="metric-card"><strong>${today.todayLeads.length}</strong><span>Leads hoje</span></div>
           <div class="metric-card"><strong>${today.todayEvents.length}</strong><span>Eventos hoje</span></div>
         </div>
+        ${renderBackofficeSection("Operação da vitrine", `<div class="backoffice-grid">
+          <div class="metric-card"><strong>${catalog.ready}</strong><span>Pronta entrega</span></div>
+          <div class="metric-card"><strong>${catalog.consultation}</strong><span>Sob consulta</span></div>
+          <div class="metric-card"><strong>${catalog.sold}</strong><span>Vendidos</span></div>
+          <div class="metric-card"><strong>${catalog.detailImages}</strong><span>Com foto detalhe</span></div>
+          <div class="metric-card"><strong>${catalog.missingDetail}</strong><span>Sem foto detalhe</span></div>
+          <div class="metric-card"><strong>${catalog.withoutReference}</strong><span>Sem referência</span></div>
+        </div>`, false)}
         ${renderBackofficeSection("Quem acessou hoje", renderBackofficeTable(["Visitante / cliente", "Cadastro", "Acessos", "Produtos vistos", "Última página", "Primeiro acesso", "Último acesso"], todayRows, "Nenhum acesso registrado hoje ainda."), true)}
         ${renderBackofficeSection("Cadastros feitos hoje", renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Origem", "Criado em"], todaySignupRows, "Nenhum cadastro novo hoje ainda."), todaySignupRows.length > 0)}
         ${renderBackofficeSection("Adicionar lead manual", `<form class="account-form" data-manual-lead-form><label class="field"><span>Nome</span><input name="name" placeholder="Nome do lead"></label><label class="field"><span>WhatsApp</span><input name="phone" placeholder="Telefone"></label><label class="field"><span>E-mail</span><input name="email" placeholder="E-mail"></label><button class="primary-btn" type="submit">Adicionar lead</button></form>`, false)}
@@ -11605,8 +11693,13 @@
 
     function toggleFavorite(slug) {
       if (!slug) return;
-      favorites = favoriteProduct(slug) ? favorites.filter((item) => item !== slug) : [slug, ...favorites];
+      const adding = !favoriteProduct(slug);
+      favorites = adding ? [slug, ...favorites] : favorites.filter((item) => item !== slug);
       saveFavorites();
+      if (adding && !account) {
+        accountMessage = "Peça salva. Crie sua conta para manter favoritos e receber reposições.";
+        setTimeout(() => openAccount("criar"), 450);
+      }
     }
 
     function openAccount(tab = activeAccountTab) {
@@ -11647,13 +11740,18 @@
             <img src="${productImage(product)}" alt="${displayProductName(product)}">
             <span><strong>${displayProductName(product)}</strong><small>${currency.format(product.price)}<br>${variantColorName(product)}<br>Ref.: ${orderReference(product)}</small></span>
           </button>
+          <div class="favorite-actions">
+            <button type="button" data-account-open-product="${product.slug}">Ver peça</button>
+            <button type="button" data-favorite-whatsapp="${product.slug}">WhatsApp</button>
+          </div>
         </article>`).join("")}</div>`;
     }
 
     function renderFavoritesPage() {
       if (!favoritesPageGrid) return;
       favoritesCountLabel.textContent = favorites.length ? favorites.length + (favorites.length === 1 ? " peça salva" : " peças salvas") : "Nenhuma peça salva";
-      favoritesPageGrid.innerHTML = favoriteCards();
+      const signup = account ? "" : `<div class="signup-nudge"><strong>Guarde sua seleção</strong><span>Crie uma conta para manter estes favoritos em qualquer aparelho e receber aviso de reposição.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`;
+      favoritesPageGrid.innerHTML = signup + favoriteCards();
     }
 
     function openFavoritesPage() {
@@ -11768,6 +11866,10 @@
         <div class="admin-health-grid">
           <div class="admin-health-card"><strong>${diagnostics.products.length}</strong><span>Produtos públicos</span></div>
           <div class="admin-health-card"><strong>${diagnostics.standardImages}</strong><span>Com foto padrão</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.detailImages}</strong><span>Com foto detalhe</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.ready}</strong><span>Pronta entrega</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.consultation}</strong><span>Sob consulta</span></div>
+          <div class="admin-health-card"><strong>${diagnostics.sold}</strong><span>Vendidos</span></div>
           <div class="admin-health-card"><strong>${diagnostics.grouped}</strong><span>Peças em grupos</span></div>
           <div class="admin-health-card"><strong>${diagnostics.possibleGroups}</strong><span>Alertas de grupo</span></div>
         </div>
@@ -12188,6 +12290,7 @@
       const options = variantOptions(product);
       const optionSizes = variantOptionSizes(product);
       const hasAvailableSizes = optionSizes.length > 0;
+      const editorialBlocks = productEditorialBlocks(product);
       productDetail.innerHTML = `
         <div class="detail-gallery">
           <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${displayProductName(product)}"></div>
@@ -12201,6 +12304,8 @@
           <p class="detail-meta">Tamanhos disponíveis: ${optionSizes.join(", ") || "sob consulta"}</p>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
           <p class="detail-description"><strong>${productEditorialLine(product)}</strong><br>${shortProductDescription(product)}</p>
+          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
+          ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie uma conta para guardar favoritos, receber reposições e facilitar atendimento pelo WhatsApp.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
           ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
           <p class="filter-group-title">Selecionar tamanho</p>
           <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
@@ -12372,6 +12477,8 @@
       if (variant) openProduct(variant.dataset.variantSlug, false);
       const favorite = event.target.closest("button[data-toggle-favorite]");
       if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
+      const inlineAccount = event.target.closest("[data-open-account-inline]");
+      if (inlineAccount) openAccount(inlineAccount.dataset.openAccountInline || "criar");
       if (event.target.closest("#detailAdd")) {
         const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
         const cartProduct = selectedProduct ? variantForSize(selectedProduct, selectedDetailSize) : null;
@@ -12389,6 +12496,13 @@
     favoritesPageGrid.addEventListener("click", (event) => {
       const removeFavorite = event.target.closest("[data-remove-favorite]");
       if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
+      const favoriteWhatsApp = event.target.closest("[data-favorite-whatsapp]");
+      if (favoriteWhatsApp) {
+        selectedProductSlug = favoriteWhatsApp.dataset.favoriteWhatsapp;
+        selectedDetailSize = variantOptionSizes(PRODUCTS.find((item) => item.slug === selectedProductSlug))?.[0] ?? null;
+        openContextWhatsApp();
+        return;
+      }
       const openFavorite = event.target.closest("[data-account-open-product]");
       if (openFavorite) openProduct(openFavorite.dataset.accountOpenProduct);
     });
@@ -12420,6 +12534,12 @@
       if (event.target.closest("footer [data-open-favorites-page]")) {
         event.preventDefault();
         openFavoritesPage();
+        return;
+      }
+      const inlineAccount = event.target.closest("[data-open-account-inline]");
+      if (inlineAccount) {
+        event.preventDefault();
+        openAccount(inlineAccount.dataset.openAccountInline || "criar");
         return;
       }
       const openAdmin = event.target.closest("[data-open-admin-page]");
