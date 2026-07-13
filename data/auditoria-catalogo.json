@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-06-30T22:23:36.371Z",
+  "rule": "Pecas ja fotografadas em personagem/modelo ou ja em manequim limpo podem permanecer. Gerar somente fotos cruas/chapadas, com artefato ou fora do padrao premium.",
+  "totals": {
+    "products": 182,
+    "generatedFirst": 174,
+    "keptAsModel": 8,
+    "pendingManequim": 0,
+    "missingReference": 0,
+    "missingSize": 0,
+    "missingImage": 0,
+    "supplierFirst": 0,
+    "issues": 0
+  },
+  "correctedThisPass": [
+    "scp-14778",
+    "scp-13964",
+    "scp-15894",
+    "scp-16049",
+    "sc-estoque-009",
+    "scp-15925",
+    "scp-11377",
+    "scp-15336",
+    "scp-14053"
+  ],
+  "byCollection": {
+    "sueteres": 20,
+    "calcas": 30,
+    "gola-polo": 20,
+    "camisetas": 36,
+    "manga-longa": 8,
+    "jaquetas": 28,
+    "camisa-social": 13,
+    "casacos": 11,
+    "bermudas": 16
+  },
+  "keptAsModel": [
+    {
+      "id": "sc-estoque-001",
+      "ref": "SC-001",
+      "name": "Sueter Meio Ziper - Marrom",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/sueter-meio-ziper-marrom-sc-estoque-001-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-002",
+      "ref": "SC-002",
+      "name": "Calca Jeans - Azul Marinho",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/calca-jeans-azul-marinho-sc-estoque-002-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-003",
+      "ref": "SC-003",
+      "name": "Gola Polo Premium - Preto",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/gola-polo-premium-preto-sc-estoque-003-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-005",
+      "ref": "SC-005",
+      "name": "Camiseta Supima - Preto",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/camiseta-supima-preto-sc-estoque-005-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-006",
+      "ref": "SC-006",
+      "name": "Camiseta Manga Longa - Preto",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/camiseta-manga-longa-preto-sc-estoque-006-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-007",
+      "ref": "SC-007",
+      "name": "Jaqueta Cotele - Bege",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/jaqueta-cotele-bege-sc-estoque-007-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-010",
+      "ref": "SC-010",
+      "name": "Camiseta Nike - Branco",
+      "status": "mantido_por_ja_estar_em_manequim",
+      "firstImage": "estoque-scorsatto/camiseta-nike-branco-sc-estoque-010-1.jpeg"
+    },
+    {
+      "id": "sc-estoque-011",
+      "ref": "SC-011",
+      "name": "Casaco Jeans - Preto",
+      "status": "mantido_por_estar_em_personagem_modelo",
+      "firstImage": "estoque-scorsatto/casaco-jeans-preto-sc-estoque-011-1.jpeg"
+    }
+  ],
+  "pendingManequim": [],
+  "issues": []
+}

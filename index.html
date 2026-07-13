@@ -13,6 +13,12 @@
   <meta property="og:url" content="https://usescorsatto.com.br/" />
   <meta property="og:image" content="https://usescorsatto.com.br/generated/aprovadas/site/2026-07-11/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SCORSATTO.CO | O essencial bem feito" />
+  <meta name="twitter:description" content="Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp." />
+  <meta name="twitter:image" content="https://usescorsatto.com.br/generated/aprovadas/site/2026-07-11/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11.png" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="application-name" content="SCORSATTO" />
+  <meta name="apple-mobile-web-app-title" content="SCORSATTO" />
   <meta name="theme-color" content="#ffffff" />
   <script src="supabase/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11257,6 +11263,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             name: "SCORSATTO",
             url: absoluteSiteUrl("/"),
             slogan: "O essencial bem feito",
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "+55 54 99705-5401",
+              contactType: "Atendimento",
+              areaServed: "BR",
+              availableLanguage: "Portuguese",
+            },
             sameAs: [],
           },
           {
@@ -11272,13 +11285,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             },
           },
           {
-            "@type": "Store",
+            "@type": "ClothingStore",
             "@id": absoluteSiteUrl("/#store"),
             name: "SCORSATTO",
             url: absoluteSiteUrl("/"),
             description: "Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp.",
+            telephone: "+55 54 99705-5401",
+            areaServed: { "@type": "Country", name: "Brasil" },
+            priceRange: "$$",
             currenciesAccepted: "BRL",
             paymentAccepted: "Pix, cartão e atendimento via WhatsApp",
+            parentOrganization: { "@id": absoluteSiteUrl("/#organization") },
           },
         ],
       };
