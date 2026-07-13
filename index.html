@@ -132,10 +132,16 @@
     .product-detail.open { display: block; }
     .detail-layout { display: grid; gap: 28px; }
     .detail-gallery { display: grid; gap: 10px; }
-    .detail-main { aspect-ratio: 3/4; background: #f8f8f5; overflow: hidden; border: 1px solid rgba(0,0,0,.08); padding: 16px; }
+    .detail-main { position: relative; aspect-ratio: 3/4; background: #f8f8f5; overflow: hidden; border: 1px solid rgba(0,0,0,.08); padding: 16px; }
     .detail-main img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 42px; height: 42px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%; background: rgba(255,255,255,.88); color: var(--black); display: grid; place-items: center; cursor: pointer; font-size: 24px; line-height: 1; transition: transform .2s ease, background .2s ease, opacity .2s ease; }
+    .gallery-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.04); }
+    .gallery-arrow.prev { left: 14px; }
+    .gallery-arrow.next { right: 14px; }
+    .gallery-count { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 3; min-height: 24px; padding: 0 9px; border: 1px solid rgba(0,0,0,.1); border-radius: 999px; background: rgba(255,255,255,.86); color: var(--muted); display: inline-flex; align-items: center; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .thumb-row { display: flex; gap: 8px; overflow-x: auto; }
     .thumb { width: 72px; height: 92px; border: 1px solid var(--line); background: #f8f8f5; cursor: pointer; padding: 5px; }
+    .thumb.active { border-color: var(--black); box-shadow: inset 0 0 0 1px var(--black); }
     .thumb img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
     .detail-copy { max-width: 560px; }
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
@@ -446,6 +452,9 @@
       .detail-layout { gap: 16px; }
       .detail-gallery { position: sticky; top: 92px; z-index: 4; background: var(--white); padding-bottom: 8px; }
       .detail-main { max-height: 46svh; padding: 10px; }
+      .gallery-arrow { width: 36px; height: 36px; font-size: 21px; }
+      .gallery-arrow.prev { left: 8px; }
+      .gallery-arrow.next { right: 8px; }
       body.has-sticky-product { padding-bottom: 74px; }
       .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command { grid-template-columns: 1fr; }
       .backoffice-command button { width: 100%; }
@@ -11327,6 +11336,23 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       setJsonLd("scorsatto-product-schema", productSchema(product));
     }
 
+    function setDetailGalleryImage(index) {
+      const product = PRODUCTS.find((item) => item.slug === selectedProductSlug);
+      if (!product) return;
+      const images = uniqueImages(product);
+      if (!images.length) return;
+      const nextIndex = (Number(index) + images.length) % images.length;
+      const image = images[nextIndex];
+      const mainImage = document.querySelector("#detailMainImage");
+      if (mainImage) {
+        mainImage.src = image;
+        mainImage.dataset.imageIndex = String(nextIndex);
+      }
+      const counter = document.querySelector("#galleryCount");
+      if (counter) counter.textContent = `${nextIndex + 1} / ${images.length}`;
+      productDetail.querySelectorAll(".thumb").forEach((button) => button.classList.toggle("active", Number(button.dataset.imageIndex) === nextIndex));
+    }
+
     function leadSettings() {
       return JSON.parse(localStorage.getItem("scorsattoLeadSettingsV1") || "{}");
     }
@@ -12764,8 +12790,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const primaryActionLabel = primaryProductActionLabel(product);
       productDetail.innerHTML = `
         <div class="detail-gallery">
-          <div class="detail-main"><img id="detailMainImage" src="${images[0] || ""}" alt="${displayProductName(product)}"></div>
-          <div class="thumb-row">${images.map((image) => `<button class="thumb" type="button" data-image="${image}"><img src="${image}" alt="${displayProductName(product)}"></button>`).join("")}</div>
+          <div class="detail-main">
+            <button class="gallery-arrow prev" type="button" data-gallery-prev aria-label="Imagem anterior">‹</button>
+            <img id="detailMainImage" src="${images[0] || ""}" alt="${displayProductName(product)}" data-image-index="0">
+            <button class="gallery-arrow next" type="button" data-gallery-next aria-label="Próxima imagem">›</button>
+            <span class="gallery-count" id="galleryCount">${images.length ? `1 / ${images.length}` : "0 / 0"}</span>
+          </div>
+          <div class="thumb-row">${images.map((image, imageIndex) => `<button class="thumb${imageIndex === 0 ? " active" : ""}" type="button" data-image="${image}" data-image-index="${imageIndex}"><img src="${image}" alt="${displayProductName(product)}"></button>`).join("")}</div>
         </div>
         <div class="detail-copy">
           <h2>${displayProductName(product)}</h2>
@@ -12950,7 +12981,20 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     });
     productDetail.addEventListener("click", (event) => {
       const thumb = event.target.closest("button[data-image]");
-      if (thumb) document.querySelector("#detailMainImage").src = thumb.dataset.image;
+      if (thumb) {
+        setDetailGalleryImage(thumb.dataset.imageIndex || 0);
+        return;
+      }
+      if (event.target.closest("[data-gallery-prev]")) {
+        const current = Number(document.querySelector("#detailMainImage")?.dataset.imageIndex || 0);
+        setDetailGalleryImage(current - 1);
+        return;
+      }
+      if (event.target.closest("[data-gallery-next]")) {
+        const current = Number(document.querySelector("#detailMainImage")?.dataset.imageIndex || 0);
+        setDetailGalleryImage(current + 1);
+        return;
+      }
       const size = event.target.closest("button[data-size]");
       if (size) {
         selectedDetailSize = size.dataset.size;
