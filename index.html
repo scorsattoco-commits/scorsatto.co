@@ -244,6 +244,11 @@
     .metric-card { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 14px; display: grid; gap: 6px; }
     .metric-card strong { font-size: 24px; line-height: 1; }
     .metric-card span { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .priority-grid, .funnel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+    .priority-card, .funnel-step { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 13px; display: grid; gap: 7px; align-content: start; min-height: 106px; }
+    .priority-card strong, .funnel-step strong { font-size: 22px; line-height: 1; }
+    .priority-card span, .funnel-step span { color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .priority-card small, .funnel-step small { color: var(--muted); font-size: 11px; line-height: 1.4; }
     .backoffice-section { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 14px; display: grid; gap: 10px; overflow: hidden; }
     details.backoffice-section { display: block; }
     details.backoffice-section > *:not(summary) { margin-top: 10px; }
@@ -259,6 +264,9 @@
     .backoffice-table th { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
     .backoffice-note { color: var(--muted); font-size: 12px; line-height: 1.55; }
     .backoffice-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+    .backoffice-command { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: end; }
+    .backoffice-command .field { margin: 0; }
+    .backoffice-command button { min-height: 44px; width: auto; white-space: nowrap; }
     .group-admin { display: grid; gap: 14px; }
     .group-admin-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .group-admin-list { display: grid; gap: 10px; max-height: 520px; overflow: auto; padding-right: 4px; }
@@ -417,7 +425,8 @@
       .detail-layout { gap: 16px; }
       .detail-main { max-height: 60svh; }
       body.has-sticky-product { padding-bottom: 74px; }
-      .profile-actions, .backoffice-grid, .admin-health-grid { grid-template-columns: 1fr; }
+      .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command { grid-template-columns: 1fr; }
+      .backoffice-command button { width: 100%; }
       .customer-detail-head { display: grid; }
       .customer-detail-head .secondary-btn { width: 100%; }
       .customer-detail-grid { grid-template-columns: 1fr; }
@@ -8798,6 +8807,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     let activeBackofficeCustomerId = "";
     let minimizedBackofficeCustomerId = "";
     let activeBackofficeSegment = "todos";
+    let backofficeSearchTerm = "";
     let backofficeData = null;
     let backofficeLoadedAt = "";
     let backofficeError = "";
@@ -11284,6 +11294,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         whatsapp_product: "Chamou sobre produto",
         whatsapp_contact: "Chamou no WhatsApp",
         newsletter_signup: "Assinou curadoria",
+        size_alert_interest: "Pediu aviso de tamanho/cor",
         account_signup: "Criou cadastro",
         account_login: "Entrou na conta",
       };
@@ -11405,6 +11416,53 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (customerStage(key) === "clientes") return "Cadastrado";
       if (customerHasCurationLead(key)) return "Lead";
       return "Visitante";
+    }
+
+    function backofficeSearchText(key) {
+      const info = customerDisplay(key);
+      const contact = customerContact(key);
+      return normalize([
+        info.name,
+        info.detail,
+        contact.name,
+        contact.email,
+        contact.phone,
+        contact.city,
+        contact.state,
+        customerStatusLabel(key),
+      ].filter(Boolean).join(" "));
+    }
+
+    function renderPriorityCards(today, activeCarts, abandoned, eventsRows, ordersRows) {
+      const sizeAlerts = eventsRows.filter((event) => event.event_type === "size_alert_interest");
+      const whatsappToday = today.todayEvents.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type));
+      const anonymousToday = today.todayVisitors.filter((key) => !profileByCustomerKey(key) && customerStage(key) !== "leads");
+      const hotCarts = activeCarts.filter((row) => !abandoned.includes(row));
+      const cards = [
+        [abandoned.length, "Carrinhos parados", "Chamar primeiro: carrinho sem movimento há mais de 2 horas."],
+        [hotCarts.length, "Carrinhos recentes", "Cliente ainda está quente. Boa hora para atendimento rápido."],
+        [whatsappToday.length, "Chamadas WhatsApp hoje", "Pessoas que demonstraram intenção direta de compra."],
+        [today.todayLeads.length, "Leads novos hoje", "Entraram pela curadoria ou cadastro de interesse."],
+        [sizeAlerts.length, "Avisos de tamanho/cor", "Interesse explícito em variação que pode virar venda."],
+        [anonymousToday.length, "Visitantes sem cadastro", "Público para melhorar captura de lead e retorno."],
+        [ordersRows.filter((order) => isTodayDate(order.created_at)).length, "Pedidos enviados hoje", "Acompanhar finalização e confirmação no WhatsApp."],
+      ];
+      return `<div class="priority-grid">${cards.map(([value, label, note]) => `<div class="priority-card"><strong>${value}</strong><span>${safeHtml(label)}</span><small>${safeHtml(note)}</small></div>`).join("")}</div>`;
+    }
+
+    function renderTodayFunnel(today, activeCarts) {
+      const productViewsToday = today.todayEvents.filter((event) => event.event_type === "product_view").length;
+      const cartAddsToday = today.todayEvents.filter((event) => ["add_to_cart", "cart_add"].includes(event.event_type)).length;
+      const whatsappToday = today.todayEvents.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)).length;
+      const signupsToday = today.todayProfiles.length + today.todaySignupEvents.length + today.todayLeads.length;
+      const steps = [
+        [today.todayVisitors.length, "Entraram", "Pessoas únicas"],
+        [productViewsToday, "Viram produto", "Interesse em peças"],
+        [cartAddsToday || activeCarts.length, "Carrinho", "Adição ou carrinho ativo"],
+        [whatsappToday, "WhatsApp", "Intenção de compra"],
+        [signupsToday, "Cadastro/lead", "Contato identificável"],
+      ];
+      return `<div class="funnel-grid">${steps.map(([value, label, note]) => `<div class="funnel-step"><strong>${value}</strong><span>${safeHtml(label)}</span><small>${safeHtml(note)}</small></div>`).join("")}</div>`;
     }
 
     function customerInsightCard(key) {
@@ -11539,7 +11597,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         visitantes: allCustomerKeys.filter((key) => customerStage(key) === "visitantes").length,
       };
       if (!["todos", "clientes", "leads", "carrinhos", "pedidos", "visitantes"].includes(activeBackofficeSegment)) activeBackofficeSegment = "todos";
-      const customerKeys = activeBackofficeSegment === "todos"
+      const segmentCustomerKeys = activeBackofficeSegment === "todos"
         ? allCustomerKeys
         : activeBackofficeSegment === "carrinhos"
           ? allCustomerKeys.filter(customerHasCart)
@@ -11548,6 +11606,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             : activeBackofficeSegment === "leads"
               ? allCustomerKeys.filter((key) => customerStage(key) === "leads" || customerHasCurationLead(key))
               : allCustomerKeys.filter((key) => customerStage(key) === activeBackofficeSegment);
+      const searchNormalized = normalize(backofficeSearchTerm).trim();
+      const customerKeys = searchNormalized
+        ? segmentCustomerKeys.filter((key) => backofficeSearchText(key).includes(searchNormalized))
+        : segmentCustomerKeys;
       if (!activeBackofficeCustomerId && customerKeys.length) activeBackofficeCustomerId = customerKeys[0];
       if (activeBackofficeCustomerId && activeBackofficeCustomerId !== "__closed__" && !customerKeys.includes(activeBackofficeCustomerId)) activeBackofficeCustomerId = customerKeys[0] || "";
       const abandoned = activeCarts.filter((row) => new Date(row.updated_at) < new Date(Date.now() - 2 * 60 * 60 * 1000));
@@ -11608,6 +11670,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <span class="backoffice-note">Atualizado: ${backofficeLoadedAt || "-"}</span>
           <button class="secondary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>
         </div>
+        <form class="backoffice-command" data-backoffice-search-form>
+          <label class="field"><span>Buscar cliente ou lead</span><input name="search" value="${safeHtml(backofficeSearchTerm)}" placeholder="Nome, WhatsApp, e-mail, cidade ou status"></label>
+          <button class="primary-btn" type="submit">Buscar</button>
+          <button class="secondary-btn" type="button" data-clear-backoffice-search>Limpar</button>
+        </form>
         <div class="backoffice-grid">
           <div class="metric-card"><strong>${today.todayPageViews.length}</strong><span>Acessos hoje</span></div>
           <div class="metric-card"><strong>${today.todayVisitors.length}</strong><span>Pessoas únicas hoje</span></div>
@@ -11624,11 +11691,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${catalog.missingDetail}</strong><span>Sem foto detalhe</span></div>
           <div class="metric-card"><strong>${catalog.withoutReference}</strong><span>Sem referência</span></div>
         </div>`, false)}
+        ${renderBackofficeSection("Fila de ação", renderPriorityCards(today, activeCarts, abandoned, eventsRows, ordersRows), true)}
+        ${renderBackofficeSection("Funil de hoje", renderTodayFunnel(today, activeCarts), true)}
         ${renderBackofficeSection("Quem acessou hoje", renderBackofficeTable(["Visitante / cliente", "Cadastro", "Acessos", "Produtos vistos", "Última página", "Primeiro acesso", "Último acesso"], todayRows, "Nenhum acesso registrado hoje ainda."), true)}
         ${renderBackofficeSection("Cadastros feitos hoje", renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Origem", "Criado em"], todaySignupRows, "Nenhum cadastro novo hoje ainda."), todaySignupRows.length > 0)}
         ${renderBackofficeSection("Adicionar lead manual", `<form class="account-form" data-manual-lead-form><label class="field"><span>Nome</span><input name="name" placeholder="Nome do lead"></label><label class="field"><span>WhatsApp</span><input name="phone" placeholder="Telefone"></label><label class="field"><span>E-mail</span><input name="email" placeholder="E-mail"></label><button class="primary-btn" type="submit">Adicionar lead</button></form>`, false)}
         <div class="backoffice-segments" aria-label="Segmentos do backoffice">${segmentButtons}</div>
-        ${renderBackofficeSection("Gestão visual de clientes", `<p class="backoffice-note">Cada card representa uma pessoa única. Se o visitante fizer login, o histórico anônimo é unido ao cadastro.</p><div class="customer-insight-grid">${insightCards || "<p class='backoffice-note'>Nenhum cliente neste segmento.</p>"}</div>`, true)}
+        ${renderBackofficeSection("Gestão visual de clientes", `<p class="backoffice-note">Cada card representa uma pessoa única. Se o visitante fizer login, o histórico anônimo é unido ao cadastro.${searchNormalized ? ` Busca ativa: ${safeHtml(backofficeSearchTerm)}.` : ""}</p><div class="customer-insight-grid">${insightCards || "<p class='backoffice-note'>Nenhum cliente encontrado neste filtro.</p>"}</div>`, true)}
         <div class="backoffice-grid">
           <div class="metric-card"><strong>${profiles.length}</strong><span>Clientes cadastrados</span></div>
           <div class="metric-card"><strong>${identifiedVisitors}</strong><span>Leads identificados</span></div>
@@ -12731,6 +12800,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderAccount();
         return;
       }
+      if (event.target.closest("[data-clear-backoffice-search]") && isAdminAccount()) {
+        backofficeSearchTerm = "";
+        activeBackofficeCustomerId = "";
+        minimizedBackofficeCustomerId = "";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        renderAccount();
+        return;
+      }
       const segment = event.target.closest("[data-backoffice-segment]");
       if (segment && isAdminAccount()) {
         activeBackofficeSegment = segment.dataset.backofficeSegment;
@@ -12874,6 +12952,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderBackofficeStandalone();
         return;
       }
+      if (event.target.closest("[data-clear-backoffice-search]") && isAdminAccount()) {
+        backofficeSearchTerm = "";
+        activeBackofficeCustomerId = "";
+        minimizedBackofficeCustomerId = "";
+        renderBackofficeStandalone();
+        return;
+      }
       const deleteLead = event.target.closest("[data-delete-lead]");
       if (deleteLead && isAdminAccount()) {
         deleteLeadFromManagement(deleteLead.dataset.deleteLead);
@@ -12922,6 +13007,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       renderBackofficeStandalone();
     });
     backofficePage.addEventListener("submit", async (event) => {
+      const searchForm = event.target.closest("[data-backoffice-search-form]");
+      if (searchForm && isAdminAccount()) {
+        event.preventDefault();
+        backofficeSearchTerm = String(searchForm.elements.search?.value || "").trim();
+        activeBackofficeCustomerId = "";
+        minimizedBackofficeCustomerId = "";
+        renderBackofficeStandalone();
+        return;
+      }
       const manualLeadForm = event.target.closest("[data-manual-lead-form]");
       if (manualLeadForm && isAdminAccount()) {
         event.preventDefault();
@@ -12983,6 +13077,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       renderAccount();
     });
     accountDrawer.addEventListener("submit", async (event) => {
+      const searchForm = event.target.closest("[data-backoffice-search-form]");
+      if (searchForm && isAdminAccount()) {
+        event.preventDefault();
+        backofficeSearchTerm = String(searchForm.elements.search?.value || "").trim();
+        activeBackofficeCustomerId = "";
+        minimizedBackofficeCustomerId = "";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        renderAccount();
+        return;
+      }
       const manualLeadForm = event.target.closest("[data-manual-lead-form]");
       if (manualLeadForm && isAdminAccount()) {
         event.preventDefault();
