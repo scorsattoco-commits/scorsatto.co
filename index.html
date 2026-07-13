@@ -8810,6 +8810,19 @@
 
     const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
     const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const SIZE_ORDER = ["PP", "P", "M", "G", "GG", "XG", "XGG", "XXG", "EG", "EGG", "G1", "G2", "G3", "G4"];
+    function sizeRank(size) {
+      const raw = String(size || "").trim().toUpperCase();
+      const normalized = normalize(raw).replace(/\s+/g, "");
+      const alphaRank = SIZE_ORDER.findIndex((item) => normalize(item) === normalized);
+      if (alphaRank >= 0) return alphaRank;
+      const number = Number(raw.replace(",", ".").match(/\d+(?:\.\d+)?/)?.[0]);
+      if (Number.isFinite(number)) return 100 + number;
+      return 1000;
+    }
+    function sortSizes(sizes) {
+      return [...new Set((sizes || []).filter(Boolean).map((size) => String(size).trim()))].sort((a, b) => sizeRank(a) - sizeRank(b) || String(a).localeCompare(String(b), "pt-BR", { numeric: true }));
+    }
     const ADMIN_EMAILS = (window.SCORSATTO_ADMIN_EMAILS || []).map((email) => normalize(email));
     const cleanName = (name) => name.includes(" - ") ? name.split(" - ")[0] : name;
     const colorFromName = (name) => name.includes(" - ") ? name.split(" - ").slice(1).join(" - ") : "Cor sob consulta";
@@ -8950,7 +8963,7 @@
           ]);
         }
         return pick([
-          `Calça jeans ${withColor()} com visual direto e fácil de combinar. Uma base masculina para diferentes camadas e ocasiões casuais.`,
+          `Calça jeans ${withColor()} com leitura clássica e fácil de combinar. Uma base masculina para diferentes camadas e ocasiões casuais.`,
           `Jeans ${withColor()} com leitura limpa, pensado para sustentar o look sem roubar a atenção das outras peças.`,
           `Calça jeans ${withColor()} de presença clássica, boa para composições casuais com camiseta, polo ou jaqueta.`,
         ]);
@@ -8972,7 +8985,7 @@
         }
         return pick([
           `Bermuda jeans ${withColor()} com leitura casual e resistente. Uma base simples para dias quentes com visual masculino.`,
-          `Jeans ${withColor()} em versão curta, com presença direta e fácil combinação com peças essenciais.`,
+          `Jeans ${withColor()} em versão curta, com leitura limpa e fácil combinação com peças essenciais.`,
           `Bermuda jeans ${withColor()} de visual prático, pensada para uma composição casual bem resolvida.`,
         ]);
       }
@@ -9032,7 +9045,7 @@
       const seed = [...String(product.slug || product.id || product.name)].reduce((sum, char) => sum + char.charCodeAt(0), 0);
       const pick = (items) => items[seed % items.length];
       if (category === "gola-polo") return pick(["Uma polo para dias em que simplicidade precisa parecer intencional.", "Presença limpa para transitar entre o casual e o alinhado.", "Clássica sem esforço, com a discrição que sustenta bons looks."]);
-      if (category === "camisetas") return pick(["Base essencial para composições limpas e bem resolvidas.", "A peça certa quando o simples precisa parecer bem escolhido.", "Visual direto, pensado para sustentar o guarda-roupa sem excesso."]);
+      if (category === "camisetas") return pick(["Base essencial para composições limpas e bem resolvidas.", "A peça certa quando o simples precisa parecer bem escolhido.", "Leitura discreta para sustentar o guarda-roupa sem excesso."]);
       if (category === "manga-longa") return pick(["Uma camada leve para deixar o casual mais estruturado.", "Boa presença para meia-estação, sem perder simplicidade.", "Funciona sozinha ou em sobreposição, com leitura discreta."]);
       if (category === "camisa-social") return pick(["Estrutura suficiente para elevar a rotina sem formalidade demais.", "Uma camisa para ocasiões em que o detalhe importa mais que o excesso.", "Leitura refinada para composições masculinas bem alinhadas."]);
       if (category === "calcas") return pick(["A base do look, escolhida para equilibrar conforto e presença.", "Parte de baixo versátil para sustentar combinações limpas.", "Uma peça de apoio forte para camiseta, polo ou terceira camada."]);
@@ -10079,7 +10092,7 @@
 
     function variantOptionSizes(product) {
       const option = currentVariantOption(product);
-      return [...new Set((option?.variants || [product]).flatMap((variant) => variant.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
+      return sortSizes((option?.variants || [product]).flatMap((variant) => variant.sizes ?? []));
     }
 
     function variantForSize(product, size) {
@@ -10111,7 +10124,7 @@
     }
 
     function variantSizes(product) {
-      return [...new Set(productVariants(product).flatMap((item) => item.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
+      return sortSizes(productVariants(product).flatMap((item) => item.sizes ?? []));
     }
 
     function variantColors(product) {
@@ -10152,8 +10165,12 @@
       });
     }
 
+    function isOwnStockSupplier(product) {
+      return normalize(product?.supplierName).includes("estoque proprio scorsatto");
+    }
+
     function productBrand(product) {
-      if (product.supplierName === "Estoque próprio SCORSATTO") {
+      if (isOwnStockSupplier(product)) {
         const local = BRANDS.find((brand) => !brand.selectableOnly && (brand.terms?.some((term) => brandText(product).includes(normalize(term))) || brand.codes?.some((code) => codeMatch(product, code))));
         return local ?? null;
       }
@@ -10171,7 +10188,7 @@
 
     function productLine(product) {
       if (product.tags?.includes("exceção-estoque")) return "Exceção de estoque";
-      if (product.supplierName === "Estoque próprio SCORSATTO") return "Estoque próprio";
+      if (isOwnStockSupplier(product)) return "Estoque próprio";
       return "Curadoria SCORSATTO";
     }
 
@@ -10585,7 +10602,7 @@
       const products = baseCategoryProducts();
       const availableBrands = BRANDS;
       const variants = products.flatMap(filterVariants);
-      const sizes = [...new Set(variants.flatMap((product) => product.sizes ?? []))].sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
+      const sizes = sortSizes(variants.flatMap((product) => product.sizes ?? []));
       const colors = COLORS.filter((color) => variants.some((product) => colorMatch(product, color)));
       const specGroup = activeSpecGroup(products);
       filterDrawerBody.innerHTML = [
@@ -11859,7 +11876,7 @@
       if (!product) return "<p class='muted'>Nenhum produto disponível para edição.</p>";
       activeAdminSlug = product.slug;
       const imagesText = (product.images || []).join("\n");
-      const sizesText = (product.sizes || []).join(", ");
+      const sizesText = sortSizes(product.sizes || []).join(", ");
       const diagnostics = catalogDiagnostics();
       const alerts = [imageStatus(product), referenceStatus(product), groupStatus(product), groupingStatus(product)];
       return `
