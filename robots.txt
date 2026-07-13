@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://usescorsatto.com.br/sitemap.xml

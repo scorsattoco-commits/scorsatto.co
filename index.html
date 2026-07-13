@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SCORSATTO.CO | O essencial bem feito</title>
   <meta name="description" content="SCORSATTO.CO: moda masculina premium com curadoria enxuta e compra pelo WhatsApp." />
+  <link rel="canonical" href="https://usescorsatto.com.br/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SCORSATTO" />
+  <meta property="og:title" content="SCORSATTO.CO | O essencial bem feito" />
+  <meta property="og:description" content="Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp." />
+  <meta property="og:url" content="https://usescorsatto.com.br/" />
+  <meta property="og:image" content="https://usescorsatto.com.br/generated/aprovadas/site/2026-07-11/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#ffffff" />
   <script src="supabase/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10576,6 +10585,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return true;
     }
 
+    function applySearchFromUrl() {
+      const query = new URLSearchParams(location.search).get("q");
+      if (query && search) {
+        search.value = query;
+        active = "todos";
+      }
+    }
+
     function handleHashChange() {
       const adminRoutes = {
         "#admin-grupos": "groups",
@@ -10594,6 +10611,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (handleCategoryHash()) return;
       const productPrefix = "#produto-";
       if (location.hash.startsWith(productPrefix)) openProduct(location.hash.slice(productPrefix.length), false);
+      else updateSeoForCollection(groupedProducts(sortProductList(baseCategoryProducts())));
     }
 
     function forceGroupsRouteRender() {
@@ -11155,6 +11173,158 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function safeHtml(value) {
       return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    const SITE_ORIGIN = "https://usescorsatto.com.br";
+    function absoluteSiteUrl(path = "") {
+      if (/^https?:\/\//i.test(String(path))) return path;
+      return new URL(String(path || "/"), SITE_ORIGIN + "/").href;
+    }
+
+    function setMeta(selector, attribute, value) {
+      const node = document.querySelector(selector);
+      if (node) node.setAttribute(attribute, value);
+    }
+
+    function setJsonLd(id, payload) {
+      let node = document.querySelector(`#${id}`);
+      if (!node) {
+        node = document.createElement("script");
+        node.type = "application/ld+json";
+        node.id = id;
+        document.head.appendChild(node);
+      }
+      node.textContent = JSON.stringify(payload);
+    }
+
+    function productCategoryLabel(product) {
+      return CATEGORIES.find((category) => category.collection === product.collection)?.label || "Moda masculina";
+    }
+
+    function productSchema(product) {
+      const images = uniqueImages(product).map((image) => absoluteSiteUrl(image));
+      const sizes = variantOptionSizes(product);
+      const reference = supplierReference(product) || product.supplierProductId || product.slug;
+      const availability = product.status === "vendido"
+        ? "https://schema.org/OutOfStock"
+        : isAvailableNow(product)
+          ? "https://schema.org/InStock"
+          : "https://schema.org/PreOrder";
+      return {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: `${displayProductName(product)} ${variantColorName(product)}`.trim(),
+        description: shortProductDescription(product),
+        image: images,
+        sku: String(reference || product.slug),
+        brand: { "@type": "Brand", name: brandFromProduct(product) },
+        category: productCategoryLabel(product),
+        color: variantColorName(product),
+        size: sizes,
+        url: absoluteSiteUrl(`/#produto-${product.slug}`),
+        itemCondition: "https://schema.org/NewCondition",
+        offers: {
+          "@type": "Offer",
+          price: Number(product.price || 0).toFixed(2),
+          priceCurrency: "BRL",
+          availability,
+          url: absoluteSiteUrl(`/#produto-${product.slug}`),
+          seller: { "@type": "Organization", name: "SCORSATTO" },
+        },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "Referência", value: String(reference || "sob consulta") },
+          { "@type": "PropertyValue", name: "Disponibilidade", value: availabilityText(product) },
+        ],
+      };
+    }
+
+    function storeSchema() {
+      return {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": absoluteSiteUrl("/#organization"),
+            name: "SCORSATTO",
+            url: absoluteSiteUrl("/"),
+            slogan: "O essencial bem feito",
+            sameAs: [],
+          },
+          {
+            "@type": "WebSite",
+            "@id": absoluteSiteUrl("/#website"),
+            name: "SCORSATTO.CO",
+            url: absoluteSiteUrl("/"),
+            publisher: { "@id": absoluteSiteUrl("/#organization") },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: absoluteSiteUrl("/?q={search_term_string}"),
+              "query-input": "required name=search_term_string",
+            },
+          },
+          {
+            "@type": "Store",
+            "@id": absoluteSiteUrl("/#store"),
+            name: "SCORSATTO",
+            url: absoluteSiteUrl("/"),
+            description: "Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp.",
+            currenciesAccepted: "BRL",
+            paymentAccepted: "Pix, cartão e atendimento via WhatsApp",
+          },
+        ],
+      };
+    }
+
+    function itemListSchema(products) {
+      return {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Coleção SCORSATTO",
+        itemListElement: products.slice(0, 60).map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: absoluteSiteUrl(`/#produto-${product.slug}`),
+          item: productSchema(product),
+        })),
+      };
+    }
+
+    function updateSeoForCollection(products = []) {
+      const activeCategory = currentCategory();
+      const title = activeCategory?.slug === "disponiveis-agora"
+        ? "Pronta entrega SCORSATTO | Moda masculina premium"
+        : activeCategory?.slug && activeCategory.slug !== "todos"
+          ? `${activeCategory.label} SCORSATTO | Moda masculina premium`
+          : "SCORSATTO.CO | O essencial bem feito";
+      const description = activeCategory?.slug === "disponiveis-agora"
+        ? "Peças masculinas premium disponíveis agora na SCORSATTO, com compra assistida pelo WhatsApp."
+        : "Moda masculina premium com curadoria enxuta, pronta entrega e compra assistida pelo WhatsApp.";
+      document.title = title;
+      setMeta("meta[name='description']", "content", description);
+      setMeta("meta[property='og:type']", "content", "website");
+      setMeta("meta[property='og:title']", "content", title);
+      setMeta("meta[property='og:description']", "content", description);
+      setMeta("meta[property='og:url']", "content", absoluteSiteUrl("/"));
+      setJsonLd("scorsatto-store-schema", storeSchema());
+      setJsonLd("scorsatto-itemlist-schema", itemListSchema(products.length ? products : visibleProducts().filter((product) => !product.hidden)));
+      document.querySelector("#scorsatto-product-schema")?.remove();
+    }
+
+    function updateSeoForProduct(product) {
+      if (!product) return;
+      const title = `${displayProductName(product)} ${variantColorName(product)} | SCORSATTO`;
+      const description = shortProductDescription(product);
+      const url = absoluteSiteUrl(`/#produto-${product.slug}`);
+      const image = absoluteSiteUrl(productImage(product));
+      document.title = title;
+      setMeta("meta[name='description']", "content", description);
+      setMeta("meta[property='og:type']", "content", "product");
+      setMeta("meta[property='og:title']", "content", title);
+      setMeta("meta[property='og:description']", "content", description);
+      setMeta("meta[property='og:url']", "content", url);
+      if (image) setMeta("meta[property='og:image']", "content", image);
+      setJsonLd("scorsatto-store-schema", storeSchema());
+      setJsonLd("scorsatto-product-schema", productSchema(product));
     }
 
     function leadSettings() {
@@ -12620,6 +12790,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       `;
       productDetailSection.classList.add("open");
       renderStickyProductBar();
+      updateSeoForProduct(product);
       if (scroll) productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", "#produto-" + slug);
     }
@@ -12629,6 +12800,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       selectedProductSlug = null;
       selectedDetailSize = null;
       renderStickyProductBar();
+      updateSeoForCollection(groupedProducts(sortProductList(baseCategoryProducts())));
       history.replaceState(null, "", "#produtos");
       document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
     }
@@ -12701,6 +12873,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           </div>
         </article>
       `).join("");
+      if (!productDetailSection.classList.contains("open")) updateSeoForCollection(list);
     }
 
     function updateScrollState() {
@@ -13373,6 +13546,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     updateTopNav();
     updateShopHeader();
+    applySearchFromUrl();
     renderCollectionCategories();
     renderFilters();
     applyProductOverrides();
