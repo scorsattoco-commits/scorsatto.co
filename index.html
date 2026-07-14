@@ -11469,6 +11469,31 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       saveLeadSettings(settings);
     }
 
+    function salesGoalSettings() {
+      try {
+        return JSON.parse(localStorage.getItem("scorsattoSalesGoalsV1") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveSalesGoalSettings(settings) {
+      localStorage.setItem("scorsattoSalesGoalsV1", JSON.stringify(settings || {}));
+    }
+
+    function salesGoals() {
+      return {
+        visitors: 40,
+        productViews: 90,
+        leads: 5,
+        whatsapp: 8,
+        orders: 2,
+        carts: 5,
+        outreach: 10,
+        ...salesGoalSettings(),
+      };
+    }
+
     function hiddenLeadKeys() {
       return new Set(Object.entries(leadSettings()).filter(([, value]) => value?.hidden).map(([key]) => key));
     }
@@ -11859,15 +11884,30 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const signupsToday = today.todayProfiles.length + today.todaySignupEvents.length + today.todayLeads.length;
       const productViewsToday = today.todayEvents.filter((event) => event.event_type === "product_view").length;
       const ordersToday = ordersRows.filter((order) => isTodayDate(order.created_at)).length;
+      const goalsConfig = salesGoals();
       const goals = [
-        { label: "Pessoas no site", value: today.todayVisitors.length, target: 40, action: "Se estiver baixo, postar pronta entrega e link direto nos stories." },
-        { label: "Produtos vistos", value: productViewsToday, target: 90, action: "Se estiver baixo, destacar mais vistos e últimas unidades." },
-        { label: "Leads/cadastros", value: signupsToday, target: 5, action: "Se estiver baixo, puxar cadastro por aviso de tamanho ou curadoria." },
-        { label: "WhatsApp", value: whatsappToday, target: 8, action: "Se estiver baixo, revisar CTA e mandar seleção para clientes quentes." },
-        { label: "Pedidos", value: ordersToday, target: 2, action: "Se estiver baixo, priorizar carrinhos e contatos com score alto." },
-        { label: "Carrinhos ativos", value: activeCarts.length, target: 5, action: "Se estiver baixo, revisar preço, foto e chamada dos produtos mais vistos." },
+        { label: "Pessoas no site", value: today.todayVisitors.length, target: goalsConfig.visitors, action: "Se estiver baixo, postar pronta entrega e link direto nos stories." },
+        { label: "Produtos vistos", value: productViewsToday, target: goalsConfig.productViews, action: "Se estiver baixo, destacar mais vistos e últimas unidades." },
+        { label: "Leads/cadastros", value: signupsToday, target: goalsConfig.leads, action: "Se estiver baixo, puxar cadastro por aviso de tamanho ou curadoria." },
+        { label: "WhatsApp", value: whatsappToday, target: goalsConfig.whatsapp, action: "Se estiver baixo, revisar CTA e mandar seleção para clientes quentes." },
+        { label: "Pedidos", value: ordersToday, target: goalsConfig.orders, action: "Se estiver baixo, priorizar carrinhos e contatos com score alto." },
+        { label: "Carrinhos ativos", value: activeCarts.length, target: goalsConfig.carts, action: "Se estiver baixo, revisar preço, foto e chamada dos produtos mais vistos." },
       ];
       return renderGoalCards(goals);
+    }
+
+    function renderGoalConfigForm() {
+      const goals = salesGoals();
+      return `<form class="account-form" data-sales-goals-form>
+        <label class="field"><span>Pessoas no site/dia</span><input name="visitors" type="number" min="0" value="${safeHtml(goals.visitors)}"></label>
+        <label class="field"><span>Produtos vistos/dia</span><input name="productViews" type="number" min="0" value="${safeHtml(goals.productViews)}"></label>
+        <label class="field"><span>Leads/dia</span><input name="leads" type="number" min="0" value="${safeHtml(goals.leads)}"></label>
+        <label class="field"><span>WhatsApp/dia</span><input name="whatsapp" type="number" min="0" value="${safeHtml(goals.whatsapp)}"></label>
+        <label class="field"><span>Pedidos/dia</span><input name="orders" type="number" min="0" value="${safeHtml(goals.orders)}"></label>
+        <label class="field"><span>Carrinhos/dia</span><input name="carts" type="number" min="0" value="${safeHtml(goals.carts)}"></label>
+        <label class="field"><span>Contatos por dia</span><input name="outreach" type="number" min="0" value="${safeHtml(goals.outreach)}"></label>
+        <button class="primary-btn" type="submit">Salvar metas</button>
+      </form>`;
     }
 
     function topProductStats(eventsRows, ordersRows, days = 7) {
@@ -12096,6 +12136,35 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return renderBackofficeTable(["Cliente", "Score", "Próxima ação", "Motivo", "Última atividade", "WhatsApp"], rows, "Nenhum contato prioritário agora.");
     }
 
+    function outreachChannel(key) {
+      const contact = customerContact(key);
+      const text = normalize([contact.note, contact.email, contact.phone, contact.name].filter(Boolean).join(" "));
+      if (contact.phone) return { label: "WhatsApp", note: "Contato direto já informado." };
+      if (text.includes("instagram") || text.includes("@")) return { label: "Instagram", note: "Usar DM se a pessoa já interagiu ou informou o @." };
+      if (customerHasCurationLead(key) || profileByCustomerKey(key)) return { label: "E-mail/cadastro", note: "Pedir WhatsApp para atendimento mais rápido." };
+      return { label: "Captar contato", note: "Não abordar frio. Usar anúncio, story ou formulário para trazer opt-in." };
+    }
+
+    function renderDailyOutreachQueue(keys) {
+      const limit = Number(salesGoals().outreach || 10);
+      const rows = keys
+        .map((key) => ({ key, score: customerSalesScore(key), action: customerNextAction(key), channel: outreachChannel(key), last: customerLastActivity(key) }))
+        .filter((item) => item.score >= 20 || item.action.urgency >= 3)
+        .sort((a, b) => b.action.urgency - a.action.urgency || b.score - a.score || new Date(b.last || 0) - new Date(a.last || 0))
+        .slice(0, limit)
+        .map((item, index) => `<tr>
+          <td>${index + 1}</td>
+          <td>${customerButton(item.key)}</td>
+          <td><span class="score-pill">Score ${item.score}</span></td>
+          <td>${safeHtml(item.channel.label)}</td>
+          <td>${safeHtml(item.action.label)}</td>
+          <td>${safeHtml(item.channel.note)}</td>
+          <td><button class="copy-wa-btn" type="button" data-copy-customer-whatsapp="${encodeURIComponent(item.key)}">Copiar</button></td>
+        </tr>`);
+      const note = `<p class="backoffice-note">Para Instagram: chame somente quem já interagiu, respondeu story, comentou, pediu informação ou informou @. Para quem não segue, use anúncio local e formulário de interesse para captar contato.</p>`;
+      return note + renderBackofficeTable(["#", "Pessoa", "Score", "Canal", "Ação", "Regra", "Mensagem"], rows, "Nenhum contato forte para abordar agora.");
+    }
+
     function hotCustomerReason(key) {
       const reasons = [];
       if (customerHasWhatsappIntent(key)) reasons.push("chamou no WhatsApp");
@@ -12231,6 +12300,75 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           </div>
         </div>`;
       }).join("")}</div>`;
+    }
+
+    function productCommercialStats(eventsRows, ordersRows, days = 7) {
+      const rows = periodEvents(eventsRows, days);
+      const stats = {};
+      rows.forEach((event) => {
+        if (!event.product_slug) return;
+        if (!stats[event.product_slug]) stats[event.product_slug] = { slug: event.product_slug, views: 0, whatsapp: 0, leads: 0, orders: 0, last: "" };
+        if (event.event_type === "product_view") stats[event.product_slug].views += 1;
+        if (["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)) stats[event.product_slug].whatsapp += 1;
+        if (["newsletter_signup", "account_signup"].includes(event.event_type)) stats[event.product_slug].leads += 1;
+        if (!stats[event.product_slug].last || new Date(event.created_at || 0) > new Date(stats[event.product_slug].last || 0)) stats[event.product_slug].last = event.created_at || "";
+      });
+      ordersRows.filter((order) => order.created_at && new Date(order.created_at) >= periodStart(days)).forEach((order) => (order.items || []).forEach((item) => {
+        const slug = item.slug || item.product_slug;
+        if (!slug) return;
+        if (!stats[slug]) stats[slug] = { slug, views: 0, whatsapp: 0, leads: 0, orders: 0, last: "" };
+        stats[slug].orders += Number(item.quantity || 1);
+        if (!stats[slug].last || new Date(order.created_at || 0) > new Date(stats[slug].last || 0)) stats[slug].last = order.created_at || "";
+      }));
+      return Object.values(stats).map((item) => ({ ...item, score: item.views * 2 + item.whatsapp * 16 + item.leads * 9 + item.orders * 28 }))
+        .sort((a, b) => b.score - a.score || new Date(b.last || 0) - new Date(a.last || 0));
+    }
+
+    function renderProductPostRanking(eventsRows, ordersRows) {
+      const rows = productCommercialStats(eventsRows, ordersRows, 7).slice(0, 10).map((item, index) => {
+        const product = PRODUCTS.find((entry) => entry.slug === item.slug);
+        const reason = item.whatsapp || item.orders
+          ? "Postar prova de interesse e pronta entrega"
+          : item.views >= 4
+            ? "Postar com foto melhor, preço e CTA claro"
+            : "Usar em seleção/combinação";
+        return `<tr><td>${index + 1}</td><td>${safeHtml(product ? displayProductName(product) : productLabel(item.slug))}</td><td>${safeHtml(product ? brandFromProduct(product) : "-")}</td><td>${item.views}</td><td>${item.whatsapp}</td><td>${item.orders}</td><td>${safeHtml(reason)}</td></tr>`;
+      });
+      return renderBackofficeTable(["#", "Peça", "Marca", "Vistos", "WhatsApp", "Pedidos", "Como postar"], rows, "Sem sinal suficiente para ranking de postagem.");
+    }
+
+    function renderProductProblemRadar(eventsRows, ordersRows) {
+      const rows = productCommercialStats(eventsRows, ordersRows, 14)
+        .filter((item) => item.views >= 5 && !item.whatsapp && !item.orders)
+        .slice(0, 12)
+        .map((item) => {
+          const product = PRODUCTS.find((entry) => entry.slug === item.slug);
+          const action = !product || !hasStandardImage(product)
+            ? "Refazer foto principal"
+            : !(product.images || []).some((image) => String(image).includes("generated/detalhes/site/"))
+              ? "Adicionar foto de detalhe"
+              : "Revisar preço, nome, CTA ou disponibilidade";
+          return `<tr><td>${safeHtml(product ? displayProductName(product) : productLabel(item.slug))}</td><td>${item.views}</td><td>${item.whatsapp}</td><td>${item.orders}</td><td>${safeHtml(action)}</td></tr>`;
+        });
+      return renderBackofficeTable(["Produto", "Vistos", "WhatsApp", "Pedidos", "Ação sugerida"], rows, "Nenhum produto com problema claro agora.");
+    }
+
+    function renderSmartAlerts(today, activeCarts, abandoned, eventsRows, ordersRows, allCustomerKeys) {
+      const goals = salesGoals();
+      const whatsappToday = today.todayEvents.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)).length;
+      const leadsToday = today.todayProfiles.length + today.todaySignupEvents.length + today.todayLeads.length;
+      const productViewsToday = today.todayEvents.filter((event) => event.event_type === "product_view").length;
+      const alerts = [];
+      if (today.todayVisitors.length < goals.visitors) alerts.push(["Tráfego abaixo da meta", `${today.todayVisitors.length}/${goals.visitors} pessoas.`, "Postar link de pronta entrega e impulsionar para Serafina, Marau e Casca."]);
+      if (productViewsToday >= Math.max(10, goals.productViews * .4) && whatsappToday < Math.max(1, goals.whatsapp * .35)) alerts.push(["Muito interesse, pouco WhatsApp", `${productViewsToday} produtos vistos e ${whatsappToday} WhatsApp.`, "Revisar botão, preço, fotos e destacar atendimento rápido."]);
+      if (leadsToday < goals.leads) alerts.push(["Poucos leads hoje", `${leadsToday}/${goals.leads} leads.`, "Usar chamada de aviso de tamanho ou curadoria sem poluir o site."]);
+      if (abandoned.length) alerts.push(["Carrinho parado", `${abandoned.length} carrinho(s) há mais de 2 horas.`, "Abrir Clientes e copiar mensagem para recuperar."]);
+      const problem = productCommercialStats(eventsRows, ordersRows, 7).find((item) => item.views >= 5 && !item.whatsapp && !item.orders);
+      if (problem) alerts.push(["Produto com atrito", productLabel(problem.slug), "Muita visualização sem avanço. Revisar foto, nome, preço ou disponibilidade."]);
+      const hot = allCustomerKeys.filter((key) => customerSalesScore(key) >= 45).length;
+      if (hot) alerts.push(["Clientes quentes", `${hot} pessoa(s) com score alto.`, "Chamar antes de buscar público frio."]);
+      if (!alerts.length) alerts.push(["Operação saudável", "Sem alerta crítico agora.", "Manter rotina: postar produto forte, chamar fila diária e revisar métricas."]);
+      return `<div class="priority-grid">${alerts.slice(0, 8).map(([title, value, action]) => `<div class="priority-card"><strong>!</strong><span>${safeHtml(title)}</span><small>${safeHtml(value)} ${safeHtml(action)}</small></div>`).join("")}</div>`;
     }
 
     function renderCommercialReports(eventsRows, ordersRows) {
@@ -12519,7 +12657,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${today.todayLeads.length}</strong><span>Leads hoje</span></div>
           <div class="metric-card"><strong>${today.todayEvents.length}</strong><span>Eventos hoje</span></div>
         </div>
+        ${renderBackofficeSection("Alertas automáticos", renderSmartAlerts(today, activeCarts, abandoned, eventsRows, ordersRows, allCustomerKeys), true)}
         ${renderBackofficeSection("Metas de hoje", renderDailyGoals(today, activeCarts, ordersRows), true)}
+        ${renderBackofficeSection("Fila diária: chamar 10 pessoas", renderDailyOutreachQueue(allCustomerKeys), true)}
         ${renderBackofficeSection("Relatório semanal automático", renderWeeklyExecutiveReport(eventsRows, ordersRows, activeCarts, allCustomerKeys), true)}
         ${renderBackofficeSection("Clientes quentes agora", renderHotCustomers(allCustomerKeys), true)}
         ${renderBackofficeSection("Fila de ação", renderPriorityCards(today, activeCarts, abandoned, eventsRows, ordersRows), true)}
@@ -12546,6 +12686,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const accessContent = renderAccessAnalytics(eventsRows, profiles, todayRows, eventRows);
       const productsContent = `
         ${renderBackofficeSection("Radar de produtos", renderProductDemandRadar(eventsRows, ordersRows), true)}
+        ${renderBackofficeSection("Ranking de peças para postar", renderProductPostRanking(eventsRows, ordersRows), true)}
+        ${renderBackofficeSection("Radar de problema de produto", renderProductProblemRadar(eventsRows, ordersRows), true)}
         ${renderCommercialReports(eventsRows, ordersRows)}`;
       const operationContent = `
         ${renderBackofficeSection("Operação da vitrine", `<div class="backoffice-grid">
@@ -12556,6 +12698,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${catalog.missingDetail}</strong><span>Sem foto detalhe</span></div>
           <div class="metric-card"><strong>${catalog.withoutReference}</strong><span>Sem referência</span></div>
         </div>`, true)}
+        ${renderBackofficeSection("Metas configuráveis", renderGoalConfigForm(), true)}
         ${renderBackofficeSection("Carrinhos ativos", `<p class="backoffice-note">${abandoned.length} carrinho(s) parado(s) há mais de 2 horas.</p>${renderBackofficeTable(["Cliente", "Itens", "Última atualização"], cartRows, "Nenhum carrinho ativo no banco.")}`, true)}
         ${renderBackofficeSection("Pedidos via WhatsApp", renderBackofficeTable(["Cliente", "Itens", "Total", "Data"], orderRows, "Nenhum pedido registrado ainda."), false)}
         ${renderBackofficeSection("Roteiros de venda", renderCommercialScripts(), false)}
@@ -12625,6 +12768,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       activeBackofficeSegment = "leads";
       activeBackofficeCustomerId = key;
       accountMessage = "Lead adicionado na gestão.";
+      renderActiveBackofficeSurface();
+    }
+
+    function saveSalesGoalsForm(form) {
+      const keys = ["visitors", "productViews", "leads", "whatsapp", "orders", "carts", "outreach"];
+      const next = {};
+      keys.forEach((key) => {
+        next[key] = Math.max(0, Number(form.elements[key]?.value || 0));
+      });
+      saveSalesGoalSettings(next);
+      accountMessage = "Metas comerciais salvas.";
+      activeBackofficeTab = "operacao";
       renderActiveBackofficeSurface();
     }
 
@@ -13927,6 +14082,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         saveManualLeadForm(manualLeadForm);
         return;
       }
+      const goalsForm = event.target.closest("[data-sales-goals-form]");
+      if (goalsForm && isAdminAccount()) {
+        event.preventDefault();
+        saveSalesGoalsForm(goalsForm);
+        return;
+      }
       const leadManageForm = event.target.closest("[data-lead-manage-form]");
       if (leadManageForm && isAdminAccount()) {
         event.preventDefault();
@@ -13998,6 +14159,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (manualLeadForm && isAdminAccount()) {
         event.preventDefault();
         saveManualLeadForm(manualLeadForm);
+        return;
+      }
+      const goalsForm = event.target.closest("[data-sales-goals-form]");
+      if (goalsForm && isAdminAccount()) {
+        event.preventDefault();
+        saveSalesGoalsForm(goalsForm);
         return;
       }
       const leadManageForm = event.target.closest("[data-lead-manage-form]");
