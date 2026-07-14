@@ -149,23 +149,32 @@
     .thumb img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
     .detail-copy { max-width: 560px; }
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
-    .detail-copy h2 { margin: 10px 0 12px; }
+    .detail-copy h2 { margin: 4px 0 10px; }
+    .detail-copy > .price { margin-bottom: 18px; font-size: 16px; }
+    .detail-info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
+    .detail-info-item { border: 1px solid var(--line); background: #fbfbf8; padding: 11px 12px; display: grid; gap: 5px; min-height: 62px; }
+    .detail-info-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .detail-info-item strong { color: #242421; font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .detail-help-line { margin: -6px 0 18px; color: var(--muted); font-size: 12px; line-height: 1.45; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .detail-editorial { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0 0; }
-    .detail-editorial-item { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 5px; }
+    .detail-editorial { display: grid; gap: 0; margin: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .detail-editorial-item { padding: 13px 0; display: grid; gap: 5px; border-bottom: 1px solid var(--line); }
+    .detail-editorial-item:last-child { border-bottom: 0; }
     .detail-editorial-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .detail-editorial-item strong { color: #242421; font-size: 12px; font-weight: 500; line-height: 1.5; }
+    .detail-choice-block { margin-top: 18px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .detail-choice-block:first-of-type { margin-top: 12px; }
     .signup-nudge { border: 1px solid var(--line); background: var(--paper); padding: 12px; display: grid; gap: 8px; margin: 18px 0 0; }
     .signup-nudge strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
     .signup-nudge span { color: var(--muted); font-size: 12px; line-height: 1.5; }
     .signup-nudge button { width: max-content; min-height: 34px; border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); padding: 0 12px; cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .variant-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 18px; }
+    .variant-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 0; }
     .variant-btn { width: 34px; height: 34px; border: 1px solid transparent; border-radius: 50%; background: transparent; color: var(--black); display: inline-grid; place-items: center; padding: 0; cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
     .variant-btn:hover { transform: translateY(-1px); }
     .variant-btn.active { border-color: var(--black); box-shadow: 0 0 0 3px var(--white), 0 0 0 4px var(--black); }
     .variant-dot { width: 24px; height: 24px; border: 1px solid rgba(0,0,0,.18); border-radius: 50%; background: var(--swatch, #f5f5f1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.52); }
     .variant-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    .reference-line { margin: 14px 0 0; color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+    .reference-line { margin: 12px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .04em; }
     .favorite-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .favorite-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
     .product-facts { display: grid; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; }
@@ -173,7 +182,7 @@
     .product-fact:last-child { border-bottom: 0; }
     .product-fact span { color: var(--muted); text-transform: none; letter-spacing: .02em; font-size: 12px; font-weight: 500; }
     .product-fact strong { color: #252521; font-weight: 400; }
-    .size-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 18px; }
+    .size-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 0; }
     .size-btn { min-width: 48px; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); cursor: pointer; font-size: 13px; font-weight: 600; transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
     .size-btn:hover { transform: translateY(-1px); border-color: var(--black); }
     .size-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
@@ -476,6 +485,7 @@
       .shop-controls { justify-content: space-between; }
       .sort-select { flex: 1 1 160px; min-width: 0; }
       .detail-editorial { grid-template-columns: 1fr; }
+      .detail-info-grid { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
       .detail-gallery { position: sticky; top: 92px; z-index: 4; background: var(--white); padding-bottom: 8px; }
@@ -13040,22 +13050,26 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="detail-copy">
           <h2>${displayProductName(product)}</h2>
           <div class="price">${currency.format(product.price)}</div>
-          <p class="detail-meta">Marca: ${brandFromProduct(product)}</p>
-          <p class="detail-meta">Cor: ${variantColorName(product)}</p>
-          <p class="detail-meta">Tamanhos: ${optionSizes.join(", ") || "sob consulta"}</p>
-          <p class="detail-meta">Medidas: largura e comprimento podem ser confirmados no atendimento.</p>
+          <div class="detail-info-grid">
+            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
+            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
+            <div class="detail-info-item"><span>Tamanhos</span><strong>${optionSizes.join(", ") || "sob consulta"}</strong></div>
+            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          </div>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
           <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
-          ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para salvar favoritos, continuar o carrinho depois e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
-          ${options.length > 1 ? `<p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div>` : ""}
-          <p class="filter-group-title">Selecionar tamanho</p>
-          <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
+          ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
+          <div class="detail-choice-block">
+            <p class="filter-group-title">Selecionar tamanho</p>
+            <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
+          </div>
           <div class="detail-actions">
             <button class="primary-btn" id="detailAdd" type="button"${hasAvailableSizes ? "" : " disabled"}>${primaryActionLabel}</button>
             <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
           </div>
           <button class="secondary-btn" type="button" data-size-alert>Avise-me sobre tamanho ou cor</button>
-          <p class="detail-meta">Atendimento SCORSATTO confirma tamanho, estoque e envio antes do pedido.</p>
+          <p class="detail-help-line">Tamanho, disponibilidade e envio são alinhados pelo atendimento SCORSATTO.</p>
+          ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para guardar favoritos, recuperar carrinho e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
         </div>
       `;
       productDetailSection.classList.add("open");
