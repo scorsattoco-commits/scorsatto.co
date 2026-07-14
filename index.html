@@ -11494,6 +11494,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       };
     }
 
+    function instagramLeadBase() {
+      try {
+        return JSON.parse(localStorage.getItem("scorsattoInstagramLeadsV1") || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveInstagramLeadBase(rows) {
+      localStorage.setItem("scorsattoInstagramLeadsV1", JSON.stringify(Array.isArray(rows) ? rows : []));
+    }
+
     function hiddenLeadKeys() {
       return new Set(Object.entries(leadSettings()).filter(([, value]) => value?.hidden).map(([key]) => key));
     }
@@ -12186,6 +12198,19 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function renderInstagramDaily(allCustomerKeys, eventsRows) {
       const candidates = instagramDailyCandidates(allCustomerKeys);
+      const imported = instagramLeadBase();
+      const importedRows = imported
+        .filter((item) => item.status !== "Arquivado")
+        .slice(0, 10)
+        .map((item, index) => `<tr>
+          <td>${index + 1}</td>
+          <td><strong>${safeHtml(item.handle || "-")}</strong><br><span class="muted">${safeHtml(item.name || "Nome não informado")}</span></td>
+          <td>${safeHtml(item.city || "-")}</td>
+          <td>${safeHtml(item.source || "-")}</td>
+          <td>${safeHtml(item.follows || "-")}</td>
+          <td>${safeHtml(item.note || "Chamar com contexto e pedir tamanho/estilo.")}</td>
+          <td><button class="copy-wa-btn" type="button" data-copy-instagram-lead="${safeHtml(item.id)}">Copiar DM</button></td>
+        </tr>`);
       const rows = candidates.map((item, index) => `<tr>
         <td>${index + 1}</td>
         <td>${customerButton(item.key)}</td>
@@ -12205,15 +12230,55 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const todayInteractions = eventsRows.filter((event) => isTodayDate(event.created_at)).length;
       return `
         <div class="backoffice-grid">
-          <div class="metric-card"><strong>${candidates.length}</strong><span>Contatos para DM</span><small class="muted">Base atual do site, sem contar Alisson/Miguel.</small></div>
+          <div class="metric-card"><strong>${imported.length}</strong><span>Base Instagram</span><small class="muted">Curtidas, comentários, stories e indicações importadas por você.</small></div>
+          <div class="metric-card"><strong>${candidates.length}</strong><span>Contatos do site</span><small class="muted">Base atual do site, sem contar Alisson/Miguel.</small></div>
           <div class="metric-card"><strong>5</strong><span>Captações novas</span><small class="muted">Meta diária de dados com opt-in.</small></div>
           <div class="metric-card"><strong>${todayInteractions}</strong><span>Sinais hoje</span><small class="muted">Eventos do site que ajudam a priorizar abordagem.</small></div>
-          <div class="metric-card"><strong>0</strong><span>Spam permitido</span><small class="muted">Chamar com contexto ou captar antes.</small></div>
         </div>
-        ${renderBackofficeSection("10 pessoas para chamar hoje", `<p class="backoffice-note">Use Instagram quando houver @, comentário, resposta de story ou interação clara. Se só tiver WhatsApp, mantenha no WhatsApp. Se não tiver contato, coloque em captação.</p>${renderBackofficeTable(["#", "Pessoa", "Canal", "Score", "Ação", "Regra", "DM"], rows, "Ainda não há 10 contatos fortes na base. Gere interações no Instagram e cadastros no site.")}`, true)}
+        ${renderBackofficeSection("Conectar/importar Instagram", renderInstagramImportPanel(), true)}
+        ${renderBackofficeSection("10 perfis do Instagram para chamar", `<p class="backoffice-note">Use esta lista quando houver @ real vindo de curtida, comentário, resposta de story, indicação ou anúncio. Não é raspagem: é base operacional autorizada/importada.</p>${renderBackofficeTable(["#", "@", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, true)}
+        ${renderBackofficeSection("10 pessoas da base do site", `<p class="backoffice-note">Use Instagram quando houver @, comentário, resposta de story ou interação clara. Se só tiver WhatsApp, mantenha no WhatsApp. Se não tiver contato, coloque em captação.</p>${renderBackofficeTable(["#", "Pessoa", "Canal", "Score", "Ação", "Regra", "DM"], rows, "Ainda não há 10 contatos fortes na base. Gere interações no Instagram e cadastros no site.")}`, false)}
         ${renderBackofficeSection("5 pessoas novas para captar", renderBackofficeTable(["#", "Origem", "Perfil ideal", "Como captar", "Dados mínimos"], prospectRows, "Sem sugestões."), true)}
         ${renderBackofficeSection("Mensagem segura para não seguidor", `<div class="commercial-scripts"><div class="commercial-script"><strong>Primeiro contato</strong><small>Oi, tudo bem? Sou da SCORSATTO, aqui da região. Estou apresentando a loja para alguns homens que gostam de peças mais bem escolhidas, sem excesso. Se fizer sentido pra você, posso te mandar 2 ou 3 opções no seu tamanho e estilo. Sem compromisso.</small></div><div class="commercial-script"><strong>Depois que responder</strong><small>Boa. Me passa só teu tamanho, cidade e se você usa mais casual, trabalho ou sair. Aí eu mando uma seleção curta, sem catálogo gigante.</small></div></div>`, false)}
       `;
+    }
+
+    function renderInstagramImportPanel() {
+      return `<div class="customer-detail-grid">
+        <div class="customer-field"><span>API oficial Meta</span><strong>Instagram Business/Criador + Página Facebook</strong><small class="backoffice-note">Para conexão real via API, precisa token seguro no backend. Não colocar token no site público.</small></div>
+        <div class="customer-field"><span>Status seguro</span><strong>Importação operacional pronta</strong><small class="backoffice-note">Cole interações reais aqui até configurarmos o app Meta e webhook.</small></div>
+      </div>
+      <form class="account-form" data-instagram-import-form>
+        <label class="field"><span>Importar interações Instagram</span><textarea name="instagramRows" placeholder="@usuario, Nome, Cidade, Origem, Segue?, Observação&#10;@joao, João, Serafina, curtiu story, não, gosta de polo e sarja"></textarea></label>
+        <button class="primary-btn" type="submit">Importar para fila Instagram</button>
+      </form>
+      <p class="backoffice-note">Origens boas: curtiu post, comentou, respondeu story, clicou anúncio, indicação, pediu preço, visitou perfil. Dados mínimos: @, cidade, origem, contexto.</p>`;
+    }
+
+    function instagramLeadMessage(item) {
+      return [
+        `Oi, ${item.name || "tudo bem"}!`,
+        `Vi ${item.source ? `que você ${item.source}` : "uma interação sua"} com a SCORSATTO.`,
+        "Estou montando uma seleção masculina bem enxuta para homens da região, com peças versáteis e sem catálogo gigante.",
+        "Se fizer sentido, me passa teu tamanho e o estilo que usa mais: casual, trabalho ou sair. Aí te mando 2 ou 3 opções certeiras.",
+      ].join("\n");
+    }
+
+    function parseInstagramImport(text) {
+      return String(text || "").split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => {
+        const [handle, name, city, source, follows, ...noteParts] = line.split(",").map((part) => part.trim());
+        return {
+          id: "ig:" + (handle || Date.now() + Math.random()).replace(/^@/, "").toLowerCase(),
+          handle: handle?.startsWith("@") ? handle : handle ? "@" + handle : "",
+          name: name || "",
+          city: city || "",
+          source: source || "",
+          follows: follows || "",
+          note: noteParts.join(", ") || "",
+          status: "Novo",
+          createdAt: new Date().toISOString(),
+        };
+      }).filter((item) => item.handle);
     }
 
     function hotCustomerReason(key) {
@@ -13923,6 +13988,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderAccount();
         return;
       }
+      const copyInstagramLead = event.target.closest("[data-copy-instagram-lead]");
+      if (copyInstagramLead && isAdminAccount()) {
+        const lead = instagramLeadBase().find((item) => item.id === copyInstagramLead.dataset.copyInstagramLead);
+        if (lead) navigator.clipboard?.writeText(instagramLeadMessage(lead));
+        accountMessage = "DM de Instagram copiada.";
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        renderAccount();
+        return;
+      }
       const segment = event.target.closest("[data-backoffice-segment]");
       if (segment && isAdminAccount()) {
         activeBackofficeSegment = segment.dataset.backofficeSegment;
@@ -14107,6 +14183,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderBackofficeStandalone();
         return;
       }
+      const copyInstagramLead = event.target.closest("[data-copy-instagram-lead]");
+      if (copyInstagramLead && isAdminAccount()) {
+        const lead = instagramLeadBase().find((item) => item.id === copyInstagramLead.dataset.copyInstagramLead);
+        if (lead) navigator.clipboard?.writeText(instagramLeadMessage(lead));
+        accountMessage = "DM de Instagram copiada.";
+        activeBackofficeTab = "instagram";
+        renderBackofficeStandalone();
+        return;
+      }
       const deleteLead = event.target.closest("[data-delete-lead]");
       if (deleteLead && isAdminAccount()) {
         deleteLeadFromManagement(deleteLead.dataset.deleteLead);
@@ -14175,6 +14260,20 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (goalsForm && isAdminAccount()) {
         event.preventDefault();
         saveSalesGoalsForm(goalsForm);
+        return;
+      }
+      const instagramImportForm = event.target.closest("[data-instagram-import-form]");
+      if (instagramImportForm && isAdminAccount()) {
+        event.preventDefault();
+        const imported = parseInstagramImport(instagramImportForm.elements.instagramRows?.value || "");
+        const existing = instagramLeadBase();
+        const merged = [...imported, ...existing.filter((oldItem) => !imported.some((newItem) => newItem.id === oldItem.id))];
+        saveInstagramLeadBase(merged);
+        accountMessage = `${imported.length} perfil(is) importado(s) para Instagram.`;
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        renderAccount();
         return;
       }
       const leadManageForm = event.target.closest("[data-lead-manage-form]");
@@ -14254,6 +14353,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (goalsForm && isAdminAccount()) {
         event.preventDefault();
         saveSalesGoalsForm(goalsForm);
+        return;
+      }
+      const instagramImportForm = event.target.closest("[data-instagram-import-form]");
+      if (instagramImportForm && isAdminAccount()) {
+        event.preventDefault();
+        const imported = parseInstagramImport(instagramImportForm.elements.instagramRows?.value || "");
+        const existing = instagramLeadBase();
+        const merged = [...imported, ...existing.filter((oldItem) => !imported.some((newItem) => newItem.id === oldItem.id))];
+        saveInstagramLeadBase(merged);
+        accountMessage = `${imported.length} perfil(is) importado(s) para Instagram.`;
+        activeBackofficeTab = "instagram";
+        renderBackofficeStandalone();
         return;
       }
       const leadManageForm = event.target.closest("[data-lead-manage-form]");
