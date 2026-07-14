@@ -11225,6 +11225,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         carts: [],
         favorites: [],
         orders: [],
+        instagramLeads: instagramLeadBase(),
         events: [...localEvents, ...leadEvents].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)),
       };
     }
@@ -11240,13 +11241,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
       if (backofficeData && !force) return backofficeData;
       backofficeError = "";
-      const [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult] = await Promise.all([
+      const [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult, instagramLeadsResult] = await Promise.all([
         db.from("profiles").select("*").order("created_at", { ascending: false }).limit(300),
         db.from("addresses").select("*").order("updated_at", { ascending: false }).limit(300),
         db.from("cart_items").select("*").order("updated_at", { ascending: false }).limit(500),
         db.from("favorites").select("*").order("created_at", { ascending: false }).limit(500),
         db.from("orders").select("*").order("created_at", { ascending: false }).limit(300),
         db.from("customer_events").select("*").order("created_at", { ascending: false }).limit(1000),
+        db.from("instagram_leads").select("*").order("updated_at", { ascending: false }).limit(500),
       ]);
       const firstError = [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult].find((result) => result.error)?.error;
       if (firstError) {
@@ -11261,6 +11263,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         carts: cartsResult.data || [],
         favorites: favoritesResult.data || [],
         orders: ordersResult.data || [],
+        instagramLeads: instagramLeadsResult.error ? localData.instagramLeads : [...(instagramLeadsResult.data || []), ...localData.instagramLeads],
         events: [...(eventsResult.data || []), ...localData.events].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)),
       };
       backofficeLoadedAt = formatDateTime(new Date().toISOString());
@@ -12198,7 +12201,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function renderInstagramDaily(allCustomerKeys, eventsRows) {
       const candidates = instagramDailyCandidates(allCustomerKeys);
-      const imported = instagramLeadBase();
+      const imported = (backofficeData?.instagramLeads?.length ? backofficeData.instagramLeads : instagramLeadBase()).map((item) => ({
+        id: item.id || item.external_id || item.handle,
+        handle: item.handle || item.instagram_handle || "",
+        name: item.name || item.full_name || "",
+        city: item.city || "",
+        source: item.source || item.origin || "",
+        follows: item.follows || (item.follows_profile === true ? "sim" : item.follows_profile === false ? "não" : ""),
+        note: item.note || item.context || "",
+        status: item.status || "Novo",
+        createdAt: item.created_at || item.createdAt || "",
+      }));
       const importedRows = imported
         .filter((item) => item.status !== "Arquivado")
         .slice(0, 10)
