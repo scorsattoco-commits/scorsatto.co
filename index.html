@@ -126,9 +126,10 @@
     .product-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
     .product-name { font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; line-height: 1.3; margin: 0; }
     .price { font-size: 13px; font-weight: 700; white-space: nowrap; }
-    .details { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .details { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.45; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+    .details > span { white-space: nowrap; }
     .brand-line { margin-top: 7px; color: #33332e; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .card-colors { display: flex; gap: 5px; margin-top: 8px; }
+    .card-colors { display: flex; gap: 5px; margin-top: 0; }
     .card-color-dot { width: 12px; height: 12px; border: 1px solid rgba(0,0,0,.2); border-radius: 50%; background: var(--swatch, #f5f5f1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.55); }
     .product-brand { margin-top: 6px; color: #252521; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .empty { display: none; padding: 56px 0; color: var(--muted); text-align: center; }
@@ -384,6 +385,11 @@
     .customer-insight-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
     .customer-insight-stats span { border-top: 1px solid var(--line); padding-top: 6px; display: grid; gap: 2px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
     .customer-insight-stats b { color: var(--black); font-size: 16px; line-height: 1; }
+    .hot-customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+    .hot-customer-card { border: 1px solid var(--black); border-radius: var(--radius-control); background: #fbfbf8; color: var(--black); padding: 12px; display: grid; gap: 8px; text-align: left; cursor: pointer; }
+    .hot-customer-card strong { font-size: 13px; line-height: 1.3; }
+    .hot-customer-card small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .hot-customer-card .score-pill { background: var(--black); color: var(--white); border-color: var(--black); }
     .customer-detail { border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--paper); padding: 14px; display: grid; gap: 14px; }
     .customer-detail-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
     .customer-detail-head h4 { margin: 0; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
@@ -8885,7 +8891,32 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
     const ADMIN_EMAILS = (window.SCORSATTO_ADMIN_EMAILS || []).map((email) => normalize(email));
     const cleanName = (name) => name.includes(" - ") ? name.split(" - ")[0] : name;
-    const colorFromName = (name) => name.includes(" - ") ? name.split(" - ").slice(1).join(" - ") : "Cor sob consulta";
+    function colorFromName(name = "") {
+      const raw = String(name || "");
+      const normalized = normalize(raw);
+      const knownColors = [
+        ["Azul Marinho", ["azul marinho"]],
+        ["Cinza Claro", ["cinza claro"]],
+        ["Cinza Escuro", ["cinza escuro", "grafite", "chumbo"]],
+        ["Off White", ["off white", "off-white"]],
+        ["Verde Oliva", ["verde oliva"]],
+        ["Branco", ["branco"]],
+        ["Preto", ["preto"]],
+        ["Azul", ["azul"]],
+        ["Bege", ["bege"]],
+        ["Cinza", ["cinza"]],
+        ["Marrom", ["marrom"]],
+        ["Verde", ["verde"]],
+        ["Caqui", ["caqui"]],
+        ["Gelo", ["gelo"]],
+        ["Vinho", ["vinho"]],
+        ["Areia", ["areia"]],
+        ["Creme", ["creme"]],
+      ];
+      const match = knownColors.find(([, terms]) => terms.some((term) => normalized.includes(normalize(term))));
+      if (match) return match[0];
+      return raw.includes(" - ") ? raw.split(" - ").slice(1).join(" - ").replace(/\s*-\s*\d+.*$/, "").trim() : "Cor sob consulta";
+    }
     const TITLE_FIXES = {
       "calca": "Calça",
       "camiseta": "Camiseta",
@@ -10207,8 +10238,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function productCardMeta(product) {
       const variants = productVariants(product);
-      if (variants.length <= 1) return `Cor: ${variantColorName(product)}<br>Tamanhos: ${variantSizes(product).join(", ") || "consultar"}`;
-      return `Cores: ${variantColors(product).join(", ")}<br>Tamanhos: ${variantSizes(product).join(", ") || "consultar"}`;
+      const sizes = variantSizes(product).join(", ") || "consultar";
+      const colors = variantColors(product);
+      if (variants.length <= 1) return `<span>${variantColorName(product)}</span><span>Tam. ${sizes}</span>`;
+      return `<span>${colors.length} cores</span><span>Tam. ${sizes}</span>`;
     }
 
     function termMatch(product, option) {
@@ -11989,6 +12022,37 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return renderBackofficeTable(["Cliente", "Score", "Próxima ação", "Motivo", "Última atividade", "WhatsApp"], rows, "Nenhum contato prioritário agora.");
     }
 
+    function hotCustomerReason(key) {
+      const reasons = [];
+      if (customerHasWhatsappIntent(key)) reasons.push("chamou no WhatsApp");
+      if (customerHasCart(key)) reasons.push(customerCartIsAbandoned(key) ? "carrinho parado" : "carrinho ativo");
+      if (customerHasSizeAlert(key)) reasons.push("pediu aviso");
+      const favs = (backofficeData?.favorites || []).filter((item) => customerMatch(item, key)).length;
+      if (favs) reasons.push(`${favs} favorito(s)`);
+      const views = customerProductViewCount(key);
+      if (views >= 2) reasons.push(`${views} produtos vistos`);
+      if (profileByCustomerKey(key)) reasons.push("tem cadastro");
+      return reasons.slice(0, 3).join(" · ") || customerNextAction(key).note;
+    }
+
+    function renderHotCustomers(keys) {
+      const items = keys
+        .map((key) => ({ key, score: customerSalesScore(key), action: customerNextAction(key), last: customerLastActivity(key) }))
+        .filter((item) => item.score >= 30 || item.action.urgency >= 4)
+        .sort((a, b) => b.action.urgency - a.action.urgency || b.score - a.score || new Date(b.last || 0) - new Date(a.last || 0))
+        .slice(0, 8);
+      if (!items.length) return "<p class='backoffice-note'>Nenhum cliente quente agora. Priorize gerar novos cadastros e favoritos.</p>";
+      return `<div class="hot-customer-grid">${items.map((item) => {
+        const info = customerDisplay(item.key);
+        return `<button class="hot-customer-card" type="button" data-backoffice-customer="${encodeURIComponent(item.key)}">
+          <span class="score-pill">Score ${item.score} · ${safeHtml(item.action.label)}</span>
+          <strong>${safeHtml(info.name)}</strong>
+          <small>${safeHtml(hotCustomerReason(item.key))}</small>
+          <small>Última atividade: ${formatDateTime(item.last)}</small>
+        </button>`;
+      }).join("")}</div>`;
+    }
+
     function latestCustomerProduct(key) {
       const cart = (backofficeData?.carts || []).filter((item) => customerMatch(item, key)).sort((a, b) => new Date(b.updated_at || b.created_at || 0) - new Date(a.updated_at || a.created_at || 0))[0];
       if (cart?.product_slug) return PRODUCTS.find((product) => product.slug === cart.product_slug) || null;
@@ -12304,6 +12368,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${today.todayLeads.length}</strong><span>Leads hoje</span></div>
           <div class="metric-card"><strong>${today.todayEvents.length}</strong><span>Eventos hoje</span></div>
         </div>
+        ${renderBackofficeSection("Clientes quentes agora", renderHotCustomers(allCustomerKeys), true)}
         ${renderBackofficeSection("Operação da vitrine", `<div class="backoffice-grid">
           <div class="metric-card"><strong>${catalog.ready}</strong><span>Pronta entrega</span></div>
           <div class="metric-card"><strong>${catalog.consultation}</strong><span>Sob consulta</span></div>
@@ -13051,14 +13116,6 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="detail-copy">
           <h2>${displayProductName(product)}</h2>
           <div class="price">${currency.format(product.price)}</div>
-          <div class="detail-info-grid">
-            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
-            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
-            <div class="detail-info-item"><span>Tamanhos</span><strong>${optionSizes.join(", ") || "sob consulta"}</strong></div>
-            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
-          </div>
-          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
-          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
           <div class="detail-choice-block">
             <p class="filter-group-title">Selecionar tamanho</p>
@@ -13069,6 +13126,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
           </div>
           <button class="secondary-btn" type="button" data-size-alert>Avise-me sobre tamanho ou cor</button>
+          <div class="detail-info-grid">
+            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
+            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
+            <div class="detail-info-item"><span>Tamanhos</span><strong>${optionSizes.join(", ") || "sob consulta"}</strong></div>
+            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          </div>
+          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
+          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para guardar favoritos, recuperar carrinho e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
         </div>
       `;
@@ -13123,7 +13188,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="product-info">
             <div class="product-top"><h3 class="product-name">${displayProductName(product)}</h3><div class="price">${currency.format(product.price)}</div></div>
             <div class="brand-line">${brandFromProduct(product)}</div>
-            <div class="details">${productCardMeta(product)}${productVariants(product).length > 1 ? `<div class="card-colors">${variantColors(product).map((color) => `<span class="card-color-dot" style="--swatch:${swatchColor(color)}"></span>`).join("")}</div>` : ""}</div>
+            <div class="details">${productCardMeta(product)}${productVariants(product).length > 1 ? `<div class="card-colors">${variantColors(product).map((color) => `<span class="card-color-dot" style="--swatch:${swatchColor(color)}" title="${safeHtml(color)}" aria-label="${safeHtml(color)}"></span>`).join("")}</div>` : ""}</div>
           </div>
         </article>
       `).join("");
