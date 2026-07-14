@@ -395,6 +395,14 @@
     .hot-customer-card strong { font-size: 13px; line-height: 1.3; }
     .hot-customer-card small { color: var(--muted); font-size: 11px; line-height: 1.4; }
     .hot-customer-card .score-pill { background: var(--black); color: var(--white); border-color: var(--black); }
+    .product-radar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+    .product-radar-card { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 10px; display: grid; grid-template-columns: 68px 1fr; gap: 11px; align-items: center; }
+    .product-radar-card img { width: 68px; height: 88px; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
+    .product-radar-copy { display: grid; gap: 6px; min-width: 0; }
+    .product-radar-copy strong { font-size: 12px; line-height: 1.3; }
+    .product-radar-copy small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .product-radar-metrics { display: flex; flex-wrap: wrap; gap: 5px; }
+    .product-radar-metrics span { border: 1px solid var(--line); border-radius: var(--radius-control); padding: 3px 6px; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
     .customer-detail { border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--paper); padding: 14px; display: grid; gap: 14px; }
     .customer-detail-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
     .customer-detail-head h4 { margin: 0; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
@@ -10412,10 +10420,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function productStyleLine(product) {
       const collection = product.collection || "";
-      if (collection === "calcas" || collection === "bermudas") return "Combine com camiseta lisa, polo ou camisa leve.";
-      if (collection === "jaquetas" || collection === "casacos" || collection === "sueteres") return "Use sobre base neutra para deixar o visual mais completo.";
-      if (collection === "camisa-social") return "Funciona com sarja, jeans escuro ou composição casual alinhada.";
-      return "Funciona bem com sarja, jeans e sobreposições discretas.";
+      if (collection === "calcas") return "Use com camiseta lisa, polo ou suéter leve. Para elevar, combine com camisa casual.";
+      if (collection === "bermudas") return "Use com camiseta lisa, polo ou camisa leve em cores neutras.";
+      if (collection === "jaquetas") return "Use como terceira peça sobre camiseta, polo ou malha fina.";
+      if (collection === "casacos" || collection === "sueteres") return "Use sobre camiseta lisa ou camisa casual, com jeans escuro ou sarja.";
+      if (collection === "camisa-social") return "Use com sarja, jeans escuro ou sobreposição leve para um visual alinhado.";
+      if (collection === "gola-polo") return "Use com sarja, jeans escuro ou bermuda de alfaiataria casual.";
+      if (collection === "manga-longa") return "Use sozinha com jeans/sarja ou por baixo de jaqueta e suéter.";
+      return "Use com sarja, jeans escuro ou sobreposição discreta.";
     }
 
     function productEditorialBlocks(product) {
@@ -12100,6 +12112,79 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       ].join("\n");
     }
 
+    function renderProductDemandRadar(eventsRows, ordersRows) {
+      const stats = new Map();
+      const ensure = (slug) => {
+        if (!slug) return null;
+        if (!stats.has(slug)) stats.set(slug, { slug, views: 0, favorites: 0, carts: 0, whatsapp: 0, orders: 0, score: 0, last: "" });
+        return stats.get(slug);
+      };
+      const bumpLast = (item, date) => {
+        if (!item || !date) return;
+        if (!item.last || new Date(date) > new Date(item.last)) item.last = date;
+      };
+
+      eventsRows.forEach((event) => {
+        const item = ensure(event.product_slug);
+        if (!item) return;
+        bumpLast(item, event.created_at);
+        if (event.event_type === "product_view") item.views += 1;
+        if (["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)) item.whatsapp += 1;
+      });
+      (backofficeData?.favorites || []).forEach((favorite) => {
+        const item = ensure(favorite.product_slug);
+        if (!item) return;
+        item.favorites += 1;
+        bumpLast(item, favorite.created_at);
+      });
+      (backofficeData?.carts || []).forEach((cartItem) => {
+        const item = ensure(cartItem.product_slug);
+        if (!item) return;
+        item.carts += Number(cartItem.quantity || 1);
+        bumpLast(item, cartItem.updated_at || cartItem.created_at);
+      });
+      ordersRows.forEach((order) => (order.items || []).forEach((orderItem) => {
+        const item = ensure(orderItem.slug || orderItem.product_slug);
+        if (!item) return;
+        item.orders += Number(orderItem.quantity || 1);
+        bumpLast(item, order.created_at);
+      }));
+
+      const items = [...stats.values()].map((item) => ({
+        ...item,
+        product: PRODUCTS.find((product) => product.slug === item.slug),
+        score: item.views * 2 + item.favorites * 7 + item.carts * 11 + item.whatsapp * 18 + item.orders * 24,
+      })).filter((item) => item.product && item.score > 0)
+        .sort((a, b) => b.score - a.score || new Date(b.last || 0) - new Date(a.last || 0))
+        .slice(0, 8);
+
+      if (!items.length) return "<p class='backoffice-note'>Ainda não há sinais suficientes por produto. Quando tiver acessos, favoritos ou carrinhos, o ranking aparece aqui.</p>";
+      return `<div class="product-radar-grid">${items.map((item) => {
+        const action = item.whatsapp || item.carts
+          ? "Chamar clientes interessados"
+          : item.views >= 4 && !item.orders
+            ? "Revisar foto, preço ou CTA"
+            : item.favorites
+              ? "Usar em oferta/seleção"
+              : "Acompanhar interesse";
+        return `<div class="product-radar-card">
+          <img src="${safeHtml(productImage(item.product))}" alt="${safeHtml(displayProductName(item.product))}">
+          <div class="product-radar-copy">
+            <span class="score-pill">Score ${item.score}</span>
+            <strong>${safeHtml(displayProductName(item.product))}</strong>
+            <small>${safeHtml(brandFromProduct(item.product))} · ${safeHtml(variantColorName(item.product))}</small>
+            <div class="product-radar-metrics">
+              <span>${item.views} vistos</span>
+              <span>${item.favorites} fav.</span>
+              <span>${item.carts} carrinho</span>
+              <span>${item.whatsapp} WhatsApp</span>
+            </div>
+            <small>${safeHtml(action)} · Último sinal: ${formatDateTime(item.last)}</small>
+          </div>
+        </div>`;
+      }).join("")}</div>`;
+    }
+
     function renderCommercialReports(eventsRows, ordersRows) {
       const orderSlugs = new Set(ordersRows.flatMap((order) => (order.items || []).map((item) => item.slug).filter(Boolean)));
       const productViews = Object.entries(eventsRows.filter((event) => event.event_type === "product_view" && event.product_slug).reduce((acc, event) => {
@@ -12383,6 +12468,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${today.todayEvents.length}</strong><span>Eventos hoje</span></div>
         </div>
         ${renderBackofficeSection("Clientes quentes agora", renderHotCustomers(allCustomerKeys), true)}
+        ${renderBackofficeSection("Radar de produtos", renderProductDemandRadar(eventsRows, ordersRows), true)}
         ${renderBackofficeSection("Operação da vitrine", `<div class="backoffice-grid">
           <div class="metric-card"><strong>${catalog.ready}</strong><span>Pronta entrega</span></div>
           <div class="metric-card"><strong>${catalog.consultation}</strong><span>Sob consulta</span></div>
