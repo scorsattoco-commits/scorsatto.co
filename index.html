@@ -152,6 +152,9 @@
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 4px 0 10px; }
     .detail-copy > .price { margin-bottom: 18px; font-size: 16px; }
+    .detail-purchase-head { display: grid; gap: 8px; margin-bottom: 14px; }
+    .detail-summary-line { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .detail-summary-line strong { color: #252521; font-weight: 600; }
     .detail-info-list { margin: 18px 0 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .detail-info-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: start; }
     .detail-info-row:last-child { border-bottom: 0; }
@@ -487,9 +490,14 @@
       .detail-editorial { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
-      .detail-gallery { position: sticky; top: 94px; z-index: 4; background: rgba(255,255,255,.96); padding: 0 0 10px; border-bottom: 1px solid var(--line); box-shadow: 0 10px 24px rgba(0,0,0,.05); }
-      .detail-main { max-height: 42svh; min-height: 300px; padding: 10px; border-color: transparent; }
-      .detail-gallery .thumb-row { display: none; }
+      .detail-gallery { background: var(--white); padding: 0; }
+      .detail-main { max-height: 54svh; min-height: 340px; padding: 10px; }
+      .detail-copy { max-width: none; }
+      .detail-purchase-head { text-align: center; border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 2px; }
+      .detail-copy h2 { font-size: clamp(32px, 11vw, 48px); line-height: .95; margin-bottom: 6px; }
+      .detail-copy > .price { display: none; }
+      .detail-summary-line { display: inline-flex; justify-content: center; gap: 7px; flex-wrap: wrap; }
+      .detail-info-list { margin-top: 14px; }
       .gallery-arrow { width: 36px; height: 36px; font-size: 21px; }
       .gallery-arrow.prev { left: 8px; }
       .gallery-arrow.next { right: 8px; }
@@ -13121,15 +13129,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="thumb-row">${images.map((image, imageIndex) => `<button class="thumb${imageIndex === 0 ? " active" : ""}" type="button" data-image="${image}" data-image-index="${imageIndex}"><img src="${image}" alt="${displayProductName(product)}"></button>`).join("")}</div>
         </div>
         <div class="detail-copy">
-          <h2>${displayProductName(product)}</h2>
-          <div class="price">${currency.format(product.price)}</div>
-          <div class="detail-info-list">
-            <div class="detail-info-row"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
-            <div class="detail-info-row"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
-            <div class="detail-info-row"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          <div class="detail-purchase-head">
+            <h2>${displayProductName(product)}</h2>
+            <div class="price">${currency.format(product.price)}</div>
+            <div class="detail-summary-line"><strong>${brandFromProduct(product)}</strong><span>${variantColorName(product)}</span></div>
           </div>
-          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
-          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
           <div class="detail-choice-block">
             <p class="filter-group-title">Selecionar tamanho</p>
@@ -13140,6 +13144,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
           </div>
           <button class="secondary-btn" type="button" data-size-alert>Avise-me sobre tamanho ou cor</button>
+          <div class="detail-info-list">
+            <div class="detail-info-row"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
+            <div class="detail-info-row"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
+            <div class="detail-info-row"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          </div>
+          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
+          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para guardar favoritos, recuperar carrinho e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
         </div>
       `;
