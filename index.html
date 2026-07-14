@@ -11842,6 +11842,91 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       ].join("");
     }
 
+    function renderGoalCards(items) {
+      return `<div class="priority-grid">${items.map((item) => {
+        const percent = item.target ? Math.min(100, Math.round((item.value / item.target) * 100)) : 0;
+        const status = percent >= 100 ? "Meta batida" : percent >= 70 ? "Perto da meta" : "Atenção";
+        return `<div class="priority-card">
+          <strong>${safeHtml(item.value)} / ${safeHtml(item.target)}</strong>
+          <span>${safeHtml(item.label)}</span>
+          <small>${percent}% · ${safeHtml(status)}. ${safeHtml(item.action)}</small>
+        </div>`;
+      }).join("")}</div>`;
+    }
+
+    function renderDailyGoals(today, activeCarts, ordersRows) {
+      const whatsappToday = today.todayEvents.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)).length;
+      const signupsToday = today.todayProfiles.length + today.todaySignupEvents.length + today.todayLeads.length;
+      const productViewsToday = today.todayEvents.filter((event) => event.event_type === "product_view").length;
+      const ordersToday = ordersRows.filter((order) => isTodayDate(order.created_at)).length;
+      const goals = [
+        { label: "Pessoas no site", value: today.todayVisitors.length, target: 40, action: "Se estiver baixo, postar pronta entrega e link direto nos stories." },
+        { label: "Produtos vistos", value: productViewsToday, target: 90, action: "Se estiver baixo, destacar mais vistos e últimas unidades." },
+        { label: "Leads/cadastros", value: signupsToday, target: 5, action: "Se estiver baixo, puxar cadastro por aviso de tamanho ou curadoria." },
+        { label: "WhatsApp", value: whatsappToday, target: 8, action: "Se estiver baixo, revisar CTA e mandar seleção para clientes quentes." },
+        { label: "Pedidos", value: ordersToday, target: 2, action: "Se estiver baixo, priorizar carrinhos e contatos com score alto." },
+        { label: "Carrinhos ativos", value: activeCarts.length, target: 5, action: "Se estiver baixo, revisar preço, foto e chamada dos produtos mais vistos." },
+      ];
+      return renderGoalCards(goals);
+    }
+
+    function topProductStats(eventsRows, ordersRows, days = 7) {
+      const rows = periodEvents(eventsRows, days);
+      const stats = {};
+      rows.forEach((event) => {
+        if (!event.product_slug) return;
+        if (!stats[event.product_slug]) stats[event.product_slug] = { slug: event.product_slug, views: 0, whatsapp: 0, leads: 0, orders: 0 };
+        if (event.event_type === "product_view") stats[event.product_slug].views += 1;
+        if (["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)) stats[event.product_slug].whatsapp += 1;
+        if (["newsletter_signup", "account_signup"].includes(event.event_type)) stats[event.product_slug].leads += 1;
+      });
+      ordersRows.filter((order) => order.created_at && new Date(order.created_at) >= periodStart(days)).forEach((order) => (order.items || []).forEach((item) => {
+        const slug = item.slug || item.product_slug;
+        if (!slug) return;
+        if (!stats[slug]) stats[slug] = { slug, views: 0, whatsapp: 0, leads: 0, orders: 0 };
+        stats[slug].orders += Number(item.quantity || 1);
+      }));
+      return Object.values(stats).map((item) => ({ ...item, score: item.views * 2 + item.whatsapp * 14 + item.leads * 10 + item.orders * 24 }))
+        .sort((a, b) => b.score - a.score);
+    }
+
+    function renderWeeklyExecutiveReport(eventsRows, ordersRows, activeCarts, allCustomerKeys) {
+      const weekEvents = periodEvents(eventsRows, 7);
+      const visitors = uniqueEventKeys(weekEvents).length;
+      const pageViews = weekEvents.filter((event) => event.event_type === "page_view").length;
+      const productViews = weekEvents.filter((event) => event.event_type === "product_view").length;
+      const whatsapp = weekEvents.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)).length;
+      const leads = weekEvents.filter((event) => ["newsletter_signup", "account_signup"].includes(event.event_type)).length;
+      const weekOrders = ordersRows.filter((order) => order.created_at && new Date(order.created_at) >= periodStart(7));
+      const conversion = visitors ? Math.round((whatsapp / visitors) * 100) + "%" : "0%";
+      const productStats = topProductStats(eventsRows, ordersRows, 7);
+      const topProduct = productStats[0];
+      const frictionProduct = productStats.find((item) => item.views >= 4 && !item.whatsapp && !item.orders);
+      const dayRows = accessSummaryRows(weekEvents, "dia", 7).map((row) => {
+        const cells = [...row.matchAll(/<td>(.*?)<\/td>/g)].map((match) => match[1]);
+        return { label: cells[0] || "-", visitors: Number(cells[1] || 0), pageViews: Number(cells[2] || 0), whatsapp: Number(cells[4] || 0) };
+      }).sort((a, b) => b.visitors - a.visitors || b.whatsapp - a.whatsapp);
+      const bestDay = dayRows[0];
+      const hotCustomers = allCustomerKeys.filter((key) => customerSalesScore(key) >= 30 || customerNextAction(key).urgency >= 4).length;
+      const reportRows = [
+        ["Pessoas na semana", visitors, `${pageViews} acessos totais.`],
+        ["Conversão para WhatsApp", conversion, `${whatsapp} pessoa(s) foram ao WhatsApp.`],
+        ["Leads/cadastros", leads, "Contatos identificáveis para abordagem."],
+        ["Pedidos", weekOrders.length, "Pedidos registrados via WhatsApp."],
+        ["Produto mais forte", topProduct ? productLabel(topProduct.slug) : "-", topProduct ? `${topProduct.views} vistos · ${topProduct.whatsapp} WhatsApp · ${topProduct.orders} pedido(s).` : "Sem sinal suficiente."],
+        ["Produto para revisar", frictionProduct ? productLabel(frictionProduct.slug) : "-", frictionProduct ? `${frictionProduct.views} vistos e sem avanço. Revisar foto, preço ou CTA.` : "Nenhum gargalo claro nesta semana."],
+        ["Melhor dia", bestDay?.label || "-", bestDay ? `${bestDay.visitors} pessoa(s) · ${bestDay.whatsapp} WhatsApp.` : "Sem dado suficiente."],
+        ["Clientes para chamar", hotCustomers, "Abrir aba Clientes e priorizar score alto/carrinho."],
+      ].map(([label, value, note]) => `<tr><td>${safeHtml(label)}</td><td>${safeHtml(value)}</td><td>${safeHtml(note)}</td></tr>`);
+      const nextActions = [
+        hotCustomers ? "Chamar clientes quentes e carrinhos antes de postar novas peças." : "Gerar novos leads com chamada de curadoria e pronta entrega.",
+        frictionProduct ? `Revisar ${productLabel(frictionProduct.slug)}: foto, enquadramento, preço ou botão.` : "Manter foco nos produtos com melhor sinal da semana.",
+        whatsapp < 5 ? "Aumentar CTAs para WhatsApp nas peças mais vistas." : "Transformar conversas de WhatsApp em pedido com resposta rápida.",
+      ];
+      return `${renderBackofficeTable(["Indicador", "Resultado", "Leitura"], reportRows, "Sem dados suficientes para relatório semanal.")}
+        <div class="priority-grid">${nextActions.map((action, index) => `<div class="priority-card"><strong>${index + 1}</strong><span>Próxima ação</span><small>${safeHtml(action)}</small></div>`).join("")}</div>`;
+    }
+
     function customerEvents(key) {
       return (backofficeData?.events || []).filter((event) => customerMatch(event, key));
     }
@@ -12434,6 +12519,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="metric-card"><strong>${today.todayLeads.length}</strong><span>Leads hoje</span></div>
           <div class="metric-card"><strong>${today.todayEvents.length}</strong><span>Eventos hoje</span></div>
         </div>
+        ${renderBackofficeSection("Metas de hoje", renderDailyGoals(today, activeCarts, ordersRows), true)}
+        ${renderBackofficeSection("Relatório semanal automático", renderWeeklyExecutiveReport(eventsRows, ordersRows, activeCarts, allCustomerKeys), true)}
         ${renderBackofficeSection("Clientes quentes agora", renderHotCustomers(allCustomerKeys), true)}
         ${renderBackofficeSection("Fila de ação", renderPriorityCards(today, activeCarts, abandoned, eventsRows, ordersRows), true)}
         ${renderBackofficeSection("Funil de hoje", renderTodayFunnel(today, activeCarts), true)}
