@@ -490,8 +490,12 @@
       .detail-editorial { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
-      .detail-gallery { background: var(--white); padding: 0; }
-      .detail-main { max-height: 54svh; min-height: 340px; padding: 10px; }
+      .detail-gallery { background: var(--white); padding: 0; justify-items: center; }
+      .detail-main { width: min(82vw, 340px); max-height: 54svh; min-height: 340px; padding: 10px; margin: 0 auto; }
+      .detail-gallery .thumb-row { width: min(82vw, 340px); justify-content: center; margin: 0 auto; }
+      .detail-gallery .thumb { width: 62px; height: 78px; }
+      .detail-gallery .gallery-arrow.prev { left: -14px; }
+      .detail-gallery .gallery-arrow.next { right: -14px; }
       .detail-copy { max-width: none; }
       .detail-purchase-head { text-align: center; border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 2px; }
       .detail-copy h2 { font-size: clamp(32px, 11vw, 48px); line-height: .95; margin-bottom: 6px; }
