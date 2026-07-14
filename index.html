@@ -11757,6 +11757,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         ["Hoje", periodEvents(eventsRows, 1)],
         ["7 dias", periodEvents(eventsRows, 7)],
         ["30 dias", periodEvents(eventsRows, 30)],
+        ["Ano", eventsRows.filter((event) => {
+          const date = new Date(event.created_at || 0);
+          return !Number.isNaN(date.getTime()) && date.getFullYear() === new Date().getFullYear();
+        })],
         ["Total", eventsRows],
       ];
       return `<div class="backoffice-grid">${periods.map(([label, rows]) => {
@@ -11764,13 +11768,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         const visitors = uniqueEventKeys(rows).length;
         const productViews = rows.filter((event) => event.event_type === "product_view").length;
         const whatsapp = rows.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type)).length;
-        return `<div class="metric-card"><strong>${visitors}</strong><span>${safeHtml(label)} · pessoas</span><small class="muted">${pageViews} acessos · ${productViews} produtos · ${whatsapp} WhatsApp</small></div>`;
+        const leads = rows.filter((event) => ["newsletter_signup", "account_signup"].includes(event.event_type)).length;
+        return `<div class="metric-card"><strong>${visitors}</strong><span>${safeHtml(label)} · pessoas</span><small class="muted">${pageViews} acessos · ${productViews} produtos · ${whatsapp} WhatsApp · ${leads} leads</small></div>`;
       }).join("")}</div>`;
     }
 
     function accessBucketLabel(date, mode) {
       const value = new Date(date);
       if (Number.isNaN(value.getTime())) return "Sem data";
+      if (mode === "ano") return String(value.getFullYear());
       if (mode === "mes") return `${String(value.getMonth() + 1).padStart(2, "0")}/${value.getFullYear()}`;
       if (mode === "semana") {
         const start = new Date(value);
@@ -11803,12 +11809,34 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         });
     }
 
+    function renderAccessConversion(eventsRows) {
+      const rows = [
+        ["Hoje", periodEvents(eventsRows, 1)],
+        ["7 dias", periodEvents(eventsRows, 7)],
+        ["30 dias", periodEvents(eventsRows, 30)],
+        ["Ano", eventsRows.filter((event) => {
+          const date = new Date(event.created_at || 0);
+          return !Number.isNaN(date.getTime()) && date.getFullYear() === new Date().getFullYear();
+        })],
+      ].map(([label, rows]) => {
+        const visitors = uniqueEventKeys(rows).length;
+        const productViewers = uniqueEventKeys(rows.filter((event) => event.event_type === "product_view")).length;
+        const whatsapp = uniqueEventKeys(rows.filter((event) => ["whatsapp_checkout", "whatsapp_product", "whatsapp_contact"].includes(event.event_type))).length;
+        const leads = uniqueEventKeys(rows.filter((event) => ["newsletter_signup", "account_signup"].includes(event.event_type))).length;
+        const rate = (value) => visitors ? Math.round((value / visitors) * 100) + "%" : "0%";
+        return `<tr><td>${safeHtml(label)}</td><td>${visitors}</td><td>${rate(productViewers)}</td><td>${rate(whatsapp)}</td><td>${rate(leads)}</td></tr>`;
+      });
+      return renderBackofficeTable(["Período", "Pessoas", "Viram produto", "Foram ao WhatsApp", "Viraram lead"], rows, "Nenhum acesso registrado.");
+    }
+
     function renderAccessAnalytics(eventsRows, profiles, todayRows, eventRows) {
       return [
         accessMetricCards(eventsRows, profiles),
+        renderBackofficeSection("Conversão por período", renderAccessConversion(eventsRows), true),
         renderBackofficeSection("Resumo por dia", renderBackofficeTable(["Dia", "Pessoas únicas", "Acessos", "Produtos vistos", "WhatsApp", "Cadastros/leads"], accessSummaryRows(eventsRows, "dia", 21), "Nenhum acesso registrado."), true),
         renderBackofficeSection("Resumo por semana", renderBackofficeTable(["Semana", "Pessoas únicas", "Acessos", "Produtos vistos", "WhatsApp", "Cadastros/leads"], accessSummaryRows(eventsRows, "semana", 12), "Nenhum acesso registrado."), false),
         renderBackofficeSection("Resumo por mês", renderBackofficeTable(["Mês", "Pessoas únicas", "Acessos", "Produtos vistos", "WhatsApp", "Cadastros/leads"], accessSummaryRows(eventsRows, "mes", 12), "Nenhum acesso registrado."), false),
+        renderBackofficeSection("Resumo por ano", renderBackofficeTable(["Ano", "Pessoas únicas", "Acessos", "Produtos vistos", "WhatsApp", "Cadastros/leads"], accessSummaryRows(eventsRows, "ano", 8), "Nenhum acesso registrado."), false),
         renderBackofficeSection("Quem acessou hoje", renderBackofficeTable(["Visitante / cliente", "Cadastro", "Acessos", "Produtos vistos", "Última página", "Primeiro acesso", "Último acesso"], todayRows, "Nenhum acesso registrado hoje ainda."), true),
         renderBackofficeSection("Acessos e eventos recentes", renderBackofficeTable(["Data", "Cliente", "Evento", "Produto"], eventRows, "Nenhum evento registrado ainda."), false),
       ].join("");
