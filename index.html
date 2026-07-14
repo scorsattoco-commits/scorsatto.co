@@ -152,10 +152,11 @@
     .detail-copy .availability-badge { position: static; margin-bottom: 12px; }
     .detail-copy h2 { margin: 4px 0 10px; }
     .detail-copy > .price { margin-bottom: 18px; font-size: 16px; }
-    .detail-info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
-    .detail-info-item { border: 1px solid var(--line); background: #fbfbf8; padding: 11px 12px; display: grid; gap: 5px; min-height: 62px; }
-    .detail-info-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .detail-info-item strong { color: #242421; font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .detail-info-list { margin: 18px 0 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .detail-info-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: start; }
+    .detail-info-row:last-child { border-bottom: 0; }
+    .detail-info-row span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .detail-info-row strong { color: #242421; font-size: 13px; font-weight: 500; line-height: 1.45; }
     .detail-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
     .detail-editorial { display: grid; gap: 0; margin: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .detail-editorial-item { padding: 13px 0; display: grid; gap: 5px; border-bottom: 1px solid var(--line); }
@@ -483,7 +484,6 @@
       .shop-controls { justify-content: space-between; }
       .sort-select { flex: 1 1 160px; min-width: 0; }
       .detail-editorial { grid-template-columns: 1fr; }
-      .detail-info-grid { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
       .detail-gallery { position: sticky; top: 92px; z-index: 4; background: var(--white); padding-bottom: 8px; }
@@ -13116,10 +13116,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="detail-copy">
           <h2>${displayProductName(product)}</h2>
           <div class="price">${currency.format(product.price)}</div>
-          <div class="detail-info-grid">
-            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
-            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
-            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          <div class="detail-info-list">
+            <div class="detail-info-row"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
+            <div class="detail-info-row"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
+            <div class="detail-info-row"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
           </div>
           <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
           <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
