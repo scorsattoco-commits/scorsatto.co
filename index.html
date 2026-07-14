@@ -13116,6 +13116,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="detail-copy">
           <h2>${displayProductName(product)}</h2>
           <div class="price">${currency.format(product.price)}</div>
+          <div class="detail-info-grid">
+            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
+            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
+            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
+          </div>
+          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
+          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
           <div class="detail-choice-block">
             <p class="filter-group-title">Selecionar tamanho</p>
@@ -13126,14 +13133,6 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <button class="favorite-btn${favoriteProduct(product.slug) ? " active" : ""}" type="button" data-toggle-favorite="${product.slug}">${favoriteProduct(product.slug) ? "&#9829;" : "&#9825;"}</button>
           </div>
           <button class="secondary-btn" type="button" data-size-alert>Avise-me sobre tamanho ou cor</button>
-          <div class="detail-info-grid">
-            <div class="detail-info-item"><span>Marca</span><strong>${brandFromProduct(product)}</strong></div>
-            <div class="detail-info-item"><span>Cor</span><strong>${variantColorName(product)}</strong></div>
-            <div class="detail-info-item"><span>Tamanhos</span><strong>${optionSizes.join(", ") || "sob consulta"}</strong></div>
-            <div class="detail-info-item"><span>Medidas</span><strong>Confirmadas no atendimento</strong></div>
-          </div>
-          <p class="reference-line">Ref.: ${variantOptionReferences(product).join(" / ") || "sob consulta"}</p>
-          <div class="detail-editorial">${editorialBlocks.map(([label, value]) => `<div class="detail-editorial-item"><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para guardar favoritos, recuperar carrinho e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
         </div>
       `;
