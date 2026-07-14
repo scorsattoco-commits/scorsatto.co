@@ -236,6 +236,7 @@
     .curation-kit-role { color: var(--black); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .curation-kit-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
     .account-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fbfbf8; padding: 22px 16px; }
+    body.is-account-logged .account-strip { display: none; }
     .account-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; gap: 18px; align-items: center; }
     .account-strip-copy { display: grid; gap: 8px; }
     .account-strip-copy .eyebrow { margin: 0; }
@@ -486,8 +487,9 @@
       .detail-editorial { grid-template-columns: 1fr; }
       .product-detail { padding-top: 28px; }
       .detail-layout { gap: 16px; }
-      .detail-gallery { position: sticky; top: 92px; z-index: 4; background: var(--white); padding-bottom: 8px; }
-      .detail-main { max-height: 46svh; padding: 10px; }
+      .detail-gallery { position: sticky; top: 94px; z-index: 4; background: rgba(255,255,255,.96); padding: 0 0 10px; border-bottom: 1px solid var(--line); box-shadow: 0 10px 24px rgba(0,0,0,.05); }
+      .detail-main { max-height: 42svh; min-height: 300px; padding: 10px; border-color: transparent; }
+      .detail-gallery .thumb-row { display: none; }
       .gallery-arrow { width: 36px; height: 36px; font-size: 21px; }
       .gallery-arrow.prev { left: 8px; }
       .gallery-arrow.next { right: 8px; }
@@ -12470,7 +12472,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       } else {
         localStorage.removeItem(accountStorageKey);
       }
+      updateAccountVisibility();
       renderAccount();
+    }
+
+    function updateAccountVisibility() {
+      document.body.classList.toggle("is-account-logged", Boolean(account));
     }
 
     function setAccountMessage(message) {
@@ -13884,6 +13891,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     renderFilters();
     applyProductOverrides();
     applyApprovedGroups(PRODUCT_GROUPS);
+    updateAccountVisibility();
     renderProducts();
     handleHashChange();
     forceGroupsRouteRender();
