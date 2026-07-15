@@ -11,6 +11,7 @@ from supplier_common import ROOT, today_slug
 
 GRAPH_VERSION = os.getenv("META_GRAPH_VERSION", "v21.0")
 GRAPH_BASE = f"https://graph.facebook.com/{GRAPH_VERSION}"
+IG_GRAPH_BASE = f"https://graph.instagram.com/{GRAPH_VERSION}"
 REPORT_DIR = ROOT / "data" / "automacoes" / "instagram"
 
 
@@ -26,9 +27,14 @@ def env(name, fallback=""):
     return clean(os.getenv(name) or fallback)
 
 
-def graph_get(path, token, params=None):
+def is_instagram_login_token(token):
+    return clean(token).startswith("IG")
+
+
+def graph_get(path, token, params=None, instagram_login=False):
     query = {"access_token": token, **(params or {})}
-    url = f"{GRAPH_BASE}/{path.lstrip('/')}?{urlencode(query)}"
+    base = IG_GRAPH_BASE if instagram_login else GRAPH_BASE
+    url = f"{base}/{path.lstrip('/')}?{urlencode(query)}"
     req = Request(url, headers={"User-Agent": "SCORSATTO Instagram Sync"})
     with urlopen(req, timeout=35) as response:
         return json.loads(response.read().decode("utf-8"))
@@ -119,10 +125,13 @@ def lead_from_conversation(conversation):
 def fetch_comment_leads(token, ig_user_id):
     if not ig_user_id:
         return [], ["META_INSTAGRAM_BUSINESS_ID nao configurado; comentarios nao sincronizados."]
+    instagram_login = is_instagram_login_token(token)
+    media_path = "me/media" if instagram_login else f"{ig_user_id}/media"
     media_payload = graph_get(
-        f"{ig_user_id}/media",
+        media_path,
         token,
         {"fields": "id,caption,comments_count,like_count,timestamp,permalink", "limit": "12"},
+        instagram_login=instagram_login,
     )
     leads = []
     warnings = []
@@ -134,6 +143,7 @@ def fetch_comment_leads(token, ig_user_id):
                 f"{media['id']}/comments",
                 token,
                 {"fields": "id,text,username,timestamp,like_count", "limit": "50"},
+                instagram_login=instagram_login,
             )
             leads.extend(lead_from_comment(media, comment) for comment in comments.get("data", []))
         except Exception as exc:
@@ -142,6 +152,8 @@ def fetch_comment_leads(token, ig_user_id):
 
 
 def fetch_conversation_leads(token, page_id):
+    if is_instagram_login_token(token):
+        return [], ["Token Instagram Login ativo; DMs exigem configuracao de webhooks/Messenger API, nao foram sincronizadas por este token."]
     if not page_id:
         return [], ["META_PAGE_ID nao configurado; conversas Instagram nao sincronizadas."]
     payload = graph_get(
@@ -189,7 +201,7 @@ def main():
             "requiredEnv": ["META_ACCESS_TOKEN", "META_INSTAGRAM_BUSINESS_ID", "META_PAGE_ID", "SCORSATTO_SUPABASE_SERVICE_ROLE_KEY"],
         }
         path = write_report(payload)
-        print(json.dumps({"report": str(path), **payload}, ensure_ascii=False, indent=2))
+        print(json.dumps({"report": str(path), **payload}, ensure_ascii=True, indent=2))
         return 0
 
     leads = []
@@ -215,7 +227,7 @@ def main():
         "sample": leads[:10],
     }
     path = write_report(payload)
-    print(json.dumps({"report": str(path), **payload}, ensure_ascii=False, indent=2))
+    print(json.dumps({"report": str(path), **payload}, ensure_ascii=True, indent=2))
     return 0
 
 

@@ -153,7 +153,16 @@ def main():
         checks.append({"name": "Relatorio diario Instagram", "ok": False, "detail": "Nenhum instagram-sync-AAAA-MM-DD.json encontrado."})
 
     all_ok = all(item["ok"] for item in checks[:6])
-    next_step = "Tudo pronto: a rotina diaria deve alimentar a aba Instagram com leads reais." if all_ok else "Configure as variaveis pendentes e rode scripts/run_daily_automation.ps1. Sem token oficial da Meta, nao ha como gerar nomes/@ reais automaticamente."
+    has_token_and_ig = bool(meta_token and meta_ig)
+    sync_found = int((sync or {}).get("found") or 0)
+    if all_ok:
+        next_step = "Tudo pronto: a rotina diaria deve alimentar a aba Instagram com leads reais."
+    elif has_token_and_ig and sync_found:
+        next_step = "Instagram conectado e leads reais encontrados. Falta configurar SCORSATTO_SUPABASE_SERVICE_ROLE_KEY para gravar automaticamente no backoffice."
+    elif has_token_and_ig:
+        next_step = "Instagram conectado. Rode scripts/run_daily_automation.ps1 para buscar comentarios recentes; configure SCORSATTO_SUPABASE_SERVICE_ROLE_KEY para gravar no backoffice."
+    else:
+        next_step = "Configure META_ACCESS_TOKEN e META_INSTAGRAM_BUSINESS_ID para gerar nomes/@ reais automaticamente."
     payload = {
         "generatedAt": now_iso(),
         "ok": all_ok,
