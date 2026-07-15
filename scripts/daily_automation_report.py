@@ -1,6 +1,5 @@
 import json
 import re
-from pathlib import Path
 
 from supplier_common import ROOT, now_iso, parse_products_from_index, today_slug
 
@@ -82,7 +81,7 @@ def photo_queue(products):
         elif any(token in text for token in ["fornecedor", "whatsapp", "print", "screenshot"]):
             reason = "foto de fornecedor/print"
         elif not any(token in text for token in ["generated/", "estoque-scorsatto/"]):
-            reason = "origem de foto fora do padrão"
+            reason = "origem de foto fora do padrao"
         elif len(images) < 2:
             reason = "sem segunda foto/detalhe"
         if reason:
@@ -106,7 +105,43 @@ def supplier_scan_queue(products):
     return {
         "brands": brands,
         "categories": categories,
-        "rule": "varrer fornecedor por marca/categoria, agrupar por modelo e gerar preview para aprovação",
+        "rule": "varrer fornecedor por marca/categoria, agrupar por modelo e gerar preview para aprovacao",
+    }
+
+
+def latest_json(folder, pattern):
+    paths = sorted(folder.glob(pattern), key=lambda item: item.stat().st_mtime, reverse=True)
+    if not paths:
+        return None
+    try:
+        payload = json.loads(paths[0].read_text(encoding="utf-8"))
+        payload["_path"] = str(paths[0])
+        return payload
+    except Exception:
+        return {"ok": False, "_path": str(paths[0]), "warnings": ["Arquivo encontrado, mas nao foi possivel ler o JSON."]}
+
+
+def instagram_status():
+    folder = REPORT_DIR / "instagram"
+    sync = latest_json(folder, "instagram-sync-*.json")
+    check = latest_json(folder, "instagram-backoffice-check-*.json")
+    warnings = []
+    for payload in [sync, check]:
+        if not payload:
+            continue
+        warnings.extend(payload.get("warnings", []))
+        for item in payload.get("checks", []):
+            if not item.get("ok"):
+                warnings.append(f"{item.get('name')}: {item.get('detail')}")
+    return {
+        "sync": sync,
+        "check": check,
+        "ok": bool(check and check.get("ok")),
+        "found": int((sync or {}).get("found") or 0),
+        "imported": int((sync or {}).get("imported") or 0),
+        "sampleLeads": (check or {}).get("sampleLeads", []),
+        "warnings": warnings[:8],
+        "nextStep": (check or {}).get("nextStep") or "Configurar Meta/Supabase para puxar leads reais.",
     }
 
 
@@ -116,7 +151,7 @@ def html_table(headers, rows):
     head = "".join(f"<th>{label}</th>" for label in headers.values())
     body = []
     for row in rows:
-        body.append("<tr>" + "".join(f"<td>{clean(row.get(key, ''))}</td>" for key, _ in headers.items()) + "</tr>")
+        body.append("<tr>" + "".join(f"<td>{clean(row.get(key, ''))}</td>" for key in headers.keys()) + "</tr>")
     return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(body)}</tbody></table>"
 
 
@@ -125,12 +160,23 @@ def write_preview(payload):
     path = PREVIEW_DIR / f"painel-automatico-{today_slug()}.html"
     stock = payload["stockSizeQueue"]
     photos = payload["photoQueue"]
+    instagram = payload["instagram"]
+    instagram_rows = [
+        {
+            "name": lead.get("name") or "-",
+            "handle": lead.get("handle") or "-",
+            "source": lead.get("source") or "-",
+            "score": lead.get("score") or 0,
+        }
+        for lead in instagram.get("sampleLeads", [])
+    ]
+    warning_rows = [{"warning": item} for item in instagram.get("warnings", [])]
     html = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Painel automático SCORSATTO - {today_slug()}</title>
+  <title>Painel automatico SCORSATTO - {today_slug()}</title>
   <style>
     body {{ font-family: Arial, sans-serif; margin: 32px; color: #111; background: #f7f6f2; }}
     h1 {{ font-family: Georgia, serif; font-weight: 400; font-size: 48px; margin: 0 0 8px; }}
@@ -144,23 +190,32 @@ def write_preview(payload):
   </style>
 </head>
 <body>
-  <h1>Painel automático</h1>
+  <h1>Painel automatico</h1>
   <p>Gerado em {payload["generatedAt"]}. Nada foi publicado no site.</p>
   <div class="cards">
-    <div class="card"><strong>{payload["totalProducts"]}</strong><span>peças no catálogo</span></div>
+    <div class="card"><strong>{payload["totalProducts"]}</strong><span>pecas no catalogo</span></div>
     <div class="card"><strong>{len(stock)}</strong><span>estoque/tamanhos para conferir</span></div>
     <div class="card"><strong>{len(photos)}</strong><span>fotos para preview</span></div>
+    <div class="card"><strong>{instagram["imported"]}</strong><span>leads Instagram importados</span></div>
   </div>
   <section>
-    <h2>Rotina diária de tamanhos</h2>
-    {html_table({"name": "Produto", "brand": "Marca", "sizes": "Tamanhos", "status": "Status", "reason": "Ação"}, stock)}
+    <h2>Backoffice / Instagram real</h2>
+    <p>Status: <strong>{'OK' if instagram["ok"] else 'PENDENTE'}</strong></p>
+    <p>{instagram["nextStep"]}</p>
+    {html_table({"name": "Nome", "handle": "@", "source": "Origem", "score": "Score"}, instagram_rows)}
+    <h3>Pendencias</h3>
+    {html_table({"warning": "Item"}, warning_rows)}
   </section>
   <section>
-    <h2>Pipeline de fotos</h2>
+    <h2>Backoffice / Rotina diaria de tamanhos</h2>
+    {html_table({"name": "Produto", "brand": "Marca", "sizes": "Tamanhos", "status": "Status", "reason": "Acao"}, stock)}
+  </section>
+  <section>
+    <h2>Comercial / Pipeline de fotos</h2>
     {html_table({"name": "Produto", "brand": "Marca", "color": "Cor", "reason": "Motivo", "rule": "Regra"}, photos)}
   </section>
   <section>
-    <h2>Varredura de fornecedor</h2>
+    <h2>Comercial / Varredura de fornecedor</h2>
     <p>Marcas no site: {", ".join(payload["supplierScan"]["brands"])}</p>
     <p>Categorias no site: {", ".join(payload["supplierScan"]["categories"])}</p>
     <p>{payload["supplierScan"]["rule"]}</p>
@@ -180,12 +235,13 @@ def main():
         "stockSizeQueue": stock_size_queue(products),
         "photoQueue": photo_queue(products),
         "supplierScan": supplier_scan_queue(products),
+        "instagram": instagram_status(),
         "publishRule": "nao publicar automaticamente; gerar preview e aguardar aprovacao",
     }
     report_path = REPORT_DIR / f"painel-automatico-{today_slug()}.json"
     report_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     preview_path = write_preview(payload)
-    print(json.dumps({"report": str(report_path), "preview": str(preview_path), "stock": len(payload["stockSizeQueue"]), "photos": len(payload["photoQueue"])}, ensure_ascii=False, indent=2))
+    print(json.dumps({"report": str(report_path), "preview": str(preview_path), "stock": len(payload["stockSizeQueue"]), "photos": len(payload["photoQueue"]), "instagram": payload["instagram"]["imported"]}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

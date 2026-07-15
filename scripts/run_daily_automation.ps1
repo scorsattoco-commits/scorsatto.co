@@ -29,6 +29,10 @@ Write-Log "Sincronizando leads reais do Instagram via Meta."
 & $Python ".\scripts\sync_instagram_leads.py" *> "$LogDir\instagram-leads-$Date.out"
 Write-Log "Sincronizacao Instagram finalizada. Saida: $LogDir\instagram-leads-$Date.out"
 
+Write-Log "Diagnosticando backoffice e Instagram."
+& $Python ".\scripts\check_instagram_backoffice.py" *> "$LogDir\instagram-backoffice-check-$Date.out"
+Write-Log "Diagnostico Instagram/backoffice finalizado. Saida: $LogDir\instagram-backoffice-check-$Date.out"
+
 Write-Log "Gerando painel automatico."
 & $Python ".\scripts\daily_automation_report.py" *> "$LogDir\painel-automatico-$Date.out"
 Write-Log "Painel automatico finalizado. Saida: $LogDir\painel-automatico-$Date.out"
