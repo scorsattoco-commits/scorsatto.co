@@ -69,6 +69,10 @@ def status_label(ok):
     return "OK" if ok else "PENDENTE"
 
 
+def is_instagram_login_token(token):
+    return (token or "").strip().startswith("IG")
+
+
 def write_preview(payload):
     PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
     path = PREVIEW_DIR / f"diagnostico-instagram-backoffice-{today_slug()}.html"
@@ -134,7 +138,12 @@ def main():
     checks.append({"name": "Supabase publico no site", "ok": bool(public.get("SCORSATTO_SUPABASE_URL") and anon_key), "detail": public.get("SCORSATTO_SUPABASE_URL", "config.js sem URL")})
     checks.append({"name": "Token oficial Meta", "ok": bool(meta_token), "detail": "Configurado" if meta_token else "Falta META_ACCESS_TOKEN"})
     checks.append({"name": "Instagram Business ID", "ok": bool(meta_ig), "detail": meta_ig or "Falta META_INSTAGRAM_BUSINESS_ID"})
-    checks.append({"name": "Pagina Facebook vinculada", "ok": bool(meta_page), "detail": meta_page or "Falta META_PAGE_ID"})
+    page_optional = is_instagram_login_token(meta_token)
+    checks.append({
+        "name": "Pagina Facebook vinculada",
+        "ok": bool(meta_page) or page_optional,
+        "detail": meta_page or ("Opcional para comentarios com Instagram Login; necessario para DMs/webhook." if page_optional else "Falta META_PAGE_ID"),
+    })
     checks.append({"name": "Service role para gravar leads", "ok": bool(service_key), "detail": "Configurado" if service_key else "Falta SCORSATTO_SUPABASE_SERVICE_ROLE_KEY"})
 
     db_key = service_key or anon_key
