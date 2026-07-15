@@ -25,6 +25,10 @@ Write-Log "Conferindo tamanhos do fornecedor."
 & $Python ".\scripts\update_supplier_sizes.py" "--workers" "16" *> "$LogDir\fornecedor-tamanhos-$Date.out"
 Write-Log "Relatorio de fornecedor finalizado. Saida: $LogDir\fornecedor-tamanhos-$Date.out"
 
+Write-Log "Sincronizando leads reais do Instagram via Meta."
+& $Python ".\scripts\sync_instagram_leads.py" *> "$LogDir\instagram-leads-$Date.out"
+Write-Log "Sincronizacao Instagram finalizada. Saida: $LogDir\instagram-leads-$Date.out"
+
 Write-Log "Gerando painel automatico."
 & $Python ".\scripts\daily_automation_report.py" *> "$LogDir\painel-automatico-$Date.out"
 Write-Log "Painel automatico finalizado. Saida: $LogDir\painel-automatico-$Date.out"
