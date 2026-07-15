@@ -36,6 +36,25 @@ function leadFromChange(entry: any, change: any) {
   };
 }
 
+function leadFromMessaging(entry: any, event: any) {
+  const sender = event?.sender || event?.from || {};
+  const message = event?.message || event?.postback || event?.referral || {};
+  const externalId = String(sender.id || event?.id || crypto.randomUUID());
+  const text = message.text || message.title || message.ref || "";
+  return {
+    external_id: externalId,
+    handle: sender.username ? `@${String(sender.username).replace(/^@/, "")}` : "",
+    name: sender.name || "",
+    source: "mandou DM",
+    origin: "messages",
+    context: text,
+    note: text,
+    raw: { entry, messaging: event },
+    last_interaction_at: new Date(Number(event?.timestamp) || Date.now()).toISOString(),
+    updated_at: new Date().toISOString(),
+  };
+}
+
 serve(async (req) => {
   const url = new URL(req.url);
 
@@ -54,9 +73,10 @@ serve(async (req) => {
   const payload = await req.json().catch(() => null);
   if (!payload?.entry?.length) return json({ ok: true, ignored: true });
 
-  const leads = payload.entry.flatMap((entry: any) =>
-    (entry.changes || entry.messaging || []).map((change: any) => leadFromChange(entry, change))
-  );
+  const leads = payload.entry.flatMap((entry: any) => [
+    ...(entry.changes || []).map((change: any) => leadFromChange(entry, change)),
+    ...(entry.messaging || []).map((event: any) => leadFromMessaging(entry, event)),
+  ]);
 
   if (leads.length) {
     const { error } = await db
