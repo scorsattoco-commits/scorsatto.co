@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-17T03:18:28Z",
+  "generatedAt": "2026-07-17T16:20:26Z",
   "apply": true,
   "checked": 210,
-  "changed": 1,
+  "changed": 4,
   "failures": [
     {
       "id": "scp-15814",
@@ -40,11 +40,6 @@
       "reason": "sem tamanhos detectados"
     },
     {
-      "id": "scp-16152",
-      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-preto-suetermalhaxe0001",
-      "reason": "sem tamanhos detectados"
-    },
-    {
       "id": "scp-16155",
       "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-chumbo-suetermalhaxe0004",
       "reason": "sem tamanhos detectados"
@@ -52,6 +47,11 @@
     {
       "id": "scp-16154",
       "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-claro-suetermalhaxe0003",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16152",
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-preto-suetermalhaxe0001",
       "reason": "sem tamanhos detectados"
     },
     {
@@ -63,6 +63,11 @@
       "id": "scp-15572",
       "url": "https://www.catalogopoa.com.br/jaqueta-rl-sued-beg-suedrl0002",
       "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-12950",
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-azul-marinho-0152",
+      "reason": "HTTP Error 404: Not Found"
     },
     {
       "id": "scp-16117",
@@ -80,19 +85,14 @@
       "reason": "sem tamanhos detectados"
     },
     {
-      "id": "scp-16015",
-      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-cinza-esc-molsemrl0005",
-      "reason": "sem tamanhos detectados"
-    },
-    {
-      "id": "scp-12950",
-      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-azul-marinho-0152",
-      "reason": "HTTP Error 404: Not Found"
-    },
-    {
       "id": "scp-13044",
       "url": "https://www.catalogopoa.com.br/jaqueta-arm-puffer-cinza-1015543",
       "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16015",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-cinza-esc-molsemrl0005",
+      "reason": "sem tamanhos detectados"
     },
     {
       "id": "scp-16136",
@@ -112,15 +112,62 @@
   ],
   "changes": [
     {
-      "id": "scp-13622",
-      "name": "Bermuda Sarja - Marrom",
-      "url": "https://www.catalogopoa.com.br/bermuda-sarja-lct-marrom-claro-304018072",
+      "id": "scp-15747",
+      "name": "Gola Polo Premium - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-golapoloxe050",
       "oldSizes": [
-        "38",
-        "42"
+        "P",
+        "XXG"
       ],
       "newSizes": [
-        "38"
+        "P"
+      ]
+    },
+    {
+      "id": "scp-15745",
+      "name": "Gola Polo Premium - Branco",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-golapoloxe048",
+      "oldSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "XXG"
+      ]
+    },
+    {
+      "id": "scp-16280",
+      "name": "Gola Polo Premium - Marrom",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-marrom-15533274594",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "G",
+        "GG"
+      ]
+    },
+    {
+      "id": "scp-16279",
+      "name": "Gola Polo Premium - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-p-15533274593",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
       ]
     }
   ]
