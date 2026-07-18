@@ -4761,10 +4761,51 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function instagramLeadMessage(item) {
+      const name = item.name || "tudo bem";
+      const evidence = normalize([item.source, item.note, item.context, item.status].filter(Boolean).join(" "));
+      const isNonFollower = isInstagramNonFollower(item);
+      const askedShortSleeve = /(manga curta|camisa)/.test(evidence);
+      const askedJeans = /jeans/.test(evidence);
+
+      if (/(dm|mensagem|pediu|em conversa|respondeu)/.test(evidence)) {
+        const requested = [askedShortSleeve ? "camisa de manga curta" : "", askedJeans ? "jeans" : ""].filter(Boolean).join(" e ");
+        return [
+          `Oi, ${name}! Tudo bem?`,
+          requested ? `Retomando por aqui: você tinha procurado ${requested}.` : "Retomando nossa conversa por aqui.",
+          "Separei a ideia de uma seleção mais discreta, sem te mandar catálogo enorme.",
+          "Me confirma teu tamanho e a tonalidade/estilo que prefere? Te envio só 2 ou 3 opções que façam sentido.",
+        ].join("\n");
+      }
+
+      if (/coment/.test(evidence)) {
+        return [
+          `Oi, ${name}! Tudo bem?`,
+          "Vi teu comentário no perfil da SCORSATTO e vim te agradecer por aqui.",
+          "Estou separando algumas peças masculinas bem versáteis, com uma linha mais discreta e premium.",
+          "Se quiser, me diz teu tamanho e se procura algo para trabalho, dia a dia ou sair. Eu te mando poucas opções certeiras.",
+        ].join("\n");
+      }
+
+      if (isNonFollower) {
+        return [
+          "NÃO enviar DM fria ainda.",
+          "Primeiro: responda a um story atual ou interaja com algo realmente publicado pela pessoa.",
+          "Depois de uma resposta ou de ela seguir a SCORSATTO, use:",
+          `Oi, ${name}! Tudo bem? Vi teu retorno por aqui. A SCORSATTO trabalha uma seleção masculina mais discreta e bem escolhida. Se estiver buscando alguma peça agora, me fala teu tamanho e ocasião que te mostro poucas opções certeiras.`,
+        ].join("\n");
+      }
+
+      if (/(seguidor|segue)/.test(evidence)) {
+        return [
+          `Oi, ${name}! Tudo bem? Vi que você acompanha a SCORSATTO.`,
+          "Estou fazendo uma curadoria menor de peças masculinas versáteis, sem excesso de oferta.",
+          "Se estiver precisando renovar algo para trabalho, dia a dia ou sair, me fala teu tamanho. Te mando 2 ou 3 opções alinhadas ao teu estilo.",
+        ].join("\n");
+      }
+
       return [
-        `Oi, ${item.name || "tudo bem"}!`,
-        `Vi ${item.source ? `que você ${item.source}` : "uma interação sua"} com a SCORSATTO.`,
-        "Estou montando uma seleção masculina bem enxuta para homens da região, com peças versáteis e sem catálogo gigante.",
+        `Oi, ${name}! Tudo bem?`,
+        "Estou organizando uma seleção masculina bem enxuta na SCORSATTO, com peças versáteis e sem catálogo gigante.",
         "Se fizer sentido, me passa teu tamanho e o estilo que usa mais: casual, trabalho ou sair. Aí te mando 2 ou 3 opções certeiras.",
       ].join("\n");
     }
