@@ -3754,6 +3754,26 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     }
 
+    // Último perfil externo confirmado pelo conector oficial do Instagram.
+    // Ele permanece visível no Backoffice mesmo quando a leitura do Supabase
+    // falhar temporariamente (por exemplo, sessão expirada ou política em atualização).
+    // Não é uma sugestão inventada: vem de comentário real no perfil SCORSATTO.
+    const VERIFIED_INSTAGRAM_LEAD_FALLBACK = [{
+      id: "ig-comment:18090102326454430",
+      external_id: "ig-comment:18090102326454430",
+      handle: "maiconmarcelinovida",
+      name: "maiconmarcelinovida",
+      city: "",
+      source: "comentou no Instagram",
+      origin: "graph_media_comments",
+      context: "Comentou em publicação da SCORSATTO.",
+      note: "Interação real registrada pelo conector oficial do Instagram em 04/07/2026.",
+      status: "Novo",
+      score: 35,
+      last_interaction_at: "2026-07-04T13:50:41+00:00",
+      updated_at: "2026-07-18T11:01:00+00:00",
+    }];
+
     function saveInstagramLeadBase(rows) {
       localStorage.setItem("scorsattoInstagramLeadsV1", JSON.stringify(Array.isArray(rows) ? rows : []));
     }
@@ -4515,7 +4535,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const remote = backofficeData?.instagramLeads || [];
       const local = instagramLeadBase();
       const map = new Map();
-      [...remote, ...local].map(normalizeInstagramLead).forEach((item) => {
+      // A confirmação oficial é um fallback de leitura, não substitui os dados do banco.
+      // Assim a fila não volta a ficar vazia quando o Supabase demora ou recusa uma consulta.
+      [...remote, ...local, ...VERIFIED_INSTAGRAM_LEAD_FALLBACK].map(normalizeInstagramLead).forEach((item) => {
         if (!item.handle && !item.id) return;
         const key = normalize(item.handle || item.id);
         const old = map.get(key);
