@@ -4530,7 +4530,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function isInstagramNonFollower(item = {}) {
-      return /(nao|não|no|false|nao segue|não segue)/.test(normalize(item.follows || item.follows_profile || ""));
+      // `false` é um valor válido vindo da auditoria. Não use `||` aqui:
+      // ele transformava `follows_profile: false` em string vazia e escondia
+      // justamente os perfis que não seguem a SCORSATTO.
+      const followsValue = item.follows ?? item.follows_profile ?? "";
+      return /(nao|não|no|false|nao segue|não segue)/.test(normalize(String(followsValue)));
     }
 
     function instagramLeadPool() {
