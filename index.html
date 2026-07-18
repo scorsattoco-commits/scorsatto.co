@@ -4677,7 +4677,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const realStats = instagramRealLeadStats();
       const imported = realStats.actionable;
       const importedRows = imported
-        .slice(0, 18)
+        .slice(0, 20)
         .map((item, index) => `<tr>
           <td>${index + 1}</td>
           <td><strong>${safeHtml(instagramLeadDisplayName(item))}</strong><br>${instagramProfileUrl(item) ? `<a href="${safeHtml(instagramProfileUrl(item))}" target="_blank" rel="noopener">@${safeHtml(instagramHandleValue(item))}</a>` : `<span class="muted">@ não informado</span>`}</td>
@@ -4751,7 +4751,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             ${renderBackofficeSection("Origem dos leads", renderBackofficeTable(["Origem", "Leads", "Quentes", "Último sinal"], instagramSourceRows(), "Sem origem de lead registrada."), false)}
           </div>
         </div>
-        ${renderBackofficeSection("Base Instagram enxuta", `<p class="backoffice-note">Mostra até 18 perfis úteis. A lista completa fica no banco, para manter o celular leve.</p>${renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, false)}
+        ${renderBackofficeSection("Base Instagram: 20 seguidores", `<p class="backoffice-note">Mostra os 20 seguidores auditados e mais aderentes. A classificação “Acompanhar” evita transformar a base em disparo frio.</p>${renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, false)}
         ${renderBackofficeSection("Visitantes com interesse em roupa", `<p class="backoffice-note">São pessoas anônimas que viram várias peças. Não contam como lead ainda; use para criar campanha de cadastro/WhatsApp.</p>${renderBackofficeTable(["Visitante", "Views", "Interesse", "Tela", "Último acesso", "Ação"], visitorInterestRows, "Sem visitante anônimo forte agora.")}`, false)}
         ${renderBackofficeSection("Interações sem @", `<p class="backoffice-note">Não entram em chamada porque não há perfil clicável. Servem só para auditoria da integração.</p>${renderBackofficeTable(["Origem", "Contexto", "Atualizado", "Status"], pendingRows, "Nenhuma interação sem @ pendente.")}`, false)}
         ${renderBackofficeSection("10 pessoas da base do site", `<p class="backoffice-note">Use Instagram somente quando houver @ real. Se só tiver WhatsApp, mantenha no WhatsApp.</p>${renderBackofficeTable(["#", "Pessoa", "Canal", "Score", "Ação", "Regra", "DM"], rows, "Ainda não há 10 contatos fortes na base. Gere interações no Instagram e cadastros no site.")}`, false)}
