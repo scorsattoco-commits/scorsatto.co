@@ -4472,6 +4472,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const followsValue = item.follows || item.follows_profile;
       return {
         id: String(item.id || item.external_id || item.handle || item.instagram_handle || crypto.randomUUID?.() || Date.now()),
+        externalId: String(item.external_id || item.id || ""),
         handle: item.handle || item.instagram_handle || "",
         name: item.name || item.full_name || "",
         city: item.city || "",
@@ -4479,6 +4480,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         follows: followsValue === true ? "sim" : followsValue === false ? "não" : String(followsValue || ""),
         note: item.note || item.context || "",
         status: item.status || "Novo",
+        recordedScore: Number(item.score || 0),
         createdAt: item.created_at || item.createdAt || "",
         updatedAt: item.updated_at || item.last_interaction_at || item.updatedAt || item.created_at || item.createdAt || "",
       };
@@ -4486,7 +4488,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function instagramProspectScore(item = {}) {
       const text = normalize([item.handle, item.name, item.city, item.source, item.follows, item.note, item.status].filter(Boolean).join(" "));
-      let score = 20;
+      let score = Math.max(20, Number(item.recordedScore || item.score || 0));
       if (/(serafina|guapore|guaporé)/.test(text)) score += 26;
       if (/(marau|casca|passo fundo|carazinho)/.test(text)) score += 18;
       if (/(coment|respondeu|dm|mensagem|pediu|preco|preço|valor|tamanho|link|whatsapp|salvou|favorit)/.test(text)) score += 28;
@@ -4495,7 +4497,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (/(polo|camiseta|calca|calça|sarja|jeans|sueter|suéter|jaqueta|casaco|ralph|lacoste|tommy|boss|reserva)/.test(text)) score += 13;
       if (/(segue|sim|seguidor)/.test(normalize(item.follows || ""))) score += 8;
       if (/(nao|não)/.test(normalize(item.follows || ""))) score -= 2;
-      if (/(chamado|respondeu|comprou)/.test(text)) score -= 12;
+      if (/(chamado|em conversa|aguardando|respondeu|comprou)/.test(text)) score -= 12;
       if (/(sem interesse|arquivado|bloqueado)/.test(text)) score -= 50;
       const last = item.updatedAt || item.createdAt;
       if (last && new Date(last) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) score += 8;
@@ -4593,9 +4595,37 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="instagram-lead-actions">
             ${url ? `<a class="instagram-profile-link" href="${safeHtml(url)}" target="_blank" rel="noopener">Abrir perfil</a>` : ""}
             <button class="copy-wa-btn" type="button" data-copy-instagram-lead="${safeHtml(item.id)}">Copiar DM</button>
+            <select class="lead-status-select" data-instagram-lead-status data-instagram-lead-id="${safeHtml(item.id)}" aria-label="Status de ${safeHtml(instagramLeadDisplayName(item))}">
+              ${["Novo", "Chamado", "Em conversa", "Respondeu", "Comprou", "Acompanhar", "Arquivado"].map((status) => `<option value="${status}"${normalize(item.status) === normalize(status) ? " selected" : ""}>${status === "Novo" ? "Não chamado" : status}</option>`).join("")}
+            </select>
           </div>
         </article>`;
       }).join("")}</div>`;
+    }
+
+    async function updateInstagramLeadStatus(id, status) {
+      const lead = instagramLeadPool().find((item) => String(item.id) === String(id));
+      if (!lead) return false;
+      const nextStatus = String(status || "Novo");
+      const local = instagramLeadBase().map((item) => {
+        const normalized = normalizeInstagramLead(item);
+        return String(normalized.id) === String(id) || String(normalized.externalId) === String(lead.externalId)
+          ? { ...item, status: nextStatus, updatedAt: new Date().toISOString() }
+          : item;
+      });
+      saveInstagramLeadBase(local);
+      if (db) {
+        const update = { status: nextStatus, updated_at: new Date().toISOString() };
+        const remoteId = String(lead.id || "");
+        const externalId = String(lead.externalId || "");
+        const query = db.from("instagram_leads").update(update);
+        const result = remoteId && !remoteId.startsWith("ig-")
+          ? await query.eq("id", remoteId)
+          : await query.eq("external_id", externalId || remoteId);
+        if (result.error) console.warn("Não foi possível salvar o status do lead no banco.", result.error);
+      }
+      backofficeData = null;
+      return true;
     }
 
     function instagramRealLeadStats() {
@@ -6861,6 +6891,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     backofficePage.addEventListener("change", (event) => {
+      const instagramStatus = event.target.closest("[data-instagram-lead-status]");
+      if (instagramStatus && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then(() => {
+          accountMessage = `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
+          renderBackofficeStandalone();
+        });
+        return;
+      }
       const adminSelect = event.target.closest("[data-admin-product-select]");
       if (!adminSelect || !isAdminAccount()) return;
       activeAdminSlug = adminSelect.value;
@@ -6951,6 +6990,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     accountDrawer.addEventListener("change", (event) => {
+      const instagramStatus = event.target.closest("[data-instagram-lead-status]");
+      if (instagramStatus && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then(() => {
+          accountMessage = `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
+          renderAccount();
+        });
+        return;
+      }
       const adminSelect = event.target.closest("[data-admin-product-select]");
       if (!adminSelect || !isAdminAccount()) return;
       activeAdminSlug = adminSelect.value;
