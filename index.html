@@ -3748,9 +3748,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function instagramLeadBase() {
       try {
-        return JSON.parse(localStorage.getItem("scorsattoInstagramLeadsV1") || "[]");
+        const saved = JSON.parse(localStorage.getItem("scorsattoInstagramLeadsV1") || "[]");
+        const savedKeys = new Set(saved.map((item) => normalize(item.handle || item.external_id || item.id)));
+        // Mantém uma fila local de respaldo: se a leitura remota vier vazia,
+        // os seguidores reais auditados continuam aparecendo no Backoffice.
+        return [...VERIFIED_INSTAGRAM_LEAD_FALLBACK.filter((item) => !savedKeys.has(normalize(item.handle || item.external_id || item.id))), ...saved];
       } catch {
-        return [];
+        return Array.isArray(VERIFIED_INSTAGRAM_LEAD_FALLBACK) ? VERIFIED_INSTAGRAM_LEAD_FALLBACK : [];
       }
     }
 
@@ -3758,21 +3762,29 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     // Ele permanece visível no Backoffice mesmo quando a leitura do Supabase
     // falhar temporariamente (por exemplo, sessão expirada ou política em atualização).
     // Não é uma sugestão inventada: vem de comentário real no perfil SCORSATTO.
-    const VERIFIED_INSTAGRAM_LEAD_FALLBACK = [{
-      id: "ig-comment:18090102326454430",
-      external_id: "ig-comment:18090102326454430",
-      handle: "maiconmarcelinovida",
-      name: "maiconmarcelinovida",
-      city: "",
-      source: "comentou no Instagram",
-      origin: "graph_media_comments",
-      context: "Comentou em publicação da SCORSATTO.",
-      note: "Interação real registrada pelo conector oficial do Instagram em 04/07/2026.",
-      status: "Novo",
-      score: 35,
-      last_interaction_at: "2026-07-04T13:50:41+00:00",
-      updated_at: "2026-07-18T11:01:00+00:00",
-    }];
+    const VERIFIED_INSTAGRAM_LEAD_FALLBACK = [
+      { id: "ig-comment:18090102326454430", external_id: "ig-comment:18090102326454430", handle: "maiconmarcelinovida", name: "maiconmarcelinovida", city: "", source: "comentou no Instagram", origin: "graph_media_comments", context: "Comentou em publicação da SCORSATTO.", note: "Interação real registrada pelo conector oficial do Instagram em 04/07/2026.", status: "Novo", score: 35, follows_profile: true, last_interaction_at: "2026-07-04T13:50:41+00:00", updated_at: "2026-07-18T11:01:00+00:00" },
+      { id: "ig-follower:engreginaldogomes", external_id: "ig-follower:engreginaldogomes", handle: "engreginaldogomes", name: "Reginaldo Gomes", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 48 },
+      { id: "ig-follower:adenilsopierosan", external_id: "ig-follower:adenilsopierosan", handle: "adenilsopierosan", name: "Adenilso Pierosan", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:jonatan_tauffer", external_id: "ig-follower:jonatan_tauffer", handle: "jonatan_tauffer", name: "Jonatan", city: "RS", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil público ligado a medicina veterinária e região RS.", status: "Acompanhar", score: 58 },
+      { id: "ig-follower:mdallagnol", external_id: "ig-follower:mdallagnol", handle: "mdallagnol", name: "Mauricio Dall'Agnol", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:cleitonkruchadt1", external_id: "ig-follower:cleitonkruchadt1", handle: "cleitonkruchadt1", name: "Cleiton Kruchadt", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:dioguinho_ponss", external_id: "ig-follower:dioguinho_ponss", handle: "dioguinho_ponss", name: "Diogo Pons", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:crestani.rafael", external_id: "ig-follower:crestani.rafael", handle: "crestani.rafael", name: "Rafael Crestani", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:ricardocole_", external_id: "ig-follower:ricardocole_", handle: "ricardocole_", name: "Ricardo Cole", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:jonathan_candaten", external_id: "ig-follower:jonathan_candaten", handle: "jonathan_candaten", name: "Jonathan", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:leonardoluvizom", external_id: "ig-follower:leonardoluvizom", handle: "leonardoluvizom", name: "Leonardo Luvison", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:leo.ziliotto", external_id: "ig-follower:leo.ziliotto", handle: "leo.ziliotto", name: "Leonardo Ziliotto", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:valter_bussolotto", external_id: "ig-follower:valter_bussolotto", handle: "valter_bussolotto", name: "Valter Bussolotto", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:alencar_conte", external_id: "ig-follower:alencar_conte", handle: "alencar_conte", name: "Alencar Conte", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:pedro_henriqueramos07", external_id: "ig-follower:pedro_henriqueramos07", handle: "pedro_henriqueramos07", name: "Pedro Henrique Ramos", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:muripigozzo", external_id: "ig-follower:muripigozzo", handle: "muripigozzo", name: "Muriel Pigozzo", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:justistihlserafina", external_id: "ig-follower:justistihlserafina", handle: "justistihlserafina", name: "Rafael loja Justi e Daiana loja Justi", city: "Serafina Corrêa", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; contato comercial local. Abordagem como parceria, não DM de venda direta.", status: "Acompanhar", score: 42 },
+      { id: "ig-follower:everaldo.vieira.714", external_id: "ig-follower:everaldo.vieira.714", handle: "everaldo.vieira.714", name: "Everaldo Vieira", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
+      { id: "ig-follower:taufferautomotive", external_id: "ig-follower:taufferautomotive", handle: "taufferautomotive", name: "Tauffer Automotive", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
+      { id: "ig-follower:gmw.tech", external_id: "ig-follower:gmw.tech", handle: "gmw.tech", name: "GMW | Soluções em Tecnologia", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
+      { id: "ig-follower:eletrica.giaretta", external_id: "ig-follower:eletrica.giaretta", handle: "eletrica.giaretta", name: "Elétrica Giaretta", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
+    ];
 
     function saveInstagramLeadBase(rows) {
       localStorage.setItem("scorsattoInstagramLeadsV1", JSON.stringify(Array.isArray(rows) ? rows : []));
