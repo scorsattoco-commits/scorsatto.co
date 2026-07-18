@@ -4783,43 +4783,50 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (/(dm|mensagem|pediu|em conversa|respondeu)/.test(evidence)) {
         const requested = [askedShortSleeve ? "camisa de manga curta" : "", askedJeans ? "jeans" : ""].filter(Boolean).join(" e ");
         return [
-          `Oi, ${name}! Tudo bem?`,
-          requested ? `Retomando por aqui: você tinha procurado ${requested}.` : "Retomando nossa conversa por aqui.",
-          "Separei a ideia de uma seleção mais discreta, sem te mandar catálogo enorme.",
-          "Me confirma teu tamanho e a tonalidade/estilo que prefere? Te envio só 2 ou 3 opções que façam sentido.",
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          requested ? `Lembrei da ${requested} que você tinha procurado.` : "Lembrei da nossa conversa e resolvi te chamar por aqui.",
+          "Me diz se ainda está procurando que eu te mando o que tenho disponível hoje.",
         ].join("\n");
       }
 
       if (/coment/.test(evidence)) {
         return [
-          `Oi, ${name}! Tudo bem?`,
-          "Vi teu comentário no perfil da SCORSATTO e vim te agradecer por aqui.",
-          "Estou separando algumas peças masculinas bem versáteis, com uma linha mais discreta e premium.",
-          "Se quiser, me diz teu tamanho e se procura algo para trabalho, dia a dia ou sair. Eu te mando poucas opções certeiras.",
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          "Obrigado por comentar no nosso post.",
+          "Quando estiver procurando alguma peça, me chama por aqui. Se me disser teu tamanho, eu já te mostro o que vale a pena olhar.",
+        ].join("\n");
+      }
+
+      if (/(perfil empresarial|parceria|relacionamento)/.test(evidence)) {
+        return [
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          "Acompanho o trabalho de vocês aqui na região e quis passar para me apresentar.",
+          "Quando estiverem por perto, apareçam na loja para conhecer as novidades. Vai ser um prazer receber vocês.",
         ].join("\n");
       }
 
       if (isNonFollower) {
         return [
-          "NÃO enviar DM fria ainda.",
-          "Primeiro: responda a um story atual ou interaja com algo realmente publicado pela pessoa.",
-          "Depois de uma resposta ou de ela seguir a SCORSATTO, use:",
-          `Oi, ${name}! Tudo bem? Vi teu retorno por aqui. A SCORSATTO trabalha uma seleção masculina mais discreta e bem escolhida. Se estiver buscando alguma peça agora, me fala teu tamanho e ocasião que te mostro poucas opções certeiras.`,
+          "Enviar somente depois de uma interação real no story.",
+          "",
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          "Vi teu retorno por aqui e vim te dar um oi.",
+          "Se estiver procurando alguma peça, me fala teu tamanho que eu te mostro o que chegou.",
         ].join("\n");
       }
 
       if (/(seguidor|segue)/.test(evidence)) {
         return [
-          `Oi, ${name}! Tudo bem? Vi que você acompanha a SCORSATTO.`,
-          "Estou fazendo uma curadoria menor de peças masculinas versáteis, sem excesso de oferta.",
-          "Se estiver precisando renovar algo para trabalho, dia a dia ou sair, me fala teu tamanho. Te mando 2 ou 3 opções alinhadas ao teu estilo.",
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          "Vi que você acompanha a loja e resolvi te chamar por aqui.",
+          "Chegaram algumas peças muito boas para usar no dia a dia e sair. Se estiver procurando algo agora, me diz teu tamanho que eu te mostro as opções.",
         ].join("\n");
       }
 
       return [
-        `Oi, ${name}! Tudo bem?`,
-        "Estou organizando uma seleção masculina bem enxuta na SCORSATTO, com peças versáteis e sem catálogo gigante.",
-        "Se fizer sentido, me passa teu tamanho e o estilo que usa mais: casual, trabalho ou sair. Aí te mando 2 ou 3 opções certeiras.",
+        `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+        "Estou te chamando porque chegaram algumas peças novas na loja.",
+        "Se estiver procurando algo, me diz teu tamanho e eu te mostro o que faz mais sentido para você.",
       ].join("\n");
     }
 
