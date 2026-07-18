@@ -4785,7 +4785,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return [
           `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
           requested ? `Lembrei da ${requested} que você tinha procurado.` : "Lembrei da nossa conversa e resolvi te chamar por aqui.",
-          "Me diz se ainda está procurando que eu te mando o que tenho disponível hoje.",
+          "Você ainda está procurando?",
         ].join("\n");
       }
 
@@ -4793,7 +4793,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return [
           `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
           "Obrigado por comentar no nosso post.",
-          "Quando estiver procurando alguma peça, me chama por aqui. Se me disser teu tamanho, eu já te mostro o que vale a pena olhar.",
+          "Qual tamanho você usa normalmente?",
         ].join("\n");
       }
 
@@ -4801,7 +4801,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return [
           `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
           "Acompanho o trabalho de vocês aqui na região e quis passar para me apresentar.",
-          "Quando estiverem por perto, apareçam na loja para conhecer as novidades. Vai ser um prazer receber vocês.",
+          "Posso avisar vocês quando entrar alguma novidade que faça sentido?",
         ].join("\n");
       }
 
@@ -4811,7 +4811,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           "",
           `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
           "Vi teu retorno por aqui e vim te dar um oi.",
-          "Se estiver procurando alguma peça, me fala teu tamanho que eu te mostro o que chegou.",
+          "Qual tamanho você usa normalmente?",
         ].join("\n");
       }
 
@@ -4819,14 +4819,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return [
           `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
           "Vi que você acompanha a loja e resolvi te chamar por aqui.",
-          "Chegaram algumas peças muito boas para usar no dia a dia e sair. Se estiver procurando algo agora, me diz teu tamanho que eu te mostro as opções.",
+          "Qual tamanho você usa normalmente?",
         ].join("\n");
       }
 
       return [
-        `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-        "Estou te chamando porque chegaram algumas peças novas na loja.",
-        "Se estiver procurando algo, me diz teu tamanho e eu te mostro o que faz mais sentido para você.",
+          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
+          "Estou te chamando porque chegaram algumas peças novas na loja.",
+          "Qual tamanho você usa normalmente?",
       ].join("\n");
     }
 
