@@ -3763,7 +3763,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     // falhar temporariamente (por exemplo, sessão expirada ou política em atualização).
     // Não é uma sugestão inventada: vem de comentário real no perfil SCORSATTO.
     const VERIFIED_INSTAGRAM_LEAD_FALLBACK = [
-      { id: "ig-comment:18090102326454430", external_id: "ig-comment:18090102326454430", handle: "maiconmarcelinovida", name: "maiconmarcelinovida", city: "", source: "comentou no Instagram", origin: "graph_media_comments", context: "Comentou em publicação da SCORSATTO.", note: "Interação real registrada pelo conector oficial do Instagram em 04/07/2026.", status: "Novo", score: 35, follows_profile: true, last_interaction_at: "2026-07-04T13:50:41+00:00", updated_at: "2026-07-18T11:01:00+00:00" },
+      { id: "ig-comment:18090102326454430", external_id: "ig-comment:18090102326454430", handle: "maiconmarcelinovida", name: "maiconmarcelinovida", city: "", source: "comentou no Instagram", origin: "graph_media_comments", context: "Comentou em publicação da SCORSATTO.", note: "Interação real registrada pelo conector oficial do Instagram em 04/07/2026.", status: "Novo", score: 35, last_interaction_at: "2026-07-04T13:50:41+00:00", updated_at: "2026-07-18T11:01:00+00:00" },
       { id: "ig-follower:engreginaldogomes", external_id: "ig-follower:engreginaldogomes", handle: "engreginaldogomes", name: "Reginaldo Gomes", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 48 },
       { id: "ig-follower:adenilsopierosan", external_id: "ig-follower:adenilsopierosan", handle: "adenilsopierosan", name: "Adenilso Pierosan", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado na lista do perfil SCORSATTO.", status: "Acompanhar", score: 44 },
       { id: "ig-follower:jonatan_tauffer", external_id: "ig-follower:jonatan_tauffer", handle: "jonatan_tauffer", name: "Jonatan", city: "RS", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil público ligado a medicina veterinária e região RS.", status: "Acompanhar", score: 58 },
@@ -4676,7 +4676,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const candidates = instagramDailyCandidates(allCustomerKeys);
       const realStats = instagramRealLeadStats();
       const imported = realStats.actionable;
-      const importedRows = imported
+      const confirmedFollowers = imported.filter((item) => /^(sim|true|segue|seguidor)/.test(normalize(String(item.follows ?? item.follows_profile ?? ""))));
+      const importedRows = confirmedFollowers
         .slice(0, 20)
         .map((item, index) => `<tr>
           <td>${index + 1}</td>
