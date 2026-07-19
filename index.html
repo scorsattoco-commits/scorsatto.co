@@ -3784,6 +3784,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       { id: "ig-follower:taufferautomotive", external_id: "ig-follower:taufferautomotive", handle: "taufferautomotive", name: "Tauffer Automotive", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
       { id: "ig-follower:gmw.tech", external_id: "ig-follower:gmw.tech", handle: "gmw.tech", name: "GMW | Soluções em Tecnologia", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
       { id: "ig-follower:eletrica.giaretta", external_id: "ig-follower:eletrica.giaretta", handle: "eletrica.giaretta", name: "Elétrica Giaretta", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
+      { id: "ig-follower:maico_locatelli", external_id: "ig-follower:maico_locatelli", handle: "maico_locatelli", name: "Maico Locatelli", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
+      { id: "ig-follower:cristianogollo", external_id: "ig-follower:cristianogollo", handle: "cristianogollo", name: "Cristiano Gollo", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
+      { id: "ig-follower:jucelirdalmas", external_id: "ig-follower:jucelirdalmas", handle: "jucelirdalmas", name: "Jucelir Dal Mas", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
+      { id: "ig-follower:wesley_zanchettin", external_id: "ig-follower:wesley_zanchettin", handle: "wesley_zanchettin", name: "Wesley Zanchettin", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
+      { id: "ig-follower:nathan.ferres", external_id: "ig-follower:nathan.ferres", handle: "nathan.ferres", name: "Nathan Ferres", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
     ];
 
     function saveInstagramLeadBase(rows) {
@@ -4678,7 +4683,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const imported = realStats.actionable;
       const confirmedFollowers = imported.filter((item) => /^(sim|true|segue|seguidor)/.test(normalize(String(item.follows ?? item.follows_profile ?? ""))));
       const importedRows = confirmedFollowers
-        .slice(0, 20)
+        .slice(0, 25)
         .map((item, index) => `<tr>
           <td>${index + 1}</td>
           <td><strong>${safeHtml(instagramLeadDisplayName(item))}</strong><br>${instagramProfileUrl(item) ? `<a href="${safeHtml(instagramProfileUrl(item))}" target="_blank" rel="noopener">@${safeHtml(instagramHandleValue(item))}</a>` : `<span class="muted">@ não informado</span>`}</td>
@@ -4752,7 +4757,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             ${renderBackofficeSection("Origem dos leads", renderBackofficeTable(["Origem", "Leads", "Quentes", "Último sinal"], instagramSourceRows(), "Sem origem de lead registrada."), false)}
           </div>
         </div>
-        ${renderBackofficeSection("Base Instagram: 20 seguidores", `<p class="backoffice-note">Mostra os 20 seguidores auditados e mais aderentes. A classificação “Acompanhar” evita transformar a base em disparo frio.</p>${renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, false)}
+        ${renderBackofficeSection("Base Instagram: 25 seguidores", `<p class="backoffice-note">Mostra 25 seguidores reais auditados. Os cinco novos ficam como “Novo” para uma abordagem individual; os demais permanecem em acompanhamento.</p>${renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, false)}
         ${renderBackofficeSection("Visitantes com interesse em roupa", `<p class="backoffice-note">São pessoas anônimas que viram várias peças. Não contam como lead ainda; use para criar campanha de cadastro/WhatsApp.</p>${renderBackofficeTable(["Visitante", "Views", "Interesse", "Tela", "Último acesso", "Ação"], visitorInterestRows, "Sem visitante anônimo forte agora.")}`, false)}
         ${renderBackofficeSection("Interações sem @", `<p class="backoffice-note">Não entram em chamada porque não há perfil clicável. Servem só para auditoria da integração.</p>${renderBackofficeTable(["Origem", "Contexto", "Atualizado", "Status"], pendingRows, "Nenhuma interação sem @ pendente.")}`, false)}
         ${renderBackofficeSection("10 pessoas da base do site", `<p class="backoffice-note">Use Instagram somente quando houver @ real. Se só tiver WhatsApp, mantenha no WhatsApp.</p>${renderBackofficeTable(["#", "Pessoa", "Canal", "Score", "Ação", "Regra", "DM"], rows, "Ainda não há 10 contatos fortes na base. Gere interações no Instagram e cadastros no site.")}`, false)}
@@ -4779,29 +4784,36 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const isNonFollower = isInstagramNonFollower(item);
       const askedShortSleeve = /(manga curta|camisa)/.test(evidence);
       const askedJeans = /jeans/.test(evidence);
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite";
+      const opening = `${greeting}, ${name}. Tudo bem? Aqui é o Alisson, da SCORSATTO.`;
+      const close = "Se tiver interesse, me diga seu tamanho e o que está procurando no momento. Assim, separo algumas opções para te mostrar.";
 
       if (/(dm|mensagem|pediu|em conversa|respondeu)/.test(evidence)) {
         const requested = [askedShortSleeve ? "camisa de manga curta" : "", askedJeans ? "jeans" : ""].filter(Boolean).join(" e ");
         return [
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          requested ? `Lembrei da ${requested} que você tinha procurado.` : "Lembrei da nossa conversa e resolvi te chamar por aqui.",
-          "Você ainda está procurando?",
+          opening,
+          requested ? `Lembrei da ${requested} que você tinha procurado e resolvi falar com você por aqui.` : "Lembrei da nossa conversa e resolvi falar com você por aqui.",
+          "Entraram algumas novidades nesta última semana que podem combinar com o que você procura.",
+          close,
         ].join("\n");
       }
 
       if (/coment/.test(evidence)) {
         return [
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          "Obrigado por comentar no nosso post.",
-          "Qual tamanho você usa normalmente?",
+          opening,
+          "Vi seu comentário no nosso post e resolvi falar com você por aqui.",
+          "Entraram algumas novidades nesta última semana que podem combinar com o seu estilo.",
+          close,
         ].join("\n");
       }
 
       if (/(perfil empresarial|parceria|relacionamento)/.test(evidence)) {
         return [
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          "Acompanho o trabalho de vocês aqui na região e quis passar para me apresentar.",
-          "Posso avisar vocês quando entrar alguma novidade que faça sentido?",
+          opening,
+          "Acompanho o trabalho de vocês aqui na região e resolvi me apresentar por aqui.",
+          "Entraram algumas novidades nesta última semana e será um prazer receber vocês na loja quando estiverem por perto.",
+          "Posso avisar quando entrar algo que faça sentido para vocês?",
         ].join("\n");
       }
 
@@ -4809,24 +4821,27 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return [
           "Enviar somente depois de uma interação real no story.",
           "",
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          "Vi teu retorno por aqui e vim te dar um oi.",
-          "Qual tamanho você usa normalmente?",
+          opening,
+          "Vi seu retorno por aqui e resolvi falar com você.",
+          "Entraram algumas novidades nesta última semana que podem combinar com o seu estilo.",
+          close,
         ].join("\n");
       }
 
       if (/(seguidor|segue)/.test(evidence)) {
         return [
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          "Vi que você acompanha a loja e resolvi te chamar por aqui.",
-          "Qual tamanho você usa normalmente?",
+          opening,
+          "Vi que você acompanha a loja e resolvi falar com você por aqui.",
+          "Entraram algumas novidades nesta última semana que podem combinar com o seu estilo.",
+          close,
         ].join("\n");
       }
 
       return [
-          `Oi, ${name}, tudo bem? Aqui é o Alisson, da SCORSATTO.`,
-          "Estou te chamando porque chegaram algumas peças novas na loja.",
-          "Qual tamanho você usa normalmente?",
+        opening,
+        "Resolvi falar com você por aqui.",
+        "Entraram algumas novidades nesta última semana que podem combinar com o seu estilo.",
+        close,
       ].join("\n");
     }
 
