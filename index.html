@@ -314,6 +314,40 @@
     .pipeline-lead span { color: var(--muted); font-size: 11px; line-height: 1.35; }
     .score-pill { display: inline-flex; align-items: center; justify-content: center; width: max-content; min-height: 24px; border: 1px solid var(--line); border-radius: var(--radius-control); padding: 0 7px; color: var(--black); background: var(--white); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .instagram-command-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 12px; align-items: start; }
+    .instagram-workspace { display: grid; gap: 14px; }
+    .instagram-hero { border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--black); color: var(--white); padding: 18px; display: grid; gap: 12px; }
+    .instagram-hero-top { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
+    .instagram-eyebrow { margin: 0; color: #cfcfc9; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .instagram-hero h3 { margin: 4px 0 0; color: var(--white); font-family: "Cormorant Garamond", Georgia, serif; font-size: 30px; line-height: 1; }
+    .instagram-hero p { margin: 6px 0 0; color: #d7d7d2; max-width: 680px; font-size: 13px; line-height: 1.5; }
+    .instagram-hero-count { min-width: 92px; padding: 9px 10px; border: 1px solid #4f4f4a; text-align: center; }
+    .instagram-hero-count strong { display: block; color: var(--white); font-size: 22px; line-height: 1; }
+    .instagram-hero-count span { color: #d7d7d2; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .instagram-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .instagram-flow div { border-top: 1px solid #4f4f4a; padding-top: 8px; display: grid; gap: 3px; }
+    .instagram-flow strong { color: var(--white); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .instagram-flow span { color: #cfcfc9; font-size: 11px; line-height: 1.35; }
+    .instagram-kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 8px; overflow-x: auto; }
+    .instagram-kpi { border: 1px solid var(--line); background: var(--paper); min-width: 130px; padding: 12px; display: grid; gap: 5px; }
+    .instagram-kpi strong { font-size: 22px; line-height: 1; }
+    .instagram-kpi span { color: var(--black); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .instagram-kpi small { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .instagram-queue { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 14px; display: grid; gap: 12px; }
+    .instagram-queue.approval { border-color: var(--black); }
+    .instagram-queue-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .instagram-queue-head h4 { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    .instagram-queue-head p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; max-width: 780px; }
+    .queue-count { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; min-height: 26px; border: 1px solid var(--line); color: var(--black); background: var(--paper); font-size: 11px; font-weight: 800; }
+    .instagram-lead-card { min-height: 0; }
+    .instagram-lead-card.status-approved { border-color: var(--black); background: #fbfbf8; }
+    .instagram-lead-card.status-contacted { background: #f7f7f5; }
+    .instagram-lead-card.status-closed { opacity: .78; }
+    .lead-stage { display: inline-flex; align-items: center; width: max-content; border: 1px solid var(--line); border-radius: var(--radius-control); padding: 3px 6px; color: var(--muted); background: var(--paper); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .lead-stage.approved { border-color: var(--black); color: var(--black); background: var(--white); }
+    .lead-stage.contacted { color: #315f3b; background: #f2f7f1; border-color: #9db6a0; }
+    .lead-stage.closed { color: var(--muted); }
+    .instagram-quick-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    .instagram-quick-actions button { min-height: 32px; }
     .instagram-lead-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
     .instagram-lead-card { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 12px; display: grid; gap: 10px; align-content: start; min-height: 188px; }
     .instagram-lead-card.priority { border-color: var(--black); background: #fbfbf8; }
@@ -537,6 +571,8 @@
       .gallery-arrow.prev { left: 8px; }
       .gallery-arrow.next { right: 8px; }
       .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command, .instagram-command-grid { grid-template-columns: 1fr; }
+      .instagram-flow { grid-template-columns: 1fr; }
+      .instagram-hero-top, .instagram-queue-head { display: grid; }
       .backoffice-grid, .admin-health-grid, .instagram-command-grid, .backoffice-section, .metric-card, .instagram-lead-card { width: 100%; max-width: 100%; min-width: 0; }
       .backoffice-tab-panel > *, .backoffice-grid > *, .instagram-command-grid > *, .instagram-lead-grid > * { width: 100%; max-width: 100%; min-width: 0; }
       .backoffice-section { overflow: hidden; }
@@ -3784,7 +3820,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       { id: "ig-follower:taufferautomotive", external_id: "ig-follower:taufferautomotive", handle: "taufferautomotive", name: "Tauffer Automotive", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
       { id: "ig-follower:gmw.tech", external_id: "ig-follower:gmw.tech", handle: "gmw.tech", name: "GMW | Soluções em Tecnologia", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
       { id: "ig-follower:eletrica.giaretta", external_id: "ig-follower:eletrica.giaretta", handle: "eletrica.giaretta", name: "Elétrica Giaretta", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Seguidor confirmado; perfil empresarial. Tratar como relacionamento/parceria local.", status: "Acompanhar", score: 38 },
-      { id: "ig-follower:maico_locatelli", external_id: "ig-follower:maico_locatelli", handle: "maico_locatelli", name: "Maico Locatelli", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
+      { id: "ig-follower:maico_locatelli", external_id: "ig-follower:maico_locatelli", handle: "maico_locatelli", name: "Maico Locatelli", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "DM individual enviada em 19/07/2026 às 09:01. Aguardar resposta; sem insistência se não responder.", status: "Chamado", score: 46 },
       { id: "ig-follower:cristianogollo", external_id: "ig-follower:cristianogollo", handle: "cristianogollo", name: "Cristiano Gollo", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
       { id: "ig-follower:jucelirdalmas", external_id: "ig-follower:jucelirdalmas", handle: "jucelirdalmas", name: "Jucelir Dal Mas", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
       { id: "ig-follower:wesley_zanchettin", external_id: "ig-follower:wesley_zanchettin", handle: "wesley_zanchettin", name: "Wesley Zanchettin", city: "", source: "seguidor real do Instagram", origin: "auditoria_manual_seguidores", follows_profile: true, note: "Novo seguidor confirmado. Fazer uma única abordagem individual com a DM padrão; sem insistência se não responder.", status: "Novo", score: 46 },
@@ -4592,20 +4628,30 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       </div>`;
     }
 
+    function instagramLeadStage(item = {}) {
+      const status = normalize(item.status || "novo");
+      if (status === "aprovado para contato") return { label: "Aprovado", className: "approved" };
+      if (/chamado|em conversa|respondeu|comprou/.test(status)) return { label: item.status || "Em andamento", className: "contacted" };
+      if (/arquivado|acompanhar/.test(status)) return { label: item.status || "Encerrado", className: "closed" };
+      return { label: "A decidir", className: "pending" };
+    }
+
     function renderInstagramLeadCards(leads, limit = 10, priority = false) {
-      const rows = leads.filter(isActionableInstagramLead).slice(0, limit);
+      const rows = leads.slice(0, limit);
       if (!rows.length) return renderInstagramEmptyState();
       return `<div class="instagram-lead-grid">${rows.map((item, index) => {
         const url = instagramProfileUrl(item);
         const handle = instagramHandleValue(item);
         const score = instagramProspectScore(item);
-        return `<article class="instagram-lead-card${priority || index < 3 ? " priority" : ""}">
+        const stage = instagramLeadStage(item);
+        const cardClass = stage.className === "approved" ? " status-approved" : stage.className === "contacted" ? " status-contacted" : stage.className === "closed" ? " status-closed" : "";
+        return `<article class="instagram-lead-card${priority || index < 3 ? " priority" : ""}${cardClass}">
           <div class="instagram-lead-head">
             <div class="instagram-lead-person">
               <strong>${safeHtml(instagramLeadDisplayName(item))}</strong>
               ${url ? `<a href="${safeHtml(url)}" target="_blank" rel="noopener">@${safeHtml(handle)}</a>` : `<span class="backoffice-note">@ não informado</span>`}
             </div>
-            <span class="score-pill">Score ${score}</span>
+            <div class="instagram-lead-person"><span class="lead-stage ${stage.className}">${safeHtml(stage.label)}</span><span class="score-pill">Score ${score}</span></div>
           </div>
           <div class="instagram-lead-meta">
             <span>${safeHtml(item.city || "cidade?")}</span>
@@ -4617,12 +4663,24 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             ${url ? `<a class="instagram-profile-link" href="${safeHtml(url)}" target="_blank" rel="noopener">Abrir perfil</a>` : ""}
             <button class="copy-wa-btn" type="button" data-copy-instagram-lead="${safeHtml(item.id)}">Copiar DM</button>
             ${isInstagramLeadApproved(item) ? `<button class="secondary-btn" type="button" data-open-approved-instagram-lead="${safeHtml(item.id)}">Abrir DM aprovada</button>` : ""}
+            ${stage.className === "pending" ? `<div class="instagram-quick-actions"><button class="primary-btn" type="button" data-approve-instagram-lead="${safeHtml(item.id)}">Aprovar</button><button class="secondary-btn" type="button" data-archive-instagram-lead="${safeHtml(item.id)}">Não chamar</button></div>` : ""}
             <select class="lead-status-select" data-instagram-lead-status data-instagram-lead-id="${safeHtml(item.id)}" aria-label="Status de ${safeHtml(instagramLeadDisplayName(item))}">
               ${["Novo", "Aprovado para contato", "Chamado", "Em conversa", "Respondeu", "Comprou", "Acompanhar", "Arquivado"].map((status) => `<option value="${status}"${normalize(item.status) === normalize(status) ? " selected" : ""}>${status === "Novo" ? "Não chamado" : status}</option>`).join("")}
             </select>
           </div>
         </article>`;
       }).join("")}</div>`;
+    }
+
+    function renderInstagramQueue(title, description, leads, options = {}) {
+      const { tone = "", open = true, limit = 999 } = options;
+      return `<details class="instagram-queue ${safeHtml(tone)}"${open ? " open" : ""}>
+        <summary class="instagram-queue-head">
+          <div><h4>${safeHtml(title)}</h4><p>${safeHtml(description)}</p></div>
+          <span class="queue-count">${leads.length}</span>
+        </summary>
+        ${renderInstagramLeadCards(leads, limit, tone === "approval")}
+      </details>`;
     }
 
     const INSTAGRAM_APPROVAL_LIMIT = 10;
@@ -4705,7 +4763,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const candidates = instagramDailyCandidates(allCustomerKeys);
       const realStats = instagramRealLeadStats();
       const imported = realStats.actionable;
-      const approvedToday = imported.filter((item) => isInstagramLeadApproved(item) && isTodayDate(item.updatedAt || item.createdAt));
+      const allLeads = [...realStats.leads].sort((a, b) => instagramProspectScore(b) - instagramProspectScore(a));
+      const awaitingDecision = allLeads.filter((item) => instagramLeadStage(item).className === "pending");
+      const approved = allLeads.filter((item) => instagramLeadStage(item).className === "approved");
+      const contacted = allLeads.filter((item) => instagramLeadStage(item).className === "contacted");
+      const closed = allLeads.filter((item) => instagramLeadStage(item).className === "closed");
+      const approvedToday = approved.filter((item) => isTodayDate(item.updatedAt || item.createdAt));
       const confirmedFollowers = imported.filter((item) => /^(sim|true|segue|seguidor)/.test(normalize(String(item.follows ?? item.follows_profile ?? ""))));
       const importedRows = confirmedFollowers
         .slice(0, 25)
@@ -4765,24 +4828,28 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         ["Indicação", "Amigo de cliente com estilo compatível", "Pedir autorização/ponte antes de chamar"],
       ].map(([city, profile, action], index) => `<tr><td>${index + 1}</td><td>${safeHtml(city)}</td><td>${safeHtml(profile)}</td><td>${safeHtml(action)}</td><td>Captar nome, @, cidade, tamanho e interesse.</td></tr>`);
       return `
-        <div class="backoffice-grid">
-          <div class="metric-card"><strong>${realStats.actionable.length}</strong><span>Leads com @</span><small class="muted">Somente perfis clicáveis, sem a conta da SCORSATTO.</small></div>
-          <div class="metric-card"><strong>${realStats.hot.length}</strong><span>Quentes Instagram</span><small class="muted">Score 60+ para chamar antes do público frio.</small></div>
-          <div class="metric-card"><strong>${approvedToday.length}/${INSTAGRAM_APPROVAL_LIMIT}</strong><span>Aprovados hoje</span><small class="muted">Abertura da DM com revisão humana antes do envio.</small></div>
-          <div class="metric-card"><strong>${Math.min(5, realStats.nonFollowers.length)}</strong><span>Não seguem (confirmado)</span><small class="muted">Só aparece quando a situação foi confirmada no Instagram e registrada na base.</small></div>
-          <div class="metric-card"><strong>${realStats.today.length}</strong><span>Novos hoje</span><small class="muted">Interações/captações do dia.</small></div>
-        </div>
-        <div class="instagram-command-grid">
-          <div>
-            ${renderBackofficeSection("Chamar hoje: 10 perfis", `<p class="backoffice-note">Nome e @ já abrem direto o perfil. Use a DM copiada e ajuste antes de enviar.</p>${renderInstagramLeadCards(imported, 10, true)}`, true)}
-            ${renderBackofficeSection("Fila aprovada para contato", `<p class="backoffice-note">Aprovar não envia mensagem. O botão abre a DM com o texto copiado para revisão final. Máximo de ${INSTAGRAM_APPROVAL_LIMIT} aprovações por dia.</p>${renderInstagramLeadCards(approvedToday, INSTAGRAM_APPROVAL_LIMIT, true)}`, false)}
-        ${renderBackofficeSection("5 que não seguem", realStats.nonFollowers.length ? renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "DM"], nonFollowerRows, "Nenhum não seguidor com @ confirmado ainda.") : `<div class="instagram-empty-state"><strong>Sem 5 não seguidores confirmados ainda.</strong><span>O Instagram não entrega essa informação de forma confiável para todos os perfis. Registre aqui somente perfis públicos cuja relação tenha sido conferida no perfil da SCORSATTO; então eles aparecem com @ e link direto.</span></div>`, true)}
-            ${renderBackofficeSection("Leads novos/quentes", renderInstagramLeadCards(realStats.hot.length ? realStats.hot : realStats.notContacted, 8, false), false)}
+        <div class="instagram-workspace">
+          <section class="instagram-hero">
+            <div class="instagram-hero-top">
+              <div><p class="instagram-eyebrow">Operação comercial</p><h3>Instagram: uma fila, uma decisão por vez.</h3><p>Todos os leads estão abaixo, separados pelo momento da conversa. Primeiro decida; depois chame; por fim, registre a resposta.</p></div>
+              <div class="instagram-hero-count"><strong>${allLeads.length}</strong><span>Leads totais</span></div>
+            </div>
+            <div class="instagram-flow"><div><strong>1. Decidir</strong><span>Aprove ou descarte os contatos ainda não chamados.</span></div><div><strong>2. Chamar</strong><span>Abra a DM aprovada, revise o texto e envie individualmente.</span></div><div><strong>3. Acompanhar</strong><span>Marque chamado, conversa, respondeu ou comprou para não se perder.</span></div></div>
+          </section>
+          <div class="instagram-kpi-grid">
+            <div class="instagram-kpi"><strong>${awaitingDecision.length}</strong><span>Para decidir</span><small>Leads que ainda precisam de sim ou não.</small></div>
+            <div class="instagram-kpi"><strong>${approved.length}</strong><span>Aprovados</span><small>${approvedToday.length}/${INSTAGRAM_APPROVAL_LIMIT} aprovados hoje.</small></div>
+            <div class="instagram-kpi"><strong>${contacted.length}</strong><span>Já chamados</span><small>Em acompanhamento ou conversa.</small></div>
+            <div class="instagram-kpi"><strong>${closed.length}</strong><span>Encerrados</span><small>Arquivados ou para acompanhar depois.</small></div>
+            <div class="instagram-kpi"><strong>${realStats.hot.length}</strong><span>Quentes</span><small>Score 60+ para priorizar na decisão.</small></div>
           </div>
-          <div>
-            ${renderBackofficeSection("Importar / conectar", renderInstagramImportPanel(), true)}
-            ${renderBackofficeSection("Origem dos leads", renderBackofficeTable(["Origem", "Leads", "Quentes", "Último sinal"], instagramSourceRows(), "Sem origem de lead registrada."), false)}
-          </div>
+          ${renderInstagramQueue("1. Para decidir agora", "Aprove quem vale uma abordagem individual ou marque “Não chamar”. Nada é enviado nesta etapa.", awaitingDecision, { tone: "approval", open: true })}
+          ${renderInstagramQueue("2. Aprovados para contato", `Prontos para chamar. Máximo de ${INSTAGRAM_APPROVAL_LIMIT} novas aprovações por dia; abrir a DM não envia automaticamente.`, approved, { tone: "approval", open: true })}
+          ${renderInstagramQueue("3. Já chamados e em acompanhamento", "Aqui ficam os contatos que receberam mensagem, responderam, estão em conversa ou compraram. Atualize o status após cada conversa.", contacted, { open: true })}
+          ${renderInstagramQueue("4. Arquivados ou para acompanhar", "Fora da fila do dia. Reative somente quando houver um motivo real para retomar o contato.", closed, { open: false })}
+          ${renderBackofficeSection("Não seguidores confirmados", realStats.nonFollowers.length ? renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "DM"], nonFollowerRows, "Nenhum não seguidor com @ confirmado ainda.") : `<div class="instagram-empty-state"><strong>Sem não seguidores confirmados ainda.</strong><span>Adicione somente perfis públicos cuja relação com a SCORSATTO foi realmente conferida. Eles entram na mesma fila de decisão acima.</span></div>`, false)}
+          ${renderBackofficeSection("Adicionar ou importar leads", renderInstagramImportPanel(), false)}
+          ${renderBackofficeSection("Origem dos leads", renderBackofficeTable(["Origem", "Leads", "Quentes", "Último sinal"], instagramSourceRows(), "Sem origem de lead registrada."), false)}
         </div>
         ${renderBackofficeSection("Base Instagram: 25 seguidores", `<p class="backoffice-note">Mostra 25 seguidores reais auditados. Os cinco novos ficam como “Novo” para uma abordagem individual; os demais permanecem em acompanhamento.</p>${renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "Segue?", "Contexto", "DM"], importedRows, "Importe curtidas, comentários, respostas de story ou indicações para formar a lista real do Instagram.")}`, false)}
         ${renderBackofficeSection("Visitantes com interesse em roupa", `<p class="backoffice-note">São pessoas anônimas que viram várias peças. Não contam como lead ainda; use para criar campanha de cadastro/WhatsApp.</p>${renderBackofficeTable(["Visitante", "Views", "Interesse", "Tela", "Último acesso", "Ação"], visitorInterestRows, "Sem visitante anônimo forte agora.")}`, false)}
@@ -6747,6 +6814,28 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderAccount();
         return;
       }
+      const approveInstagramLead = event.target.closest("[data-approve-instagram-lead]");
+      if (approveInstagramLead && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        updateInstagramLeadStatus(approveInstagramLead.dataset.approveInstagramLead, "Aprovado para contato").then((result) => {
+          accountMessage = result?.message || "Lead aprovado para contato.";
+          renderAccount();
+        });
+        return;
+      }
+      const archiveInstagramLead = event.target.closest("[data-archive-instagram-lead]");
+      if (archiveInstagramLead && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        updateInstagramLeadStatus(archiveInstagramLead.dataset.archiveInstagramLead, "Arquivado").then(() => {
+          accountMessage = "Lead retirado da fila de contato.";
+          renderAccount();
+        });
+        return;
+      }
       const copyInstagramLead = event.target.closest("[data-copy-instagram-lead]");
       if (copyInstagramLead && isAdminAccount()) {
         const lead = instagramLeadPool().find((item) => item.id === copyInstagramLead.dataset.copyInstagramLead);
@@ -6957,6 +7046,24 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         accountMessage = "Mensagem de Instagram copiada.";
         activeBackofficeTab = "instagram";
         renderBackofficeStandalone();
+        return;
+      }
+      const approveInstagramLead = event.target.closest("[data-approve-instagram-lead]");
+      if (approveInstagramLead && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        updateInstagramLeadStatus(approveInstagramLead.dataset.approveInstagramLead, "Aprovado para contato").then((result) => {
+          accountMessage = result?.message || "Lead aprovado para contato.";
+          renderBackofficeStandalone();
+        });
+        return;
+      }
+      const archiveInstagramLead = event.target.closest("[data-archive-instagram-lead]");
+      if (archiveInstagramLead && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        updateInstagramLeadStatus(archiveInstagramLead.dataset.archiveInstagramLead, "Arquivado").then(() => {
+          accountMessage = "Lead retirado da fila de contato.";
+          renderBackofficeStandalone();
+        });
         return;
       }
       const copyInstagramLead = event.target.closest("[data-copy-instagram-lead]");
