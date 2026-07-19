@@ -4616,18 +4616,32 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <div class="instagram-lead-actions">
             ${url ? `<a class="instagram-profile-link" href="${safeHtml(url)}" target="_blank" rel="noopener">Abrir perfil</a>` : ""}
             <button class="copy-wa-btn" type="button" data-copy-instagram-lead="${safeHtml(item.id)}">Copiar DM</button>
+            ${isInstagramLeadApproved(item) ? `<button class="secondary-btn" type="button" data-open-approved-instagram-lead="${safeHtml(item.id)}">Abrir DM aprovada</button>` : ""}
             <select class="lead-status-select" data-instagram-lead-status data-instagram-lead-id="${safeHtml(item.id)}" aria-label="Status de ${safeHtml(instagramLeadDisplayName(item))}">
-              ${["Novo", "Chamado", "Em conversa", "Respondeu", "Comprou", "Acompanhar", "Arquivado"].map((status) => `<option value="${status}"${normalize(item.status) === normalize(status) ? " selected" : ""}>${status === "Novo" ? "Não chamado" : status}</option>`).join("")}
+              ${["Novo", "Aprovado para contato", "Chamado", "Em conversa", "Respondeu", "Comprou", "Acompanhar", "Arquivado"].map((status) => `<option value="${status}"${normalize(item.status) === normalize(status) ? " selected" : ""}>${status === "Novo" ? "Não chamado" : status}</option>`).join("")}
             </select>
           </div>
         </article>`;
       }).join("")}</div>`;
     }
 
+    const INSTAGRAM_APPROVAL_LIMIT = 10;
+
+    function isInstagramLeadApproved(item = {}) {
+      return normalize(item.status || "") === "aprovado para contato";
+    }
+
+    function instagramApprovedTodayCount() {
+      return instagramLeadPool().filter((item) => isInstagramLeadApproved(item) && isTodayDate(item.updatedAt || item.createdAt)).length;
+    }
+
     async function updateInstagramLeadStatus(id, status) {
       const lead = instagramLeadPool().find((item) => String(item.id) === String(id));
-      if (!lead) return false;
+      if (!lead) return { ok: false, message: "Lead não encontrado." };
       const nextStatus = String(status || "Novo");
+      if (normalize(nextStatus) === "aprovado para contato" && !isInstagramLeadApproved(lead) && instagramApprovedTodayCount() >= INSTAGRAM_APPROVAL_LIMIT) {
+        return { ok: false, message: `Limite de ${INSTAGRAM_APPROVAL_LIMIT} aprovações por dia atingido.` };
+      }
       const local = instagramLeadBase().map((item) => {
         const normalized = normalizeInstagramLead(item);
         return String(normalized.id) === String(id) || String(normalized.externalId) === String(lead.externalId)
@@ -4646,6 +4660,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         if (result.error) console.warn("Não foi possível salvar o status do lead no banco.", result.error);
       }
       backofficeData = null;
+      return { ok: true, message: nextStatus === "Aprovado para contato" ? "Lead aprovado. Revise a DM antes de enviar." : "" };
+    }
+
+    function openApprovedInstagramLead(id) {
+      const lead = instagramLeadPool().find((item) => String(item.id) === String(id));
+      if (!lead || !isInstagramLeadApproved(lead)) return false;
+      const handle = instagramHandleValue(lead);
+      if (!handle) return false;
+      navigator.clipboard?.writeText(instagramLeadMessage(lead));
+      window.open(`https://ig.me/m/${encodeURIComponent(handle)}`, "_blank", "noopener");
       return true;
     }
 
@@ -4681,6 +4705,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const candidates = instagramDailyCandidates(allCustomerKeys);
       const realStats = instagramRealLeadStats();
       const imported = realStats.actionable;
+      const approvedToday = imported.filter((item) => isInstagramLeadApproved(item) && isTodayDate(item.updatedAt || item.createdAt));
       const confirmedFollowers = imported.filter((item) => /^(sim|true|segue|seguidor)/.test(normalize(String(item.follows ?? item.follows_profile ?? ""))));
       const importedRows = confirmedFollowers
         .slice(0, 25)
@@ -4743,12 +4768,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="backoffice-grid">
           <div class="metric-card"><strong>${realStats.actionable.length}</strong><span>Leads com @</span><small class="muted">Somente perfis clicáveis, sem a conta da SCORSATTO.</small></div>
           <div class="metric-card"><strong>${realStats.hot.length}</strong><span>Quentes Instagram</span><small class="muted">Score 60+ para chamar antes do público frio.</small></div>
+          <div class="metric-card"><strong>${approvedToday.length}/${INSTAGRAM_APPROVAL_LIMIT}</strong><span>Aprovados hoje</span><small class="muted">Abertura da DM com revisão humana antes do envio.</small></div>
           <div class="metric-card"><strong>${Math.min(5, realStats.nonFollowers.length)}</strong><span>Não seguem (confirmado)</span><small class="muted">Só aparece quando a situação foi confirmada no Instagram e registrada na base.</small></div>
           <div class="metric-card"><strong>${realStats.today.length}</strong><span>Novos hoje</span><small class="muted">Interações/captações do dia.</small></div>
         </div>
         <div class="instagram-command-grid">
           <div>
             ${renderBackofficeSection("Chamar hoje: 10 perfis", `<p class="backoffice-note">Nome e @ já abrem direto o perfil. Use a DM copiada e ajuste antes de enviar.</p>${renderInstagramLeadCards(imported, 10, true)}`, true)}
+            ${renderBackofficeSection("Fila aprovada para contato", `<p class="backoffice-note">Aprovar não envia mensagem. O botão abre a DM com o texto copiado para revisão final. Máximo de ${INSTAGRAM_APPROVAL_LIMIT} aprovações por dia.</p>${renderInstagramLeadCards(approvedToday, INSTAGRAM_APPROVAL_LIMIT, true)}`, false)}
         ${renderBackofficeSection("5 que não seguem", realStats.nonFollowers.length ? renderBackofficeTable(["#", "Pessoa / perfil", "Propensão", "Cidade", "Origem", "DM"], nonFollowerRows, "Nenhum não seguidor com @ confirmado ainda.") : `<div class="instagram-empty-state"><strong>Sem 5 não seguidores confirmados ainda.</strong><span>O Instagram não entrega essa informação de forma confiável para todos os perfis. Registre aqui somente perfis públicos cuja relação tenha sido conferida no perfil da SCORSATTO; então eles aparecem com @ e link direto.</span></div>`, true)}
             ${renderBackofficeSection("Leads novos/quentes", renderInstagramLeadCards(realStats.hot.length ? realStats.hot : realStats.notContacted, 8, false), false)}
           </div>
@@ -6731,6 +6758,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderAccount();
         return;
       }
+      const approvedInstagramLeadButton = event.target.closest("[data-open-approved-instagram-lead]");
+      if (approvedInstagramLeadButton && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        activeAdminView = "backoffice";
+        activeAccountTab = "admin";
+        accountMessage = openApprovedInstagramLead(approvedInstagramLeadButton.dataset.openApprovedInstagramLead)
+          ? "DM copiada e aberta para sua revisão. O envio continua manual."
+          : "Este contato precisa estar aprovado antes de abrir a DM.";
+        renderAccount();
+        return;
+      }
       const segment = event.target.closest("[data-backoffice-segment]");
       if (segment && isAdminAccount()) {
         activeBackofficeSegment = segment.dataset.backofficeSegment;
@@ -6930,6 +6968,15 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         renderBackofficeStandalone();
         return;
       }
+      const approvedInstagramLeadButton = event.target.closest("[data-open-approved-instagram-lead]");
+      if (approvedInstagramLeadButton && isAdminAccount()) {
+        activeBackofficeTab = "instagram";
+        accountMessage = openApprovedInstagramLead(approvedInstagramLeadButton.dataset.openApprovedInstagramLead)
+          ? "DM copiada e aberta para sua revisão. O envio continua manual."
+          : "Este contato precisa estar aprovado antes de abrir a DM.";
+        renderBackofficeStandalone();
+        return;
+      }
       const deleteLead = event.target.closest("[data-delete-lead]");
       if (deleteLead && isAdminAccount()) {
         deleteLeadFromManagement(deleteLead.dataset.deleteLead);
@@ -6974,8 +7021,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const instagramStatus = event.target.closest("[data-instagram-lead-status]");
       if (instagramStatus && isAdminAccount()) {
         activeBackofficeTab = "instagram";
-        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then(() => {
-          accountMessage = `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
+        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then((result) => {
+          accountMessage = result?.message || `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
           renderBackofficeStandalone();
         });
         return;
@@ -7074,8 +7121,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (instagramStatus && isAdminAccount()) {
         activeBackofficeTab = "instagram";
         activeAdminView = "backoffice";
-        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then(() => {
-          accountMessage = `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
+        updateInstagramLeadStatus(instagramStatus.dataset.instagramLeadId, instagramStatus.value).then((result) => {
+          accountMessage = result?.message || `Status atualizado: ${instagramStatus.value === "Novo" ? "não chamado" : instagramStatus.value}.`;
           renderAccount();
         });
         return;
