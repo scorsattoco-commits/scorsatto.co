@@ -3528,6 +3528,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
       if (backofficeData && !force) return backofficeData;
       backofficeError = "";
+      // O e-mail libera a interface, mas a leitura precisa da linha em
+      // admin_users. Sem essa checagem o RLS devolve uma lista vazia e o
+      // painel parece estar zerado mesmo quando os eventos existem.
+      if (!adminVerified && !await refreshAdminAccess()) {
+        backofficeError = "Esta conta ainda não tem permissão no banco para ler os acessos. Entre novamente com a conta administradora e atualize a tela.";
+        return null;
+      }
       const [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult, instagramLeadsResult] = await Promise.all([
         db.from("profiles").select("*").order("created_at", { ascending: false }).limit(300),
         db.from("addresses").select("*").order("updated_at", { ascending: false }).limit(300),
