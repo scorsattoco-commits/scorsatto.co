@@ -1,0 +1,36 @@
+name: "SCORSATTO 02 — novas peças para aprovação"
+
+on:
+  schedule:
+    - cron: "00 11 * * *" # 08:00 em São Paulo (UTC-3)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scorsatto-novas-pecas
+  cancel-in-progress: false
+
+jobs:
+  varrer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Buscar peças alinhadas à curadoria SCORSATTO
+        run: python scripts/scan_supplier_candidates.py
+      - name: Agrupar candidatas por marca, categoria, modelo e tecido
+        run: python scripts/group_supplier_candidates.py
+      - name: Gerar painel diário para aprovação
+        run: python scripts/generate_cloud_automation_report.py
+      - name: Publicar relatórios sem alterar o catálogo
+        run: |
+          git config user.name "scorsatto-automation[bot]"
+          git config user.email "scorsatto-automation[bot]@users.noreply.github.com"
+          git add data/fornecedor-varreduras previews/fornecedor-varreduras previews/automacoes/painel-relatorios-diarios.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore(automation): relatório diário de novas peças"
+          git push
