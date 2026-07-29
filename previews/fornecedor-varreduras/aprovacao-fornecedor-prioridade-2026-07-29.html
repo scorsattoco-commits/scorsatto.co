@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCORSATTO - Varredura fornecedor - prioridade para aprovacao</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f7f5ef; color:#181816; font-family:Inter,Arial,sans-serif; }
+    header { padding:22px 32px; background:#fff; border-bottom:1px solid #ddd8ce; position:sticky; top:0; z-index:2; display:grid; gap:14px; }
+    h1 { margin:0 0 6px; font-size:24px; }
+    p { margin:0; color:#666; }
+    .toolbar { display:grid; grid-template-columns:minmax(180px,1fr) 180px 180px auto auto auto; gap:10px; align-items:center; }
+    input[type="search"], select, textarea { width:100%; min-height:38px; border:1px solid #cfc8ba; border-radius:6px; background:#fff; padding:0 10px; font:inherit; }
+    main { padding:24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+    .card { background:#fff; border:1px solid #ded8ce; border-radius:8px; overflow:hidden; display:grid; position:relative; }
+    .card.selected { border-color:#111; box-shadow:0 0 0 2px #111 inset; }
+    .card.hidden { display:none; }
+    .select-line { display:flex; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #ece7df; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; }
+    .select-line input { width:18px; height:18px; accent-color:#111; }
+    img { width:100%; aspect-ratio:1/1; object-fit:contain; background:#f8f6f0; }
+    .body { padding:14px; display:grid; gap:8px; }
+    .badges { display:flex; flex-wrap:wrap; gap:6px; }
+    .badges span { border:1px solid #ddd6ca; border-radius:999px; padding:4px 8px; background:#faf8f2; color:#34312b; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+    strong { font-size:14px; line-height:1.35; }
+    span, a { font-size:12px; color:#5f5b53; }
+    a { color:#111; font-weight:700; }
+    button { border:1px solid #111; border-radius:6px; background:#111; color:#fff; min-height:38px; padding:0 12px; font-weight:800; cursor:pointer; }
+    button.secondary { background:#fff; color:#111; }
+    .export-panel { display:none; padding:0 24px 24px; }
+    .export-panel.open { display:block; }
+    textarea { min-height:160px; padding:12px; font-family:Consolas,monospace; font-size:12px; }
+    .count { font-weight:800; color:#181816; }
+    @media (max-width: 820px) { .toolbar { grid-template-columns:1fr 1fr; } .toolbar input[type="search"] { grid-column:1 / -1; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Varredura fornecedor - prioridade para aprovacao</h1>
+      <p><span class="count" id="visibleCount">36</span> de 36 pecas novas na tela. Selecionadas: <span class="count" id="selectedCount">0</span>. Nada foi inserido no site.</p>
+    </div>
+    <div class="toolbar">
+      <input id="searchBox" type="search" placeholder="Buscar peca, marca ou categoria">
+      <select id="brandFilter" aria-label="Filtrar marca"><option value="">Todos</option><option value="Armani Exchange">Armani Exchange</option><option value="Hugo Boss">Hugo Boss</option><option value="Lacoste">Lacoste</option><option value="Ralph Lauren">Ralph Lauren</option><option value="Tommy Hilfiger">Tommy Hilfiger</option></select>
+      <select id="collectionFilter" aria-label="Filtrar categoria"><option value="">Todos</option><option value="bermudas">Bermudas</option><option value="camisa-social">Camisa Social</option><option value="camisetas">Camisetas</option><option value="gola-polo">Gola Polo</option><option value="jaquetas">Jaquetas</option></select>
+      <button id="selectVisible" type="button">Selecionar visiveis</button>
+      <button id="clearSelection" class="secondary" type="button">Limpar</button>
+      <button id="exportSelection" type="button">Exportar selecionadas</button>
+    </div>
+  </header>
+  <main>
+            <article class="card" data-id="13876" data-brand="Ralph Lauren" data-collection="camisa-social" data-search="camisa social linho rl - branco - 302902116 ralph lauren camisa-social">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="13876">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/linho/whatsapp-image-2025-09-22-at-161931-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Ralph Lauren</span><span>Camisa Social</span></div>
+                <strong>Camisa Social Linho RL - Branco - 302902116</strong>
+                <span>Ref. 13876 | tamanhos: XXG</span>
+                <span>Atacado: R$ 105,00 | Varejo: R$ 220,00</span>
+                <a href="https://www.catalogopoa.com.br/camisa-social-linho-rl-bra-302902116" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="14828" data-brand="Tommy Hilfiger" data-collection="camisa-social" data-search="camisa social xe linho manga curta - branco - 1111... tommy hilfiger camisa-social">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="14828">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/whatsapp-image-2025-12-15-at-155757.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisa Social</span></div>
+                <strong>Camisa Social XE Linho MANGA CURTA - Branco - 1111...</strong>
+                <span>Ref. 14828 | tamanhos: XXG</span>
+                <span>Atacado: R$ 100,00 | Varejo: R$ 220,00</span>
+                <a href="https://www.catalogopoa.com.br/camisa-social-xe-linho-manga-curta-branco-11111115" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16476" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - bege - pimajerseyxe0078 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16476">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-5.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Bege - pimajerseyxe0078</strong>
+                <span>Ref. 16476 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-be-pimajerseyxe0078" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16470" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - branco - pimajerseyxe007 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16470">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-3.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Branco - pimajerseyxe007</strong>
+                <span>Ref. 16470 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-branco-pimajerseyxe0072" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16473" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - cinza - pimajerseyxe0075 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16473">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Cinza - pimajerseyxe0075</strong>
+                <span>Ref. 16473 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-cinza-pimajerseyxe0075" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16478" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - cinza - pimajerseyxe0080 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16478">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-8.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Cinza - pimajerseyxe0080</strong>
+                <span>Ref. 16478 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-cinza-pimajerseyxe0080" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16466" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - preto - pimajerseyxe0068 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16466">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-173039-3.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0068</strong>
+                <span>Ref. 16466 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0068" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16474" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - preto - pimajerseyxe0076 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16474">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0076</strong>
+                <span>Ref. 16474 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0076" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16479" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - preto - pimajerseyxe0081 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16479">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-7.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0081</strong>
+                <span>Ref. 16479 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0081" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16494" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - azul marinho - 15533274510 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16494">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Azul Marinho - 15533274510</strong>
+                <span>Ref. 16494 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-marinho-155332745101" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16493" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - branco - 155332745100 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16493">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-4.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Branco - 155332745100</strong>
+                <span>Ref. 16493 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-branc-155332745100" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16497" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - cinza claro - 155332745104 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16497">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-5.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Cinza Claro - 155332745104</strong>
+                <span>Ref. 16497 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-cinza-claro-155332745104" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16492" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - preto - 15533274599 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16492">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Preto - 15533274599</strong>
+                <span>Ref. 16492 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-pre-15533274599" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16430" data-brand="Tommy Hilfiger" data-collection="gola-polo" data-search="gola polo premium xe - azul marinho - 381183 tommy hilfiger gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16430">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151110-2.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium XE - Azul Marinho - 381183</strong>
+                <span>Ref. 16430 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-381183" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16432" data-brand="Tommy Hilfiger" data-collection="gola-polo" data-search="gola polo premium xe - preto - 381185 tommy hilfiger gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16432">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151108.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium XE - Preto - 381185</strong>
+                <span>Ref. 16432 | tamanhos: P, M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-381185" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16220" data-brand="Armani Exchange" data-collection="jaquetas" data-search="jaqueta arm puffer gominho - preto - pufferarm000 armani exchange jaquetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16220">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-26-at-095156.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Jaquetas</span></div>
+                <strong>Jaqueta ARM Puffer Gominho - Preto - PufferARM000</strong>
+                <span>Ref. 16220 | tamanhos: P, M, G, GG, G1</span>
+                <span>Atacado: R$ 139,90 | Varejo: R$ 399,00</span>
+                <a href="https://www.catalogopoa.com.br/jaqueta-arm-puffer-gominho-preto-pufferarm0001" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16311" data-brand="Tommy Hilfiger" data-collection="camisa-social" data-search="camisa social xe oxford - cinza claro - camisasoci... tommy hilfiger camisa-social">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16311">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-07-08-at-095413-4.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisa Social</span></div>
+                <strong>Camisa Social XE OXFORD - Cinza Claro - CamisaSoci...</strong>
+                <span>Ref. 16311 | tamanhos: M, G, GG, XXG</span>
+                <span>Atacado: R$ 105,00 | Varejo: R$ 199,00</span>
+                <a href="https://www.catalogopoa.com.br/camisa-social-xe-oxford-cinza-cl-camisasocialxe00016" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16424" data-brand="Armani Exchange" data-collection="camisetas" data-search="camiseta pima jersey arm - azul marinho - jerseya... armani exchange camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16424">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY ARM - Azul marinho - jerseyA...</strong>
+                <span>Ref. 16424 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-azul-marinho-jerseyarm00022" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16426" data-brand="Armani Exchange" data-collection="camisetas" data-search="camiseta pima jersey arm - bege - jerseyarm00024 armani exchange camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16426">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY ARM - Bege - jerseyARM00024</strong>
+                <span>Ref. 16426 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00024" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16427" data-brand="Armani Exchange" data-collection="camisetas" data-search="camiseta pima jersey arm - cinza - jerseyarm00025 armani exchange camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16427">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446-3.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY ARM - Cinza - jerseyARM00025</strong>
+                <span>Ref. 16427 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-cinza-jerseyarm00025" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16471" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - bege - pimajerseyxe0073 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16471">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-2.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Bege - pimajerseyxe0073</strong>
+                <span>Ref. 16471 | tamanhos: P, M, G, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-bege-pimajerseyxe0073" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16475" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - branco - pimajerseyxe007 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16475">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-9.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Branco - pimajerseyxe007</strong>
+                <span>Ref. 16475 | tamanhos: P, M, GG, XXG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-bran-pimajerseyxe0077" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="15645" data-brand="Tommy Hilfiger" data-collection="camisetas" data-search="camiseta pima jersey xe - marrom - pimajerseyxe005 tommy hilfiger camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="15645">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-04-23-at-162100.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY XE - Marrom - pimajerseyxe005</strong>
+                <span>Ref. 15645 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-marrom-pimajerseyxe0055" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="15609" data-brand="Armani Exchange" data-collection="gola-polo" data-search="gola polo premium arm - azul marinho - 801003055 armani exchange gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="15609">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-3.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium ARM - Azul marinho - 801003055</strong>
+                <span>Ref. 15609 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 65,00 | Varejo: R$ 170,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-arm-azul-marinho-801003055" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16222" data-brand="Armani Exchange" data-collection="gola-polo" data-search="gola polo premium arm - azul marinho - 801003058 armani exchange gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16222">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-06-27-at-102930.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium ARM - Azul marinho - 801003058</strong>
+                <span>Ref. 16222 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 170,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-arm-azul-marinho-801003058" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="15608" data-brand="Armani Exchange" data-collection="gola-polo" data-search="gola polo premium arm - branco - 801003054 armani exchange gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="15608">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-2.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium ARM - Branco - 801003054</strong>
+                <span>Ref. 15608 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 65,00 | Varejo: R$ 170,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-arm-branco-801003054" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="15606" data-brand="Armani Exchange" data-collection="gola-polo" data-search="gola polo premium arm - marrom - 801003052 armani exchange gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="15606">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-4.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium ARM - Marrom - 801003052</strong>
+                <span>Ref. 15606 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 65,00 | Varejo: R$ 170,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-arm-marrom-801003052" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16171" data-brand="Hugo Boss" data-collection="gola-polo" data-search="gola polo premium hb - branco - polohb00028 hugo boss gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16171">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-06-23-at-161714-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Hugo Boss</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium HB - Branco - polohb00028</strong>
+                <span>Ref. 16171 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 65,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-hb-branco-polohb00028" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16174" data-brand="Hugo Boss" data-collection="gola-polo" data-search="gola polo premium hb - marrom - polohb00031 hugo boss gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16174">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-06-23-at-161715-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Hugo Boss</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium HB - Marrom - polohb00031</strong>
+                <span>Ref. 16174 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 65,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-hb-marrom-polohb00031" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="15013" data-brand="Hugo Boss" data-collection="gola-polo" data-search="gola polo premium hb - marrom escuro - polohb00010 hugo boss gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="15013">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-02-02-at-160123.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Hugo Boss</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium HB - Marrom Escuro - polohb00010</strong>
+                <span>Ref. 15013 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-hb-marrom-escuro-polohb00010" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16499" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - bege - 15533274516 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16499">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-7.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Bege - 15533274516</strong>
+                <span>Ref. 16499 | tamanhos: P, M, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-bege-15533274516" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16495" data-brand="Lacoste" data-collection="gola-polo" data-search="gola polo premium lct - off white - 155332745102 lacoste gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16495">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-2.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Lacoste</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium Lct - Off white - 155332745102</strong>
+                <span>Ref. 16495 | tamanhos: P, M, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-lct-off-white-155332745102" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16431" data-brand="Tommy Hilfiger" data-collection="gola-polo" data-search="gola polo premium xe - branco - 381184 tommy hilfiger gola-polo">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16431">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151111-1.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Gola Polo</span></div>
+                <strong>Gola Polo Premium XE - Branco - 381184</strong>
+                <span>Ref. 16431 | tamanhos: M, G, GG, XXG</span>
+                <span>Atacado: R$ 68,00 | Varejo: R$ 140,00</span>
+                <a href="https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-381184" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="16219" data-brand="Tommy Hilfiger" data-collection="jaquetas" data-search="jaqueta xe puffer gominho - preto - pufferxe0007 tommy hilfiger jaquetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="16219">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-26-at-091940.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Tommy Hilfiger</span><span>Jaquetas</span></div>
+                <strong>Jaqueta XE Puffer Gominho - Preto - PufferXE0007</strong>
+                <span>Ref. 16219 | tamanhos: P, M, G, GG</span>
+                <span>Atacado: R$ 139,90 | Varejo: R$ 199,00</span>
+                <a href="https://www.catalogopoa.com.br/jaqueta-xe-puffer-gominho-preto-pufferxe0007" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="7109" data-brand="Hugo Boss" data-collection="bermudas" data-search="bermuda moletom hb - azul marinho - 305016030 hugo boss bermudas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="7109">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/bermuda-moletom/whatsapp-image-2024-09-25-at-162954.jpeg" alt="">
+              <div class="body">
+                <div class="badges"><span>Hugo Boss</span><span>Bermudas</span></div>
+                <strong>Bermuda Moletom HB - Azul Marinho - 305016030</strong>
+                <span>Ref. 7109 | tamanhos: P, M, G</span>
+                <span>Atacado: R$ 36,00 | Varejo: R$ 68,00</span>
+                <a href="https://www.catalogopoa.com.br/bermuda-moletom-hb-azul-marinho-305016030" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            
+            <article class="card" data-id="14945" data-brand="Armani Exchange" data-collection="camisetas" data-search="camiseta pima jersey arm - preto - jerseyarm00013 armani exchange camisetas">
+              <label class="select-line">
+                <input type="checkbox" class="pick" value="14945">
+                <span>Selecionar para aprovacao</span>
+              </label>
+              <img src="https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-01-21-at-092723.JPG" alt="">
+              <div class="body">
+                <div class="badges"><span>Armani Exchange</span><span>Camisetas</span></div>
+                <strong>Camiseta PIMA JERSEY ARM - Preto - jerseyARM00013</strong>
+                <span>Ref. 14945 | tamanhos: P, M, GG</span>
+                <span>Atacado: R$ 50,00 | Varejo: R$ 120,00</span>
+                <a href="https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-preto-jerseyarm00013" target="_blank" rel="noreferrer">Abrir fornecedor</a>
+              </div>
+            </article>
+            </main>
+  <section id="exportPanel" class="export-panel">
+    <textarea id="exportBox" readonly placeholder="As pecas aprovadas aparecem aqui em JSON para inserir depois da aprovacao."></textarea>
+  </section>
+  <script id="candidate-data" type="application/json">[{"supplierProductId": "13876", "title": "Camisa Social Linho RL - Branco - 302902116", "url": "https://www.catalogopoa.com.br/camisa-social-linho-rl-bra-302902116", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/linho/whatsapp-image-2025-09-22-at-161931-1.jpeg", "sizes": ["XXG"], "retailPrice": "220,00", "wholesalePrice": "105,00", "categoryUrl": "https://www.catalogopoa.com.br/camisa-social", "brandLabel": "Ralph Lauren", "collection": "camisa-social"}, {"supplierProductId": "14828", "title": "Camisa Social XE Linho MANGA CURTA - Branco - 1111...", "url": "https://www.catalogopoa.com.br/camisa-social-xe-linho-manga-curta-branco-11111115", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/whatsapp-image-2025-12-15-at-155757.jpeg", "sizes": ["XXG"], "retailPrice": "220,00", "wholesalePrice": "100,00", "categoryUrl": "https://www.catalogopoa.com.br/camisa-social", "brandLabel": "Tommy Hilfiger", "collection": "camisa-social"}, {"supplierProductId": "16476", "title": "Camiseta PIMA JERSEY XE - Bege - pimajerseyxe0078", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-be-pimajerseyxe0078", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-5.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16470", "title": "Camiseta PIMA JERSEY XE - Branco - pimajerseyxe007", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-branco-pimajerseyxe0072", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-3.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16473", "title": "Camiseta PIMA JERSEY XE - Cinza - pimajerseyxe0075", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-cinza-pimajerseyxe0075", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16478", "title": "Camiseta PIMA JERSEY XE - Cinza - pimajerseyxe0080", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-cinza-pimajerseyxe0080", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-8.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16466", "title": "Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0068", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0068", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-173039-3.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16474", "title": "Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0076", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0076", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-1.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16479", "title": "Camiseta PIMA JERSEY XE - Preto - pimajerseyxe0081", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0081", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-7.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16494", "title": "Gola Polo Premium Lct - Azul Marinho - 15533274510", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-marinho-155332745101", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-1.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16493", "title": "Gola Polo Premium Lct - Branco - 155332745100", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-branc-155332745100", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-4.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16497", "title": "Gola Polo Premium Lct - Cinza Claro - 155332745104", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-cinza-claro-155332745104", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-5.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16492", "title": "Gola Polo Premium Lct - Preto - 15533274599", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-pre-15533274599", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16430", "title": "Gola Polo Premium XE - Azul Marinho - 381183", "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-381183", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151110-2.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Tommy Hilfiger", "collection": "gola-polo"}, {"supplierProductId": "16432", "title": "Gola Polo Premium XE - Preto - 381185", "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-381185", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151108.jpeg", "sizes": ["P", "M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Tommy Hilfiger", "collection": "gola-polo"}, {"supplierProductId": "16220", "title": "Jaqueta ARM Puffer Gominho - Preto - PufferARM000", "url": "https://www.catalogopoa.com.br/jaqueta-arm-puffer-gominho-preto-pufferarm0001", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-26-at-095156.jpeg", "sizes": ["P", "M", "G", "GG", "G1"], "retailPrice": "399,00", "wholesalePrice": "139,90", "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco", "brandLabel": "Armani Exchange", "collection": "jaquetas"}, {"supplierProductId": "16311", "title": "Camisa Social XE OXFORD - Cinza Claro - CamisaSoci...", "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-cinza-cl-camisasocialxe00016", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-07-08-at-095413-4.jpeg", "sizes": ["M", "G", "GG", "XXG"], "retailPrice": "199,00", "wholesalePrice": "105,00", "categoryUrl": "https://www.catalogopoa.com.br/camisa-social", "brandLabel": "Tommy Hilfiger", "collection": "camisa-social"}, {"supplierProductId": "16424", "title": "Camiseta PIMA JERSEY ARM - Azul marinho - jerseyA...", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-azul-marinho-jerseyarm00022", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446-1.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Armani Exchange", "collection": "camisetas"}, {"supplierProductId": "16426", "title": "Camiseta PIMA JERSEY ARM - Bege - jerseyARM00024", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00024", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Armani Exchange", "collection": "camisetas"}, {"supplierProductId": "16427", "title": "Camiseta PIMA JERSEY ARM - Cinza - jerseyARM00025", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-cinza-jerseyarm00025", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/armani/whatsapp-image-2026-07-21-at-160446-3.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Armani Exchange", "collection": "camisetas"}, {"supplierProductId": "16471", "title": "Camiseta PIMA JERSEY XE - Bege - pimajerseyxe0073", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-bege-pimajerseyxe0073", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-192512-2.jpeg", "sizes": ["P", "M", "G", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "16475", "title": "Camiseta PIMA JERSEY XE - Branco - pimajerseyxe007", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-bran-pimajerseyxe0077", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-9.jpeg", "sizes": ["P", "M", "GG", "XXG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "15645", "title": "Camiseta PIMA JERSEY XE - Marrom - pimajerseyxe005", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-marrom-pimajerseyxe0055", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-04-23-at-162100.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi", "brandLabel": "Tommy Hilfiger", "collection": "camisetas"}, {"supplierProductId": "15609", "title": "Gola Polo Premium ARM - Azul marinho - 801003055", "url": "https://www.catalogopoa.com.br/gola-polo-premium-arm-azul-marinho-801003055", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-3.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "170,00", "wholesalePrice": "65,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Armani Exchange", "collection": "gola-polo"}, {"supplierProductId": "16222", "title": "Gola Polo Premium ARM - Azul marinho - 801003058", "url": "https://www.catalogopoa.com.br/gola-polo-premium-arm-azul-marinho-801003058", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-06-27-at-102930.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "170,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Armani Exchange", "collection": "gola-polo"}, {"supplierProductId": "15608", "title": "Gola Polo Premium ARM - Branco - 801003054", "url": "https://www.catalogopoa.com.br/gola-polo-premium-arm-branco-801003054", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-2.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "170,00", "wholesalePrice": "65,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Armani Exchange", "collection": "gola-polo"}, {"supplierProductId": "15606", "title": "Gola Polo Premium ARM - Marrom - 801003052", "url": "https://www.catalogopoa.com.br/gola-polo-premium-arm-marrom-801003052", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/arm/whatsapp-image-2026-04-21-at-111430-4.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "170,00", "wholesalePrice": "65,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Armani Exchange", "collection": "gola-polo"}, {"supplierProductId": "16171", "title": "Gola Polo Premium HB - Branco - polohb00028", "url": "https://www.catalogopoa.com.br/gola-polo-premium-hb-branco-polohb00028", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-06-23-at-161714-1.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "140,00", "wholesalePrice": "65,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Hugo Boss", "collection": "gola-polo"}, {"supplierProductId": "16174", "title": "Gola Polo Premium HB - Marrom - polohb00031", "url": "https://www.catalogopoa.com.br/gola-polo-premium-hb-marrom-polohb00031", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-06-23-at-161715-1.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "140,00", "wholesalePrice": "65,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Hugo Boss", "collection": "gola-polo"}, {"supplierProductId": "15013", "title": "Gola Polo Premium HB - Marrom Escuro - polohb00010", "url": "https://www.catalogopoa.com.br/gola-polo-premium-hb-marrom-escuro-polohb00010", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/gola-polo-hb/whatsapp-image-2026-02-02-at-160123.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Hugo Boss", "collection": "gola-polo"}, {"supplierProductId": "16499", "title": "Gola Polo Premium Lct - Bege - 15533274516", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-bege-15533274516", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-7.jpeg", "sizes": ["P", "M", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16495", "title": "Gola Polo Premium Lct - Off white - 155332745102", "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-off-white-155332745102", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-28-at-111545-2.jpeg", "sizes": ["P", "M", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Lacoste", "collection": "gola-polo"}, {"supplierProductId": "16431", "title": "Gola Polo Premium XE - Branco - 381184", "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-381184", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/tommy/whatsapp-image-2025-04-01-at-151111-1.jpeg", "sizes": ["M", "G", "GG", "XXG"], "retailPrice": "140,00", "wholesalePrice": "68,00", "categoryUrl": "https://www.catalogopoa.com.br/gola-polo", "brandLabel": "Tommy Hilfiger", "collection": "gola-polo"}, {"supplierProductId": "16219", "title": "Jaqueta XE Puffer Gominho - Preto - PufferXE0007", "url": "https://www.catalogopoa.com.br/jaqueta-xe-puffer-gominho-preto-pufferxe0007", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-26-at-091940.jpeg", "sizes": ["P", "M", "G", "GG"], "retailPrice": "199,00", "wholesalePrice": "139,90", "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco", "brandLabel": "Tommy Hilfiger", "collection": "jaquetas"}, {"supplierProductId": "7109", "title": "Bermuda Moletom HB - Azul Marinho - 305016030", "url": "https://www.catalogopoa.com.br/bermuda-moletom-hb-azul-marinho-305016030", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/bermuda-moletom/whatsapp-image-2024-09-25-at-162954.jpeg", "sizes": ["P", "M", "G"], "retailPrice": "68,00", "wholesalePrice": "36,00", "categoryUrl": "https://www.catalogopoa.com.br/bermudas/berm-moletom", "brandLabel": "Hugo Boss", "collection": "bermudas"}, {"supplierProductId": "14945", "title": "Camiseta PIMA JERSEY ARM - Preto - jerseyARM00013", "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-preto-jerseyarm00013", "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-01-21-at-092723.JPG", "sizes": ["P", "M", "GG"], "retailPrice": "120,00", "wholesalePrice": "50,00", "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi", "brandLabel": "Armani Exchange", "collection": "camisetas"}]</script>
+  <script>
+    const candidates = JSON.parse(document.getElementById('candidate-data').textContent);
+    const byId = new Map(candidates.map(item => [String(item.supplierProductId || item.url || item.title), item]));
+    const storageKey = 'scorsatto-fornecedor-selecao-' + location.pathname;
+    const selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const checks = Array.from(document.querySelectorAll('.pick'));
+    const searchBox = document.getElementById('searchBox');
+    const brandFilter = document.getElementById('brandFilter');
+    const collectionFilter = document.getElementById('collectionFilter');
+    const visibleCount = document.getElementById('visibleCount');
+    const selectedCount = document.getElementById('selectedCount');
+    const exportPanel = document.getElementById('exportPanel');
+    const exportBox = document.getElementById('exportBox');
+
+    function save() {
+      localStorage.setItem(storageKey, JSON.stringify(Array.from(selected)));
+    }
+    function syncCards() {
+      let visible = 0;
+      const query = searchBox.value.trim().toLowerCase();
+      const brand = brandFilter.value;
+      const collection = collectionFilter.value;
+      cards.forEach(card => {
+        const id = card.dataset.id;
+        const isSelected = selected.has(id);
+        const isVisible = (!query || card.dataset.search.includes(query)) && (!brand || card.dataset.brand === brand) && (!collection || card.dataset.collection === collection);
+        card.classList.toggle('selected', isSelected);
+        card.classList.toggle('hidden', !isVisible);
+        card.querySelector('.pick').checked = isSelected;
+        if (isVisible) visible += 1;
+      });
+      visibleCount.textContent = visible;
+      selectedCount.textContent = selected.size;
+    }
+    checks.forEach(check => {
+      check.addEventListener('change', () => {
+        if (check.checked) selected.add(check.value);
+        else selected.delete(check.value);
+        save();
+        syncCards();
+      });
+    });
+    [searchBox, brandFilter, collectionFilter].forEach(control => control.addEventListener('input', syncCards));
+    document.getElementById('selectVisible').addEventListener('click', () => {
+      cards.forEach(card => { if (!card.classList.contains('hidden')) selected.add(card.dataset.id); });
+      save();
+      syncCards();
+    });
+    document.getElementById('clearSelection').addEventListener('click', () => {
+      selected.clear();
+      save();
+      syncCards();
+    });
+    document.getElementById('exportSelection').addEventListener('click', () => {
+      const approved = Array.from(selected).map(id => byId.get(id)).filter(Boolean);
+      const json = JSON.stringify({ generatedAt: new Date().toISOString(), approvedCount: approved.length, approvedCandidates: approved }, null, 2);
+      exportBox.value = json;
+      exportPanel.classList.add('open');
+      exportBox.focus();
+      const blob = new Blob([json], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'scorsatto-candidatos-aprovados-aprovacao-fornecedor-prioridade-2026-07-29.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+    syncCards();
+  </script>
+</body>
+</html>
