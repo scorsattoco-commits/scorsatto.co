@@ -79,6 +79,17 @@ MATERIAL_TERMS = (
     "texturizada",
 )
 
+# Sinais que mudam a identidade visual de uma peça. Eles não podem ser
+# tratados como cor/tamanho; uma divergência aqui separa a peça do grupo.
+STYLE_SIGNALS = {
+    "estampa": ("estamp", "listr", "xadrez", "poa", "floral", "camufl", "print", "graphic", "bordad", "patch", "logo grande", "logo full"),
+    "gola": ("gola polo", "gola v", "gola redonda", "meio ziper", "meio zipper", "gola alta", "capuz"),
+    "fechamento": ("meio ziper", "meio zipper", "ziper", "zipped", "botoes", "botao"),
+    "manga": ("manga longa", "manga curta", "regata"),
+    "modelagem": ("slim", "oversized", "regular", "reta", "jogger", "skinny", "cargo", "wide leg", "cropped"),
+    "construcao": ("bolso", "puffer", "gominho", "bomber", "corta vento", "peluciada", "texturizada", "rasgada", "destroyed"),
+}
+
 
 def normalize(value):
     text = str(value or "").lower()
@@ -140,29 +151,45 @@ def material_key(item):
     return found[0] if found else ""
 
 
+def signal_values(item, terms):
+    # URL do catálogo contém "poa" no domínio; sinais visuais precisam vir
+    # exclusivamente do nome da peça para não marcar todo o catálogo como poá.
+    text = normalize(item.get("title"))
+    return "+".join(term for term in terms if normalize(term) in text) or "liso-nao-declarado"
+
+
+def product_fingerprint(item):
+    """Identidade mínima obrigatória antes de chamar algo de mesma peça."""
+    title = normalize(item.get("title"))
+    product_type = normalize(item.get("collection")) or next((term for term in ("camiseta", "polo", "camisa", "calca", "bermuda", "jaqueta", "sueter", "casaco") if term in title), "categoria-nao-declarada")
+    return {
+        "marca": normalize(item.get("brandLabel")) or "marca-nao-declarada",
+        "categoria": product_type,
+        "modelo": normalize(base_name(item)) or "modelo-nao-declarado",
+        "malhaTecido": material_key(item) or "tecido-nao-declarado",
+        "estampa": signal_values(item, STYLE_SIGNALS["estampa"]),
+        "gola": signal_values(item, STYLE_SIGNALS["gola"]),
+        "fechamento": signal_values(item, STYLE_SIGNALS["fechamento"]),
+        "manga": signal_values(item, STYLE_SIGNALS["manga"]),
+        "modelagem": signal_values(item, STYLE_SIGNALS["modelagem"]),
+        "construcao": signal_values(item, STYLE_SIGNALS["construcao"]),
+    }
+
+
 def group_key(item):
-    return "|".join(
-        [
-            normalize(item.get("brandLabel")),
-            normalize(item.get("collection")),
-            normalize(base_name(item)),
-            material_key(item),
-        ]
-    )
+    fingerprint = product_fingerprint(item)
+    return "|".join(fingerprint.values())
 
 
 def confidence_for_group(items):
     if len(items) < 2:
         return "individual"
-    brands = {item.get("brandLabel") for item in items}
-    collections = {item.get("collection") for item in items}
-    bases = {base_name(item) for item in items}
-    materials = {material_key(item) for item in items}
+    fingerprints = {tuple(sorted((item.get("fingerprint") or product_fingerprint(item)).items())) for item in items}
     colors = {color_from_title(item.get("title")) for item in items}
-    if len(brands) == len(collections) == len(bases) == 1 and len(colors) >= 1:
+    # Para alta confiança todos os sinais visuais precisam ser idênticos;
+    # somente cor e tamanho podem variar dentro do grupo.
+    if len(fingerprints) == 1 and len(colors) >= 1:
         return "alta"
-    if len(brands) == 1 and len(collections) == 1 and len(materials) <= 2:
-        return "revisar"
     return "individual"
 
 
@@ -172,6 +199,7 @@ def group_items(candidates):
         enriched = dict(item)
         enriched["detectedColor"] = color_from_title(item.get("title"))
         enriched["baseName"] = base_name(item)
+        enriched["fingerprint"] = product_fingerprint(item)
         enriched["groupKey"] = group_key(item)
         grouped[enriched["groupKey"]].append(enriched)
 
@@ -194,6 +222,8 @@ def group_items(candidates):
                 "brand": representative.get("brandLabel"),
                 "collection": representative.get("collection"),
                 "baseName": representative.get("baseName"),
+                "fingerprint": representative.get("fingerprint"),
+                "groupingRule": "Mesma marca, categoria, modelo, malha/tecido, estampa, gola, fechamento, manga, modelagem e construção. Somente cor/tamanho variam.",
                 "colors": colors,
                 "sizes": sizes,
                 "count": len(items),
@@ -215,12 +245,15 @@ def card(item, removable=False):
         if removable
         else ""
     )
+    fingerprint = item.get("fingerprint") or product_fingerprint(item)
+    identity = " · ".join(value for key, value in fingerprint.items() if key not in ("marca", "categoria") and value and value != "liso-nao-declarado")
     return f"""
       <article class="product-card" data-id="{esc(item.get('supplierProductId'))}">
         <img src="{esc(item.get('image'))}" alt="">
         <div>
           <strong>{esc(item.get('title'))}</strong>
           <span>{esc(item.get('brandLabel'))} | {esc(item.get('collection'))} | {esc(item.get('detectedColor'))}</span>
+          <span><b>Identidade:</b> {esc(identity or 'modelo liso / validar visual')}</span>
           <span>Ref. {esc(item.get('supplierProductId'))} | tamanhos: {esc(', '.join(item.get('sizes') or []))}</span>
           <a href="{esc(item.get('url'))}" target="_blank" rel="noreferrer">Abrir fornecedor</a>
           {action}
@@ -243,6 +276,7 @@ def write_grouped_preview(groups, singles, output_html, source_json):
                 <div>
                   <h2>{esc(group['name'])}</h2>
                   <p>{esc(group['count'])} referencias | cores: {esc(', '.join(group['colors']))} | tamanhos: {esc(', '.join(group['sizes']))}</p>
+                  <p><b>Critério:</b> {esc(group.get('groupingRule', 'Mesma peça; somente cor e tamanho variam.'))}</p>
                 </div>
                 <span class="status {esc(group['status'])}">{esc(group['status'])}</span>
               </header>
