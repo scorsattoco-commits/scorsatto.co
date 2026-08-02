@@ -189,7 +189,11 @@ def confidence_for_group(items):
     # Para alta confiança todos os sinais visuais precisam ser idênticos;
     # somente cor e tamanho podem variar dentro do grupo.
     if len(fingerprints) == 1 and len(colors) >= 1:
-        return "alta"
+        # Quando a estampa não está declarada no título, o grupo continua
+        # como sugestão, mas exige conferência visual das imagens antes da
+        # aprovação. Assim logo/estampa diferentes nunca ganham selo alto.
+        only = items[0].get("fingerprint") or product_fingerprint(items[0])
+        return "revisar" if only.get("estampa") == "liso-nao-declarado" else "alta"
     return "individual"
 
 

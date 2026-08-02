@@ -2,13 +2,13 @@
   "generatedAt": "2026-08-02T12:07:46Z",
   "source": "C:\\Users\\aliss\\Documents\\Codex\\2026-07-17\\scorsatto-automacoes\\work\\scorsatto-cloud-curation\\data\\fornecedor-varreduras\\varredura-fornecedor-2026-08-02.json",
   "groupCount": 86,
-  "highConfidenceGroupCount": 86,
+  "highConfidenceGroupCount": 0,
   "groupedProductCount": 537,
   "individualCount": 157,
   "groups": [
     {
       "id": "fornecedor-armani-exchange-bermudas-bermuda-jeans-colors-jeans-liso-nao-declarado-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Bermuda Jeans Colors",
       "brand": "Armani Exchange",
       "collection": "bermudas",
@@ -130,7 +130,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-bermudas-bermuda-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Bermuda Sarja",
       "brand": "Armani Exchange",
       "collection": "bermudas",
@@ -310,7 +310,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-bermudas-bermuda-jeans-jeans-liso-nao-declarado-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Bermuda Jeans",
       "brand": "Hugo Boss",
       "collection": "bermudas",
@@ -521,7 +521,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-bermudas-bermuda-moletom-moletom-liso-nao-declarado-liso-nao-declarado-liso-nao-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Bermuda Moletom",
       "brand": "Hugo Boss",
       "collection": "bermudas",
@@ -675,7 +675,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-bermudas-bermuda-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Bermuda Sarja",
       "brand": "Hugo Boss",
       "collection": "bermudas",
@@ -852,7 +852,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-bermudas-mauricinho-linho-linho-liso-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Mauricinho Linho",
       "brand": "Hugo Boss",
       "collection": "bermudas",
@@ -1003,7 +1003,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-bermudas-mauricinho-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Mauricinho Sarja",
       "brand": "Hugo Boss",
       "collection": "bermudas",
@@ -1215,7 +1215,7 @@
     },
     {
       "id": "fornecedor-lacoste-bermudas-mauricinho-sarja-elastano-sarja-liso-nao-declarado-liso-nao-declarado-lis",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Mauricinho Sarja Elastano",
       "brand": "Lacoste",
       "collection": "bermudas",
@@ -1401,7 +1401,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-bermudas-bermuda-linho-linho-liso-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Bermuda Linho",
       "brand": "Ralph Lauren",
       "collection": "bermudas",
@@ -1522,7 +1522,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-bermudas-bermuda-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Bermuda Sarja",
       "brand": "Ralph Lauren",
       "collection": "bermudas",
@@ -1643,7 +1643,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-bermudas-mauricinho-linho-linho-liso-nao-declarado-liso-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Mauricinho Linho",
       "brand": "Ralph Lauren",
       "collection": "bermudas",
@@ -1794,7 +1794,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-bermudas-mauricinho-linho-royal-linho-liso-nao-declarado-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Mauricinho Linho Royal",
       "brand": "Ralph Lauren",
       "collection": "bermudas",
@@ -1883,7 +1883,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-bermudas-mauricinho-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Mauricinho Sarja",
       "brand": "Ralph Lauren",
       "collection": "bermudas",
@@ -2002,7 +2002,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-bermudas-bermuda-jeans-colors-jeans-liso-nao-declarado-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Bermuda Jeans Colors",
       "brand": "Tommy Hilfiger",
       "collection": "bermudas",
@@ -2091,7 +2091,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-bermudas-bermuda-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Bermuda Sarja",
       "brand": "Tommy Hilfiger",
       "collection": "bermudas",
@@ -2282,7 +2282,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-bermudas-mauricinho-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Mauricinho Sarja",
       "brand": "Tommy Hilfiger",
       "collection": "bermudas",
@@ -2641,7 +2641,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-bermudas-mauricinho-sarja-bebe-sarja-liso-nao-declarado-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Mauricinho Sarja Bebe",
       "brand": "Tommy Hilfiger",
       "collection": "bermudas",
@@ -2732,7 +2732,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-calcas-calca-jeans-skinny-jeans-liso-nao-declarado-liso-nao-declarado-liso",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Calça Jeans Skinny",
       "brand": "Armani Exchange",
       "collection": "calcas",
@@ -2981,7 +2981,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-calcas-calca-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-de",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Calça Sarja",
       "brand": "Armani Exchange",
       "collection": "calcas",
@@ -3071,7 +3071,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-calcas-mauricinho-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-n",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Mauricinho Sarja",
       "brand": "Armani Exchange",
       "collection": "calcas",
@@ -3222,7 +3222,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-calcas-mauricinho-sarja-elastano-sarja-liso-nao-declarado-liso-nao-declara",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Mauricinho Sarja Elastano",
       "brand": "Armani Exchange",
       "collection": "calcas",
@@ -3341,7 +3341,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-calcas-calca-jeans-skinny-jeans-liso-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Calça Jeans Skinny",
       "brand": "Hugo Boss",
       "collection": "calcas",
@@ -3714,7 +3714,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-calcas-calca-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-declarad",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Calça Sarja",
       "brand": "Hugo Boss",
       "collection": "calcas",
@@ -3836,7 +3836,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-calcas-mauricinho-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Mauricinho Sarja",
       "brand": "Hugo Boss",
       "collection": "calcas",
@@ -4074,7 +4074,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-calcas-mauricinho-sarja-elastano-sarja-liso-nao-declarado-liso-nao-declarado-lis",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Mauricinho Sarja Elastano",
       "brand": "Hugo Boss",
       "collection": "calcas",
@@ -4253,7 +4253,7 @@
     },
     {
       "id": "fornecedor-lacoste-calcas-calca-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Calça Sarja",
       "brand": "Lacoste",
       "collection": "calcas",
@@ -4341,7 +4341,7 @@
     },
     {
       "id": "fornecedor-lacoste-calcas-mauricinho-sarja-elastano-sarja-liso-nao-declarado-liso-nao-declarado-liso-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Mauricinho Sarja Elastano",
       "brand": "Lacoste",
       "collection": "calcas",
@@ -4460,7 +4460,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-calcas-calca-jeans-skinny-jeans-liso-nao-declarado-liso-nao-declarado-liso-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Calça Jeans Skinny",
       "brand": "Tommy Hilfiger",
       "collection": "calcas",
@@ -4615,7 +4615,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-calcas-calca-sarja-sarja-liso-nao-declarado-liso-nao-declarado-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Calça Sarja",
       "brand": "Tommy Hilfiger",
       "collection": "calcas",
@@ -4834,7 +4834,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-algodao-egipcio-algodao-egipcio-liso-nao-declarado-liso",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Camiseta Algodão Egípcio",
       "brand": "Armani Exchange",
       "collection": "camisetas",
@@ -5387,7 +5387,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-algodao-egipcio-basica-algodao-egipcio-liso-nao-declara",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Camiseta Algodão Egípcio Basica",
       "brand": "Armani Exchange",
       "collection": "camisetas",
@@ -5633,7 +5633,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-cotton-egipcio-tecido-nao-declarado-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Camiseta Cotton Egipcio",
       "brand": "Armani Exchange",
       "collection": "camisetas",
@@ -6489,7 +6489,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-pima-jersey-pima-jersey-liso-nao-declarado-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Camiseta Pima Jersey",
       "brand": "Armani Exchange",
       "collection": "camisetas",
@@ -6830,7 +6830,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-supreme-tecido-nao-declarado-liso-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Camiseta Supreme",
       "brand": "Armani Exchange",
       "collection": "camisetas",
@@ -7074,7 +7074,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-camisetas-camiseta-algodao-egipcio-algodao-egipcio-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Camiseta Algodão Egípcio",
       "brand": "Hugo Boss",
       "collection": "camisetas",
@@ -7620,7 +7620,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-camisetas-camiseta-cotton-egipcio-basica-cotto-tecido-nao-declarado-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Camiseta Cotton Egipcio Basica Cotto",
       "brand": "Hugo Boss",
       "collection": "camisetas",
@@ -7743,7 +7743,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-camisetas-camiseta-pima-jersey-pima-jersey-liso-nao-declarado-liso-nao-declarado",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Camiseta Pima Jersey",
       "brand": "Hugo Boss",
       "collection": "camisetas",
@@ -7986,7 +7986,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-camisetas-camiseta-supreme-tecido-nao-declarado-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Camiseta Supreme",
       "brand": "Hugo Boss",
       "collection": "camisetas",
@@ -8355,7 +8355,7 @@
     },
     {
       "id": "fornecedor-lacoste-camisetas-camiseta-algodao-egipcio-algodao-egipcio-liso-nao-declarado-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Camiseta Algodão Egípcio",
       "brand": "Lacoste",
       "collection": "camisetas",
@@ -8662,7 +8662,7 @@
     },
     {
       "id": "fornecedor-lacoste-camisetas-camiseta-cotton-egipcio-tecido-nao-declarado-liso-nao-declarado-liso-nao",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Camiseta Cotton Egipcio",
       "brand": "Lacoste",
       "collection": "camisetas",
@@ -8817,7 +8817,7 @@
     },
     {
       "id": "fornecedor-lacoste-camisetas-camiseta-cotton-egipcio-cotto-tecido-nao-declarado-liso-nao-declarado-li",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Camiseta Cotton Egipcio Cotto",
       "brand": "Lacoste",
       "collection": "camisetas",
@@ -8912,7 +8912,7 @@
     },
     {
       "id": "fornecedor-lacoste-camisetas-camiseta-pima-jersey-pima-jersey-liso-nao-declarado-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Camiseta Pima Jersey",
       "brand": "Lacoste",
       "collection": "camisetas",
@@ -9004,7 +9004,7 @@
     },
     {
       "id": "fornecedor-lacoste-camisetas-camiseta-supreme-tecido-nao-declarado-liso-nao-declarado-liso-nao-declar",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Camiseta Supreme",
       "brand": "Lacoste",
       "collection": "camisetas",
@@ -9131,7 +9131,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-camisetas-camiseta-algodao-egipcio-algodao-egipcio-liso-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Camiseta Algodão Egípcio",
       "brand": "Ralph Lauren",
       "collection": "camisetas",
@@ -9287,7 +9287,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-camisetas-camiseta-algodao-egipcio-com-algodao-egipcio-liso-nao-declarado-lis",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Camiseta Algodão Egípcio Com",
       "brand": "Ralph Lauren",
       "collection": "camisetas",
@@ -9384,7 +9384,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-algodao-egipcio-algodao-egipcio-liso-nao-declarado-liso-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Algodão Egípcio",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -9812,7 +9812,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-algodao-egipcio-algegipxe-algodao-egipcio-liso-nao-decla",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Algodão Egípcio Algegipxe",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -9907,7 +9907,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-tecido-nao-declarado-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -10668,7 +10668,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-basica-tecido-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio Basica",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11096,7 +11096,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-basica-cott-tecido-nao-declarado-liso-nao",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio Basica Cott",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11191,7 +11191,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-basica-cottx-tecido-nao-declarado-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio Basica Cottx",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11380,7 +11380,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-basica-cottxe-tecido-nao-declarado-liso-n",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio Basica Cottxe",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11568,7 +11568,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-cotton-egipcio-royal-tecido-nao-declarado-liso-nao-decla",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Cotton Egipcio Royal",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11756,7 +11756,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-jersey-feminina-tecido-nao-declarado-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Jersey Feminina",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -11979,7 +11979,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-pima-gamusa-pima-liso-nao-declarado-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Pima Gamusa",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -12072,7 +12072,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-pima-jersey-pima-jersey-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Pima Jersey",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -13454,7 +13454,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-pima-jersey-pimajerse-pima-jersey-liso-nao-declarado-lis",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Pima Jersey Pimajerse",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -13635,7 +13635,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-pima-jersey-pimajerseyxe-pima-jersey-liso-nao-declarado-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Pima Jersey Pimajerseyxe",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -13759,7 +13759,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-supima-supima-liso-nao-declarado-liso-nao-declarado-liso",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Supima",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -13882,7 +13882,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-supreme-tecido-nao-declarado-liso-nao-declarado-liso-nao",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Supreme",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -14033,7 +14033,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-camisetas-camiseta-texturizada-texturizada-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Texturizada",
       "brand": "Tommy Hilfiger",
       "collection": "camisetas",
@@ -14124,7 +14124,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-casacos-moletom-c-capuz-premium-premium-liso-nao-declarado-capuz-liso-nao-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Moletom C Capuz Premium",
       "brand": "Armani Exchange",
       "collection": "casacos",
@@ -14306,7 +14306,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-casacos-moletom-s-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarad",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Moletom S Capuz",
       "brand": "Armani Exchange",
       "collection": "casacos",
@@ -14488,7 +14488,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-casacos-moletom-c-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado-liso",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Moletom C Capuz",
       "brand": "Hugo Boss",
       "collection": "casacos",
@@ -14851,7 +14851,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-casacos-moletom-c-capuz-premium-premium-liso-nao-declarado-capuz-liso-nao-declar",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Moletom C Capuz Premium",
       "brand": "Hugo Boss",
       "collection": "casacos",
@@ -14970,7 +14970,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-casacos-moletom-s-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado-liso",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Moletom S Capuz",
       "brand": "Hugo Boss",
       "collection": "casacos",
@@ -15183,7 +15183,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-casacos-moletom-s-capuz-basico-moletom-liso-nao-declarado-capuz-liso-nao-declara",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Moletom S Capuz Basico",
       "brand": "Hugo Boss",
       "collection": "casacos",
@@ -15278,7 +15278,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-casacos-moletom-s-capuz-mescla-moletom-liso-nao-declarado-capuz-liso-nao-declara",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Moletom S Capuz Mescla",
       "brand": "Hugo Boss",
       "collection": "casacos",
@@ -15372,7 +15372,7 @@
     },
     {
       "id": "fornecedor-lacoste-casacos-moletom-s-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado-liso-n",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Moletom S Capuz",
       "brand": "Lacoste",
       "collection": "casacos",
@@ -15461,7 +15461,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-casacos-moletom-c-capuz-premium-premium-liso-nao-declarado-capuz-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Moletom C Capuz Premium",
       "brand": "Ralph Lauren",
       "collection": "casacos",
@@ -15616,7 +15616,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-casacos-moletom-s-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado-l",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Moletom S Capuz",
       "brand": "Ralph Lauren",
       "collection": "casacos",
@@ -15709,7 +15709,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-casacos-moletom-c-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Moletom C Capuz",
       "brand": "Tommy Hilfiger",
       "collection": "casacos",
@@ -15921,7 +15921,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-casacos-moletom-s-capuz-moletom-liso-nao-declarado-capuz-liso-nao-declarado",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Moletom S Capuz",
       "brand": "Tommy Hilfiger",
       "collection": "casacos",
@@ -16040,7 +16040,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-gola-polo-gola-polo-premium-premium-liso-nao-declarado-gola-polo-liso-nao-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Gola Polo Premium",
       "brand": "Armani Exchange",
       "collection": "gola-polo",
@@ -16505,7 +16505,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-gola-polo-gola-polo-premium-premium-liso-nao-declarado-gola-polo-liso-nao-declar",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Gola Polo Premium",
       "brand": "Hugo Boss",
       "collection": "gola-polo",
@@ -17213,7 +17213,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-gola-polo-gola-polo-premium-amarelo-premium-liso-nao-declarado-gola-polo-liso-na",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Gola Polo Premium Amarelo",
       "brand": "Hugo Boss",
       "collection": "gola-polo",
@@ -17333,7 +17333,7 @@
     },
     {
       "id": "fornecedor-lacoste-gola-polo-gola-polo-premium-premium-liso-nao-declarado-gola-polo-liso-nao-declarad",
-      "status": "alta",
+      "status": "revisar",
       "name": "Lacoste - Gola Polo Premium",
       "brand": "Lacoste",
       "collection": "gola-polo",
@@ -17864,7 +17864,7 @@
     },
     {
       "id": "fornecedor-ralph-lauren-gola-polo-gola-polo-premium-premium-liso-nao-declarado-gola-polo-liso-nao-dec",
-      "status": "alta",
+      "status": "revisar",
       "name": "Ralph Lauren - Gola Polo Premium",
       "brand": "Ralph Lauren",
       "collection": "gola-polo",
@@ -17988,7 +17988,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-gola-polo-gola-polo-premium-premium-liso-nao-declarado-gola-polo-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Gola Polo Premium",
       "brand": "Tommy Hilfiger",
       "collection": "gola-polo",
@@ -18399,7 +18399,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-gola-polo-gola-polo-premium-bebe-premium-liso-nao-declarado-gola-polo-liso-",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Gola Polo Premium Bebe",
       "brand": "Tommy Hilfiger",
       "collection": "gola-polo",
@@ -18489,7 +18489,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-jaquetas-jaqueta-puffer-gominho-puffer-liso-nao-declarado-liso-nao-declara",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Jaqueta Puffer Gominho",
       "brand": "Armani Exchange",
       "collection": "jaquetas",
@@ -18589,7 +18589,7 @@
     },
     {
       "id": "fornecedor-armani-exchange-jaquetas-jaqueta-social-tecido-nao-declarado-liso-nao-declarado-liso-nao-d",
-      "status": "alta",
+      "status": "revisar",
       "name": "Armani Exchange - Jaqueta Social",
       "brand": "Armani Exchange",
       "collection": "jaquetas",
@@ -18710,7 +18710,7 @@
     },
     {
       "id": "fornecedor-hugo-boss-jaquetas-jaqueta-peluciada-tecido-nao-declarado-liso-nao-declarado-liso-nao-decl",
-      "status": "alta",
+      "status": "revisar",
       "name": "Hugo Boss - Jaqueta Peluciada",
       "brand": "Hugo Boss",
       "collection": "jaquetas",
@@ -18799,7 +18799,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-jaquetas-jaqueta-puffer-gominho-puffer-liso-nao-declarado-liso-nao-declarad",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Jaqueta Puffer Gominho",
       "brand": "Tommy Hilfiger",
       "collection": "jaquetas",
@@ -18891,7 +18891,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-jaquetas-jaqueta-social-tecido-nao-declarado-liso-nao-declarado-liso-nao-de",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Jaqueta Social",
       "brand": "Tommy Hilfiger",
       "collection": "jaquetas",
@@ -18982,7 +18982,7 @@
     },
     {
       "id": "fornecedor-tommy-hilfiger-manga-longa-camiseta-manga-longa-tecido-nao-declarado-liso-nao-declarado-li",
-      "status": "alta",
+      "status": "revisar",
       "name": "Tommy Hilfiger - Camiseta Manga Longa",
       "brand": "Tommy Hilfiger",
       "collection": "manga-longa",
