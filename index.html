@@ -5864,7 +5864,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       // Uma sessão remota expirada não pode impedir a saída local. Sem isso,
       // a conta fica presa no navegador e o login correto não é refeito.
       try {
-        if (db) await db.auth.signOut();
+        if (db) {
+          await Promise.race([
+            db.auth.signOut(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Tempo esgotado ao encerrar sessão.")), 1200))
+          ]);
+        }
       } catch (error) {
         console.warn("Não foi possível encerrar a sessão remota; limpando a sessão local.", error);
       }
