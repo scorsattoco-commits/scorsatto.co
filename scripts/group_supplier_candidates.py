@@ -82,7 +82,9 @@ MATERIAL_TERMS = (
 # Sinais que mudam a identidade visual de uma peça. Eles não podem ser
 # tratados como cor/tamanho; uma divergência aqui separa a peça do grupo.
 STYLE_SIGNALS = {
-    "estampa": ("estamp", "listr", "xadrez", "poa", "floral", "camufl", "print", "graphic", "bordad", "patch", "logo grande", "logo full"),
+    # Ausência de palavra não é prova de peça lisa: logo, bordado ou estampa
+    # podem aparecer somente na imagem do fornecedor.
+    "estampa": ("liso", "lisa", "estamp", "listr", "xadrez", "poa", "floral", "camufl", "print", "graphic", "bordad", "patch", "logo grande", "logo full"),
     "gola": ("gola polo", "gola v", "gola redonda", "meio ziper", "meio zipper", "gola alta", "capuz"),
     "fechamento": ("meio ziper", "meio zipper", "ziper", "zipped", "botoes", "botao"),
     "manga": ("manga longa", "manga curta", "regata"),
@@ -155,7 +157,7 @@ def signal_values(item, terms):
     # URL do catálogo contém "poa" no domínio; sinais visuais precisam vir
     # exclusivamente do nome da peça para não marcar todo o catálogo como poá.
     text = normalize(item.get("title"))
-    return "+".join(term for term in terms if normalize(term) in text) or "liso-nao-declarado"
+    return "+".join(term for term in terms if normalize(term) in text) or "nao-declarado"
 
 
 def product_fingerprint(item):
@@ -186,14 +188,14 @@ def confidence_for_group(items):
         return "individual"
     fingerprints = {tuple(sorted((item.get("fingerprint") or product_fingerprint(item)).items())) for item in items}
     colors = {color_from_title(item.get("title")) for item in items}
-    # Para alta confiança todos os sinais visuais precisam ser idênticos;
-    # somente cor e tamanho podem variar dentro do grupo.
+    # Um grupo só existe quando a identidade visual vem declarada pelo
+    # fornecedor. Nome e tecido semelhantes não bastam para provar que é a
+    # mesma peça.
     if len(fingerprints) == 1 and len(colors) >= 1:
-        # Quando a estampa não está declarada no título, o grupo continua
-        # como sugestão, mas exige conferência visual das imagens antes da
-        # aprovação. Assim logo/estampa diferentes nunca ganham selo alto.
         only = items[0].get("fingerprint") or product_fingerprint(items[0])
-        return "revisar" if only.get("estampa") == "liso-nao-declarado" else "alta"
+        if only.get("estampa") == "nao-declarado":
+            return "individual"
+        return "alta"
     return "individual"
 
 
@@ -250,14 +252,14 @@ def card(item, removable=False):
         else ""
     )
     fingerprint = item.get("fingerprint") or product_fingerprint(item)
-    identity = " · ".join(value for key, value in fingerprint.items() if key not in ("marca", "categoria") and value and value != "liso-nao-declarado")
+    identity = " · ".join(value for key, value in fingerprint.items() if key not in ("marca", "categoria") and value and value != "nao-declarado")
     return f"""
       <article class="product-card" data-id="{esc(item.get('supplierProductId'))}">
         <img src="{esc(item.get('image'))}" alt="">
         <div>
           <strong>{esc(item.get('title'))}</strong>
           <span>{esc(item.get('brandLabel'))} | {esc(item.get('collection'))} | {esc(item.get('detectedColor'))}</span>
-          <span><b>Identidade:</b> {esc(identity or 'modelo liso / validar visual')}</span>
+          <span><b>Identidade:</b> {esc(identity or 'sem evidência visual declarada / revisar foto')}</span>
           <span>Ref. {esc(item.get('supplierProductId'))} | tamanhos: {esc(', '.join(item.get('sizes') or []))}</span>
           <a href="{esc(item.get('url'))}" target="_blank" rel="noreferrer">Abrir fornecedor</a>
           {action}
