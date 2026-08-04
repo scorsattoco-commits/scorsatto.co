@@ -1,0 +1,32 @@
+name: "SCORSATTO 04 — chamadas aprovadas no Instagram"
+
+on:
+  schedule:
+    - cron: "0 12 * * *" # 09:00 em São Paulo (UTC-3)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorsatto-instagram-outreach
+  cancel-in-progress: false
+
+jobs:
+  chamar-aprovados:
+    runs-on: ubuntu-latest
+    env:
+      CRON_SECRET: ${{ secrets.SCORSATTO_CRON_SECRET }}
+    steps:
+      - name: Disparar somente contatos já aprovados
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "Configure o secret SCORSATTO_CRON_SECRET antes de ativar os disparos."
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --header "x-scorsatto-cron-secret: $CRON_SECRET" \
+            --data '{}' \
+            https://scorsatto-intelligence.alissonscorsatto.chatgpt.site/api/instagram/dispatch-approved
