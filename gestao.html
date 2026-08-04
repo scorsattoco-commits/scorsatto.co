@@ -152,7 +152,15 @@
       <label>E-mail<input id="authEmail" type="email" autocomplete="username" required></label>
       <label>Senha<input id="authPassword" type="password" autocomplete="current-password" required></label>
       <button class="btn" type="submit">Entrar</button>
+      <button class="btn secondary" id="authResetBtn" type="button">Definir ou redefinir senha</button>
       <div class="auth-message" id="authMessage"></div>
+    </form>
+    <form class="auth-card form-grid" id="authRecoveryForm" hidden>
+      <div><h1>Nova senha</h1><p>Defina a senha de acesso da gestão.</p></div>
+      <label>Nova senha<input id="authNewPassword" type="password" autocomplete="new-password" minlength="10" required></label>
+      <label>Confirmar senha<input id="authNewPasswordConfirm" type="password" autocomplete="new-password" minlength="10" required></label>
+      <button class="btn" type="submit">Salvar nova senha</button>
+      <div class="auth-message" id="authRecoveryMessage"></div>
     </form>
   </section>
   <div class="shell">
@@ -976,6 +984,19 @@
       target.textContent = message;
       target.classList.toggle("negative", bad);
     }
+    function setRecoveryMessage(message, bad = false) {
+      const target = document.querySelector("#authRecoveryMessage");
+      if (!target) return;
+      target.textContent = message;
+      target.classList.toggle("negative", bad);
+    }
+    function showPasswordRecovery() {
+      document.querySelector("#authForm").hidden = true;
+      document.querySelector("#authRecoveryForm").hidden = false;
+      document.querySelector("#authGate").hidden = false;
+      const shell = document.querySelector(".shell");
+      if (shell) shell.hidden = true;
+    }
     async function requireManagementLogin() {
       const gate = document.querySelector("#authGate");
       const shell = document.querySelector(".shell");
@@ -993,6 +1014,10 @@
         return false;
       }
       managementSession = data.session;
+      if (location.hash.includes("type=recovery")) {
+        showPasswordRecovery();
+        return false;
+      }
       if (gate) gate.hidden = true;
       if (shell) shell.hidden = false;
       return true;
@@ -1014,6 +1039,37 @@
       const shell = document.querySelector(".shell");
       if (shell) shell.hidden = false;
       await boot();
+    }
+    async function requestManagementPasswordReset() {
+      if (!supabaseDb) return;
+      const email = document.querySelector("#authEmail").value.trim().toLowerCase();
+      if (!MANAGEMENT_ADMIN_EMAILS.includes(email)) {
+        setAuthMessage("Use um e-mail autorizado para a gestao.", true);
+        return;
+      }
+      setAuthMessage("Enviando e-mail de redefinicao...");
+      const { error } = await supabaseDb.auth.resetPasswordForEmail(email, {
+        redirectTo: `${location.origin}${location.pathname}`
+      });
+      setAuthMessage(error ? "Nao foi possivel enviar o e-mail agora." : "E-mail enviado. Abra o link recebido para definir a senha.", Boolean(error));
+    }
+    async function submitPasswordRecovery(event) {
+      event.preventDefault();
+      const password = document.querySelector("#authNewPassword").value;
+      const confirmation = document.querySelector("#authNewPasswordConfirm").value;
+      if (password.length < 10 || password !== confirmation) {
+        setRecoveryMessage("Use pelo menos 10 caracteres e confirme a mesma senha.", true);
+        return;
+      }
+      const { error } = await supabaseDb.auth.updateUser({ password });
+      if (error) {
+        setRecoveryMessage("Nao foi possivel salvar a senha. Solicite um novo e-mail.", true);
+        return;
+      }
+      history.replaceState(null, "", `${location.pathname}${location.search}`);
+      document.querySelector("#authRecoveryForm").hidden = true;
+      document.querySelector("#authForm").hidden = false;
+      setAuthMessage("Senha atualizada. Entre para continuar.");
     }
     async function fetchCloudState({ silent = false } = {}) {
       if (CLOUD_AUTH_ENABLED) {
@@ -3171,6 +3227,8 @@
       if (!BROWSER_STORAGE_ONLY) setInterval(() => fetchCloudState({ silent: true }), 30000);
     }
     document.querySelector("#authForm").addEventListener("submit", submitManagementLogin);
+    document.querySelector("#authResetBtn").addEventListener("click", requestManagementPasswordReset);
+    document.querySelector("#authRecoveryForm").addEventListener("submit", submitPasswordRecovery);
     boot();
   
   </script>
