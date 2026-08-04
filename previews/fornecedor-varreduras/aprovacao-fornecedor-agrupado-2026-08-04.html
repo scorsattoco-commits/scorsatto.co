@@ -6,48 +6,52 @@
   <title>SCORSATTO - Pente fino fornecedor agrupado</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin:0; background:#f7f5ef; color:#181816; font-family:Inter,Arial,sans-serif; }
+    body { margin:0; background:#07100f; color:#f5f4ee; font-family:Inter,Arial,sans-serif; }
     body, button, input, select, textarea { font: 14px Inter, Arial, sans-serif; }
-    .top { position: sticky; top: 0; z-index: 5; background:#fff; border-bottom:1px solid #ddd8ce; padding:20px 28px; display:grid; gap:14px; }
-    h1 { margin:0; font-size:24px; }
+    .top { position:sticky; top:0; z-index:5; background:linear-gradient(110deg,#091311,#10251f); border-bottom:1px solid #28433a; padding:24px 32px; display:grid; gap:16px; }
+    h1 { margin:0; font:400 34px/1.05 Georgia,serif; letter-spacing:-.03em; }
     h2 { margin:0 0 5px; font-size:16px; }
-    p { margin:0; color:#68635b; line-height:1.45; }
+    p { margin:0; color:#aac0b6; line-height:1.45; }
     .toolbar { display:grid; grid-template-columns:minmax(180px,1fr) 180px 180px auto auto; gap:10px; }
-    input[type="search"], select, textarea { width:100%; min-height:38px; border:1px solid #cfc8ba; border-radius:6px; background:#fff; padding:0 10px; }
-    button { min-height:38px; border:1px solid #111; border-radius:6px; background:#111; color:#fff; padding:0 12px; font-weight:800; cursor:pointer; }
-    button.secondary { background:#fff; color:#111; }
-    main { padding:22px; display:grid; gap:18px; }
+    input[type="search"], select, textarea { width:100%; min-height:42px; border:1px solid #365247; border-radius:8px; background:#0c1815; color:#f5f4ee; padding:0 12px; }
+    button { min-height:42px; border:1px solid #82dfba; border-radius:8px; background:#82dfba; color:#092016; padding:0 14px; font-weight:800; cursor:pointer; }
+    button.secondary { background:transparent; color:#e6f4ee; border-color:#527268; }
+    main { max-width:1500px; margin:0 auto; padding:26px 32px 60px; display:grid; gap:18px; }
     .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; }
-    .metric { background:#fff; border:1px solid #ded8ce; border-radius:8px; padding:14px; display:grid; gap:4px; }
+    .metric { background:#0c1815; border:1px solid #28433a; border-radius:10px; padding:16px; display:grid; gap:4px; }
     .metric strong { font-size:22px; }
-    .group { background:#fff; border:1px solid #ded8ce; border-radius:8px; overflow:hidden; }
-    .group.approved { border-color:#111; box-shadow:0 0 0 2px #111 inset; }
+    .group { background:#0c1815; border:1px solid #28433a; border-radius:12px; overflow:hidden; }
+    .group.approved { border-color:#82dfba; box-shadow:0 0 0 1px rgba(130,223,186,.35) inset; }
     .group.rejected { opacity:.58; }
     .group.hidden { display:none; }
-    .group-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:14px; padding:14px; border-bottom:1px solid #ebe5dc; }
+    .group-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:14px; padding:17px; border-bottom:1px solid #28433a; }
     .group-head label { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
     .group-head input { width:18px; height:18px; accent-color:#111; }
     .decision { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
     .decision button { min-height:34px; font-size:11px; }
-    .decision button.active { outline:2px solid #111; outline-offset:2px; }
-    .reject-group { background:#fff; color:#111; }
-    .status { border:1px solid #d8d0c4; border-radius:999px; padding:5px 9px; font-size:11px; font-weight:900; text-transform:uppercase; }
-    .status.alta { background:#111; color:#fff; border-color:#111; }
-    .status.revisar { background:#fff9df; color:#5c4714; }
+    .decision button.active { background:#82dfba; color:#092016; border-color:#82dfba; outline:none; }
+    .reject-group { background:transparent; color:#e6f4ee; border-color:#527268; }
+    .status { border:1px solid #527268; border-radius:999px; padding:5px 9px; font-size:10px; font-weight:900; text-transform:uppercase; }
+    .status.alta { background:#18251f; color:#8fe7c3; border-color:#376956; }
+    .status.revisar { background:#3a3018; color:#f4cf76; border-color:#806a2b; }
     .release-chip { display:inline-flex; align-items:center; min-height:22px; margin:0 8px 0 0; border-radius:999px; padding:0 8px; background:#e7b84b; color:#181816; font-size:10px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
-    .group.lancamento { border-color:#c58d1c; box-shadow:0 0 0 1px rgba(197,141,28,.22); }
-    .products { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1px; background:#ebe5dc; }
-    .product-card { background:#fff; padding:10px; display:grid; grid-template-columns:76px minmax(0,1fr); gap:10px; }
+    .group.lancamento { border-color:#9c7728; }
+    .products { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; padding:12px; background:transparent; }
+    .product-card { background:#101d19; border:1px solid #28433a; border-radius:8px; padding:10px; display:grid; grid-template-columns:76px minmax(0,1fr); gap:10px; }
     .product-card.excluded { opacity:.45; background:#f4eee6; }
     .product-card.excluded img { filter: grayscale(1); }
     .product-card img { width:76px; height:96px; object-fit:contain; background:#f8f6f0; }
     .product-card div { display:grid; gap:5px; align-content:start; }
     .product-card strong { font-size:12px; line-height:1.35; }
-    .product-card span, .product-card a { font-size:11px; line-height:1.4; color:#5f5b53; }
-    .product-card a { color:#111; font-weight:800; }
-    .remove-item { width:max-content; min-height:28px; border-color:#b9aa97; background:#fff; color:#251f17; padding:0 8px; font-size:10px; }
-    .product-card.excluded .remove-item { background:#111; border-color:#111; color:#fff; }
-    .panel { background:#fff; border:1px solid #ded8ce; border-radius:8px; padding:14px; display:grid; gap:12px; }
+    .product-card span, .product-card a { font-size:11px; line-height:1.4; color:#aac0b6; }
+    .product-card a { color:#8fe7c3; font-weight:800; }
+    .remove-item { width:max-content; min-height:28px; border-color:#527268; background:transparent; color:#e6f4ee; padding:0 8px; font-size:10px; }
+    .product-card.excluded .remove-item { background:#82dfba; border-color:#82dfba; color:#092016; }
+    .panel { background:#0c1815; border:1px solid #28433a; border-radius:10px; padding:14px; display:grid; gap:12px; }
+    .curation-tabs { display:flex; gap:8px; border-bottom:1px solid #28433a; padding-bottom:12px; }
+    .curation-tabs button { background:transparent; border-color:transparent; color:#aac0b6; }
+    .curation-tabs button.active { background:#82dfba; border-color:#82dfba; color:#092016; }
+    .empty-state { padding:32px; border:1px dashed #45685b; color:#aac0b6; text-align:center; }
     textarea { min-height:220px; padding:12px; font-family:Consolas,monospace; font-size:12px; }
     @media (max-width: 860px) { .toolbar { grid-template-columns:1fr 1fr; } .toolbar input[type="search"] { grid-column:1/-1; } .group-head { grid-template-columns:1fr; } }
   </style>
@@ -62,7 +66,6 @@
       <input id="searchBox" type="search" placeholder="Buscar grupo, marca, categoria ou cor">
       <select id="brandFilter"><option value="">Todas as marcas</option><option value="Tommy Hilfiger">Tommy Hilfiger (29)</option><option value="Hugo Boss">Hugo Boss (21)</option><option value="Armani Exchange">Armani Exchange (16)</option><option value="Lacoste">Lacoste (10)</option><option value="Ralph Lauren">Ralph Lauren (10)</option></select>
       <select id="collectionFilter"><option value="">Todas as categorias</option><option value="camisetas">camisetas (32)</option><option value="bermudas">bermudas (17)</option><option value="calcas">calcas (12)</option><option value="casacos">casacos (12)</option><option value="gola-polo">gola-polo (7)</option><option value="jaquetas">jaquetas (5)</option><option value="manga-longa">manga-longa (1)</option></select>
-      <button id="selectHigh" type="button">Selecionar alta confiança</button>
       <button id="exportGroups" type="button">Exportar aprovados</button>
     </div>
   </section>
@@ -73,6 +76,11 @@
       <div class="metric"><strong>535</strong><span>Referências agrupáveis</span></div>
       <div class="metric"><strong>155</strong><span>Individuais/revisar depois</span></div>
     </section>
+    <nav class="curation-tabs" aria-label="Fila de aprovação">
+      <button type="button" class="active" data-curation-tab="pending">Para aprovar <span id="pendingCount">0</span></button>
+      <button type="button" data-curation-tab="approved">Aprovados <span id="approvedCount">0</span></button>
+    </nav>
+    <div id="emptyState" class="empty-state" hidden>Nenhum grupo nesta etapa.</div>
     
             <section class="group" data-status="alta" data-brand="Armani Exchange" data-collection="bermudas">
               <header class="group-head">
@@ -8969,11 +8977,12 @@
     const payload = JSON.parse(document.getElementById('group-data').textContent);
     const groups = payload.groups || [];
     const byId = new Map(groups.map(group => [group.id, group]));
-    const storageKey = 'scorsatto-fornecedor-grupos-aprovados-' + location.pathname;
-    const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-' + location.pathname;
+    const storageKey = 'scorsatto-fornecedor-grupos-aprovados-v2-' + location.pathname;
+    const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-v2-' + location.pathname;
     const decisions = JSON.parse(localStorage.getItem(storageKey) || '{}');
     const excludedByGroup = JSON.parse(localStorage.getItem(excludedKey) || '{}');
     const cards = Array.from(document.querySelectorAll('.group'));
+    let activeQueueTab = 'pending';
     const releaseCutoff = '2026-05-01';
     function latestReleaseDate(card) {
       return Array.from(card.querySelectorAll('img')).reduce((latest, image) => {
@@ -9018,9 +9027,10 @@
       const collection = document.getElementById('collectionFilter').value;
       cards.forEach(card => {
         const text = card.textContent.toLowerCase();
-        const show = (!q || text.includes(q)) && (!brand || card.dataset.brand === brand) && (!collection || card.dataset.collection === collection);
-        card.classList.toggle('hidden', !show);
         const decision = decisions[card.querySelector('[data-group-decision]')?.dataset.groupDecision || ''] || '';
+        const belongsToTab = activeQueueTab === 'approved' ? decision === 'approve' : decision !== 'approve';
+        const show = belongsToTab && (!q || text.includes(q)) && (!brand || card.dataset.brand === brand) && (!collection || card.dataset.collection === collection);
+        card.classList.toggle('hidden', !show);
         card.classList.toggle('approved', decision === 'approve');
         card.classList.toggle('rejected', decision === 'reject');
         card.querySelectorAll('[data-approve-group],[data-reject-group]').forEach(button => {
@@ -9037,13 +9047,17 @@
           if (button) button.textContent = isExcluded ? 'Voltar para o grupo' : 'Excluir do grupo';
         });
       });
+      const approved = cards.filter(card => decisions[card.querySelector('[data-group-decision]')?.dataset.groupDecision || ''] === 'approve').length;
+      document.getElementById('approvedCount').textContent = String(approved);
+      document.getElementById('pendingCount').textContent = String(cards.length - approved);
+      document.getElementById('emptyState').hidden = cards.some(card => !card.classList.contains('hidden'));
     }
     ['searchBox','brandFilter','collectionFilter'].forEach(id => document.getElementById(id).addEventListener('input', sync));
-    document.getElementById('selectHigh').addEventListener('click', () => {
-      groups.filter(group => group.status === 'alta').forEach(group => decisions[group.id] = 'approve');
-      save();
+    document.querySelectorAll('[data-curation-tab]').forEach(button => button.addEventListener('click', () => {
+      activeQueueTab = button.dataset.curationTab || 'pending';
+      document.querySelectorAll('[data-curation-tab]').forEach(item => item.classList.toggle('active', item === button));
       sync();
-    });
+    }));
     document.addEventListener('click', event => {
       const approve = event.target.closest('[data-approve-group]');
       if (approve) {
