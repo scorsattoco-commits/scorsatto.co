@@ -34,6 +34,8 @@
     .status { border:1px solid #d8d0c4; border-radius:999px; padding:5px 9px; font-size:11px; font-weight:900; text-transform:uppercase; }
     .status.alta { background:#111; color:#fff; border-color:#111; }
     .status.revisar { background:#fff9df; color:#5c4714; }
+    .release-chip { display:inline-flex; align-items:center; min-height:22px; margin:0 8px 0 0; border-radius:999px; padding:0 8px; background:#e7b84b; color:#181816; font-size:10px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+    .group.lancamento { border-color:#c58d1c; box-shadow:0 0 0 1px rgba(197,141,28,.22); }
     .products { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1px; background:#ebe5dc; }
     .product-card { background:#fff; padding:10px; display:grid; grid-template-columns:76px minmax(0,1fr); gap:10px; }
     .product-card.excluded { opacity:.45; background:#f4eee6; }
@@ -8972,6 +8974,34 @@
     const decisions = JSON.parse(localStorage.getItem(storageKey) || '{}');
     const excludedByGroup = JSON.parse(localStorage.getItem(excludedKey) || '{}');
     const cards = Array.from(document.querySelectorAll('.group'));
+    const releaseCutoff = '2026-05-01';
+    function latestReleaseDate(card) {
+      return Array.from(card.querySelectorAll('img')).reduce((latest, image) => {
+        const match = image.src.match(/20\d{2}-\d{2}-\d{2}/);
+        return match && match[0] > latest ? match[0] : latest;
+      }, '');
+    }
+    const groupsPanel = document.querySelector('.panel');
+    cards
+      .map((card, index) => ({ card, index, date: latestReleaseDate(card) }))
+      .sort((left, right) => {
+        const leftRelease = left.date >= releaseCutoff;
+        const rightRelease = right.date >= releaseCutoff;
+        if (leftRelease !== rightRelease) return leftRelease ? -1 : 1;
+        if (leftRelease && left.date !== right.date) return right.date.localeCompare(left.date);
+        return left.index - right.index;
+      })
+      .forEach(({ card, date }) => {
+        const isRelease = date >= releaseCutoff;
+        card.classList.toggle('lancamento', isRelease);
+        if (isRelease) {
+          const heading = card.querySelector('.group-head h2');
+          if (heading && !heading.querySelector('.release-chip')) {
+            heading.insertAdjacentHTML('afterbegin', '<span class="release-chip">Lançamento</span>');
+          }
+        }
+        groupsPanel.parentElement.insertBefore(card, groupsPanel);
+      });
     function save() { localStorage.setItem(storageKey, JSON.stringify(decisions)); }
     function saveExcluded() { localStorage.setItem(excludedKey, JSON.stringify(excludedByGroup)); }
     function groupExcludedSet(groupId) {
