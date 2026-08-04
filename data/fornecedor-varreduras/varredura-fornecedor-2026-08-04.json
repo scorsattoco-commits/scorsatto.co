@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T13:08:31Z",
+  "generatedAt": "2026-08-04T20:49:01Z",
   "categoryCount": 36,
   "siteCategories": [
     {
@@ -274,8 +274,8 @@
       "selectableOnly": true
     }
   ],
-  "scrapedItems": 2146,
-  "candidateCount": 690,
+  "scrapedItems": 2150,
+  "candidateCount": 693,
   "priorityCount": 36,
   "errors": [],
   "priorityCandidates": [
@@ -450,23 +450,6 @@
       "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco",
       "brandLabel": "Armani Exchange",
       "collection": "jaquetas"
-    },
-    {
-      "supplierProductId": "16311",
-      "title": "Camisa Social XE OXFORD - Cinza Claro - CamisaSoci...",
-      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-cinza-cl-camisasocialxe00016",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-07-08-at-095413-4.jpeg",
-      "sizes": [
-        "M",
-        "G",
-        "GG",
-        "XXG"
-      ],
-      "retailPrice": "199,00",
-      "wholesalePrice": "105,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
-      "brandLabel": "Tommy Hilfiger",
-      "collection": "camisa-social"
     },
     {
       "supplierProductId": "16424",
@@ -690,23 +673,6 @@
       "collection": "gola-polo"
     },
     {
-      "supplierProductId": "16277",
-      "title": "Gola Polo Premium Lct - Bege - 15533274590",
-      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-bege-15533274590",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-2.jpeg",
-      "sizes": [
-        "P",
-        "M",
-        "G",
-        "GG"
-      ],
-      "retailPrice": "140,00",
-      "wholesalePrice": "68,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
-      "brandLabel": "Lacoste",
-      "collection": "gola-polo"
-    },
-    {
       "supplierProductId": "16275",
       "title": "Gola Polo Premium Lct - Cinza Claro - 15533274588",
       "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-ci-15533274588",
@@ -738,6 +704,22 @@
       "categoryUrl": "https://www.catalogopoa.com.br/bermudas/berm-moletom",
       "brandLabel": "Hugo Boss",
       "collection": "bermudas"
+    },
+    {
+      "supplierProductId": "16311",
+      "title": "Camisa Social XE OXFORD - Cinza Claro - CamisaSoci...",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-cinza-cl-camisasocialxe00016",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-07-08-at-095413-4.jpeg",
+      "sizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "retailPrice": "199,00",
+      "wholesalePrice": "105,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisa-social"
     },
     {
       "supplierProductId": "16426",
@@ -872,6 +854,22 @@
       "title": "Camiseta PIMA JERSEY XE - Cinza - pimajerseyxe0070",
       "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-cinza-pimajerseyxe0070",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-23-at-173039-4.jpeg",
+      "sizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "retailPrice": "120,00",
+      "wholesalePrice": "50,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisetas",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisetas"
+    },
+    {
+      "supplierProductId": "16477",
+      "title": "Camiseta PIMA JERSEY XE - Marrom - pimajerseyxe007",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-marrom-pimajerseyxe0079",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-07-24-at-094005-6.jpeg",
       "sizes": [
         "P",
         "M",
@@ -1738,7 +1736,7 @@
       ],
       "retailPrice": "158,00",
       "wholesalePrice": "75,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/bermudas",
+      "categoryUrl": "https://www.catalogopoa.com.br/bermudas/berm-sarja",
       "brandLabel": "Ralph Lauren",
       "collection": "bermudas"
     },
@@ -2176,7 +2174,7 @@
       ],
       "retailPrice": "128,00",
       "wholesalePrice": "65,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/bermudas",
+      "categoryUrl": "https://www.catalogopoa.com.br/bermudas/mauricinho-linho",
       "brandLabel": "Tommy Hilfiger",
       "collection": "bermudas"
     },
@@ -2252,40 +2250,12 @@
       "collection": "bermudas"
     },
     {
-      "supplierProductId": "13302",
-      "title": "Mauricinho Sarja XE - Cinza Claro - 0120",
-      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-cinza-claro-0120",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142639-1.jpeg",
-      "sizes": [
-        "P"
-      ],
-      "retailPrice": "138,00",
-      "wholesalePrice": "68,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/bermudas",
-      "brandLabel": "Tommy Hilfiger",
-      "collection": "bermudas"
-    },
-    {
       "supplierProductId": "14073",
       "title": "Mauricinho Sarja XE - Cinza Escuro - 063",
       "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-cinza-escuro-063",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/bermuda-sarja/tommy/whatsapp-image-2025-10-10-at-111307.jpeg",
       "sizes": [
         "M"
-      ],
-      "retailPrice": "138,00",
-      "wholesalePrice": "68,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/bermudas",
-      "brandLabel": "Tommy Hilfiger",
-      "collection": "bermudas"
-    },
-    {
-      "supplierProductId": "13304",
-      "title": "Mauricinho Sarja XE - Marrom - 0119",
-      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-marrom-0119",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142641-1.jpeg",
-      "sizes": [
-        "P"
       ],
       "retailPrice": "138,00",
       "wholesalePrice": "68,00",
@@ -2327,20 +2297,6 @@
       "title": "Mauricinho Sarja XE - Preto - 066",
       "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-preto-066",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-10-08-at-144158-1.jpeg",
-      "sizes": [
-        "P"
-      ],
-      "retailPrice": "138,00",
-      "wholesalePrice": "68,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/bermudas",
-      "brandLabel": "Tommy Hilfiger",
-      "collection": "bermudas"
-    },
-    {
-      "supplierProductId": "13303",
-      "title": "Mauricinho Sarja XE - Verde - 0121",
-      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-verde-0121",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142640-3.jpeg",
       "sizes": [
         "P"
       ],
@@ -2778,20 +2734,6 @@
       "collection": "calcas"
     },
     {
-      "supplierProductId": "9183",
-      "title": "Calça Jeans HB Skinny - Azul - 401016032",
-      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-401016032",
-      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-jeans/whatsapp-image-2024-05-26-at-234903-2.jpeg",
-      "sizes": [
-        "40"
-      ],
-      "retailPrice": "199,00",
-      "wholesalePrice": "99,00",
-      "categoryUrl": "https://www.catalogopoa.com.br/calcas",
-      "brandLabel": "Hugo Boss",
-      "collection": "calcas"
-    },
-    {
       "supplierProductId": "14890",
       "title": "Calça Jeans HB Skinny - Azul Escuro - 4010160016",
       "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-4010160016",
@@ -2811,7 +2753,6 @@
       "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-esc-4010160028",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-jeans/super-premium/whatsapp-image-2026-06-25-at-155259-1.jpeg",
       "sizes": [
-        "40",
         "46",
         "48"
       ],
@@ -3522,10 +3463,52 @@
       "collection": "calcas"
     },
     {
+      "supplierProductId": "13302",
+      "title": "Mauricinho Sarja XE - Cinza Claro - 0120",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-cinza-claro-0120",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142639-1.jpeg",
+      "sizes": [
+        "P"
+      ],
+      "retailPrice": "138,00",
+      "wholesalePrice": "68,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/bermudas/calcao-sarja",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "calcas"
+    },
+    {
+      "supplierProductId": "13304",
+      "title": "Mauricinho Sarja XE - Marrom - 0119",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-marrom-0119",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142641-1.jpeg",
+      "sizes": [
+        "P"
+      ],
+      "retailPrice": "138,00",
+      "wholesalePrice": "68,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/bermudas/calcao-sarja",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "calcas"
+    },
+    {
       "supplierProductId": "11407",
       "title": "Mauricinho Sarja XE - Marrom - 0244",
       "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-marrom-0244",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/bermuda-sarja/tommy/whatsapp-image-2024-12-16-at-100818-2.jpeg",
+      "sizes": [
+        "P"
+      ],
+      "retailPrice": "138,00",
+      "wholesalePrice": "68,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/bermudas/calcao-sarja",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "calcas"
+    },
+    {
+      "supplierProductId": "13303",
+      "title": "Mauricinho Sarja XE - Verde - 0121",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-xe-verde-0121",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/mauricinho-sarja/whatsapp-image-2025-08-01-at-142640-3.jpeg",
       "sizes": [
         "P"
       ],
@@ -3761,7 +3744,6 @@
       "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-cinza-cl-camisasocialxe00016",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-07-08-at-095413-4.jpeg",
       "sizes": [
-        "M",
         "G",
         "GG",
         "XXG"
@@ -6364,7 +6346,6 @@
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-06-29-at-151028.jpeg",
       "sizes": [
         "P",
-        "M",
         "G",
         "GG"
       ],
@@ -6481,7 +6462,6 @@
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/algodao-egipcio/tommy/whatsapp-image-2026-06-29-at-151029.jpeg",
       "sizes": [
         "P",
-        "M",
         "G",
         "GG"
       ],
@@ -7600,7 +7580,6 @@
       "url": "https://www.catalogopoa.com.br/camiseta-jersey-feminina-xe-rosa-femininaxe0004",
       "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/femininas/tommy/whatsapp-image-2026-02-03-at-123609.jpeg",
       "sizes": [
-        "G",
         "GG"
       ],
       "retailPrice": "99,00",
@@ -7637,6 +7616,74 @@
       "retailPrice": "120,00",
       "wholesalePrice": "55,00",
       "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pima-gamusa",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisetas"
+    },
+    {
+      "supplierProductId": "16548",
+      "title": "Camiseta PIMA GAMUSA XE - Cinza - GAMUSAXE0025",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-gamusa-xe-cinza-gamusaxe0025",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-gamusa/whatsapp-image-2026-08-04-at-165044.jpeg",
+      "sizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "retailPrice": "120,00",
+      "wholesalePrice": "55,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisetas",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisetas"
+    },
+    {
+      "supplierProductId": "16547",
+      "title": "Camiseta PIMA GAMUSA XE - Marrom - GAMUSAXE0024",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-gamusa-xe-marrom-gamusaxe0024",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-gamusa/whatsapp-image-2026-08-04-at-165044-1.jpeg",
+      "sizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "retailPrice": "120,00",
+      "wholesalePrice": "55,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisetas",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisetas"
+    },
+    {
+      "supplierProductId": "16549",
+      "title": "Camiseta PIMA GAMUSA XE - Preto - GAMUSAXE0026",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-gamusa-xe-preto-gamusaxe0026",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-gamusa/whatsapp-image-2026-08-04-at-165044-2.jpeg",
+      "sizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "retailPrice": "120,00",
+      "wholesalePrice": "55,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisetas",
+      "brandLabel": "Tommy Hilfiger",
+      "collection": "camisetas"
+    },
+    {
+      "supplierProductId": "16546",
+      "title": "Camiseta PIMA GAMUSA XE - Verde - GAMUSAXE0023",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-gamusa-xe-verde-gamusaxe0023",
+      "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-gamusa/whatsapp-image-2026-08-04-at-165043.jpeg",
+      "sizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "retailPrice": "120,00",
+      "wholesalePrice": "55,00",
+      "categoryUrl": "https://www.catalogopoa.com.br/camisetas",
       "brandLabel": "Tommy Hilfiger",
       "collection": "camisetas"
     },
@@ -10345,7 +10392,6 @@
       "sizes": [
         "P",
         "M",
-        "G",
         "GG"
       ],
       "retailPrice": "140,00",
