@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-02T20:20:24.084Z",
+  "generatedAt": "2026-08-05T22:37:31.843Z",
   "products": [
     {
       "ref": "SC-001",
@@ -99,12 +99,36 @@
       "updatedAt": "2026-06-23"
     },
     {
+      "ref": "pimajerseyxe0078",
+      "name": "Camiseta Pima Jersey - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/camisetas/camiseta-pima-jersey-bege-sc-estoque-013.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-bege-sc-estoque-013",
+      "category": "camisetas",
+      "updatedAt": "2026-08-05"
+    },
+    {
+      "ref": "pimajerseyxe0081",
+      "name": "Camiseta Pima Jersey - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/camisetas/camiseta-pima-jersey-preto-sc-estoque-014.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-preto-sc-estoque-014",
+      "category": "camisetas",
+      "updatedAt": "2026-08-05"
+    },
+    {
+      "ref": "PufferARM0002",
+      "name": "Jaqueta Puffer Gominho - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/jaquetas/jaqueta-arm-puffer-gominho-preto-sc-estoque-015.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-arm-puffer-gominho-preto-sc-estoque-015",
+      "category": "jaquetas",
+      "updatedAt": "2026-08-05"
+    },
+    {
       "ref": "15833",
       "name": "Camiseta Supima - Azul Marinho",
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-azul-marinho-15833-02bf4ba016.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-azul-marinho-15833",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-04"
     },
     {
       "ref": "15825",
@@ -248,7 +272,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-marrom-15834-e7ab474cac.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-marrom-15834",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-04"
     },
     {
       "ref": "15841",
@@ -1336,7 +1360,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15153-bermuda-sarja-azul-marinho-aprovada-2026-07-11-f597ea6dd6.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-azul-marinho-15153",
       "category": "bermudas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-03"
     },
     {
       "ref": "15053",
@@ -1656,7 +1680,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-404018074-calca-sarja-poliamida-azul-marinho-aprovada-2026-07-12-d3d4342899.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-poliamida-azul-marinho-404018074",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-04"
     },
     {
       "ref": "404018075",
