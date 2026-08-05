@@ -1616,7 +1616,7 @@
       return (items || []).map(item => card(item.label, item.value, item.detail || "", item.tone || item.kind || "")).join("");
     }
     function table(headers, rows) {
-      return '<thead><tr>' + headers.map(h => '<th>' + esc(h) + '</th>').join("") + '</tr></thead><tbody></tbody>';
+      return '<thead><tr>' + headers.map(h => '<th>' + esc(h) + '</th>').join("") + '</tr></thead><tbody>' + rows.join("") + '</tbody>';
     }
     function statement(title, rows) {
       return '<div class="statement"><div class="statement-title">' + esc(title) + '</div>' + rows.map(row => '<div class="statement-row ' + (row.kind || "") + '"><span>' + esc(row.label) + '</span><strong class="' + (row.tone || "") + '">' + esc(row.value) + '</strong></div>').join("") + '</div>';
