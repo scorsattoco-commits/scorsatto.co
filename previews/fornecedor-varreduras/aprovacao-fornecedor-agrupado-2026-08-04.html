@@ -30,6 +30,7 @@
     .decision { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
     .decision button { min-height:34px; font-size:11px; }
     .decision button.active { background:#82dfba; color:#092016; border-color:#82dfba; outline:none; }
+    .decision .send-generator { background:#8fe7c3; color:#092016; border-color:#8fe7c3; }
     .reject-group { background:transparent; color:#e6f4ee; border-color:#527268; }
     .status { border:1px solid #527268; border-radius:999px; padding:5px 9px; font-size:10px; font-weight:900; text-transform:uppercase; }
     .status.alta { background:#18251f; color:#8fe7c3; border-color:#376956; }
@@ -8983,6 +8984,21 @@
     const excludedByGroup = JSON.parse(localStorage.getItem(excludedKey) || '{}');
     const cards = Array.from(document.querySelectorAll('.group'));
     let activeQueueTab = 'pending';
+    const queueDate = '2026-08-04';
+    cards.forEach(card => {
+      const groupId = card.querySelector('[data-group-decision]')?.dataset.groupDecision;
+      const action = card.querySelector('.decision');
+      if (!groupId || !action) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'send-generator';
+      button.textContent = 'Adicionar à lista para gerar imagem →';
+      button.hidden = true;
+      button.addEventListener('click', () => {
+        location.href = `https://scorsatto-intelligence.alissonscorsatto.chatgpt.site/?tab=photo&queueGroup=${encodeURIComponent(groupId)}&queueDate=${queueDate}`;
+      });
+      action.appendChild(button);
+    });
     const releaseCutoff = '2026-05-01';
     function latestReleaseDate(card) {
       return Array.from(card.querySelectorAll('img')).reduce((latest, image) => {
@@ -9037,6 +9053,8 @@
           const active = (button.dataset.approveGroup && decision === 'approve') || (button.dataset.rejectGroup && decision === 'reject');
           button.classList.toggle('active', active);
         });
+        const sendButton = card.querySelector('.send-generator');
+        if (sendButton) sendButton.hidden = decision !== 'approve';
         const groupId = card.querySelector('[data-group-decision]')?.dataset.groupDecision || '';
         const excluded = groupExcludedSet(groupId);
         card.querySelectorAll('.product-card').forEach(productCard => {
