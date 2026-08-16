@@ -1,0 +1,45 @@
+{
+  "sourceSheet": "ESTOQUE ",
+  "products": [
+    {
+      "siteProductId": "sc-estoque-001",
+      "aliases": ["Sueter RL meio ziper Marrom", "Sueter Meio Ziper - Marrom"]
+    },
+    {
+      "siteProductId": "sc-estoque-002",
+      "aliases": ["Calça Ralph Lauren Azul marin.", "Calca Ralph Lauren Azul marin.", "Cala Ralph Lauren Azul marin.", "Calça Sarja - Azul Marinho"]
+    },
+    {
+      "siteProductId": "sc-estoque-003",
+      "aliases": ["Gola Polo Premium - Preto"]
+    },
+    {
+      "siteProductId": "sc-estoque-005",
+      "aliases": ["Camiseta supima RL preto", "Camiseta Supima - Preto"]
+    },
+    {
+      "siteProductId": "sc-estoque-008",
+      "aliases": ["Camisa social tricoline xadrez cinza", "Camisa Social Xadrez - Cinza"]
+    },
+    {
+      "siteProductId": "sc-estoque-009",
+      "aliases": ["Camiseta Lisa Branca", "Camiseta Essencial Lisa - Branco"]
+    },
+    {
+      "siteProductId": "sc-estoque-010",
+      "aliases": ["Camiseta Nike Branca", "Camiseta Nike Essencial - Branco"]
+    },
+    {
+      "siteProductId": "sc-estoque-011",
+      "aliases": ["Casaco Jeans Black Jeans", "Jaqueta Jeans - Preto"]
+    },
+    {
+      "siteProductId": "sc-estoque-012",
+      "aliases": ["Jaqueta corta vento preta", "Jaqueta Corta-Vento - Preto"]
+    },
+    {
+      "siteProductId": "sc-estoque-013",
+      "aliases": ["Camiseta Pima Jersey - Bege"]
+    }
+  ]
+}
