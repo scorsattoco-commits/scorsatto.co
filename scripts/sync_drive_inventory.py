@@ -116,16 +116,23 @@ def main():
         product = product_by_id[product_id]
         new_sizes = list(size_counts)
         new_stock = dict(size_counts)
-        old_state = {"status": product.get("status"), "sizes": product.get("sizes") or [], "stock": product.get("stock") or {}}
-        new_state = {"status": "disponivel", "sizes": new_sizes, "stock": new_stock}
+        old_state = {
+            "status": product.get("status"),
+            "sizes": product.get("sizes") or [],
+            "stock": product.get("stock") or {},
+            "supplierName": product.get("supplierName"),
+        }
+        new_state = {"status": "disponivel", "sizes": new_sizes, "stock": new_stock, "supplierName": "Estoque proprio SCORSATTO"}
         new_tags = list(product.get("tags", []))
-        if "disponiveis-agora" not in new_tags:
-            new_tags.append("disponiveis-agora")
+        for required_tag in ("disponiveis-agora", "estoque-proprio"):
+            if required_tag not in new_tags:
+                new_tags.append(required_tag)
         if old_state != new_state or product.get("tags") != new_tags:
             changes.append({"siteProductId": product_id, "name": product.get("name"), "from": old_state, "to": new_state})
         product["status"] = "disponivel"
         product["sizes"] = new_sizes
         product["stock"] = new_stock
+        product["supplierName"] = "Estoque proprio SCORSATTO"
         product["tags"] = new_tags
         product["lastCheckedAt"] = checked_at
 

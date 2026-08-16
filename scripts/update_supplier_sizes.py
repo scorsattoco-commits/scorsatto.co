@@ -28,7 +28,12 @@ def main():
     failures = []
     checked_at = today_slug()
 
-    supplier_products = [product for product in products if "catalogopoa.com.br" in str(product.get("supplierUrl", ""))]
+    supplier_products = [
+        product
+        for product in products
+        if "catalogopoa.com.br" in str(product.get("supplierUrl", ""))
+        and "estoque proprio" not in str(product.get("supplierName", "")).lower()
+    ]
     if args.limit:
         supplier_products = supplier_products[: args.limit]
     product_by_id = {product.get("id"): product for product in supplier_products}
