@@ -1,0 +1,298 @@
+{
+  "generatedAt": "2026-08-24T11:00:59Z",
+  "apply": true,
+  "checked": 206,
+  "changed": 3,
+  "failures": [
+    {
+      "id": "scp-15831",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00013",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15815",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-azul-marinho-supimaxe0002",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15817",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe0004",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15816",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe0003",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15882",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-pret-algegipxe00010",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15836",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe00018",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15858",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0002",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15818",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe0005",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15814",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe0001",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-11377",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-cinza-801118060",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16008",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-pequeno-camisasocialxe00012",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16009",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-preto-xadrez-pequeno-camisasocialxe00013",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15879",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-branco-algegipxe0007",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-14577",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-azul-escuro-401018037",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16157",
+      "url": "https://www.catalogopoa.com.br/calca-moletom-xe-cinza-cla-calcamolxe00003",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15747",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-golapoloxe050",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16158",
+      "url": "https://www.catalogopoa.com.br/calca-moletom-xe-azul-marinho-calcamolxe00004",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15743",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe046",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16048",
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-copia-sueterpremium00017",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15667",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-bege-golapoloxe047",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-15745",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-golapoloxe048",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16046",
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-preto-sueterpremium00015",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16112",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-a-sueterziperxe0004",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16152",
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-preto-suetermalhaxe0001",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16154",
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-claro-suetermalhaxe0003",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16155",
+      "url": "https://www.catalogopoa.com.br/sueter-gola-redonda-xe-cinza-chumbo-suetermalhaxe0004",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16149",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-off-white-pufferxe0008",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16150",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-bege-pufferxe0009",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16117",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-off-white-aaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-8917",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-marrom-401016027",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16133",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-ziper-xe-pre-molcapuzxe00073",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16115",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-bege-molsemxe00030",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16124",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-off-white-molsemxe00039",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-15966",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-bomber-cinza-jaquetaxe0008",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-15965",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-bomber-preto-jaquetaxe0007",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16015",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-rl-cinza-esc-molsemrl0005",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-12950",
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-azul-marinho-0152",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-12951",
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-preto-0151",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16148",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-cinza-pufferxe0007",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-15572",
+      "url": "https://www.catalogopoa.com.br/jaqueta-rl-sued-beg-suedrl0002",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-14960",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-hb-off-white-mauhb0019",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-12952",
+      "url": "https://www.catalogopoa.com.br/jaqueta-social-xe-bege-0144",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-14778",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-rl-off-white-linhorl00016",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-13044",
+      "url": "https://www.catalogopoa.com.br/jaqueta-arm-puffer-cinza-1015543",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-10310",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-verde-404018049",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16315",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-branco-camisasocialxe00020",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16136",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-ziper-xe-bege-molcapuzxe00076",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-404018076",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-poliamida-preto-404018076",
+      "reason": "sem tamanhos detectados"
+    },
+    {
+      "id": "scp-16038",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-bege-jerseyarm00020",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "scp-16037",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-azul-marinho-jerseyarm00019",
+      "reason": "HTTP Error 404: Not Found"
+    }
+  ],
+  "changes": [
+    {
+      "id": "scp-15834",
+      "name": "Camiseta Supima - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe00016",
+      "oldSizes": [
+        "P",
+        "M"
+      ],
+      "newSizes": [
+        "P"
+      ]
+    },
+    {
+      "id": "scp-16109",
+      "name": "Sueter Meio Ziper - Preto",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-preto-sueterziperxe0001",
+      "oldSizes": [
+        "P",
+        "M"
+      ],
+      "newSizes": [
+        "P"
+      ]
+    },
+    {
+      "id": "scp-16110",
+      "name": "Sueter Meio Ziper - Cinza Claro",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-gelo-sueterziperxe0002",
+      "oldSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ]
+    }
+  ]
+}
