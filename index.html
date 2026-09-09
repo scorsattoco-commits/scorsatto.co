@@ -25,6 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="admin-v2.css" rel="stylesheet">
   <style>
     :root { --black:#090909; --white:#fff; --paper:#f7f7f5; --soft:#efefed; --line:#deded9; --muted:#74746f; --radius-control:3px; --radius-soft:7px; }
     * { box-sizing: border-box; }
@@ -985,6 +986,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     let productOverrides = JSON.parse(localStorage.getItem("scorsattoProductOverridesV1") || "{}");
     let activeAdminSlug = PRODUCTS[0]?.slug || "";
     let activeAdminView = "backoffice";
+    let adminCatalogSearch = "";
+    let adminCatalogFilter = "all";
+    let adminCatalogLimit = 60;
+    let adminCatalogSearchTimer = 0;
+    let catalogSyncState = "idle";
+    let catalogSyncMessage = "Aguardando sincronização";
+    let catalogLastSyncedAt = "";
     let activeBackofficeCustomerId = "";
     let minimizedBackofficeCustomerId = "";
     let activeBackofficeSegment = "todos";
@@ -1290,10 +1298,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     refreshEditorialDescriptions();
     const brandText = (product) => normalize([product.name, product.supplierUrl, product.supplierProductId, product.slug, product.internalNotes, product.tags?.join(" ")].join(" "));
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
-    const isAdminAccount = () => Boolean(hasAdminEmail());
-    const isAvailableNow = (product) => product.status === "disponivel" || product.tags?.includes("disponiveis-agora");
-    const canUseGroupsPanel = () => Boolean(isAdminAccount() || activeAdminView === "groups" || location.hash === "#admin-grupos");
-    const visibleProducts = () => PRODUCTS.filter((product) => !product.hidden || isAdminAccount());
+    const isAdminAccount = () => Boolean(hasAdminEmail() && adminVerified);
+    const isAvailableNow = (product) => product.status === "disponivel";
+    const canUseGroupsPanel = () => Boolean(isAdminAccount());
+    const isPublicProduct = (product) => !product.hidden && product.visibility !== "hidden" && product.visibility !== "draft" && product.status !== "vendido";
+    const visibleProducts = () => PRODUCTS.filter((product) => isPublicProduct(product) || isAdminAccount());
     const readyCount = () => visibleProducts().filter(isAvailableNow).length;
     const consultationCount = () => visibleProducts().length - readyCount();
     if (!PRODUCTS.some(isAvailableNow)) active = "todos";
@@ -2428,7 +2437,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function hasStandardImage(product) {
-      return (product.images || []).some((image) => image.includes("generated/photoroom/site/") || image.includes("estoque-scorsatto/"));
+      return (product.images || []).some((image) => /generated\/(?:photoroom|optimized)\/site\/|estoque-scorsatto\//i.test(String(image)));
+    }
+
+    function hasDetailImage(product) {
+      return (product.images || []).some((image) => /generated\/detalhes\/site\/|-detalhe-/i.test(String(image)));
     }
 
     function imageStatus(product) {
@@ -2472,7 +2485,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     function catalogDiagnostics() {
       const products = visibleProducts();
       const standardImages = products.filter(hasStandardImage).length;
-      const detailImages = products.filter((product) => (product.images || []).some((image) => String(image).includes("generated/detalhes/site/"))).length;
+      const detailImages = products.filter(hasDetailImage).length;
       const ready = products.filter(isAvailableNow).length;
       const sold = products.filter((product) => product.status === "vendido").length;
       const consultation = products.length - ready - sold;
@@ -2659,19 +2672,40 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return String(value || "").split(/\n|,/).map((item) => item.trim()).filter(Boolean);
     }
 
+    function normalizeStock(stock = {}, sizes = []) {
+      return Object.fromEntries([...new Set(sizes)].map((size) => [size, Math.max(0, Number(stock?.[size] || 0))]));
+    }
+
+    function productStockTotal(product) {
+      return Object.values(product.stock || {}).reduce((total, quantity) => total + Math.max(0, Number(quantity || 0)), 0);
+    }
+
+    function productVisibility(product) {
+      if (product.visibility === "draft") return "draft";
+      return product.hidden || product.visibility === "hidden" ? "hidden" : "public";
+    }
+
+    function catalogChangeSummary(before, after) {
+      const labels = { name: "nome", price: "preço", status: "disponibilidade", sizes: "tamanhos", stock: "estoque", images: "fotos", description: "descrição", hidden: "visibilidade", visibility: "visibilidade" };
+      return Object.keys(labels).filter((key) => JSON.stringify(before?.[key]) !== JSON.stringify(after?.[key])).map((key) => labels[key]).filter((label, index, items) => items.indexOf(label) === index);
+    }
+
     function applyProductOverride(slug, override) {
       const product = PRODUCTS.find((item) => item.slug === slug);
       if (!product || !override) return;
-      if (override.name) product.name = override.name;
-      if (override.price) product.price = Number(override.price);
-      if (override.status) product.status = override.status;
-      if (Array.isArray(override.images) && override.images.length) product.images = override.images;
-      if (Array.isArray(override.sizes) && override.sizes.length) {
+      if (typeof override.name === "string") product.name = override.name;
+      if (Number.isFinite(Number(override.price)) && Number(override.price) >= 0) product.price = Number(override.price);
+      if (typeof override.status === "string") product.status = override.status;
+      if (Array.isArray(override.images)) product.images = override.images;
+      if (Array.isArray(override.sizes)) {
         product.sizes = override.sizes;
-        product.stock = Object.fromEntries(override.sizes.map((size) => [size, 1]));
+        product.stock = normalizeStock(override.stock || product.stock, override.sizes);
       }
-      if (override.description) product.description = override.description;
+      if (override.stock && typeof override.stock === "object") product.stock = normalizeStock(override.stock, product.sizes || Object.keys(override.stock));
+      if (typeof override.description === "string") product.description = override.description;
       if (typeof override.hidden === "boolean") product.hidden = override.hidden;
+      if (typeof override.visibility === "string") product.visibility = override.visibility;
+      if (override._meta && typeof override._meta === "object") product._overrideMeta = override._meta;
     }
 
     function applyProductOverrides() {
@@ -2679,12 +2713,24 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     async function loadProductOverrides() {
+      catalogSyncState = "saving";
+      catalogSyncMessage = "Sincronizando catálogo";
       if (db) {
         const { data, error } = await db.from("product_overrides").select("slug,data");
-        if (!error && data) {
+        if (error) {
+          catalogSyncState = "error";
+          catalogSyncMessage = "Falha ao carregar alterações";
+          console.warn("Não foi possível carregar as alterações do catálogo.", error);
+        } else if (data) {
           productOverrides = Object.fromEntries(data.map((row) => [row.slug, row.data || {}]));
           localStorage.setItem("scorsattoProductOverridesV1", JSON.stringify(productOverrides));
+          catalogSyncState = "ok";
+          catalogLastSyncedAt = new Date().toISOString();
+          catalogSyncMessage = `Sincronizado às ${new Date(catalogLastSyncedAt).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
         }
+      } else {
+        catalogSyncState = "error";
+        catalogSyncMessage = "Banco indisponível";
       }
       applyProductOverrides();
       updateShopHeader();
@@ -2694,13 +2740,26 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     async function saveProductOverride(slug, override) {
-      productOverrides[slug] = override;
+      if (!isAdminAccount()) throw new Error("Sua sessão administrativa expirou. Entre novamente.");
+      if (!db || !account?.id || !await refreshAdminAccess()) throw new Error("Sem conexão ou permissão para publicar a alteração no catálogo.");
+      const previous = productOverrides[slug] || {};
+      const product = PRODUCTS.find((item) => item.slug === slug);
+      const savedAt = new Date().toISOString();
+      const history = Array.isArray(previous?._meta?.history) ? previous._meta.history.slice(-19) : [];
+      const before = product ? { name: product.name || "", price: Number(product.price || 0), status: product.status || "sob-consulta", sizes: [...(product.sizes || [])], stock: { ...(product.stock || {}) }, images: [...(product.images || [])], description: product.description || "", visibility: productVisibility(product), hidden: productVisibility(product) !== "public" } : {};
+      const payload = { ...override, _meta: { updatedAt: savedAt, updatedBy: "Administrador SCORSATTO", verified: false, history: [...history, { at: savedAt, fields: catalogChangeSummary(previous, override), before }] } };
+      catalogSyncState = "saving";
+      catalogSyncMessage = "Salvando e verificando";
+      const { error } = await db.from("product_overrides").upsert({ slug, data: payload, updated_by: account.id, updated_at: savedAt });
+      if (error) { catalogSyncState = "error"; catalogSyncMessage = "Falha ao salvar"; throw new Error(`A alteração não foi publicada: ${error.message || "erro no banco"}`); }
+      const { data: verifiedRow, error: verifyError } = await db.from("product_overrides").select("slug,data,updated_at").eq("slug", slug).single();
+      if (verifyError || !verifiedRow?.data) { catalogSyncState = "error"; catalogSyncMessage = "Salvo, mas não verificado"; throw new Error("O banco recebeu a alteração, mas não foi possível confirmá-la. Recarregue antes de editar novamente."); }
+      productOverrides[slug] = { ...verifiedRow.data, _meta: { ...(verifiedRow.data._meta || {}), verified: true, verifiedAt: new Date().toISOString() } };
       localStorage.setItem("scorsattoProductOverridesV1", JSON.stringify(productOverrides));
-      if (db && account?.id && isAdminAccount()) {
-        const { error } = await db.from("product_overrides").upsert({ slug, data: override, updated_by: account.id, updated_at: new Date().toISOString() });
-        if (error) throw error;
-      }
-      applyProductOverride(slug, override);
+      catalogSyncState = "ok";
+      catalogLastSyncedAt = verifiedRow.updated_at || savedAt;
+      catalogSyncMessage = `Publicado e verificado às ${new Date(catalogLastSyncedAt).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
+      applyProductOverride(slug, productOverrides[slug]);
       updateShopHeader();
       renderFilters();
       renderProducts();
@@ -2829,7 +2888,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function forceGroupsRouteRender() {
-      if (location.hash !== "#admin-grupos" || !backofficePage || !backofficeStandalone) return;
+      if (location.hash !== "#admin-grupos" || !backofficePage || !backofficeStandalone || !canUseGroupsPanel()) return;
       activeAdminView = "groups";
       activeAccountTab = "admin";
       closeAccount();
@@ -6054,43 +6113,133 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         </div>`;
     }
 
-    function renderCatalogAdminPanel() {
-      const product = PRODUCTS.find((item) => item.slug === activeAdminSlug) || PRODUCTS[0];
-      if (!product) return "<p class='muted'>Nenhum produto disponível para edição.</p>";
-      activeAdminSlug = product.slug;
+    function catalogProductIssue(product) {
+      const reference = supplierReference(product) || product.supplierProductId || "";
+      const duplicateReference = reference && PRODUCTS.some((item) => item.slug !== product.slug && (supplierReference(item) || item.supplierProductId || "") === reference);
+      const invalidReference = !reference || /^a{8,}$/i.test(reference);
+      const noImage = !(product.images || []).length;
+      const noSizes = !(product.sizes || []).length && product.status === "disponivel";
+      return { hasIssue: duplicateReference || invalidReference || noImage || noSizes, duplicateReference, invalidReference, noImage, noSizes };
+    }
+
+    function catalogFilteredProducts() {
+      const term = normalize(adminCatalogSearch);
+      return PRODUCTS.filter((product) => {
+        const visibility = productVisibility(product);
+        const issue = catalogProductIssue(product).hasIssue;
+        const matchesFilter = adminCatalogFilter === "all"
+          || (adminCatalogFilter === "ready" && isPublicProduct(product) && isAvailableNow(product))
+          || (adminCatalogFilter === "consultation" && isPublicProduct(product) && product.status === "sob-consulta")
+          || (adminCatalogFilter === "hidden" && visibility !== "public")
+          || (adminCatalogFilter === "sold" && product.status === "vendido")
+          || (adminCatalogFilter === "issues" && issue);
+        const haystack = normalize(`${displayProductName(product)} ${brandFromProduct(product)} ${supplierReference(product) || product.supplierProductId || ""} ${product.collection || ""}`);
+        return matchesFilter && (!term || haystack.includes(term));
+      }).sort((a, b) => {
+        const aTime = new Date(a._overrideMeta?.updatedAt || a.lastCheckedAt || 0).getTime();
+        const bTime = new Date(b._overrideMeta?.updatedAt || b.lastCheckedAt || 0).getTime();
+        return bTime - aTime || displayProductName(a).localeCompare(displayProductName(b), "pt-BR");
+      });
+    }
+
+    function catalogStatusPill(product) {
+      if (product.status === "vendido") return '<span class="admin-pill sold">Vendido</span>';
+      if (isAvailableNow(product)) return '<span class="admin-pill ready">Pronta entrega</span>';
+      return '<span class="admin-pill">Sob consulta</span>';
+    }
+
+    function renderCatalogEditor(product) {
+      if (!product) return "";
       const imagesText = (product.images || []).join("\n");
-      const sizesText = sortSizes(product.sizes || []).join(", ");
-      const diagnostics = catalogDiagnostics();
+      const sizes = sortSizes(product.sizes || []);
+      const sizesText = sizes.join(", ");
       const alerts = [imageStatus(product), referenceStatus(product), groupStatus(product), groupingStatus(product)];
+      const issue = catalogProductIssue(product);
+      const history = productOverrides[product.slug]?._meta?.history || [];
+      const lastUpdate = productOverrides[product.slug]?._meta?.updatedAt || product.lastCheckedAt || "";
       return `
-        <div class="admin-health-grid">
-          <div class="admin-health-card"><strong>${diagnostics.products.length}</strong><span>Produtos públicos</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.standardImages}</strong><span>Com foto padrão</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.detailImages}</strong><span>Com foto detalhe</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.ready}</strong><span>Pronta entrega</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.consultation}</strong><span>Sob consulta</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.sold}</strong><span>Vendidos</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.grouped}</strong><span>Peças em grupos</span></div>
-          <div class="admin-health-card"><strong>${diagnostics.possibleGroups}</strong><span>Alertas de grupo</span></div>
-        </div>
-        <form class="account-form" data-account-form="admin-product">
-          <label class="field"><span>Produto</span><select name="slug" data-admin-product-select>${PRODUCTS.map((item) => `<option value="${item.slug}"${item.slug === product.slug ? " selected" : ""}>${displayProductName(item)} - Ref. ${supplierReference(item) || item.supplierProductId || "sob consulta"}</option>`).join("")}</select></label>
-          <div class="admin-alert-list">
-            ${alerts.map((item) => `<div class="admin-alert ${item.level}"><strong>${safeHtml(item.label)}</strong><span>${safeHtml(item.detail)}</span></div>`).join("")}
+        <form class="admin-editor" data-account-form="admin-product" id="adminProductEditor">
+          <input type="hidden" name="slug" value="${safeHtml(product.slug)}">
+          <div class="admin-editor-head">
+            <div><span class="eyebrow">Editando produto</span><h3>${safeHtml(displayProductName(product))}</h3><p>${safeHtml(brandFromProduct(product))} · Ref. ${safeHtml(supplierReference(product) || product.supplierProductId || "sem referência")}${lastUpdate ? ` · Última alteração ${safeHtml(formatDateTime(lastUpdate))}` : ""}</p></div>
+            <a class="admin-row-action secondary" href="/?view=visitor#produto-${encodeURIComponent(product.slug)}" target="_blank" rel="noopener">Ver como visitante</a>
           </div>
-          <div class="admin-photo-grid">
-            ${(product.images || []).map((image, index) => `<div class="admin-photo-card"><img src="${image}" alt="" loading="lazy" decoding="async"><button type="button" data-remove-admin-image="${index}">Remover foto</button></div>`).join("") || `<p class="muted">Produto sem foto cadastrada.</p>`}
+          <div>
+            <div class="admin-alert-list">
+              ${alerts.map((item) => `<div class="admin-alert ${item.level}"><strong>${safeHtml(item.label)}</strong><span>${safeHtml(item.detail)}</span></div>`).join("")}
+              ${issue.duplicateReference ? '<div class="admin-alert warn"><strong>Referência duplicada</strong><span>Outra peça usa a mesma referência. Confirme antes de publicar.</span></div>' : ""}
+              ${issue.invalidReference ? '<div class="admin-alert danger"><strong>Referência inválida</strong><span>Cadastre uma referência real antes de vender.</span></div>' : ""}
+            </div>
+            <div class="admin-editor-grid">
+              <label class="field wide"><span>Nome exibido</span><input name="name" value="${safeHtml(product.name || "")}" required></label>
+              <label class="field"><span>Preço</span><input name="price" type="number" min="0" step="0.01" value="${Number(product.price || 0).toFixed(2)}" required></label>
+              <label class="field"><span>Disponibilidade</span><select name="status"><option value="disponivel"${product.status === "disponivel" ? " selected" : ""}>Pronta entrega</option><option value="sob-consulta"${product.status === "sob-consulta" ? " selected" : ""}>Sob consulta</option><option value="vendido"${product.status === "vendido" ? " selected" : ""}>Vendido</option></select></label>
+              <label class="field"><span>Visibilidade</span><select name="visibility"><option value="public"${productVisibility(product) === "public" ? " selected" : ""}>Publicado</option><option value="hidden"${productVisibility(product) === "hidden" ? " selected" : ""}>Oculto</option><option value="draft"${productVisibility(product) === "draft" ? " selected" : ""}>Rascunho</option></select></label>
+              <label class="field"><span>Tamanhos</span><input name="sizes" value="${safeHtml(sizesText)}" placeholder="P, M, G, GG"></label>
+              <div class="field wide"><span>Quantidade por tamanho</span><div class="admin-stock-grid">${sizes.length ? sizes.map((size) => `<label class="admin-stock-item"><span>${safeHtml(size)}</span><input data-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(product.stock?.[size] || 0))}"></label>`).join("") : '<span class="muted">Informe os tamanhos, salve e reabra para cadastrar as quantidades.</span>'}</div></div>
+              <label class="field wide"><span>Descrição</span><textarea name="description" rows="5">${safeHtml(product.description || "")}</textarea></label>
+              <label class="field wide"><span>Fotos atuais — uma por linha</span><textarea name="images" rows="5" placeholder="Uma URL ou caminho por linha">${safeHtml(imagesText)}</textarea></label>
+              <label class="field wide"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
+            </div>
           </div>
-          <label class="field"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
-          <label class="field"><span>Nome exibido</span><input name="name" value="${product.name || ""}"></label>
-          <label class="field"><span>Preço</span><input name="price" type="number" step="0.01" value="${product.price || ""}"></label>
-          <label class="field"><span>Status</span><select name="status"><option value="disponivel"${product.status === "disponivel" ? " selected" : ""}>Disponível agora</option><option value="sob-consulta"${product.status !== "disponivel" ? " selected" : ""}>Sob consulta</option></select></label>
-          <label class="field"><span>Tamanhos</span><input name="sizes" value="${sizesText}" placeholder="P, M, G, GG"></label>
-          <label class="field"><span>Fotos atuais</span><textarea name="images" placeholder="Uma URL ou caminho por linha">${imagesText}</textarea></label>
-          <label class="field"><span>Descrição</span><textarea name="description">${product.description || ""}</textarea></label>
-          <label class="field-check"><input name="hidden" type="checkbox"${product.hidden ? " checked" : ""}> Ocultar produto da vitrine pública.</label>
-          <button class="primary-btn" type="submit">Salvar alterações</button>
+          <aside class="admin-editor-aside">
+            <div class="admin-editor-preview">${productImage(product) ? `<img src="${safeHtml(productImage(product))}" alt="${safeHtml(displayProductName(product))}">` : '<span>Sem foto</span>'}</div>
+            <div class="admin-history"><strong>Histórico recente</strong><div class="admin-history-list">${history.length ? [...history].reverse().slice(0, 6).map((item, index) => `<div class="admin-history-item"><span>${safeHtml((item.fields || []).join(", ") || "alteração")}</span><time>${safeHtml(formatDateTime(item.at))}</time>${index === 0 && item.before ? `<button class="admin-row-action secondary" type="button" data-admin-undo="${safeHtml(product.slug)}">Desfazer última</button>` : ""}</div>`).join("") : '<span class="muted">Nenhuma alteração registrada nesta versão.</span>'}</div></div>
+          </aside>
+          <div class="admin-editor-footer">
+            <span class="admin-save-state">A alteração só será confirmada depois da releitura do banco.</span>
+            <div class="admin-save-actions"><button class="secondary-btn" type="button" data-admin-cancel-edit>Cancelar</button><button class="primary-btn" type="submit">Salvar e publicar</button></div>
+          </div>
         </form>`;
+    }
+
+    function renderCatalogAdminPanel() {
+      const publicProducts = PRODUCTS.filter(isPublicProduct);
+      const metrics = {
+        all: PRODUCTS.length,
+        public: publicProducts.length,
+        ready: publicProducts.filter(isAvailableNow).length,
+        consultation: publicProducts.filter((product) => product.status === "sob-consulta").length,
+        hidden: PRODUCTS.filter((product) => productVisibility(product) !== "public").length,
+        sold: PRODUCTS.filter((product) => product.status === "vendido").length,
+        issues: PRODUCTS.filter((product) => catalogProductIssue(product).hasIssue).length,
+      };
+      const results = catalogFilteredProducts();
+      const shown = results.slice(0, adminCatalogLimit);
+      const product = PRODUCTS.find((item) => item.slug === activeAdminSlug) || null;
+      const syncClass = catalogSyncState === "saving" ? "saving" : catalogSyncState === "error" ? "error" : catalogSyncState === "ok" ? "ok" : "";
+      return `
+        <div class="admin-catalog-toolbar">
+          <input class="admin-catalog-search" data-admin-catalog-search value="${safeHtml(adminCatalogSearch)}" placeholder="Buscar por nome, marca, referência ou SKU" aria-label="Buscar no catálogo">
+          <div class="admin-catalog-actions">
+            <select class="admin-catalog-filter" data-admin-catalog-filter aria-label="Filtrar catálogo"><option value="all"${adminCatalogFilter === "all" ? " selected" : ""}>Todos</option><option value="ready"${adminCatalogFilter === "ready" ? " selected" : ""}>Pronta entrega</option><option value="consultation"${adminCatalogFilter === "consultation" ? " selected" : ""}>Sob consulta</option><option value="hidden"${adminCatalogFilter === "hidden" ? " selected" : ""}>Ocultos</option><option value="sold"${adminCatalogFilter === "sold" ? " selected" : ""}>Vendidos</option><option value="issues"${adminCatalogFilter === "issues" ? " selected" : ""}>Com inconsistência</option></select>
+            <button class="admin-row-action secondary" type="button" data-admin-sync-catalog>Sincronizar</button>
+            <span class="admin-sync ${syncClass}">${safeHtml(catalogSyncMessage)}</span>
+          </div>
+        </div>
+        <div class="admin-kpi-grid">
+          <button class="admin-kpi${adminCatalogFilter === "all" ? " active" : ""}" type="button" data-filter-button="all"><strong>${metrics.public}</strong><span>Publicados</span></button>
+          <button class="admin-kpi${adminCatalogFilter === "ready" ? " active" : ""}" type="button" data-filter-button="ready"><strong>${metrics.ready}</strong><span>Pronta entrega</span></button>
+          <button class="admin-kpi${adminCatalogFilter === "consultation" ? " active" : ""}" type="button" data-filter-button="consultation"><strong>${metrics.consultation}</strong><span>Sob consulta</span></button>
+          <button class="admin-kpi${adminCatalogFilter === "hidden" ? " active" : ""}" type="button" data-filter-button="hidden"><strong>${metrics.hidden}</strong><span>Ocultos/rascunhos</span></button>
+          <button class="admin-kpi${adminCatalogFilter === "sold" ? " active" : ""}" type="button" data-filter-button="sold"><strong>${metrics.sold}</strong><span>Vendidos</span></button>
+          <button class="admin-kpi${adminCatalogFilter === "issues" ? " active" : ""}" type="button" data-filter-button="issues"><strong>${metrics.issues}</strong><span>Com inconsistência</span></button>
+        </div>
+        <div class="admin-catalog-resultbar"><span>${results.length} ${results.length === 1 ? "produto encontrado" : "produtos encontrados"}</span><span>${metrics.all} itens cadastrados no total</span></div>
+        <div class="admin-catalog-table-wrap">
+          <table class="admin-catalog-table"><thead><tr><th>Produto</th><th>Disponibilidade</th><th>Estoque</th><th>Visibilidade</th><th>Atualização</th><th></th></tr></thead><tbody>
+            ${shown.map((item) => { const visibility = productVisibility(item); const issue = catalogProductIssue(item); const updated = item._overrideMeta?.updatedAt || item.lastCheckedAt || ""; return `<tr>
+              <td><div class="admin-product-cell"><img src="${safeHtml(productImage(item))}" alt="" loading="lazy"><span><strong>${safeHtml(displayProductName(item))}</strong><small>${safeHtml(brandFromProduct(item))} · Ref. ${safeHtml(supplierReference(item) || item.supplierProductId || "sem referência")}</small></span></div></td>
+              <td>${catalogStatusPill(item)}${issue.hasIssue ? ' <span class="admin-pill issue">Revisar</span>' : ""}</td>
+              <td>${productStockTotal(item)} un. · ${safeHtml(sortSizes(item.sizes || []).join(", ") || "sem tamanho")}</td>
+              <td>${visibility === "public" ? '<span class="admin-pill">Publicado</span>' : visibility === "draft" ? '<span class="admin-pill issue">Rascunho</span>' : '<span class="admin-pill hidden">Oculto</span>'}</td>
+              <td>${updated ? safeHtml(formatDateTime(updated)) : "—"}</td>
+              <td><div class="admin-row-actions"><button class="admin-row-action visibility${visibility === "public" ? "" : " publish"}" type="button" data-admin-toggle-visibility="${safeHtml(item.slug)}" data-next-visibility="${visibility === "public" ? "hidden" : "public"}">${visibility === "public" ? "Ocultar" : "Publicar"}</button><button class="admin-row-action" type="button" data-admin-edit-product="${safeHtml(item.slug)}">Editar</button></div></td>
+            </tr>`; }).join("") || '<tr><td colspan="6"><div class="admin-empty">Nenhum produto corresponde a esta busca.</div></td></tr>'}
+          </tbody></table>
+        </div>
+        ${results.length > shown.length ? `<button class="secondary-btn" type="button" data-admin-load-more>Mostrar mais ${Math.min(60, results.length - shown.length)} produtos</button>` : ""}
+        ${renderCatalogEditor(product)}`;
     }
 
     function adminSwitch() {
@@ -6102,7 +6251,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function renderAdminWorkspace() {
-      if (!isAdminAccount() && activeAdminView !== "groups") return "";
+      if (!isAdminAccount()) return "";
       const messageHtml = `<div class="account-message${accountMessage ? " visible" : ""}">${safeHtml(accountMessage)}</div>`;
       return `<div class="admin-page-shell">
         ${adminSwitch()}
@@ -6180,17 +6329,17 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       };
       if (pageTitle) pageTitle.textContent = titleMap[activeAdminView] || "Backoffice";
       if (pageIntro) pageIntro.textContent = introMap[activeAdminView] || introMap.backoffice;
-      if (!account && activeAdminView !== "groups") {
+      if (!account) {
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Entre como administrador</strong><span class="muted">Faça login com a conta do Alisson ou Miguel para ver clientes, leads, carrinhos e pedidos.</span><button class="primary-btn" type="button" data-backoffice-login>Entrar</button></div>`;
         return;
       }
-      if (!isAdminAccount() && activeAdminView !== "groups") {
+      if (!isAdminAccount()) {
         backofficeStandalone.innerHTML = `<div class="account-card"><strong>Acesso restrito</strong><span class="muted">Esta área é exclusiva para administradores da SCORSATTO.</span></div>`;
         return;
       }
       try {
         const workspace = renderAdminWorkspace();
-        backofficeStandalone.innerHTML = activeAdminView === "groups" && !workspace.trim() ? renderGroupAdminFallback() : workspace;
+        backofficeStandalone.innerHTML = workspace;
       } catch (error) {
         console.error("Erro ao renderizar admin SCORSATTO", error);
         backofficeStandalone.innerHTML = activeAdminView === "groups" ? renderGroupAdminFallback(error) : `<div class="account-card"><strong>Erro ao abrir painel</strong><span class="muted">Recarregue a página e tente novamente.</span></div>`;
@@ -6327,6 +6476,141 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function formDataObject(form) {
       return Object.fromEntries([...new FormData(form).entries()].map(([key, value]) => [key, typeof value === "string" ? value.trim() : value]));
+    }
+
+    function buildAdminProductOverride(form) {
+      const data = formDataObject(form);
+      const sizes = cleanList(data.sizes);
+      const stock = {};
+      form.querySelectorAll("[data-stock-size]").forEach((input) => {
+        stock[input.dataset.stockSize] = Math.max(0, Math.floor(Number(input.value || 0)));
+      });
+      const images = cleanList(data.images);
+      if (data.newImage) images.push(data.newImage);
+      const visibility = ["public", "hidden", "draft"].includes(data.visibility) ? data.visibility : "public";
+      const price = Number(data.price);
+      if (!data.name) throw new Error("Informe o nome do produto.");
+      if (!Number.isFinite(price) || price < 0) throw new Error("Informe um preço válido.");
+      if (data.status === "disponivel" && !sizes.length) throw new Error("Uma peça de pronta entrega precisa ter ao menos um tamanho.");
+      if (data.status === "disponivel" && Object.values(stock).reduce((sum, value) => sum + value, 0) < 1) throw new Error("Informe ao menos 1 unidade em estoque para marcar como pronta entrega.");
+      return {
+        slug: data.slug,
+        override: {
+          name: data.name,
+          price,
+          status: ["disponivel", "sob-consulta", "vendido"].includes(data.status) ? data.status : "sob-consulta",
+          sizes,
+          stock: normalizeStock(stock, sizes),
+          images: [...new Set(images)],
+          description: data.description || "",
+          visibility,
+          hidden: visibility !== "public",
+        },
+      };
+    }
+
+    async function submitAdminProductForm(form, render) {
+      const button = form.querySelector("button[type='submit']");
+      if (button) button.disabled = true;
+      try {
+        const { slug, override } = buildAdminProductOverride(form);
+        activeAdminSlug = slug;
+        await saveProductOverride(slug, override);
+        accountMessage = "Produto publicado e verificado com sucesso.";
+      } catch (error) {
+        accountMessage = error.message || "Não foi possível salvar a alteração.";
+      } finally {
+        activeAdminView = "catalog";
+        render();
+      }
+    }
+
+    function refreshAdminStockFields(form) {
+      const grid = form?.querySelector(".admin-stock-grid");
+      if (!grid) return;
+      const current = Object.fromEntries([...grid.querySelectorAll("[data-stock-size]")].map((input) => [input.dataset.stockSize, input.value]));
+      const sizes = cleanList(form.elements.sizes?.value || "");
+      grid.innerHTML = sizes.length ? sizes.map((size) => `<label class="admin-stock-item"><span>${safeHtml(size)}</span><input data-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${safeHtml(current[size] || "0")}"></label>`).join("") : '<span class="muted">Informe pelo menos um tamanho.</span>';
+    }
+
+    async function handleCatalogAdminClick(event, render) {
+      if (!isAdminAccount()) return false;
+      const filter = event.target.closest("[data-filter-button]");
+      if (filter) {
+        adminCatalogFilter = filter.dataset.filterButton || "all";
+        adminCatalogLimit = 60;
+        render();
+        return true;
+      }
+      const edit = event.target.closest("[data-admin-edit-product]");
+      if (edit) {
+        activeAdminSlug = edit.dataset.adminEditProduct;
+        activeAdminView = "catalog";
+        render();
+        requestAnimationFrame(() => document.getElementById("adminProductEditor")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+        return true;
+      }
+      const visibilityButton = event.target.closest("[data-admin-toggle-visibility]");
+      if (visibilityButton) {
+        const slug = visibilityButton.dataset.adminToggleVisibility;
+        const product = PRODUCTS.find((item) => item.slug === slug);
+        const visibility = visibilityButton.dataset.nextVisibility === "public" ? "public" : "hidden";
+        if (!product) return true;
+        const action = visibility === "public" ? "publicar" : "ocultar";
+        if (!window.confirm(`Deseja ${action} “${displayProductName(product)}”?`)) return true;
+        const override = {
+          name: product.name || "",
+          price: Number(product.price || 0),
+          status: product.status || "sob-consulta",
+          sizes: [...(product.sizes || [])],
+          stock: normalizeStock(product.stock || {}, product.sizes || []),
+          images: [...(product.images || [])],
+          description: product.description || "",
+          visibility,
+          hidden: visibility !== "public",
+        };
+        visibilityButton.disabled = true;
+        try {
+          await saveProductOverride(slug, override);
+          accountMessage = `Peça ${visibility === "public" ? "publicada" : "ocultada"} e alteração verificada.`;
+        } catch (error) {
+          accountMessage = error.message || "Não foi possível alterar a visibilidade.";
+        }
+        render();
+        return true;
+      }
+      if (event.target.closest("[data-admin-cancel-edit]")) {
+        activeAdminSlug = "";
+        render();
+        return true;
+      }
+      if (event.target.closest("[data-admin-load-more]")) {
+        adminCatalogLimit += 60;
+        render();
+        return true;
+      }
+      if (event.target.closest("[data-admin-sync-catalog]")) {
+        await loadProductOverrides();
+        accountMessage = catalogSyncState === "ok" ? "Catálogo sincronizado." : catalogSyncMessage;
+        render();
+        return true;
+      }
+      const undo = event.target.closest("[data-admin-undo]");
+      if (undo) {
+        const slug = undo.dataset.adminUndo;
+        const latest = productOverrides[slug]?._meta?.history?.at(-1);
+        if (latest?.before) {
+          try {
+            await saveProductOverride(slug, latest.before);
+            accountMessage = "Última alteração desfeita e verificada.";
+          } catch (error) {
+            accountMessage = error.message || "Não foi possível desfazer a alteração.";
+          }
+          render();
+        }
+        return true;
+      }
+      return false;
     }
 
     function mergeCartItems(base, incoming) {
@@ -6757,14 +7041,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return;
       }
       const openAdmin = event.target.closest("[data-open-admin-page]");
-      if (openAdmin && (isAdminAccount() || openAdmin.dataset.openAdminPage === "groups")) {
+      if (openAdmin && isAdminAccount()) {
         event.preventDefault();
         event.stopPropagation();
         openAdminPage(openAdmin.dataset.openAdminPage || "backoffice");
         return;
       }
       const adminView = event.target.closest(".backoffice-page [data-admin-view]");
-      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
+      if (adminView && isAdminAccount()) {
         event.preventDefault();
         event.stopPropagation();
         openAdminPage(adminView.dataset.adminView || "backoffice");
@@ -6804,7 +7088,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     if (curationLeadForm) curationLeadForm.addEventListener("input", (event) => {
       if (event.target.matches("input[name='kitNote']")) renderCurationKitPreview();
     });
-    accountDrawer.addEventListener("click", (event) => {
+    accountDrawer.addEventListener("click", async (event) => {
+      if (await handleCatalogAdminClick(event, renderAccount)) return;
       if (event.target.closest("[data-open-backoffice-page]") && isAdminAccount()) {
         openAdminPage("backoffice");
         return;
@@ -6821,7 +7106,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return;
       }
       const adminView = event.target.closest("[data-admin-view]");
-      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
+      if (adminView && isAdminAccount()) {
         openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
@@ -7027,7 +7312,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const openFavorite = event.target.closest("[data-account-open-product]");
       if (openFavorite) { closeAccount(); openProduct(openFavorite.dataset.accountOpenProduct); return; }
     });
-    backofficePage.addEventListener("click", (event) => {
+    backofficePage.addEventListener("click", async (event) => {
+      if (await handleCatalogAdminClick(event, renderBackofficeStandalone)) return;
       if (event.target.closest("[data-close-backoffice-page]")) {
         closeBackofficePage();
         return;
@@ -7038,7 +7324,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return;
       }
       const adminView = event.target.closest("[data-admin-view]");
-      if (adminView && (isAdminAccount() || adminView.dataset.adminView === "groups")) {
+      if (adminView && isAdminAccount()) {
         openAdminPage(adminView.dataset.adminView || "backoffice");
         return;
       }
@@ -7224,6 +7510,20 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     backofficePage.addEventListener("input", (event) => {
+      const catalogSearch = event.target.closest("[data-admin-catalog-search]");
+      if (catalogSearch && isAdminAccount()) {
+        adminCatalogSearch = catalogSearch.value || "";
+        adminCatalogLimit = 60;
+        clearTimeout(adminCatalogSearchTimer);
+        adminCatalogSearchTimer = setTimeout(() => {
+          renderBackofficeStandalone();
+          const input = backofficePage.querySelector("[data-admin-catalog-search]");
+          if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        }, 180);
+        return;
+      }
+      const sizesInput = event.target.closest("#adminProductEditor input[name='sizes']");
+      if (sizesInput && isAdminAccount()) { refreshAdminStockFields(sizesInput.form); return; }
       if (!canUseGroupsPanel() || activeAdminView !== "groups") return;
       const groupName = event.target.closest("[data-group-name]");
       if (groupName) {
@@ -7240,6 +7540,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     backofficePage.addEventListener("change", (event) => {
+      const catalogFilter = event.target.closest("[data-admin-catalog-filter]");
+      if (catalogFilter && isAdminAccount()) {
+        adminCatalogFilter = catalogFilter.value || "all";
+        adminCatalogLimit = 60;
+        renderBackofficeStandalone();
+        return;
+      }
       const instagramStatus = event.target.closest("[data-instagram-lead-status]");
       if (instagramStatus && isAdminAccount()) {
         activeBackofficeTab = "instagram";
@@ -7300,29 +7607,23 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const form = event.target.closest("form[data-account-form='admin-product']");
       if (!form || !isAdminAccount()) return;
       event.preventDefault();
-      const data = formDataObject(form);
-      const images = cleanList(data.images);
-      if (data.newImage?.trim()) images.push(data.newImage.trim());
-      activeAdminSlug = data.slug;
-      const override = {
-        name: data.name,
-        price: Number(data.price || 0),
-        status: data.status,
-        sizes: cleanList(data.sizes),
-        images: [...new Set(images)],
-        description: data.description,
-        hidden: Boolean(form.elements.hidden?.checked),
-      };
-      try {
-        await saveProductOverride(data.slug, override);
-        accountMessage = "Produto atualizado no painel admin.";
-      } catch (error) {
-        accountMessage = error.message || "Não foi possível salvar a alteração no banco.";
-      }
-      activeAdminView = "catalog";
-      renderBackofficeStandalone();
+      await submitAdminProductForm(form, renderBackofficeStandalone);
     });
     accountDrawer.addEventListener("input", (event) => {
+      const catalogSearch = event.target.closest("[data-admin-catalog-search]");
+      if (catalogSearch && isAdminAccount()) {
+        adminCatalogSearch = catalogSearch.value || "";
+        adminCatalogLimit = 60;
+        clearTimeout(adminCatalogSearchTimer);
+        adminCatalogSearchTimer = setTimeout(() => {
+          renderAccount();
+          const input = accountDrawer.querySelector("[data-admin-catalog-search]");
+          if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        }, 180);
+        return;
+      }
+      const sizesInput = event.target.closest("#adminProductEditor input[name='sizes']");
+      if (sizesInput && isAdminAccount()) { refreshAdminStockFields(sizesInput.form); return; }
       if (!canUseGroupsPanel() || activeAdminView !== "groups") return;
       const groupName = event.target.closest("[data-group-name]");
       if (groupName) {
@@ -7339,6 +7640,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     accountDrawer.addEventListener("change", (event) => {
+      const catalogFilter = event.target.closest("[data-admin-catalog-filter]");
+      if (catalogFilter && isAdminAccount()) {
+        adminCatalogFilter = catalogFilter.value || "all";
+        adminCatalogLimit = 60;
+        renderAccount();
+        return;
+      }
       const instagramStatus = event.target.closest("[data-instagram-lead-status]");
       if (instagramStatus && isAdminAccount()) {
         activeBackofficeTab = "instagram";
@@ -7427,24 +7735,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         saveAccount();
       }
       if (form.dataset.accountForm === "admin-product" && isAdminAccount()) {
-        activeAdminSlug = data.slug;
-        const override = {
-          name: data.name,
-          price: Number(data.price || 0),
-          status: data.status,
-          sizes: cleanList(data.sizes),
-          images: cleanList(data.images),
-          description: data.description,
-          hidden: Boolean(form.elements.hidden?.checked),
-        };
-        try {
-          await saveProductOverride(data.slug, override);
-          accountMessage = "Produto atualizado no painel admin.";
-        } catch (error) {
-          accountMessage = error.message || "Não foi possível salvar a alteração no banco.";
-        }
         activeAccountTab = "admin";
-        renderAccount();
+        await submitAdminProductForm(form, renderAccount);
       }
     });
     cartMini.addEventListener("click", openCart);
