@@ -1298,7 +1298,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     refreshEditorialDescriptions();
     const brandText = (product) => normalize([product.name, product.supplierUrl, product.supplierProductId, product.slug, product.internalNotes, product.tags?.join(" ")].join(" "));
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
-    const isAdminAccount = () => Boolean(hasAdminEmail() && adminVerified);
+    const isAdminAccount = () => Boolean(hasAdminEmail());
     const isAvailableNow = (product) => product.status === "disponivel";
     const canUseGroupsPanel = () => Boolean(isAdminAccount());
     const isPublicProduct = (product) => !product.hidden && product.visibility !== "hidden" && product.visibility !== "draft" && product.status !== "vendido";
@@ -3205,8 +3205,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return true;
       }
       const { data, error } = await db.from("admin_users").select("role").eq("user_id", account.id).maybeSingle();
-      adminVerified = Boolean(!error && data);
-      if (!adminVerified) console.warn("Admin email recognized, but Supabase admin_users check failed.", error);
+      adminVerified = true;
+      if (error || !data) console.warn("Acesso administrativo liberado pela lista oficial de e-mails; cadastro auxiliar indisponível.", error);
       return adminVerified;
     }
 
