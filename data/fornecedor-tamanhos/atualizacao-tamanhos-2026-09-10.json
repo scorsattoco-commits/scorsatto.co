@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-09-10T14:33:43Z",
+  "apply": true,
+  "checked": 206,
+  "changed": 5,
+  "succeeded": 206,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16041",
+      "name": "Camiseta Manga Longa - Marrom",
+      "url": "https://www.catalogopoa.com.br/malha-texturizada-manga-longa-xe-marrom-mangalongaxe00015",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15861",
+      "name": "Camiseta Algodão Egípcio - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0005",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15664",
+      "name": "Gola Polo Premium - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe044",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15923",
+      "name": "Camiseta Manga Longa - Off White",
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-off-white-mangalongaxe0007",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16495",
+      "name": "Gola Polo Premium - Off White",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-off-white-155332745102",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
