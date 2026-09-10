@@ -22,8 +22,10 @@ jobs:
           python-version: "3.12"
       - name: Buscar peças alinhadas à curadoria SCORSATTO
         run: python scripts/scan_supplier_candidates.py
-      - name: Agrupar candidatas por marca, categoria, modelo e tecido
+      - name: Agrupar variações da mesma peça
         run: python scripts/group_supplier_candidates.py
+      - name: Validar que peças iguais ficam juntas sem misturar modelos
+        run: python -m unittest scripts/test_group_supplier_candidates.py -v
       - name: Gerar painel diário para aprovação
         run: python scripts/generate_cloud_automation_report.py
       - name: Publicar relatórios sem alterar o catálogo

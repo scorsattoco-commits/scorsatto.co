@@ -2,6 +2,7 @@
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -10,7 +11,12 @@ ALLOWED_FIELDS = {"sizes", "stock", "lastCheckedAt"}
 
 
 def products_from_html(path):
-    html = Path(path).read_text(encoding="utf-8")
+    if str(path).startswith("git:"):
+        html = subprocess.check_output(
+            ["git", "show", str(path)[4:]], text=True, encoding="utf-8"
+        )
+    else:
+        html = Path(path).read_text(encoding="utf-8")
     match = re.search(r"const\s+PRODUCTS\s*=\s*(\[.*?\]);\s*const\s+CATEGORIES\s*=", html, re.S)
     if not match:
         raise RuntimeError(f"Não encontrei PRODUCTS em {path}")
@@ -19,7 +25,7 @@ def products_from_html(path):
 
 def main():
     if len(sys.argv) != 3:
-        raise SystemExit("Uso: validate_size_update.py <index-base.html> <index-atual.html>")
+        raise SystemExit("Uso: validate_size_update.py <arquivo|git:REV:arquivo> <index-atual.html>")
 
     before = products_from_html(sys.argv[1])
     after = products_from_html(sys.argv[2])

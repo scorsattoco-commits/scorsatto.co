@@ -272,6 +272,24 @@ def main():
     html_path = preview_dir / f"aprovacao-fornecedor-{day}.html"
     priority_html_path = preview_dir / f"aprovacao-fornecedor-prioridade-{day}.html"
     priority = write_priority_preview(candidates, priority_html_path, site_categories)
+    site_snapshot = [
+        {
+            "id": product.get("id"),
+            "slug": product.get("slug"),
+            "name": product.get("name"),
+            "collection": product.get("collection"),
+            "supplierProductId": product.get("supplierProductId"),
+            "supplierUrl": product.get("supplierUrl"),
+        }
+        for product in products
+    ]
+    previous_snapshot = []
+    previous_files = sorted(path for path in data_dir.glob("varredura-fornecedor-*.json") if "-agrupada-" not in path.name and path != json_path)
+    if previous_files:
+        previous_data = json.loads(previous_files[-1].read_text(encoding="utf-8"))
+        previous_snapshot = previous_data.get("siteSnapshot") or []
+    previous_ids = {str(item.get("id") or item.get("slug") or "") for item in previous_snapshot}
+    new_on_site = [item for item in site_snapshot if previous_ids and str(item.get("id") or item.get("slug") or "") not in previous_ids]
     payload = {
         "generatedAt": now_iso(),
         "categoryCount": len(categories),
@@ -281,6 +299,9 @@ def main():
         "candidateCount": len(candidates),
         "priorityCount": len(priority),
         "errors": errors,
+        "siteProductCount": len(site_snapshot),
+        "siteSnapshot": site_snapshot,
+        "newOnSite": new_on_site,
         "priorityCandidates": priority,
         "candidates": candidates,
     }

@@ -25,9 +25,9 @@ jobs:
       - name: Atualizar somente tamanhos e estoque
         run: python scripts/update_supplier_sizes.py --apply --workers 12
       - name: Validar escopo da alteração
-        run: |
-          git show HEAD:index.html > /tmp/index-base.html
-          python scripts/validate_size_update.py /tmp/index-base.html index.html
+        run: python scripts/validate_size_update.py git:HEAD:index.html index.html
+      - name: Testar regra de tamanhos e estoque
+        run: python -m unittest scripts/test_update_supplier_sizes.py -v
       - name: Atualizar painel diário
         run: python scripts/generate_cloud_automation_report.py
       - name: Publicar resultado seguro

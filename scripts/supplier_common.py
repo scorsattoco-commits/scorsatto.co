@@ -3,6 +3,7 @@ import html as _html
 import json
 import re
 import time
+import unicodedata
 from pathlib import Path
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
@@ -99,6 +100,30 @@ def parse_sizes_from_product_html(html):
         if size and size not in sizes:
             sizes.append(size)
     return sizes
+
+
+def normalize_supplier_text(value):
+    text = unicodedata.normalize("NFKD", clean_text(value)).encode("ascii", "ignore").decode("ascii").lower()
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def parse_supplier_availability(html):
+    """Distingue estoque disponível, esgotamento explícito e página inconclusiva."""
+    sizes = parse_sizes_from_product_html(html)
+    if sizes:
+        return {"state": "available", "sizes": sizes, "evidence": "size-options"}
+
+    text = normalize_supplier_text(html)
+    sold_out_markers = (
+        "produto esta esgotado",
+        "produto esgotado",
+        "este produto esta indisponivel",
+        "produto indisponivel",
+    )
+    if any(marker in text for marker in sold_out_markers):
+        return {"state": "sold_out", "sizes": [], "evidence": "explicit-sold-out-message"}
+
+    return {"state": "unknown", "sizes": [], "evidence": "no-size-or-sold-out-evidence"}
 
 
 def parse_listing_products(html, base_url):
@@ -245,5 +270,5 @@ def is_scorsatto_candidate(item, categories=None, brands=None):
             "malha",
         )
     )
-    deny = any(token in text for token in ("feminino", "infantil", "regata", "oversized", "plus", "short doll", "tactel", "poliamida", "praia"))
+    deny = any(token in text for token in ("feminino", "feminina", "infantil", "regata", "oversized", "plus", "short doll", "tactel", "poliamida", "praia"))
     return allow_brand and allow_collection and allow_product and not deny and bool(item.get("sizes"))
