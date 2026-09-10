@@ -327,15 +327,16 @@ def esc(value):
 
 
 def card(item, removable=False):
+    product_id = str(item.get("supplierProductId") or item.get("url") or item.get("title") or "")
     action = (
         f'<button class="remove-item" type="button" data-remove-product="{esc(item.get("supplierProductId"))}">Excluir do grupo</button>'
         if removable
-        else ""
+        else f'<label class="single-approval"><input type="checkbox" class="pick-single" value="single-{esc(product_id)}"> Aprovar peça</label>'
     )
     fingerprint = item.get("fingerprint") or product_fingerprint(item)
     identity = " · ".join(value for key, value in fingerprint.items() if key not in ("marca", "categoria") and value and value != "nao-declarado")
     return f"""
-      <article class="product-card" data-id="{esc(item.get('supplierProductId'))}">
+      <article class="product-card" data-id="{esc(item.get('supplierProductId'))}" data-approval-id="single-{esc(product_id)}">
         <img src="{esc(item.get('image'))}" alt="">
         <div>
           <strong>{esc(item.get('title'))}</strong>
@@ -397,6 +398,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
   <title>SCORSATTO - Pente fino fornecedor agrupado</title>
   <style>
     * {{ box-sizing: border-box; }}
+    .hidden {{ display:none !important; }}
     body {{ margin:0; background:#f3f1eb; color:#181816; font-family:Inter,Arial,sans-serif; }}
     body, button, input, select, textarea {{ font: 14px Inter, Arial, sans-serif; }}
     .top {{ position: sticky; top: 0; z-index: 5; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); border-bottom:1px solid #ddd8ce; padding:20px 28px; display:grid; gap:14px; }}
@@ -404,7 +406,11 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     h1 {{ margin:3px 0 4px; font-family:Georgia,serif; font-size:30px; font-weight:500; }}
     h2 {{ margin:0 0 5px; font-size:16px; }}
     p {{ margin:0; color:#68635b; line-height:1.45; }}
-    .toolbar {{ display:grid; grid-template-columns:minmax(180px,1fr) 190px 160px 160px auto auto; gap:10px; }}
+    .view-tabs {{ display:flex; gap:8px; }}
+    .view-tab {{ background:#fff; color:#111; border-color:#cfc8ba; }}
+    .view-tab.active {{ background:#111; color:#fff; border-color:#111; }}
+    .view-tab b {{ display:inline-grid; place-items:center; min-width:22px; height:22px; margin-left:6px; padding:0 6px; border-radius:999px; background:#e8d4a8; color:#111; }}
+    .toolbar {{ display:grid; grid-template-columns:minmax(180px,1fr) 190px 160px 160px; gap:10px; }}
     input[type="search"], select, textarea {{ width:100%; min-height:38px; border:1px solid #cfc8ba; border-radius:6px; background:#fff; padding:0 10px; }}
     button {{ min-height:38px; border:1px solid #111; border-radius:6px; background:#111; color:#fff; padding:0 12px; font-weight:800; cursor:pointer; }}
     button.secondary {{ background:#fff; color:#111; }}
@@ -414,6 +420,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     .metric strong {{ font-size:22px; }}
     .lane-section {{ display:grid; gap:12px; }}
     .lane-section.hidden {{ display:none; }}
+    .view-content.hidden {{ display:none; }}
     .lane-head {{ display:flex; align-items:end; justify-content:space-between; gap:20px; border-bottom:1px solid #cec8bd; padding:4px 2px 12px; }}
     .lane-head span {{ font-size:9px; font-weight:900; letter-spacing:.18em; }}
     .lane-head h2 {{ margin:4px 0; font-family:Georgia,serif; font-size:23px; font-weight:500; }}
@@ -443,13 +450,28 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     .product-card span, .product-card a {{ font-size:11px; line-height:1.4; color:#5f5b53; }}
     .product-card a {{ color:#111; font-weight:800; }}
     .remove-item {{ width:max-content; min-height:28px; border-color:#b9aa97; background:#fff; color:#251f17; padding:0 8px; font-size:10px; }}
+    .single-approval {{ display:flex; align-items:center; gap:7px; margin-top:3px; font-size:10px; font-weight:900; text-transform:uppercase; }}
+    .single-approval input {{ width:17px; height:17px; accent-color:#111; }}
     .product-card.excluded .remove-item {{ background:#111; border-color:#111; color:#fff; }}
     .panel {{ background:#fff; border:1px solid #ded8ce; border-radius:10px; padding:16px; display:grid; gap:12px; }}
+    .approved-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }}
+    .approved-card {{ background:#fff; border:1px solid #d8d0c4; border-radius:10px; overflow:hidden; }}
+    .approved-card-head {{ display:grid; grid-template-columns:82px minmax(0,1fr); gap:14px; padding:14px; }}
+    .approved-card-head img {{ width:82px; height:104px; object-fit:contain; background:#f6f3ec; border-radius:6px; }}
+    .approved-card h3 {{ margin:5px 0; font-family:Georgia,serif; font-size:20px; font-weight:500; }}
+    .pipeline {{ display:flex; flex-wrap:wrap; gap:6px; margin-top:11px; }}
+    .pipeline span {{ border:1px solid #d8d0c4; border-radius:999px; padding:5px 8px; color:#625e56; font-size:9px; font-weight:900; letter-spacing:.05em; text-transform:uppercase; }}
+    .pipeline span:first-child {{ background:#fff4d5; border-color:#e5c976; color:#5a4312; }}
+    .approved-actions {{ display:flex; flex-wrap:wrap; gap:8px; padding:0 14px 14px; }}
+    .approved-actions button {{ flex:1; }}
+    .approved-products {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1px; background:#ebe5dc; }}
+    .empty-approved {{ padding:46px 20px; text-align:center; background:#fff; border:1px dashed #cfc8ba; border-radius:10px; }}
+    .empty-approved h2 {{ font-family:Georgia,serif; font-size:26px; font-weight:500; }}
     .site-news {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:8px; }}
     .site-news article {{ display:grid; gap:5px; padding:12px; border:1px solid #e5dfd5; border-radius:7px; }}
     .site-news article span {{ color:#6e685e; font-size:11px; }}
     textarea {{ min-height:220px; padding:12px; font-family:Consolas,monospace; font-size:12px; }}
-    @media (max-width: 980px) {{ .lane-grid {{ grid-template-columns:1fr; }} .toolbar {{ grid-template-columns:1fr 1fr; }} .toolbar input[type="search"] {{ grid-column:1/-1; }} }}
+    @media (max-width: 980px) {{ .lane-grid,.approved-grid {{ grid-template-columns:1fr; }} .toolbar {{ grid-template-columns:1fr 1fr; }} .toolbar input[type="search"] {{ grid-column:1/-1; }} }}
     @media (max-width: 620px) {{ .group-head {{ grid-template-columns:68px 1fr; }} .group-cover {{ width:68px;height:88px; }} .group-head label,.group-head .status {{ grid-column:1/-1; }} main {{ padding:14px; }} }}
   </style>
 </head>
@@ -460,16 +482,19 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       <h1>O que merece entrar.</h1>
       <p>Novidades separadas de variações existentes e dúvidas de identidade. Nada entra no site sem sua aprovação.</p>
     </div>
-    <div class="toolbar">
+    <div class="view-tabs" role="tablist" aria-label="Etapas da curadoria">
+      <button class="view-tab active" type="button" data-view="curation">Para escolher</button>
+      <button class="view-tab" type="button" data-view="approved">Peças aprovadas <b id="approvedCount">0</b></button>
+    </div>
+    <div id="filtersToolbar" class="toolbar">
       <input id="searchBox" type="search" placeholder="Buscar grupo, marca, categoria ou cor">
       <select id="laneFilter"><option value="">Todas as áreas</option><option value="novidade">Novidades de verdade</option><option value="variacao-site">Variações do site</option><option value="revisar">Revisar identidade</option><option value="individual">Individuais</option></select>
       <select id="brandFilter"><option value="">Todas as marcas</option>{''.join(f'<option value="{esc(k)}">{esc(k)} ({v})</option>' for k, v in brand_counts.most_common())}</select>
       <select id="collectionFilter"><option value="">Todas as categorias</option>{''.join(f'<option value="{esc(k)}">{esc(k)} ({v})</option>' for k, v in collection_counts.most_common())}</select>
-      <button id="selectHigh" type="button">Selecionar alta confiança</button>
-      <button id="exportGroups" type="button">Exportar aprovados</button>
     </div>
   </section>
   <main>
+    <div id="curationView" class="view-content">
     <section class="summary">
       <div class="metric"><strong>{len(lane_groups['novidade'])}</strong><span>Novas famílias</span></div>
       <div class="metric"><strong>{len(lane_groups['variacao-site'])}</strong><span>Variações do site</span></div>
@@ -483,23 +508,49 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     </section>
     {lanes_html}
     <section class="lane-section" data-lane-section="individual"><header class="lane-head"><div><span>REVISÃO UNITÁRIA</span><h2>04 · Peças individuais</h2><p>Itens sem família segura. Ficam isolados para não misturar produtos diferentes.</p></div><strong>{len(singles)}</strong></header><details class="panel"><summary>Ver peças individuais</summary><div class="products">{singles_html}</div></details></section>
-    <section class="panel">
-      <h2>Exportação para aprovação</h2>
-      <textarea id="exportBox" readonly placeholder="Os grupos aprovados aparecem aqui."></textarea>
+    </div>
+    <section id="approvedView" class="view-content hidden">
+      <header class="lane-head"><div><span>FILA DE PRODUÇÃO</span><h2>Peças aprovadas</h2><p>Grupos escolhidos por você. Agora seguem para foto padrão SCORSATTO e, depois, cadastro no site.</p></div><strong id="approvedHeadingCount">0</strong></header>
+      <div id="approvedGrid" class="approved-grid"></div>
+      <section class="panel">
+        <h2>Fila pronta para produção</h2>
+        <p>O arquivo abaixo preserva grupos, referências, cores, tamanhos e imagens do fornecedor para orientar as fotos sem trocar a peça real.</p>
+        <button id="exportGroups" type="button">Baixar fila de fotos e site</button>
+        <textarea id="exportBox" readonly placeholder="As peças aprovadas aparecem aqui."></textarea>
+      </section>
     </section>
   </main>
   <script id="group-data" type="application/json">{data_json}</script>
   <script>
     const payload = JSON.parse(document.getElementById('group-data').textContent);
     const groups = payload.groups || [];
-    const byId = new Map(groups.map(group => [group.id, group]));
-    const storageKey = 'scorsatto-fornecedor-grupos-aprovados-' + location.pathname;
-    const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-' + location.pathname;
-    const selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+    const singles = (payload.individualCandidates || []).map(product => ({{
+      id: 'single-' + String(product.supplierProductId || product.url || product.title),
+      name: product.title,
+      brand: product.brandLabel,
+      collection: product.collection,
+      lane: 'individual',
+      status: 'individual',
+      colors: [product.detectedColor].filter(Boolean),
+      sizes: product.sizes || [],
+      count: 1,
+      products: [product]
+    }}));
+    const approvalItems = [...groups, ...singles];
+    const byId = new Map(approvalItems.map(item => [item.id, item]));
+    const queueKey = 'scorsatto-fila-fotos-aprovadas-v2';
+    const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-v2';
+    const approvedQueue = JSON.parse(localStorage.getItem(queueKey) || '{{}}');
+    const selected = new Set(Object.keys(approvedQueue));
     const excludedByGroup = JSON.parse(localStorage.getItem(excludedKey) || '{{}}');
     const cards = Array.from(document.querySelectorAll('.group'));
+    const singleCards = Array.from(document.querySelectorAll('.product-card[data-approval-id]')).filter(card => card.querySelector('.pick-single'));
     const laneSections = Array.from(document.querySelectorAll('[data-lane-section]'));
-    function save() {{ localStorage.setItem(storageKey, JSON.stringify([...selected])); }}
+    function escapeHtml(value) {{
+      const entities = {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}};
+      return String(value ?? '').replace(/[&<>"']/g, char => entities[char]);
+    }}
+    function saveQueue() {{ localStorage.setItem(queueKey, JSON.stringify(approvedQueue)); }}
     function saveExcluded() {{ localStorage.setItem(excludedKey, JSON.stringify(excludedByGroup)); }}
     function groupExcludedSet(groupId) {{
       excludedByGroup[groupId] = Array.isArray(excludedByGroup[groupId]) ? excludedByGroup[groupId] : [];
@@ -509,6 +560,51 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       const excluded = groupExcludedSet(group.id);
       return (group.products || []).filter(product => !excluded.has(String(product.supplierProductId || product.url || product.title)));
     }}
+    function snapshotForQueue(item) {{
+      const products = activeProducts(item);
+      return {{
+        ...item,
+        products,
+        colors: [...new Set(products.map(product => product.detectedColor).filter(Boolean))],
+        sizes: [...new Set(products.flatMap(product => product.sizes || []))],
+        count: products.length,
+        approvedAt: new Date().toISOString(),
+        photoStatus: 'aguardando-foto-padrao-scorsatto',
+        siteStatus: 'aguardando-fotos-e-cadastro'
+      }};
+    }}
+    function renderApproved() {{
+      const items = Object.values(approvedQueue);
+      document.getElementById('approvedCount').textContent = items.length;
+      document.getElementById('approvedHeadingCount').textContent = items.length;
+      const grid = document.getElementById('approvedGrid');
+      if (!items.length) {{
+        grid.innerHTML = '<div class="empty-approved"><h2>Nenhuma peça aprovada ainda.</h2><p>Volte em “Para escolher” e aprove somente os grupos ou peças que você realmente quer vender.</p></div>';
+        document.getElementById('exportBox').value = '';
+        return;
+      }}
+      grid.innerHTML = items.map(item => {{
+        const products = item.products || [];
+        const cover = products[0]?.image || '';
+        const productCards = products.map(product => `
+          <article class="product-card">
+            <img src="${{escapeHtml(product.image)}}" alt="">
+            <div><strong>${{escapeHtml(product.title)}}</strong><span>${{escapeHtml(product.detectedColor || 'Cor sob consulta')}} · tamanhos: ${{escapeHtml((product.sizes || []).join(', '))}}</span><a href="${{escapeHtml(product.url)}}" target="_blank" rel="noreferrer">Conferir peça real</a></div>
+          </article>`).join('');
+        return `<article class="approved-card">
+          <div class="approved-card-head"><img src="${{escapeHtml(cover)}}" alt=""><div><span class="eyebrow">APROVADA POR VOCÊ</span><h3>${{escapeHtml(item.name)}}</h3><p>${{escapeHtml(item.brand)}} · ${{escapeHtml(item.collection)}} · ${{products.length}} referência(s)</p><div class="pipeline"><span>Foto padrão pendente</span><span>Depois: cadastro no site</span></div></div></div>
+          <details class="variants"><summary>Ver peças reais do grupo</summary><div class="approved-products">${{productCards}}</div></details>
+          <div class="approved-actions"><button class="secondary" type="button" data-unapprove="${{escapeHtml(item.id)}}">Retirar da aprovação</button></div>
+        </article>`;
+      }}).join('');
+    }}
+    function setView(view) {{
+      document.getElementById('curationView').classList.toggle('hidden', view !== 'curation');
+      document.getElementById('approvedView').classList.toggle('hidden', view !== 'approved');
+      document.getElementById('filtersToolbar').classList.toggle('hidden', view !== 'curation');
+      document.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('active', button.dataset.view === view));
+      if (view === 'approved') renderApproved();
+    }}
     function sync() {{
       const q = document.getElementById('searchBox').value.trim().toLowerCase();
       const lane = document.getElementById('laneFilter').value;
@@ -516,9 +612,9 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       const collection = document.getElementById('collectionFilter').value;
       cards.forEach(card => {{
         const text = card.textContent.toLowerCase();
-        const show = (!q || text.includes(q)) && (!lane || card.dataset.lane === lane) && (!brand || card.dataset.brand === brand) && (!collection || card.dataset.collection === collection);
-        card.classList.toggle('hidden', !show);
         const input = card.querySelector('.pick-group');
+        const show = !selected.has(input.value) && (!q || text.includes(q)) && (!lane || card.dataset.lane === lane) && (!brand || card.dataset.brand === brand) && (!collection || card.dataset.collection === collection);
+        card.classList.toggle('hidden', !show);
         input.checked = selected.has(input.value);
         const excluded = groupExcludedSet(input.value);
         card.querySelectorAll('.product-card').forEach(productCard => {{
@@ -529,6 +625,11 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
           if (button) button.textContent = isExcluded ? 'Voltar para o grupo' : 'Excluir do grupo';
         }});
       }});
+      singleCards.forEach(card => {{
+        const input = card.querySelector('.pick-single');
+        input.checked = selected.has(input.value);
+        card.classList.toggle('hidden', selected.has(input.value));
+      }});
       laneSections.forEach(section => {{
         if (section.dataset.laneSection === 'individual') {{
           section.classList.toggle('hidden', Boolean(lane && lane !== 'individual'));
@@ -537,20 +638,32 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         const hasVisibleGroup = Array.from(section.querySelectorAll('.group')).some(card => !card.classList.contains('hidden'));
         section.classList.toggle('hidden', !hasVisibleGroup);
       }});
+      renderApproved();
     }}
-    document.querySelectorAll('.pick-group').forEach(input => input.addEventListener('change', () => {{
-      if (input.checked) selected.add(input.value);
-      else selected.delete(input.value);
-      save();
+    document.querySelectorAll('.pick-group,.pick-single').forEach(input => input.addEventListener('change', () => {{
+      const item = byId.get(input.value);
+      if (input.checked && item) {{
+        approvedQueue[input.value] = snapshotForQueue(item);
+        selected.add(input.value);
+      }} else {{
+        delete approvedQueue[input.value];
+        selected.delete(input.value);
+      }}
+      saveQueue();
       sync();
     }}));
     ['searchBox','laneFilter','brandFilter','collectionFilter'].forEach(id => document.getElementById(id).addEventListener('input', sync));
-    document.getElementById('selectHigh').addEventListener('click', () => {{
-      groups.filter(group => group.status === 'alta').forEach(group => selected.add(group.id));
-      save();
-      sync();
-    }});
+    document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view)));
     document.addEventListener('click', event => {{
+      const unapprove = event.target.closest('[data-unapprove]');
+      if (unapprove) {{
+        delete approvedQueue[unapprove.dataset.unapprove];
+        selected.delete(unapprove.dataset.unapprove);
+        saveQueue();
+        sync();
+        renderApproved();
+        return;
+      }}
       const button = event.target.closest('[data-remove-product]');
       if (!button) return;
       const groupEl = button.closest('.group');
@@ -563,22 +676,27 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       else excluded.add(productId);
       excludedByGroup[groupId] = [...excluded];
       saveExcluded();
+      if (selected.has(groupId)) approvedQueue[groupId] = snapshotForQueue(byId.get(groupId));
+      saveQueue();
       sync();
     }});
     document.getElementById('exportGroups').addEventListener('click', () => {{
-      const approvedGroups = [...selected].map(id => byId.get(id)).filter(Boolean).map(group => {{
-        const products = activeProducts(group);
-        const colors = [...new Set(products.map(product => product.detectedColor).filter(Boolean))];
-        const sizes = [...new Set(products.flatMap(product => product.sizes || []))];
-        return {{ ...group, products, colors, sizes, count: products.length, excludedProductIds: excludedByGroup[group.id] || [] }};
-      }}).filter(group => group.products.length >= 2);
+      const approvedGroups = Object.values(approvedQueue).filter(group => (group.products || []).length >= 1);
       const exportPayload = {{
         generatedAt: new Date().toISOString(),
-        rule: 'Aprovado pelo Alisson antes de inserir no site. Agrupar somente mesma marca, mesma categoria e mesma peca; cores e tamanhos como variacoes.',
+        workflow: ['aprovado-pelo-Alisson', 'criar-fotos-padrao-scorsatto-com-a-peca-real', 'revisao-humana-das-fotos', 'cadastrar-no-site'],
+        rule: 'Nunca trocar a peça real. Fotos e cadastro no site exigem revisão humana.',
         approvedGroupCount: approvedGroups.length,
         approvedGroups
       }};
-      document.getElementById('exportBox').value = JSON.stringify(exportPayload, null, 2);
+      const json = JSON.stringify(exportPayload, null, 2);
+      document.getElementById('exportBox').value = json;
+      const blobUrl = URL.createObjectURL(new Blob([json], {{type:'application/json'}}));
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'fila-fotos-site-scorsatto.json';
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
     }});
     sync();
   </script>
