@@ -2348,7 +2348,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     function productVariants(product) {
       const group = productGroup(product);
       if (!group) return product ? [product] : [];
-      const variants = group.slugs.map((slug) => PRODUCTS.find((item) => item.slug === slug)).filter(Boolean);
+      // Ocultar uma peça também precisa removê-la das cores, tamanhos e
+      // referências agregadas do produto agrupado exibido na vitrine.
+      const variants = group.slugs
+        .map((slug) => PRODUCTS.find((item) => item.slug === slug))
+        .filter((variant) => variant && isPublicProduct(variant));
       return active === "disponiveis-agora" ? variants.filter(isAvailableNow) : variants;
     }
 
