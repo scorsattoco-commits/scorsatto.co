@@ -354,7 +354,36 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     new_on_site = new_on_site or []
     ready_manifest_path = ROOT / "data" / "fornecedor-varreduras" / "fotos-prontas-site.json"
     ready_manifest = json.loads(ready_manifest_path.read_text(encoding="utf-8")) if ready_manifest_path.exists() else {"photos": {}}
-    data_json = json.dumps({"groups": groups, "individualCandidates": singles, "newOnSite": new_on_site, "readyPhotos": ready_manifest.get("photos", {})}, ensure_ascii=False).replace("</", "<\\/")
+    published_manifest_path = ROOT / "data" / "fornecedor-varreduras" / "fila-publicada-site.json"
+    published_manifest = json.loads(published_manifest_path.read_text(encoding="utf-8")) if published_manifest_path.exists() else {"groups": []}
+    if not new_on_site and published_manifest.get("groups"):
+        new_on_site = [
+            {
+                "name": group.get("name"),
+                "collection": group.get("collection"),
+                "supplierProductId": f'{len(group.get("products", []))} peças',
+            }
+            for group in published_manifest.get("groups", [])
+        ]
+    published_ids = {
+        str(product.get("supplierProductId") or "")
+        for group in published_manifest.get("groups", [])
+        for product in group.get("products", [])
+    }
+    visible_groups = []
+    for source_group in groups:
+        visible_products = [product for product in source_group.get("products", []) if str(product.get("supplierProductId") or "") not in published_ids]
+        if not visible_products:
+            continue
+        group = dict(source_group)
+        group["products"] = visible_products
+        group["count"] = len(visible_products)
+        group["colors"] = sorted({product.get("detectedColor") for product in visible_products if product.get("detectedColor")})
+        group["sizes"] = sorted({size for product in visible_products for size in product.get("sizes", [])})
+        visible_groups.append(group)
+    groups = visible_groups
+    singles = [product for product in singles if str(product.get("supplierProductId") or "") not in published_ids]
+    data_json = json.dumps({"groups": groups, "individualCandidates": singles, "newOnSite": new_on_site, "readyPhotos": ready_manifest.get("photos", {}), "publishedQueue": published_manifest}, ensure_ascii=False).replace("</", "<\\/")
     brand_counts = Counter(group["brand"] for group in groups)
     collection_counts = Counter(group["collection"] for group in groups)
     lane_groups = defaultdict(list)
@@ -466,6 +495,8 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     .pipeline span:first-child {{ background:#fff4d5; border-color:#e5c976; color:#5a4312; }}
     .ready-card {{ border-color:#b8c9bc; }}
     .ready-card .pipeline span:first-child {{ background:#dcebdd; border-color:#9bbb9f; color:#214c2a; }}
+    .published-card {{ border-color:#abc2b0; background:#fbfdfb; }}
+    .published-card .pipeline span:first-child {{ background:#173c2a; border-color:#173c2a; color:#fff; }}
     .ready-card .product-card img {{ width:96px; height:120px; }}
     .ready-card .product-card {{ grid-template-columns:96px minmax(0,1fr); }}
     .approved-actions {{ display:flex; flex-wrap:wrap; gap:8px; padding:0 14px 14px; }}
@@ -492,6 +523,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       <button class="view-tab active" type="button" data-view="curation">Para escolher</button>
       <button class="view-tab" type="button" data-view="approved">Peças aprovadas <b id="approvedCount">0</b></button>
       <button class="view-tab" type="button" data-view="ready">Prontas para o site <b id="readyCount">0</b></button>
+      <button class="view-tab" type="button" data-view="published">Já foram para o site <b id="publishedCount">0</b></button>
     </div>
     <div id="filtersToolbar" class="toolbar">
       <input id="searchBox" type="search" placeholder="Buscar grupo, marca, categoria ou cor">
@@ -530,6 +562,10 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       <header class="lane-head"><div><span>FILA FINAL</span><h2>Prontas para o site</h2><p>Grupos com todas as fotos padrão SCORSATTO concluídas. Confira peça por peça antes de liberar o cadastro no site.</p></div><strong id="readyHeadingCount">0</strong></header>
       <div id="readyGrid" class="approved-grid"></div>
     </section>
+    <section id="publishedView" class="view-content hidden">
+      <header class="lane-head"><div><span>CATÁLOGO OFICIAL</span><h2>Já foram para o site</h2><p>Histórico definitivo das peças publicadas, com o grupo usado no catálogo e acesso direto ao produto.</p></div><strong id="publishedHeadingCount">0</strong></header>
+      <div id="publishedGrid" class="approved-grid"></div>
+    </section>
   </main>
   <script id="group-data" type="application/json">{data_json}</script>
   <script>
@@ -549,6 +585,8 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     }}));
     const approvalItems = [...groups, ...singles];
     const readyPhotos = payload.readyPhotos || {{}};
+    const publishedQueue = payload.publishedQueue || {{groups: []}};
+    const publishedIds = new Set((publishedQueue.groups || []).flatMap(group => group.products || []).map(product => String(product.supplierProductId || '')));
     const byId = new Map(approvalItems.map(item => [item.id, item]));
     const queueKey = 'scorsatto-fila-fotos-aprovadas-v2';
     const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-v2';
@@ -614,12 +652,16 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       const products = item.products || [];
       return products.length > 0 && products.every(product => readyPhotos[String(product.supplierProductId || '')]?.photo);
     }}
+    function isPublished(item) {{
+      const products = item.products || [];
+      return products.length > 0 && products.every(product => publishedIds.has(String(product.supplierProductId || '')));
+    }}
     function readyPhotoUrl(product) {{
       const path = readyPhotos[String(product.supplierProductId || '')]?.photo || '';
       return path ? '../../' + path : product.image;
     }}
     function renderReady() {{
-      const items = Object.values(approvedQueue).filter(isReady);
+      const items = Object.values(approvedQueue).filter(item => isReady(item) && !isPublished(item));
       document.getElementById('readyCount').textContent = items.length;
       document.getElementById('readyHeadingCount').textContent = items.length;
       const grid = document.getElementById('readyGrid');
@@ -642,14 +684,40 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         </article>`;
       }}).join('');
     }}
+    function renderPublished() {{
+      const items = publishedQueue.groups || [];
+      document.getElementById('publishedCount').textContent = items.length;
+      document.getElementById('publishedHeadingCount').textContent = items.length;
+      const grid = document.getElementById('publishedGrid');
+      if (!items.length) {{
+        grid.innerHTML = '<div class="empty-approved"><h2>Nenhuma publicação registrada.</h2><p>Quando uma fila aprovada entrar no catálogo, o histórico aparecerá aqui.</p></div>';
+        return;
+      }}
+      grid.innerHTML = items.map(item => {{
+        const products = item.products || [];
+        const cover = products[0]?.photo ? '../../' + products[0].photo : '';
+        const action = item.siteGroupAction === 'merged-existing' ? 'Agrupada ao modelo existente' : 'Novo modelo criado';
+        const productCards = products.map(product => `
+          <article class="product-card">
+            <img src="${{escapeHtml('../../' + product.photo)}}" alt="Foto de ${{escapeHtml(product.title)}}">
+            <div><strong>${{escapeHtml(product.title)}}</strong><span>${{escapeHtml(product.color || '')}} · tamanhos: ${{escapeHtml((product.sizes || []).join(', '))}}</span><span><b>R$ ${{Number(product.price || 0).toFixed(2).replace('.', ',')}}</b> · publicado</span><a href="${{escapeHtml('../../' + product.siteUrl)}}" target="_blank" rel="noreferrer">Abrir no site</a></div>
+          </article>`).join('');
+        return `<article class="approved-card published-card">
+          <div class="approved-card-head"><img src="${{escapeHtml(cover)}}" alt=""><div><span class="eyebrow">PUBLICADO NO SITE</span><h3>${{escapeHtml(item.name)}}</h3><p>${{escapeHtml(item.brand)}} · ${{products.length}} peça(s)</p><div class="pipeline"><span>No ar</span><span>${{escapeHtml(action)}}</span></div></div></div>
+          <details class="variants"><summary>Ver peças publicadas</summary><div class="approved-products">${{productCards}}</div></details>
+        </article>`;
+      }}).join('');
+    }}
     function setView(view) {{
       document.getElementById('curationView').classList.toggle('hidden', view !== 'curation');
       document.getElementById('approvedView').classList.toggle('hidden', view !== 'approved');
       document.getElementById('readyView').classList.toggle('hidden', view !== 'ready');
+      document.getElementById('publishedView').classList.toggle('hidden', view !== 'published');
       document.getElementById('filtersToolbar').classList.toggle('hidden', view !== 'curation');
       document.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('active', button.dataset.view === view));
       if (view === 'approved') renderApproved();
       if (view === 'ready') renderReady();
+      if (view === 'published') renderPublished();
     }}
     function sync() {{
       const q = document.getElementById('searchBox').value.trim().toLowerCase();
@@ -686,6 +754,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       }});
       renderApproved();
       renderReady();
+      renderPublished();
     }}
     document.querySelectorAll('.pick-group,.pick-single').forEach(input => input.addEventListener('change', () => {{
       const item = byId.get(input.value);

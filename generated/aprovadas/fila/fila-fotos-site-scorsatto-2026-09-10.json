@@ -1,0 +1,1603 @@
+{
+  "generatedAt": "2026-09-10T22:41:42.198Z",
+  "day": "2026-09-10",
+  "groupCount": 11,
+  "productCount": 47,
+  "missing": [],
+  "groups": [
+    {
+      "id": "fornecedor-lacoste-gola-polo-gola-polo-premium-premium-nao-declarado-gola-polo-nao-declarado-nao-decl",
+      "name": "Lacoste - Gola Polo Premium",
+      "brand": "Lacoste",
+      "collection": "gola-polo",
+      "products": [
+        {
+          "supplierProductId": "16281",
+          "title": "Gola Polo Premium Lct - Azul - 15533274595",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azu-15533274595",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-6.jpeg",
+          "sizes": [
+            "XXG"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Azul",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16281-azul.jpeg"
+        },
+        {
+          "supplierProductId": "16274",
+          "title": "Gola Polo Premium Lct - Azul Marinho - 15533274587",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-marinho-15533274587",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-1.jpeg",
+          "sizes": [
+            "P"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Azul Marinho",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16274-azul-marinho.jpeg"
+        },
+        {
+          "supplierProductId": "16277",
+          "title": "Gola Polo Premium Lct - Bege - 15533274590",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-bege-15533274590",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-2.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Bege",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16277-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16275",
+          "title": "Gola Polo Premium Lct - Cinza Claro - 15533274588",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-ci-15533274588",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-10.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Cinza Claro",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16275-cinza-claro.jpeg"
+        },
+        {
+          "supplierProductId": "16283",
+          "title": "Gola Polo Premium Lct - Cinza Escuro - 15533274597",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-cinza-escuro-15533274597",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-9.jpeg",
+          "sizes": [
+            "P"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Cinza Escuro",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16283-cinza-escuro.jpeg"
+        },
+        {
+          "supplierProductId": "16284",
+          "title": "Gola Polo Premium Lct - Off white - 15533274598",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-off-white-15533274598",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119.jpeg",
+          "sizes": [
+            "P",
+            "XXG"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Off White",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16284-off-white.jpeg"
+        },
+        {
+          "supplierProductId": "16276",
+          "title": "Gola Polo Premium Lct - Vinho - 15533274589",
+          "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-v-15533274589",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/gola-polo/lct/whatsapp-image-2026-07-02-at-185119-11.jpeg",
+          "sizes": [
+            "M",
+            "G",
+            "GG"
+          ],
+          "retailPrice": "140,00",
+          "wholesalePrice": "68,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/gola-polo",
+          "brandLabel": "Lacoste",
+          "collection": "gola-polo",
+          "detectedColor": "Vinho",
+          "baseName": "Gola Polo Premium",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "gola polo",
+            "modelo": "gola polo premium",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "gola polo",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|gola polo|gola polo premium|premium|nao-declarado|gola polo|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16276-vinho.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/01-lacoste-gola-polo-premium.jpg"
+    },
+    {
+      "id": "fornecedor-lacoste-camisetas-camiseta-pima-jersey-pima-jersey-nao-declarado-nao-declarado-nao-declara",
+      "name": "Lacoste - Camiseta Pima Jersey",
+      "brand": "Lacoste",
+      "collection": "camisetas",
+      "products": [
+        {
+          "supplierProductId": "16612",
+          "title": "Camiseta PIMA JERSEY LCT - Bege - jerseyLCT00010",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-be-jerseylct00010",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330-1.jpeg",
+          "sizes": [
+            "P",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Bege",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16612-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16613",
+          "title": "Camiseta PIMA JERSEY LCT - Branco - jerseyLCT00011",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-branco-jerseylct00011",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330.jpeg",
+          "sizes": [
+            "P",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Branco",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16613-branco.jpeg"
+        },
+        {
+          "supplierProductId": "16614",
+          "title": "Camiseta PIMA JERSEY LCT - Cinza - jerseyLCT00012",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-cinza-jerseylct00012",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330-3.jpeg",
+          "sizes": [
+            "M",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Cinza",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16614-cinza.jpeg"
+        },
+        {
+          "supplierProductId": "16615",
+          "title": "Camiseta PIMA JERSEY LCT - Marrom - jerseyLCT00013",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-marrom-jerseylct00013",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330-5.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Marrom",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16615-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "16617",
+          "title": "Camiseta PIMA JERSEY LCT - Preto - jerseyLCT00015",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330-4.jpeg",
+          "sizes": [
+            "M",
+            "GG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Preto",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16617-preto.jpeg"
+        },
+        {
+          "supplierProductId": "16616",
+          "title": "Camiseta PIMA JERSEY LCT - Verde - jerseyLCT00014",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-verde-jerseylct00014",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-12-at-103330-2.jpeg",
+          "sizes": [
+            "P",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Lacoste",
+          "collection": "camisetas",
+          "detectedColor": "Verde",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16616-verde.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/02-lacoste-camiseta-pima-jersey.jpg"
+    },
+    {
+      "id": "fornecedor-ralph-lauren-camisetas-camiseta-supima-supima-nao-declarado-nao-declarado-nao-declarado-na",
+      "name": "Ralph Lauren - Camiseta Supima",
+      "brand": "Ralph Lauren",
+      "collection": "camisetas",
+      "products": [
+        {
+          "supplierProductId": "16611",
+          "title": "Camiseta SUPIMA RL - Bege - supimaRL000010",
+          "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl000010",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/supima/ralph/whatsapp-image-2026-08-12-at-093807-1.jpeg",
+          "sizes": [
+            "P",
+            "G",
+            "GG"
+          ],
+          "retailPrice": "150,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/algodao-supima",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Bege",
+          "baseName": "Camiseta Supima",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta supima",
+            "malhaTecido": "supima",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta supima|supima|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16611-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16607",
+          "title": "Camiseta SUPIMA RL - Marrom - supimaRL00006",
+          "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-marrom-supimarl00006",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/supima/ralph/whatsapp-image-2026-08-12-at-093807.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "150,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/algodao-supima",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Marrom",
+          "baseName": "Camiseta Supima",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta supima",
+            "malhaTecido": "supima",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta supima|supima|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16607-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "16609",
+          "title": "Camiseta SUPIMA RL - Preto - supimaRL00008",
+          "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-preto-supimarl00008",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/supima/ralph/whatsapp-image-2026-08-12-at-093807-2.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "150,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/algodao-supima",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Preto",
+          "baseName": "Camiseta Supima",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta supima",
+            "malhaTecido": "supima",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta supima|supima|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16609-preto.jpeg"
+        },
+        {
+          "supplierProductId": "15837",
+          "title": "Camiseta SUPIMA RL - Verde - supimaRL00001",
+          "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-verde-supimarl00001",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/supima/ralph/whatsapp-image-2026-05-18-at-161831-1.jpeg",
+          "sizes": [
+            "P"
+          ],
+          "retailPrice": "150,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/algodao-supima",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Verde",
+          "baseName": "Camiseta Supima",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta supima",
+            "malhaTecido": "supima",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta supima|supima|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15837-verde.jpeg"
+        },
+        {
+          "supplierProductId": "16608",
+          "title": "Camiseta SUPIMA RL - Verde - supimaRL00007",
+          "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-verde-supimarl00007",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/supima/ralph/whatsapp-image-2026-08-12-at-093807-4.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "150,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/algodao-supima",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Verde",
+          "baseName": "Camiseta Supima",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta supima",
+            "malhaTecido": "supima",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta supima|supima|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16608-verde.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/03-ralph-lauren-camiseta-supima.jpg"
+    },
+    {
+      "id": "fornecedor-tommy-hilfiger-calcas-calca-sarja-sarja-nao-declarado-nao-declarado-nao-declarado-nao-decl",
+      "name": "Tommy Hilfiger - Calça Sarja",
+      "brand": "Tommy Hilfiger",
+      "collection": "calcas",
+      "products": [
+        {
+          "supplierProductId": "12730",
+          "title": "Calça Sarja XE - Caqui - 0172",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-caqui-0172",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2025-05-28-at-093949.jpeg",
+          "sizes": [
+            "40"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "102,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Caqui",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-12730-caqui.jpeg"
+        },
+        {
+          "supplierProductId": "15288",
+          "title": "Calça Sarja XE - Cinza Claro - calçasarjaxe0003",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-cinza-claro-calcasarjaxe0003",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2025-07-25-at-163441-2.jpeg",
+          "sizes": [
+            "38",
+            "46"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Cinza Claro",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15288-cinza-claro.jpeg"
+        },
+        {
+          "supplierProductId": "15289",
+          "title": "Calça Sarja XE - Gelo - calçasarjaxe0004",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-creme-calcasarjaxe0004",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2025-07-25-at-163442-1.20251103125549.jpeg",
+          "sizes": [
+            "38",
+            "40"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Gelo",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15289-gelo.jpeg"
+        },
+        {
+          "supplierProductId": "15125",
+          "title": "Calça Sarja XE - Marrom - calcaesportexe0005",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-esporte-fino-azul-mari-calcaesportexe0005",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2026-05-18-at-161832-5.jpeg",
+          "sizes": [
+            "38",
+            "40",
+            "42",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Marrom",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15125-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "15286",
+          "title": "Calça Sarja XE - Marrom - calçasarjaxe0001",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-marrom-calcasarjaxe0001",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2025-11-03-at-125212-2.jpeg",
+          "sizes": [
+            "38",
+            "40",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Marrom",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15286-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "14365",
+          "title": "Calça Sarja XE - Verde - 015",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-xe-verde-015",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/whatsapp-image-2025-11-03-at-125212-1.jpeg",
+          "sizes": [
+            "38"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "102,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "calcas",
+          "detectedColor": "Verde",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-14365-verde.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/04-tommy-hilfiger-calca-sarja.jpg"
+    },
+    {
+      "id": "fornecedor-ralph-lauren-calcas-calca-sarja-sarja-nao-declarado-nao-declarado-nao-declarado-nao-declar",
+      "name": "Ralph Lauren - Calça Sarja",
+      "brand": "Ralph Lauren",
+      "collection": "calcas",
+      "products": [
+        {
+          "supplierProductId": "16604",
+          "title": "Calça Sarja RL - Azul Marinho - 404018082",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-azul-marinho-404018082",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748-2.jpeg",
+          "sizes": [
+            "38",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Azul Marinho",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16604-azul-marinho.jpeg"
+        },
+        {
+          "supplierProductId": "16606",
+          "title": "Calça Sarja RL - Cinza - 404018084",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748-1.jpeg",
+          "sizes": [
+            "44",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Cinza",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16606-cinza.jpeg"
+        },
+        {
+          "supplierProductId": "16602",
+          "title": "Calça Sarja RL - Marrom Escuro - 404018079",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-marrom-escuro-404018079",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748-5.jpeg",
+          "sizes": [
+            "38",
+            "40",
+            "42",
+            "44",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Marrom",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16602-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "16603",
+          "title": "Calça Sarja RL - Marrom Claro - 404018080",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-marrom-claro-404018080",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748-4.jpeg",
+          "sizes": [
+            "38",
+            "42",
+            "44",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Marrom",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16603-marrom.jpeg"
+        },
+        {
+          "supplierProductId": "16601",
+          "title": "Calça Sarja RL - Off White - 404018078",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-off-white-404018078",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748.jpeg",
+          "sizes": [
+            "40",
+            "42",
+            "44",
+            "46",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Off White",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16601-off-white.jpeg"
+        },
+        {
+          "supplierProductId": "16605",
+          "title": "Calça Sarja RL - Preto - 404018083",
+          "url": "https://www.catalogopoa.com.br/calca-sarja-rl-preto-404018083",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/calca-sarja/ralph-lauren/whatsapp-image-2026-08-11-at-165748-3.jpeg",
+          "sizes": [
+            "38",
+            "40",
+            "44",
+            "46",
+            "48"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/calcas",
+          "brandLabel": "Ralph Lauren",
+          "collection": "calcas",
+          "detectedColor": "Preto",
+          "baseName": "Calça Sarja",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "calcas",
+            "modelo": "calca sarja",
+            "malhaTecido": "sarja",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16605-preto.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/05-ralph-lauren-calca-sarja.jpg"
+    },
+    {
+      "id": "fornecedor-ralph-lauren-camisetas-camiseta-pima-jersey-pima-jersey-nao-declarado-nao-declarado-nao-de",
+      "name": "Ralph Lauren - Camiseta Pima Jersey",
+      "brand": "Ralph Lauren",
+      "collection": "camisetas",
+      "products": [
+        {
+          "supplierProductId": "16631",
+          "title": "Camiseta PIMA JERSEY RL - Azul Marinho - jerseyRL0...",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-azul-marinh-jerseyrl0005",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-14-at-114531-4.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Azul Marinho",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16631-azul-marinho.jpeg"
+        },
+        {
+          "supplierProductId": "16628",
+          "title": "Camiseta PIMA JERSEY RL - Bege - jerseyRL0002",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-bege-jerseyrl0002",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-14-at-114531-3.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Bege",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16628-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16630",
+          "title": "Camiseta PIMA JERSEY RL - Preto - jerseyRL0004",
+          "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-preto-jerseyrl0004",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/pima-jersey/whatsapp-image-2026-08-14-at-114531.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG"
+          ],
+          "retailPrice": "120,00",
+          "wholesalePrice": "50,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/pi",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisetas",
+          "detectedColor": "Preto",
+          "baseName": "Camiseta Pima Jersey",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisetas",
+            "modelo": "camiseta pima jersey",
+            "malhaTecido": "pima jersey",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16630-preto.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/06-ralph-lauren-camiseta-pima-jersey.jpg"
+    },
+    {
+      "id": "fornecedor-lacoste-casacos-moletom-c-capuz-premium-live-premium-nao-declarado-capuz-nao-declarado-nao",
+      "name": "Lacoste - Moletom C Capuz Premium Live",
+      "brand": "Lacoste",
+      "collection": "casacos",
+      "products": [
+        {
+          "supplierProductId": "16077",
+          "title": "Moletom C/ Capuz Premium LCT LIVE - Bege - CapuzLC...",
+          "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-lct-live-bege-capuzlct0029",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/com-capuz/lacoste/sport/whatsapp-image-2026-06-12-at-193233.jpeg",
+          "sizes": [
+            "M"
+          ],
+          "retailPrice": "180,00",
+          "wholesalePrice": "87,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/inverno/casaco-de-moletom",
+          "brandLabel": "Lacoste",
+          "collection": "casacos",
+          "detectedColor": "Bege",
+          "baseName": "Moletom C Capuz Premium Live",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "casacos",
+            "modelo": "moletom c capuz premium live",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "capuz",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|casacos|moletom c capuz premium live|premium|nao-declarado|capuz|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16077-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16076",
+          "title": "Moletom C/ Capuz Premium LCT LIVE - Verde - CapuzL...",
+          "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-lct-live-verde-capuzlct0028",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/moletom-2026/com-capuz/lacoste/sport/whatsapp-image-2026-06-12-at-193232-3.jpeg",
+          "sizes": [
+            "GG"
+          ],
+          "retailPrice": "180,00",
+          "wholesalePrice": "87,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/inverno/casaco-de-moletom",
+          "brandLabel": "Lacoste",
+          "collection": "casacos",
+          "detectedColor": "Verde",
+          "baseName": "Moletom C Capuz Premium Live",
+          "fingerprint": {
+            "marca": "lacoste",
+            "categoria": "casacos",
+            "modelo": "moletom c capuz premium live",
+            "malhaTecido": "premium",
+            "estampa": "nao-declarado",
+            "gola": "capuz",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "lacoste|casacos|moletom c capuz premium live|premium|nao-declarado|capuz|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16076-verde.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/07-lacoste-moletom-c-capuz-premium-live.jpg"
+    },
+    {
+      "id": "fornecedor-tommy-hilfiger-jaquetas-jaqueta-texturizada-texturizada-nao-declarado-nao-declarado-nao-de",
+      "name": "Tommy Hilfiger - Jaqueta Texturizada",
+      "brand": "Tommy Hilfiger",
+      "collection": "jaquetas",
+      "products": [
+        {
+          "supplierProductId": "16556",
+          "title": "Jaqueta XE TEXTURIZADA - Bege - jaquetaxe00014",
+          "url": "https://www.catalogopoa.com.br/jaqueta-xe-texturizada-bege-jaquetaxe00014",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-02-at-115808-2.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G"
+          ],
+          "retailPrice": "450,00",
+          "wholesalePrice": "189,90",
+          "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "jaquetas",
+          "detectedColor": "Bege",
+          "baseName": "Jaqueta Texturizada",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "jaquetas",
+            "modelo": "jaqueta texturizada",
+            "malhaTecido": "texturizada",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "texturizada"
+          },
+          "groupKey": "tommy hilfiger|jaquetas|jaqueta texturizada|texturizada|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|texturizada",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16556-bege.jpeg"
+        },
+        {
+          "supplierProductId": "16555",
+          "title": "Jaqueta XE TEXTURIZADA - Caramelo - jaquetaxe00013",
+          "url": "https://www.catalogopoa.com.br/jaqueta-xe-texturizada-caramelo-jaquetaxe00013",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-02-at-115807.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G"
+          ],
+          "retailPrice": "450,00",
+          "wholesalePrice": "189,90",
+          "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "jaquetas",
+          "detectedColor": "Caramelo",
+          "baseName": "Jaqueta Texturizada",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "jaquetas",
+            "modelo": "jaqueta texturizada",
+            "malhaTecido": "texturizada",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "texturizada"
+          },
+          "groupKey": "tommy hilfiger|jaquetas|jaqueta texturizada|texturizada|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|texturizada",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16555-caramelo.jpeg"
+        },
+        {
+          "supplierProductId": "16557",
+          "title": "Jaqueta XE TEXTURIZADA - Preto - jaquetaxe00015",
+          "url": "https://www.catalogopoa.com.br/jaqueta-xe-texturizada-preto-jaquetaxe00015",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/jaqueta-2026/whatsapp-image-2026-06-02-at-115808-1.jpeg",
+          "sizes": [
+            "P"
+          ],
+          "retailPrice": "450,00",
+          "wholesalePrice": "189,90",
+          "categoryUrl": "https://www.catalogopoa.com.br/inverno/jaquetas-bobojaco",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "jaquetas",
+          "detectedColor": "Preto",
+          "baseName": "Jaqueta Texturizada",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "jaquetas",
+            "modelo": "jaqueta texturizada",
+            "malhaTecido": "texturizada",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "texturizada"
+          },
+          "groupKey": "tommy hilfiger|jaquetas|jaqueta texturizada|texturizada|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|texturizada",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16557-preto.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/08-tommy-hilfiger-jaqueta-texturizada.jpg"
+    },
+    {
+      "id": "fornecedor-tommy-hilfiger-manga-longa-camiseta-manga-longa-tecido-nao-declarado-nao-declarado-nao-dec",
+      "name": "Tommy Hilfiger - Camiseta Manga Longa",
+      "brand": "Tommy Hilfiger",
+      "collection": "manga-longa",
+      "products": [
+        {
+          "supplierProductId": "15927",
+          "title": "Camiseta Manga Longa XE - Azul - mangalongaxe00011",
+          "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-azul-mangalongaxe00011",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/manga-longa/whatsapp-image-2026-05-29-at-163703-3.jpeg",
+          "sizes": [
+            "P",
+            "GG"
+          ],
+          "retailPrice": "110,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/manga-longa",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "manga-longa",
+          "detectedColor": "Azul",
+          "baseName": "Camiseta Manga Longa",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "manga longa",
+            "modelo": "camiseta manga longa",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "manga longa",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|manga longa|camiseta manga longa|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|manga longa|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15927-azul.jpeg"
+        },
+        {
+          "supplierProductId": "15922",
+          "title": "Camiseta Manga Longa XE - Verde - mangalongaxe0006",
+          "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-verde-mangalongaxe0006",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/manga-longa/whatsapp-image-2026-05-29-at-163703-5.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "GG"
+          ],
+          "retailPrice": "110,00",
+          "wholesalePrice": "60,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisetas/manga-longa",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "manga-longa",
+          "detectedColor": "Verde",
+          "baseName": "Camiseta Manga Longa",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "manga longa",
+            "modelo": "camiseta manga longa",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "manga longa",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|manga longa|camiseta manga longa|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|manga longa|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15922-verde.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/09-tommy-hilfiger-camiseta-manga-longa.jpg"
+    },
+    {
+      "id": "fornecedor-tommy-hilfiger-camisa-social-camisa-social-xadrez-tecido-nao-declarado-xadrez-nao-declarad",
+      "name": "Tommy Hilfiger - Camisa Social Xadrez",
+      "brand": "Tommy Hilfiger",
+      "collection": "camisa-social",
+      "products": [
+        {
+          "supplierProductId": "16598",
+          "title": "Camisa Social XE Xadrez - Azul com Vermelho - Cami...",
+          "url": "https://www.catalogopoa.com.br/camisa-social-xe-xadrez-azul-com-vermelho-camisasocialxe00023",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/xadrez/whatsapp-image-2026-08-10-at-145436-2.jpeg",
+          "sizes": [
+            "P",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "199,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "camisa-social",
+          "detectedColor": "Azul",
+          "baseName": "Camisa Social Xadrez",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "camisa social",
+            "modelo": "camisa social xadrez",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "xadrez",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|camisa social|camisa social xadrez|tecido-nao-declarado|xadrez|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16598-azul.jpeg"
+        },
+        {
+          "supplierProductId": "16599",
+          "title": "Camisa Social XE Xadrez - Cinza com azul - CamisaS...",
+          "url": "https://www.catalogopoa.com.br/camisa-social-xe-xadrez-cinza-com-azu-camisasocialxe00024",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/xadrez/whatsapp-image-2026-08-10-at-145436-3.jpeg",
+          "sizes": [
+            "GG"
+          ],
+          "retailPrice": "199,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Tommy Hilfiger",
+          "collection": "camisa-social",
+          "detectedColor": "Azul",
+          "baseName": "Camisa Social Xadrez",
+          "fingerprint": {
+            "marca": "tommy hilfiger",
+            "categoria": "camisa social",
+            "modelo": "camisa social xadrez",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "xadrez",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "tommy hilfiger|camisa social|camisa social xadrez|tecido-nao-declarado|xadrez|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16599-azul.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/10-tommy-hilfiger-camisa-social-xadrez.jpg"
+    },
+    {
+      "id": "fornecedor-ralph-lauren-camisa-social-camisa-social-oxford-tecido-nao-declarado-nao-declarado-nao-dec",
+      "name": "Ralph Lauren - Camisa Social Oxford",
+      "brand": "Ralph Lauren",
+      "collection": "camisa-social",
+      "products": [
+        {
+          "supplierProductId": "15221",
+          "title": "Camisa Social OXFORD RL - Azul Petroleo - 30290213",
+          "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-petroleo-302902131",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-03-03-at-151812-1.jpeg",
+          "sizes": [
+            "XXG"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisa-social",
+          "detectedColor": "Azul",
+          "baseName": "Camisa Social Oxford",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisa social",
+            "modelo": "camisa social oxford",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisa social|camisa social oxford|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-15221-azul.jpeg"
+        },
+        {
+          "supplierProductId": "16595",
+          "title": "Camisa Social OXFORD RL - Azul Claro - 302902139",
+          "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-claro-302902139",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-08-10-at-145435.jpeg",
+          "sizes": [
+            "P",
+            "M",
+            "G",
+            "XXG"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisa-social",
+          "detectedColor": "Azul Claro",
+          "baseName": "Camisa Social Oxford",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisa social",
+            "modelo": "camisa social oxford",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisa social|camisa social oxford|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16595-azul-claro.jpeg"
+        },
+        {
+          "supplierProductId": "16597",
+          "title": "Camisa Social OXFORD RL - Azul Marinho - 302902141",
+          "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-marinho-302902141",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-08-10-at-145436.jpeg",
+          "sizes": [
+            "P",
+            "XXG"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisa-social",
+          "detectedColor": "Azul Marinho",
+          "baseName": "Camisa Social Oxford",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisa social",
+            "modelo": "camisa social oxford",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisa social|camisa social oxford|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16597-azul-marinho.jpeg"
+        },
+        {
+          "supplierProductId": "16594",
+          "title": "Camisa Social OXFORD RL - Cinza - 302902138",
+          "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-cinza-302902138",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-08-10-at-145435-1.jpeg",
+          "sizes": [
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisa-social",
+          "detectedColor": "Cinza",
+          "baseName": "Camisa Social Oxford",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisa social",
+            "modelo": "camisa social oxford",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisa social|camisa social oxford|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16594-cinza.jpeg"
+        },
+        {
+          "supplierProductId": "16596",
+          "title": "Camisa Social OXFORD RL - Preto - 302902140",
+          "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+          "image": "https://img.irroba.com.br/fit-in/250x250/filters:fill(fff):quality(80)/camieeua/catalog/camisa-social/oxford/whatsapp-image-2026-08-10-at-145436-1.jpeg",
+          "sizes": [
+            "P",
+            "G",
+            "GG",
+            "XXG"
+          ],
+          "retailPrice": "220,00",
+          "wholesalePrice": "105,00",
+          "categoryUrl": "https://www.catalogopoa.com.br/camisa-social",
+          "brandLabel": "Ralph Lauren",
+          "collection": "camisa-social",
+          "detectedColor": "Preto",
+          "baseName": "Camisa Social Oxford",
+          "fingerprint": {
+            "marca": "ralph lauren",
+            "categoria": "camisa social",
+            "modelo": "camisa social oxford",
+            "malhaTecido": "tecido-nao-declarado",
+            "estampa": "nao-declarado",
+            "gola": "nao-declarado",
+            "fechamento": "nao-declarado",
+            "manga": "nao-declarado",
+            "modelagem": "nao-declarado",
+            "construcao": "nao-declarado"
+          },
+          "groupKey": "ralph lauren|camisa social|camisa social oxford|tecido-nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado",
+          "referencePath": "generated/aprovadas/referencias/2026-09-10/scp-16596-preto.jpeg"
+        }
+      ],
+      "contactSheet": "generated/aprovadas/contatos/2026-09-10/11-ralph-lauren-camisa-social-oxford.jpg"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-05T22:37:31.843Z",
+  "generatedAt": "2026-09-11T22:52:34.311Z",
   "products": [
     {
       "ref": "SC-001",
@@ -8,7 +8,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sc-estoque-001-sueter-meio-ziper-marrom-aprovada-2026-07-11-ce96661d32.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-marrom-sc-estoque-001",
       "category": "sueteres",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-002",
@@ -16,7 +16,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/calca-jeans-azul-marinho-sc-estoque-002-1-551f1a557a.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-azul-marinho-sc-estoque-002",
       "category": "calcas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-003",
@@ -24,7 +24,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sc-estoque-003-gola-polo-premium-preto-aprovada-2026-07-11-5622506181.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-preto-sc-estoque-003",
       "category": "gola-polo",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-004",
@@ -40,7 +40,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sc-estoque-005-camiseta-supima-preto-aprovada-2026-07-11-d1b9ddb076.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-sc-estoque-005",
       "category": "camisetas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-006",
@@ -64,7 +64,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camisa-social-cinza-sc-estoque-008-bdee87787c.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-cinza-sc-estoque-008",
       "category": "camisa-social",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-009",
@@ -72,7 +72,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sc-estoque-009-camiseta-lisa-branco-aprovada-2026-07-11-89ba69aa64.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-lisa-branco-sc-estoque-009",
       "category": "camisetas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-010",
@@ -80,7 +80,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sc-estoque-010-camiseta-nike-branco-aprovada-2026-07-11-0df48ba2cf.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-nike-branco-sc-estoque-010",
       "category": "camisetas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-011",
@@ -88,7 +88,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/casaco-jeans-preto-sc-estoque-011-1-1a96e94496.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-casaco-jeans-preto-sc-estoque-011",
       "category": "jaquetas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "SC-012",
@@ -96,7 +96,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-corta-vento-preto-sc-estoque-012-d14349bdc8.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-corta-vento-preto-sc-estoque-012",
       "category": "jaquetas",
-      "updatedAt": "2026-06-23"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "pimajerseyxe0078",
@@ -104,7 +104,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/camisetas/camiseta-pima-jersey-bege-sc-estoque-013.png",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-bege-sc-estoque-013",
       "category": "camisetas",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "pimajerseyxe0081",
@@ -112,7 +112,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/camisetas/camiseta-pima-jersey-preto-sc-estoque-014.png",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-preto-sc-estoque-014",
       "category": "camisetas",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-11"
     },
     {
       "ref": "PufferARM0002",
@@ -120,7 +120,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/photoroom/site/jaquetas/jaqueta-arm-puffer-gominho-preto-sc-estoque-015.png",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-arm-puffer-gominho-preto-sc-estoque-015",
       "category": "jaquetas",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-06"
     },
     {
       "ref": "15833",
@@ -128,7 +128,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-azul-marinho-15833-02bf4ba016.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-azul-marinho-15833",
       "category": "camisetas",
-      "updatedAt": "2026-08-04"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15825",
@@ -136,7 +136,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-preto-15825-5cb92ff512.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-15825",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15831",
@@ -144,7 +144,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-preto-15831-63d33769f8.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-15831",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15840",
@@ -152,7 +152,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-azul-marinho-15840-74de34a107.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-azul-marinho-15840",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-17"
     },
     {
       "ref": "15835",
@@ -160,7 +160,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15835-camiseta-supima-branco-aprovada-2026-07-11-ab03f387b2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-branco-15835",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-13"
     },
     {
       "ref": "15838",
@@ -168,7 +168,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15838-camiseta-supima-bege-aprovada-2026-07-11-3aaaee78d6.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-bege-15838",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-06"
     },
     {
       "ref": "15881",
@@ -184,7 +184,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-algodao-egipcio-azul-marinho-15861-114dd50e56.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-algodao-egipcio-azul-marinho-15861",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-10"
     },
     {
       "ref": "15815",
@@ -200,7 +200,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15817-camiseta-supima-preto-aprovada-2026-07-11-54e3993d06.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-15817",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "12290",
@@ -216,7 +216,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-bege-15816-73b562aa87.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-bege-15816",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15821",
@@ -224,7 +224,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15821-camiseta-supima-branco-aprovada-2026-07-11-7a9a2fef3e.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-branco-15821",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-04"
     },
     {
       "ref": "15882",
@@ -264,7 +264,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-bege-15836-80313a1a12.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-bege-15836",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15834",
@@ -272,7 +272,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-marrom-15834-e7ab474cac.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-marrom-15834",
       "category": "camisetas",
-      "updatedAt": "2026-08-04"
+      "updatedAt": "2026-08-24"
     },
     {
       "ref": "15841",
@@ -280,7 +280,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-supima-marrom-15841-987b8ce998.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-marrom-15841",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-04"
     },
     {
       "ref": "15879",
@@ -288,7 +288,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-algodao-egipcio-branco-15879-b1876cb0d1.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-algodao-egipcio-branco-15879",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15858",
@@ -296,7 +296,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-algodao-egipcio-branco-15858-ea49a5f0a5.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-algodao-egipcio-branco-15858",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "10168",
@@ -312,7 +312,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15818-camiseta-supima-branco-aprovada-2026-07-11-b2613d4d2b.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-branco-15818",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15820",
@@ -344,7 +344,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-algodao-egipcio-preto-15184-76c0569051.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-algodao-egipcio-preto-15184",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-28"
     },
     {
       "ref": "15178",
@@ -368,7 +368,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-manga-longa-off-white-15923-fe36194a3b.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-manga-longa-off-white-15923",
       "category": "manga-longa",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-10"
     },
     {
       "ref": "15929",
@@ -384,7 +384,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-manga-longa-branco-15926-e1b0c77be6.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-manga-longa-branco-15926",
       "category": "manga-longa",
-      "updatedAt": "2026-08-02"
+      "updatedAt": "2026-08-28"
     },
     {
       "ref": "15925",
@@ -416,7 +416,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16041-camiseta-manga-longa-marrom-aprovada-2026-07-11-ad14631cb4.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-manga-longa-marrom-16041",
       "category": "manga-longa",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-10"
     },
     {
       "ref": "15747",
@@ -424,7 +424,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-azul-marinho-15747-caeb8a1cea.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-marinho-15747",
       "category": "gola-polo",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15671",
@@ -432,7 +432,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-bege-15671-748dffc466.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-bege-15671",
       "category": "gola-polo",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-27"
     },
     {
       "ref": "14885",
@@ -464,7 +464,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15745-gola-polo-premium-branco-aprovada-2026-07-11-0bcbf47103.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-branco-15745",
       "category": "gola-polo",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15743",
@@ -472,7 +472,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-preto-15743-0d8294f9b8.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-preto-15743",
       "category": "gola-polo",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15664",
@@ -480,7 +480,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-preto-15664-c4ce7e6366.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-preto-15664",
       "category": "gola-polo",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-11"
     },
     {
       "ref": "14887",
@@ -536,7 +536,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-cinza-11377-7b3b681b58.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-cinza-11377",
       "category": "gola-polo",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "14882",
@@ -552,7 +552,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/gola-polo-premium-marrom-14042-ed5ca7e4af.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-marrom-14042",
       "category": "gola-polo",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-05"
     },
     {
       "ref": "14040",
@@ -568,7 +568,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camisa-social-preto-16006-a64180c90a.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-preto-16006",
       "category": "camisa-social",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-13"
     },
     {
       "ref": "16011",
@@ -576,7 +576,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camisa-social-cinza-16011-c1e788b141.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-cinza-16011",
       "category": "camisa-social",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-27"
     },
     {
       "ref": "15546",
@@ -600,7 +600,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camisa-social-branco-16005-c9b220961f.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-branco-16005",
       "category": "camisa-social",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-11"
     },
     {
       "ref": "15718",
@@ -608,7 +608,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15718-camisa-social-bege-aprovada-2026-07-11-1758a28a06.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-bege-15718",
       "category": "camisa-social",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-28"
     },
     {
       "ref": "16009",
@@ -696,7 +696,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/calca-jeans-bege-14671-378e94d924.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-jeans-bege-14671",
       "category": "calcas",
-      "updatedAt": "2026-07-31"
+      "updatedAt": "2026-08-09"
     },
     {
       "ref": "15278",
@@ -704,7 +704,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/calca-jeans-azul-escuro-15278-f1994313d5.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-jeans-azul-escuro-15278",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "14674",
@@ -840,7 +840,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/calca-sarja-azul-marinho-15290-a5b369ca43.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-azul-marinho-15290",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-02"
     },
     {
       "ref": "15287",
@@ -848,7 +848,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15287-calca-sarja-preto-aprovada-2026-07-11-8dab424c8f.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-preto-15287",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-15"
     },
     {
       "ref": "16158",
@@ -872,7 +872,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/calca-jeans-marrom-8917-8eff81f3e7.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-jeans-marrom-8917",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "14294",
@@ -904,7 +904,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-meio-ziper-cinza-claro-16049-58ef2030b5.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-cinza-claro-16049",
       "category": "sueteres",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-06"
     },
     {
       "ref": "16047",
@@ -920,7 +920,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-gola-redonda-cinza-claro-15451-45badd8d38.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-gola-redonda-cinza-claro-15451",
       "category": "sueteres",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-06"
     },
     {
       "ref": "15449",
@@ -960,7 +960,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-meio-ziper-azul-marinho-16112-da7b7b1b47.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-azul-marinho-16112",
       "category": "sueteres",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16045",
@@ -976,7 +976,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-meio-ziper-preto-16109-3d3a60b2e0.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-preto-16109",
       "category": "sueteres",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-11"
     },
     {
       "ref": "15446",
@@ -992,7 +992,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-meio-ziper-cinza-16113-e050b01211.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-cinza-16113",
       "category": "sueteres",
-      "updatedAt": "2026-08-02"
+      "updatedAt": "2026-08-21"
     },
     {
       "ref": "16110",
@@ -1000,7 +1000,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/sueter-meio-ziper-cinza-claro-16110-755cc4a0db.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-sueter-meio-ziper-cinza-claro-16110",
       "category": "sueteres",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-24"
     },
     {
       "ref": "16152",
@@ -1048,7 +1048,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-puffer-preto-16151-8a96b8e71e.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-puffer-preto-16151",
       "category": "jaquetas",
-      "updatedAt": "2026-08-02"
+      "updatedAt": "2026-08-13"
     },
     {
       "ref": "16149",
@@ -1056,7 +1056,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16149-jaqueta-puffer-off-white-aprovada-2026-07-11-97d002f1e0.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-puffer-off-white-16149",
       "category": "jaquetas",
-      "updatedAt": "2026-07-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16003",
@@ -1072,7 +1072,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-texturizada-preto-15965-5d978ffa53.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-texturizada-preto-15965",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15966",
@@ -1080,7 +1080,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-texturizada-cinza-15966-b8ff257655.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-texturizada-cinza-15966",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15678",
@@ -1136,7 +1136,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-social-preto-12951-8fab12a054.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-social-preto-12951",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "12950",
@@ -1144,7 +1144,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-social-azul-marinho-12950-93d6265545.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-social-azul-marinho-12950",
       "category": "jaquetas",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16150",
@@ -1152,7 +1152,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16150-jaqueta-puffer-bege-aprovada-2026-07-11-3502545686.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-puffer-bege-16150",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16148",
@@ -1208,7 +1208,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-puffer-cinza-13044-d314eed1d5.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-puffer-cinza-13044",
       "category": "jaquetas",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "13043",
@@ -1216,7 +1216,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-puffer-bege-13043-b743f5d632.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-puffer-bege-13043",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "12952",
@@ -1224,7 +1224,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/jaqueta-social-bege-12952-ac0752414f.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-social-bege-12952",
       "category": "jaquetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "15865",
@@ -1288,7 +1288,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/casaco-moletom-bege-16136-968056b81f.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-casaco-moletom-bege-16136",
       "category": "casacos",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16115",
@@ -1296,7 +1296,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16115-casaco-moletom-bege-aprovada-2026-07-11-0d8121895a.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-casaco-moletom-bege-16115",
       "category": "casacos",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16124",
@@ -1360,7 +1360,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15153-bermuda-sarja-azul-marinho-aprovada-2026-07-11-f597ea6dd6.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-azul-marinho-15153",
       "category": "bermudas",
-      "updatedAt": "2026-08-03"
+      "updatedAt": "2026-08-14"
     },
     {
       "ref": "15053",
@@ -1400,7 +1400,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/bermuda-linho-off-white-14960-06782e9781.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-linho-off-white-14960",
       "category": "bermudas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "14778",
@@ -1408,7 +1408,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/bermuda-linho-off-white-14778-3e805b370b.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-linho-off-white-14778",
       "category": "bermudas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "14215",
@@ -1464,7 +1464,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16038-camiseta-pima-jersey-bege-aprovada-2026-07-11-207a503b32.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-arm-bege-16038",
       "category": "camisetas",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16037",
@@ -1472,7 +1472,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16037-camiseta-pima-jersey-azul-marinho-aprovada-2026-07-11-4c8ecfd74a.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-arm-azul-marinho-16037",
       "category": "camisetas",
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16034",
@@ -1544,7 +1544,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15710-calca-sarja-cinza-aprovada-2026-07-12-4f8591234e.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-cinza-15710",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-11"
     },
     {
       "ref": "15712",
@@ -1584,7 +1584,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-16270-calca-sarja-marrom-aprovada-2026-07-12-9f417cadf4.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-16270",
       "category": "calcas",
-      "updatedAt": "2026-08-01"
+      "updatedAt": "2026-09-03"
     },
     {
       "ref": "9119",
@@ -1624,7 +1624,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-15219-camisa-social-oxford-marrom-aprovada-2026-07-12-2b28952402.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-marrom-15219",
       "category": "camisa-social",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-09"
     },
     {
       "ref": "16315",
@@ -1664,7 +1664,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-404018072-calca-sarja-poliamida-marrom-aprovada-2026-07-12-82e3b45653.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-poliamida-marrom-404018072",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-05"
     },
     {
       "ref": "404018073",
@@ -1688,7 +1688,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/scp-404018075-calca-sarja-poliamida-cinza-claro-aprovada-2026-07-12-438590ca66.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-poliamida-cinza-claro-404018075",
       "category": "calcas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-08-16"
     },
     {
       "ref": "404018076",
@@ -1712,7 +1712,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-verde-16496-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-verde-16496",
       "category": "gola-polo",
-      "updatedAt": "2026-08-01"
+      "updatedAt": "2026-09-06"
     },
     {
       "ref": "16494",
@@ -1720,7 +1720,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-azul-marinho-16494-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-marinho-16494",
       "category": "gola-polo",
-      "updatedAt": "2026-08-01"
+      "updatedAt": "2026-09-03"
     },
     {
       "ref": "15601 / 16499",
@@ -1736,7 +1736,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-branco-16493-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-branco-16493",
       "category": "gola-polo",
-      "updatedAt": "2026-07-29"
+      "updatedAt": "2026-08-15"
     },
     {
       "ref": "16497",
@@ -1744,7 +1744,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-cinza-claro-16497-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-cinza-claro-16497",
       "category": "gola-polo",
-      "updatedAt": "2026-07-31"
+      "updatedAt": "2026-08-30"
     },
     {
       "ref": "16495",
@@ -1752,7 +1752,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-off-white-16495-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-off-white-16495",
       "category": "gola-polo",
-      "updatedAt": "2026-07-30"
+      "updatedAt": "2026-09-11"
     },
     {
       "ref": "16492",
@@ -1760,7 +1760,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-preto-16492-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-preto-16492",
       "category": "gola-polo",
-      "updatedAt": "2026-07-29"
+      "updatedAt": "2026-08-27"
     },
     {
       "ref": "16498",
@@ -1768,7 +1768,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-vinho-16498-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-vinho-16498",
       "category": "gola-polo",
-      "updatedAt": "2026-08-01"
+      "updatedAt": "2026-08-27"
     },
     {
       "ref": "16500",
@@ -1776,7 +1776,383 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-azul-16500-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-16500",
       "category": "gola-polo",
-      "updatedAt": "2026-07-31"
+      "updatedAt": "2026-09-08"
+    },
+    {
+      "ref": "16281",
+      "name": "Gola Polo Premium - Azul",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16281.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-16281",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16274",
+      "name": "Gola Polo Premium - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16274.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-marinho-16274",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16277",
+      "name": "Gola Polo Premium - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16277.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-bege-16277",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16275",
+      "name": "Gola Polo Premium - Cinza Claro",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16275.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-cinza-claro-16275",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16283",
+      "name": "Gola Polo Premium - Cinza Escuro",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16283.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-cinza-escuro-16283",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16284",
+      "name": "Gola Polo Premium - Off White",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16284.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-off-white-16284",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16276",
+      "name": "Gola Polo Premium - Vinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16276.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-vinho-16276",
+      "category": "gola-polo",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16612",
+      "name": "Camiseta Pima Jersey - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16612.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-bege-16612",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16613",
+      "name": "Camiseta Pima Jersey - Branco",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16613.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-branco-16613",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16614",
+      "name": "Camiseta Pima Jersey - Cinza",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16614.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-cinza-16614",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16615",
+      "name": "Camiseta Pima Jersey - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16615.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-marrom-16615",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16617.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-preto-16617",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16616",
+      "name": "Camiseta Pima Jersey - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16616.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-verde-16616",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16611",
+      "name": "Camiseta Supima - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16611.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-bege-16611",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16607",
+      "name": "Camiseta Supima - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16607.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-marrom-16607",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16609",
+      "name": "Camiseta Supima - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16609.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-16609",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15837",
+      "name": "Camiseta Supima - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15837.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-verde-15837",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16608",
+      "name": "Camiseta Supima - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16608.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-verde-16608",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "12730",
+      "name": "Calça Sarja - Caqui",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-12730.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-caqui-12730",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15288",
+      "name": "Calça Sarja - Cinza Claro",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15288.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-cinza-claro-15288",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15289",
+      "name": "Calça Sarja - Gelo",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15289.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-gelo-15289",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15125",
+      "name": "Calça Sarja - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15125.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-15125",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15286",
+      "name": "Calça Sarja - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15286.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-15286",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "14365",
+      "name": "Calça Sarja - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-14365.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-verde-14365",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16604",
+      "name": "Calça Sarja - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16604.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-azul-marinho-16604",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16606",
+      "name": "Calça Sarja - Cinza",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16606.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-cinza-16606",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16602",
+      "name": "Calça Sarja - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16602.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-16602",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16603",
+      "name": "Calça Sarja - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16603.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-16603",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16601",
+      "name": "Calça Sarja - Off White",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16601.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-off-white-16601",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16605",
+      "name": "Calça Sarja - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16605.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-preto-16605",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16631",
+      "name": "Camiseta Pima Jersey - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16631.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-azul-marinho-16631",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16628",
+      "name": "Camiseta Pima Jersey - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16628.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-bege-16628",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16630",
+      "name": "Camiseta Pima Jersey - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16630.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-preto-16630",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16077",
+      "name": "Moletom C Capuz Premium Live - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16077.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-moletom-c-capuz-premium-live-bege-16077",
+      "category": "casacos",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16076",
+      "name": "Moletom C Capuz Premium Live - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16076.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-moletom-c-capuz-premium-live-verde-16076",
+      "category": "casacos",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16556",
+      "name": "Jaqueta Texturizada - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16556.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-texturizada-bege-16556",
+      "category": "jaquetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16555",
+      "name": "Jaqueta Texturizada - Caramelo",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16555.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-texturizada-caramelo-16555",
+      "category": "jaquetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16557",
+      "name": "Jaqueta Texturizada - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16557.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-jaqueta-texturizada-preto-16557",
+      "category": "jaquetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15927",
+      "name": "Camiseta Manga Longa - Azul",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15927.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-manga-longa-azul-15927",
+      "category": "manga-longa",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15922",
+      "name": "Camiseta Manga Longa - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15922.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-manga-longa-verde-15922",
+      "category": "manga-longa",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16598",
+      "name": "Camisa Social Xadrez - Azul",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16598.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-xadrez-azul-16598",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16599",
+      "name": "Camisa Social Xadrez - Azul",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16599.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-xadrez-azul-16599",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15221",
+      "name": "Camisa Social Oxford - Azul",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15221.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-azul-15221",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16595",
+      "name": "Camisa Social Oxford - Azul Claro",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16595.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-azul-claro-16595",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16597",
+      "name": "Camisa Social Oxford - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16597.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-azul-marinho-16597",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16594",
+      "name": "Camisa Social Oxford - Cinza",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16594.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-cinza-16594",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16596",
+      "name": "Camisa Social Oxford - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16596.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camisa-social-oxford-preto-16596",
+      "category": "camisa-social",
+      "updatedAt": "2026-09-11"
     }
   ]
 }

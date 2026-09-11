@@ -1,12 +1,12 @@
 {
   "generatedAt": "2026-09-10T14:57:18Z",
-  "source": "/home/runner/work/scorsatto.co/scorsatto.co/data/fornecedor-varreduras/varredura-fornecedor-2026-09-10.json",
+  "source": "C:\\Users\\aliss\\OneDrive\\Documentos\\ChatGPT\\SCORSATTO\\deploy-scorsatto-admin-v2\\data\\fornecedor-varreduras\\varredura-fornecedor-2026-09-10.json",
   "groupCount": 86,
   "highConfidenceGroupCount": 73,
   "groupedProductCount": 652,
   "individualCount": 27,
-  "newFamilyCount": 58,
-  "existingFamilyVariationCount": 15,
+  "newFamilyCount": 53,
+  "existingFamilyVariationCount": 20,
   "reviewGroupCount": 13,
   "newOnSite": [],
   "groups": [
@@ -6692,7 +6692,7 @@
           "groupKey": "tommy hilfiger|calcas|calca sarja|sarja|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado"
         }
       ],
-      "lane": "novidade"
+      "lane": "variacao-site"
     },
     {
       "id": "fornecedor-tommy-hilfiger-calcas-mauricinho-sarja-sarja-nao-declarado-nao-declarado-nao-declarado-nao",
@@ -7151,7 +7151,7 @@
           "groupKey": "tommy hilfiger|camisa social|camisa social xadrez|tecido-nao-declarado|xadrez|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado"
         }
       ],
-      "lane": "novidade"
+      "lane": "variacao-site"
     },
     {
       "id": "fornecedor-armani-exchange-camisetas-camiseta-algodao-egipcio-algodao-egipcio-nao-declarado-nao-decla",
@@ -9645,7 +9645,7 @@
           "groupKey": "lacoste|camisetas|camiseta pima jersey|pima jersey|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado"
         }
       ],
-      "lane": "novidade"
+      "lane": "variacao-site"
     },
     {
       "id": "fornecedor-ralph-lauren-camisetas-camiseta-algodao-egipcio-algodao-egipcio-nao-declarado-nao-declarad",
@@ -14535,7 +14535,7 @@
           "groupKey": "lacoste|casacos|moletom c capuz premium live|premium|nao-declarado|capuz|nao-declarado|nao-declarado|nao-declarado|nao-declarado"
         }
       ],
-      "lane": "novidade"
+      "lane": "variacao-site"
     },
     {
       "id": "fornecedor-lacoste-casacos-moletom-s-capuz-moletom-nao-declarado-capuz-nao-declarado-nao-declarado-na",
@@ -18004,7 +18004,7 @@
           "groupKey": "tommy hilfiger|jaquetas|jaqueta texturizada|texturizada|nao-declarado|nao-declarado|nao-declarado|nao-declarado|nao-declarado|texturizada"
         }
       ],
-      "lane": "novidade"
+      "lane": "variacao-site"
     },
     {
       "id": "fornecedor-tommy-hilfiger-manga-longa-camiseta-manga-longa-tecido-nao-declarado-nao-declarado-nao-dec",
