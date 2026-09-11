@@ -352,7 +352,9 @@ def card(item, removable=False):
 
 def write_grouped_preview(groups, singles, output_html, source_json, new_on_site=None):
     new_on_site = new_on_site or []
-    data_json = json.dumps({"groups": groups, "individualCandidates": singles, "newOnSite": new_on_site}, ensure_ascii=False).replace("</", "<\\/")
+    ready_manifest_path = ROOT / "data" / "fornecedor-varreduras" / "fotos-prontas-site.json"
+    ready_manifest = json.loads(ready_manifest_path.read_text(encoding="utf-8")) if ready_manifest_path.exists() else {"photos": {}}
+    data_json = json.dumps({"groups": groups, "individualCandidates": singles, "newOnSite": new_on_site, "readyPhotos": ready_manifest.get("photos", {})}, ensure_ascii=False).replace("</", "<\\/")
     brand_counts = Counter(group["brand"] for group in groups)
     collection_counts = Counter(group["collection"] for group in groups)
     lane_groups = defaultdict(list)
@@ -462,6 +464,10 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     .pipeline {{ display:flex; flex-wrap:wrap; gap:6px; margin-top:11px; }}
     .pipeline span {{ border:1px solid #d8d0c4; border-radius:999px; padding:5px 8px; color:#625e56; font-size:9px; font-weight:900; letter-spacing:.05em; text-transform:uppercase; }}
     .pipeline span:first-child {{ background:#fff4d5; border-color:#e5c976; color:#5a4312; }}
+    .ready-card {{ border-color:#b8c9bc; }}
+    .ready-card .pipeline span:first-child {{ background:#dcebdd; border-color:#9bbb9f; color:#214c2a; }}
+    .ready-card .product-card img {{ width:96px; height:120px; }}
+    .ready-card .product-card {{ grid-template-columns:96px minmax(0,1fr); }}
     .approved-actions {{ display:flex; flex-wrap:wrap; gap:8px; padding:0 14px 14px; }}
     .approved-actions button {{ flex:1; }}
     .approved-products {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1px; background:#ebe5dc; }}
@@ -485,6 +491,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
     <div class="view-tabs" role="tablist" aria-label="Etapas da curadoria">
       <button class="view-tab active" type="button" data-view="curation">Para escolher</button>
       <button class="view-tab" type="button" data-view="approved">Peças aprovadas <b id="approvedCount">0</b></button>
+      <button class="view-tab" type="button" data-view="ready">Prontas para o site <b id="readyCount">0</b></button>
     </div>
     <div id="filtersToolbar" class="toolbar">
       <input id="searchBox" type="search" placeholder="Buscar grupo, marca, categoria ou cor">
@@ -519,6 +526,10 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         <textarea id="exportBox" readonly placeholder="As peças aprovadas aparecem aqui."></textarea>
       </section>
     </section>
+    <section id="readyView" class="view-content hidden">
+      <header class="lane-head"><div><span>FILA FINAL</span><h2>Prontas para o site</h2><p>Grupos com todas as fotos padrão SCORSATTO concluídas. Confira peça por peça antes de liberar o cadastro no site.</p></div><strong id="readyHeadingCount">0</strong></header>
+      <div id="readyGrid" class="approved-grid"></div>
+    </section>
   </main>
   <script id="group-data" type="application/json">{data_json}</script>
   <script>
@@ -537,6 +548,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       products: [product]
     }}));
     const approvalItems = [...groups, ...singles];
+    const readyPhotos = payload.readyPhotos || {{}};
     const byId = new Map(approvalItems.map(item => [item.id, item]));
     const queueKey = 'scorsatto-fila-fotos-aprovadas-v2';
     const excludedKey = 'scorsatto-fornecedor-grupos-excluidos-v2';
@@ -574,7 +586,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       }};
     }}
     function renderApproved() {{
-      const items = Object.values(approvedQueue);
+      const items = Object.values(approvedQueue).filter(item => !isReady(item));
       document.getElementById('approvedCount').textContent = items.length;
       document.getElementById('approvedHeadingCount').textContent = items.length;
       const grid = document.getElementById('approvedGrid');
@@ -598,12 +610,46 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         </article>`;
       }}).join('');
     }}
+    function isReady(item) {{
+      const products = item.products || [];
+      return products.length > 0 && products.every(product => readyPhotos[String(product.supplierProductId || '')]?.photo);
+    }}
+    function readyPhotoUrl(product) {{
+      const path = readyPhotos[String(product.supplierProductId || '')]?.photo || '';
+      return path ? '../../' + path : product.image;
+    }}
+    function renderReady() {{
+      const items = Object.values(approvedQueue).filter(isReady);
+      document.getElementById('readyCount').textContent = items.length;
+      document.getElementById('readyHeadingCount').textContent = items.length;
+      const grid = document.getElementById('readyGrid');
+      if (!items.length) {{
+        grid.innerHTML = '<div class="empty-approved"><h2>Nenhum grupo com fotos completas.</h2><p>Quando todas as fotos de um grupo estiverem prontas, ele virá automaticamente para esta aba.</p></div>';
+        return;
+      }}
+      grid.innerHTML = items.map(item => {{
+        const products = item.products || [];
+        const cover = readyPhotoUrl(products[0] || {{}});
+        const productCards = products.map(product => `
+          <article class="product-card">
+            <img src="${{escapeHtml(readyPhotoUrl(product))}}" alt="Foto padrão SCORSATTO de ${{escapeHtml(product.title)}}">
+            <div><strong>${{escapeHtml(product.title)}}</strong><span>${{escapeHtml(product.detectedColor || 'Cor sob consulta')}} · tamanhos: ${{escapeHtml((product.sizes || []).join(', '))}}</span><span><b>Foto padrão pronta</b> · revisão humana pendente</span><a href="${{escapeHtml(product.url)}}" target="_blank" rel="noreferrer">Comparar com a peça real</a></div>
+          </article>`).join('');
+        return `<article class="approved-card ready-card">
+          <div class="approved-card-head"><img src="${{escapeHtml(cover)}}" alt=""><div><span class="eyebrow">FOTOS CONCLUÍDAS</span><h3>${{escapeHtml(item.name)}}</h3><p>${{escapeHtml(item.brand)}} · ${{escapeHtml(item.collection)}} · ${{products.length}} peça(s)</p><div class="pipeline"><span>Fotos prontas</span><span>Aguardando sua revisão</span><span>Depois: cadastro no site</span></div></div></div>
+          <details class="variants" open><summary>Revisar as ${{products.length}} fotos do grupo</summary><div class="approved-products">${{productCards}}</div></details>
+          <div class="approved-actions"><button class="secondary" type="button" data-unapprove="${{escapeHtml(item.id)}}">Retirar da aprovação</button></div>
+        </article>`;
+      }}).join('');
+    }}
     function setView(view) {{
       document.getElementById('curationView').classList.toggle('hidden', view !== 'curation');
       document.getElementById('approvedView').classList.toggle('hidden', view !== 'approved');
+      document.getElementById('readyView').classList.toggle('hidden', view !== 'ready');
       document.getElementById('filtersToolbar').classList.toggle('hidden', view !== 'curation');
       document.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('active', button.dataset.view === view));
       if (view === 'approved') renderApproved();
+      if (view === 'ready') renderReady();
     }}
     function sync() {{
       const q = document.getElementById('searchBox').value.trim().toLowerCase();
@@ -639,6 +685,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         section.classList.toggle('hidden', !hasVisibleGroup);
       }});
       renderApproved();
+      renderReady();
     }}
     document.querySelectorAll('.pick-group,.pick-single').forEach(input => input.addEventListener('change', () => {{
       const item = byId.get(input.value);
@@ -662,6 +709,7 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
         saveQueue();
         sync();
         renderApproved();
+        renderReady();
         return;
       }}
       const button = event.target.closest('[data-remove-product]');
@@ -710,7 +758,11 @@ def main():
     day = today_slug()
     source = ROOT / "data" / "fornecedor-varreduras" / f"varredura-fornecedor-{day}.json"
     if not source.exists():
-        raise RuntimeError(f"Varredura nao encontrada: {source}")
+        available = sorted((ROOT / "data" / "fornecedor-varreduras").glob("varredura-fornecedor-????-??-??.json"))
+        if not available:
+            raise RuntimeError(f"Varredura nao encontrada: {source}")
+        source = available[-1]
+        day = source.stem.removeprefix("varredura-fornecedor-")
     data = json.loads(source.read_text(encoding="utf-8"))
     candidates = data.get("candidates") or []
     groups, singles = group_items(candidates)

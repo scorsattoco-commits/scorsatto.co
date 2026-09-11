@@ -1,0 +1,245 @@
+{
+  "day": "2026-09-10",
+  "generatedAt": "2026-09-10T22:41:42.198Z",
+  "rule": "Foto pronta para revisao humana; nao publicar automaticamente no site.",
+  "productCount": 47,
+  "missing": [],
+  "photos": {
+    "16281": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16281.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16281-gola-polo-premium-azul-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16274": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16274.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16274-gola-polo-premium-azul-marinho-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16277": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16277.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16277-gola-polo-premium-bege-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16275": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16275.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16275-gola-polo-premium-cinza-claro-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16283": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16283.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16283-gola-polo-premium-cinza-escuro-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16284": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16284.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16284-gola-polo-premium-off-white-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16276": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16276.webp",
+      "source": "generated/aprovadas/site/2026-07-12/scp-16276-gola-polo-premium-vinho-aprovada-2026-07-12.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16612": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16612.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16612-camiseta-pima-jersey-bege-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16613": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16613.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16613-camiseta-pima-jersey-branco-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16614": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16614.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16614-camiseta-pima-jersey-cinza-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16615": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16615.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16615-camiseta-pima-jersey-marrom-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16617": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16617.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16617-camiseta-pima-jersey-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16616": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16616.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16616-camiseta-pima-jersey-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16611": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16611.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16611-camiseta-supima-bege-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16607": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16607.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16607-camiseta-supima-marrom-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16609": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16609.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16609-camiseta-supima-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15837": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15837.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15837-camiseta-supima-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16608": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16608.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16608-camiseta-supima-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "12730": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-12730.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-12730-calca-sarja-caqui-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15288": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15288.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15288-calca-sarja-cinza-claro-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15289": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15289.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15289-calca-sarja-gelo-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15125": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15125.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15125-calca-sarja-marrom-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15286": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15286.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15286-calca-sarja-marrom-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "14365": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-14365.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-14365-calca-sarja-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16604": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16604.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16604-calca-sarja-azul-marinho-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16606": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16606.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16606-calca-sarja-cinza-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16602": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16602.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16602-calca-sarja-marrom-escuro-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16603": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16603.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16603-calca-sarja-marrom-claro-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16601": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16601.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16601-calca-sarja-off-white-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16605": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16605.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16605-calca-sarja-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16631": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16631.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16631-camiseta-pima-jersey-azul-marinho-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16628": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16628.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16628-camiseta-pima-jersey-bege-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16630": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16630.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16630-camiseta-pima-jersey-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16077": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16077.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16077-moletom-capuz-premium-live-bege-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16076": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16076.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16076-moletom-capuz-premium-live-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16556": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16556.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16556-jaqueta-texturizada-bege-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16555": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16555.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16555-jaqueta-texturizada-caramelo-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16557": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16557.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16557-jaqueta-texturizada-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15927": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15927.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15927-camiseta-manga-longa-azul-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15922": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15922.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15922-camiseta-manga-longa-verde-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16598": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16598.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16598-camisa-social-xadrez-azul-vermelho-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16599": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16599.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16599-camisa-social-xadrez-cinza-azul-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "15221": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-15221.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-15221-camisa-social-oxford-azul-petroleo-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16595": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16595.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16595-camisa-social-oxford-azul-claro-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16597": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16597.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16597-camisa-social-oxford-azul-marinho-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16594": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16594.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16594-camisa-social-oxford-cinza-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    },
+    "16596": {
+      "photo": "generated/aprovadas/site/2026-09-10/web/scp-16596.webp",
+      "source": "generated/aprovadas/site/2026-09-10/scp-16596-camisa-social-oxford-preto-aprovada-2026-09-10.png",
+      "status": "foto-pronta-revisao-humana"
+    }
+  },
+  "reviewSheet": "generated/aprovadas/revisao/2026-09-10/00-revisao-fotos-prontas-scorsatto.jpg"
+}
