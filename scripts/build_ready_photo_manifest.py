@@ -83,7 +83,48 @@ def main() -> None:
     content = json.dumps(payload, ensure_ascii=False, indent=2)
     dated.write_text(content, encoding="utf-8")
     stable.write_text(content, encoding="utf-8")
-    print(json.dumps({"products": len(ready), "missing": missing, "manifest": str(stable), "review": str(review_path)}, ensure_ascii=False))
+    curated_groups = []
+    for group in queue.get("groups", []):
+        curated_products = []
+        for product in group.get("products", []):
+            product_id = str(product.get("supplierProductId") or "")
+            photo = ready.get(product_id)
+            if not photo:
+                continue
+            curated_products.append({
+                "supplierProductId": product_id,
+                "title": product.get("title"),
+                "detectedColor": product.get("detectedColor"),
+                "sizes": product.get("sizes") or [],
+                "url": product.get("url"),
+                "photo": photo["photo"],
+                "status": photo["status"],
+            })
+        if curated_products:
+            curated_groups.append({
+                "id": group.get("id"),
+                "name": group.get("name"),
+                "brand": group.get("brand"),
+                "collection": group.get("collection"),
+                "count": len(curated_products),
+                "products": curated_products,
+            })
+
+    curation_payload = {
+        "day": args.day,
+        "generatedAt": queue.get("generatedAt"),
+        "rule": "Fotos prontas para revisao humana; nenhuma peca e publicada automaticamente.",
+        "status": "aguardando-revisao-humana",
+        "groupCount": len(curated_groups),
+        "productCount": sum(len(group["products"]) for group in curated_groups),
+        "groups": curated_groups,
+    }
+    curation_dated = manifest_dir / f"fila-curadoria-pronta-{args.day}.json"
+    curation_stable = manifest_dir / "fila-curadoria-pronta.json"
+    curation_content = json.dumps(curation_payload, ensure_ascii=False, indent=2)
+    curation_dated.write_text(curation_content, encoding="utf-8")
+    curation_stable.write_text(curation_content, encoding="utf-8")
+    print(json.dumps({"products": len(ready), "groups": len(curated_groups), "missing": missing, "manifest": str(stable), "curation": str(curation_stable), "review": str(review_path)}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
