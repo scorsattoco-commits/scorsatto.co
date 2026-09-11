@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-09-11T14:32:18Z",
+  "apply": true,
+  "checked": 206,
+  "changed": 5,
+  "succeeded": 206,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15664",
+      "name": "Gola Polo Premium - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe044",
+      "oldSizes": [],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16005",
+      "name": "Camisa Social - Branco",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-gran-camisasocialxe00010",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16109",
+      "name": "Sueter Meio Ziper - Preto",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-preto-sueterziperxe0001",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15710",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018067",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16495",
+      "name": "Gola Polo Premium - Off White",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-off-white-155332745102",
+      "oldSizes": [],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
