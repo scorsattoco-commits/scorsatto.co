@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-09-13T14:30:50Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 3,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16494",
+      "name": "Gola Polo Premium - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-marinho-155332745101",
+      "oldSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16498",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-vinho-15533274515",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16493",
+      "name": "Gola Polo Premium - Branco",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-branc-155332745100",
+      "oldSizes": [
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
