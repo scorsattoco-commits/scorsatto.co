@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-09-14T16:25:58Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15881",
+      "name": "Camiseta Algodão Egípcio - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-xe-azul-marinho-algegipxe0009",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
