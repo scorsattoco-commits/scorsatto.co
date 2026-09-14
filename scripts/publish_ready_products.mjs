@@ -13,7 +13,9 @@ const PRICES = new Map([
   ['Lacoste - Gola Polo Premium', 129.90],
   ['Lacoste - Camiseta Pima Jersey', 159.90],
   ['Ralph Lauren - Camiseta Supima', 129.90],
+  ['Ralph Lauren - Camiseta Supima Polo Sport', 129.90],
   ['Tommy Hilfiger - Calça Sarja', 199.90],
+  ['Tommy Hilfiger - Calça Sarja Esporte Fino', 199.90],
   ['Ralph Lauren - Calça Sarja', 199.90],
   ['Ralph Lauren - Camiseta Pima Jersey', 159.90],
   ['Lacoste - Moletom C Capuz Premium Live', 199.90],
@@ -27,7 +29,9 @@ const TARGETS = new Map([
   ['Lacoste - Gola Polo Premium', { id: 'aprovado-2026-07-29-lacoste-gola-polo-premium', action: 'merged-existing' }],
   ['Lacoste - Camiseta Pima Jersey', { id: 'aprovado-2026-09-11-lacoste-camiseta-pima-jersey', action: 'new-group' }],
   ['Ralph Lauren - Camiseta Supima', { id: 'json-rl-supima', action: 'merged-existing' }],
+  ['Ralph Lauren - Camiseta Supima Polo Sport', { id: 'aprovado-2026-09-11-ralph-lauren-supima-polo-sport', action: 'new-group' }],
   ['Tommy Hilfiger - Calça Sarja', { id: 'aprovado-2026-09-11-tommy-hilfiger-calca-sarja', action: 'merged-existing', seed: ['calca-sarja-azul-marinho-15290', 'calca-sarja-preto-15287'] }],
+  ['Tommy Hilfiger - Calça Sarja Esporte Fino', { action: 'new-product', standalone: true }],
   ['Ralph Lauren - Calça Sarja', { id: 'aprovado-2026-07-12-ralph-lauren-calca-sarja', action: 'merged-existing' }],
   ['Ralph Lauren - Camiseta Pima Jersey', { id: 'aprovado-2026-09-11-ralph-lauren-camiseta-pima-jersey', action: 'new-group' }],
   ['Lacoste - Moletom C Capuz Premium Live', { id: 'aprovado-2026-09-11-lacoste-moletom-capuz-premium-live', action: 'new-group' }],
@@ -67,6 +71,26 @@ function money(value) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function reviewedPublicationGroups(sourceGroups) {
+  const result = [];
+  for (const group of sourceGroups) {
+    if (group.name === 'Ralph Lauren - Camiseta Supima') {
+      const plainIds = new Set(['15837']);
+      result.push({ ...group, products: group.products.filter(item => plainIds.has(String(item.supplierProductId))), identityReview: 'Supima lisa com pônei pequeno' });
+      result.push({ ...group, id: `${group.id}-polo-sport`, name: 'Ralph Lauren - Camiseta Supima Polo Sport', siteBaseName: 'Camiseta Supima Polo Sport', products: group.products.filter(item => !plainIds.has(String(item.supplierProductId))), identityReview: 'Estampa frontal Polo Sport Ralph Lauren com bandeira' });
+      continue;
+    }
+    if (group.name === 'Tommy Hilfiger - Calça Sarja') {
+      const sportIds = new Set(['15125']);
+      result.push({ ...group, products: group.products.filter(item => !sportIds.has(String(item.supplierProductId))), identityReview: 'Calça Sarja XE, família calcasarjaxe' });
+      result.push({ ...group, id: `${group.id}-esporte-fino`, name: 'Tommy Hilfiger - Calça Sarja Esporte Fino', siteBaseName: 'Calça Sarja Esporte Fino', products: group.products.filter(item => sportIds.has(String(item.supplierProductId))), identityReview: 'Modelo Esporte Fino, família calcaesportexe; não agrupar com calcasarjaxe' });
+      continue;
+    }
+    result.push({ ...group, identityReview: 'Marca, modelo, tecido e identidade visual conferidos pela referência do fornecedor' });
+  }
+  return result.filter(group => group.products.length);
+}
+
 function upsertGroup(groups, definition, queuedGroup, newProducts, productBySlug) {
   const newSlugs = newProducts.map(product => product.slug);
   for (const group of groups) {
@@ -92,6 +116,26 @@ function upsertGroup(groups, definition, queuedGroup, newProducts, productBySlug
 
 const queue = JSON.parse(fs.readFileSync(QUEUE, 'utf8'));
 const photoManifest = JSON.parse(fs.readFileSync(PHOTOS, 'utf8'));
+const correctedPhotos = {
+  '15837': 'generated/aprovadas/site/2026-09-11/scp-15837-v2.webp',
+  '16076': 'generated/aprovadas/site/2026-09-11/scp-16076-v2.webp',
+  '16077': 'generated/aprovadas/site/2026-09-11/scp-16077-v2.webp',
+  '16630': 'generated/aprovadas/site/2026-09-11/scp-16630-v2.webp',
+  '16631': 'generated/aprovadas/site/2026-09-11/scp-16631-v2.webp',
+};
+for (const [id, photo] of Object.entries(correctedPhotos)) {
+  if (!fs.existsSync(path.join(ROOT, photo))) throw new Error(`Foto corrigida da referência ${id} não encontrada.`);
+  photoManifest.photos[id] = {
+    ...photoManifest.photos[id],
+    photo,
+    status: 'foto-corrigida-identidade-validada',
+    identityValidated: true,
+    canvas: '1100x1100',
+    framing: 'produto centralizado no padrão visual SCORSATTO',
+  };
+}
+fs.writeFileSync(PHOTOS, JSON.stringify(photoManifest, null, 2) + '\n', 'utf8');
+const publicationGroups = reviewedPublicationGroups(queue.groups);
 let html = fs.readFileSync(INDEX, 'utf8');
 const productsRange = extractArray(html, 'PRODUCTS');
 let products = productsRange.value;
@@ -105,17 +149,22 @@ for (const id of queuedIds) {
 }
 
 const queuedSet = new Set(queuedIds);
+const oldQueuedSlugs = new Set(products.filter(product => queuedSet.has(String(product.supplierProductId || ''))).map(product => product.slug));
+for (const group of groups) {
+  group.slugs = (group.slugs || []).filter(slug => !oldQueuedSlugs.has(slug));
+  if (group.labels) for (const slug of oldQueuedSlugs) delete group.labels[slug];
+}
 products = products.filter(product => !queuedSet.has(String(product.supplierProductId || '')) && !queuedSet.has(String(product.id || '').replace(/^scp-/, '')));
 const publishedGroups = [];
 
-for (const queuedGroup of queue.groups) {
+for (const queuedGroup of publicationGroups) {
   const price = PRICES.get(queuedGroup.name);
   const target = TARGETS.get(queuedGroup.name);
   if (!price || !target) throw new Error(`Regra comercial/agrupamento ausente: ${queuedGroup.name}`);
   const newProducts = queuedGroup.products.map(item => {
     const id = String(item.supplierProductId);
     const color = item.detectedColor || 'Cor sob consulta';
-    const baseName = item.baseName || queuedGroup.name.split(' - ').slice(1).join(' - ');
+    const baseName = queuedGroup.siteBaseName || item.baseName || queuedGroup.name.split(' - ').slice(1).join(' - ');
     const slug = `${slugify(baseName)}-${slugify(color)}-${id}`;
     const cost = money(item.wholesalePrice);
     return {
@@ -133,12 +182,14 @@ for (const queuedGroup of queue.groups) {
       curated: true,
       lastCheckedAt: '2026-09-11',
       images: [photoManifest.photos[id].photo],
+      imageCanvas: photoManifest.photos[id].canvas || 'padrão SCORSATTO',
+      imageFraming: photoManifest.photos[id].framing || 'produto centralizado no padrão visual SCORSATTO',
       sizes: [...new Set(item.sizes || [])],
       stock: Object.fromEntries([...new Set(item.sizes || [])].map(size => [size, 1])),
       composition: 'Composição a confirmar no fornecedor antes da venda.',
       care: 'Consultar etiqueta original antes da lavagem. Preferir ciclo delicado e secagem à sombra.',
       tags: [...new Set([queuedGroup.brand, baseName, color, 'novidades', 'fornecedor-aprovado', 'foto-scorsatto-2026-09-10'])],
-      internalNotes: 'Aprovado por Alisson em 2026-09-11. Foto padrão SCORSATTO concluída e conferida para publicação.',
+      internalNotes: `Aprovado por Alisson em 2026-09-11. Identidade revisada: ${queuedGroup.identityReview}.`,
       supplierGroupName: queuedGroup.name,
       variantLabel: color,
     };
@@ -146,18 +197,22 @@ for (const queuedGroup of queue.groups) {
   products.push(...newProducts);
   const productBySlug = new Map(products.map(product => [product.slug, product]));
   groups = groups.filter(group => group.id !== 'json-sarja-1');
-  const siteGroup = upsertGroup(groups, target, queuedGroup, newProducts, productBySlug);
+  const siteGroup = target.standalone ? null : upsertGroup(groups, target, queuedGroup, newProducts, productBySlug);
   publishedGroups.push({
     id: queuedGroup.id,
     name: queuedGroup.name,
     brand: queuedGroup.brand,
     collection: queuedGroup.collection,
-    siteGroupId: siteGroup.id,
+    identityReview: queuedGroup.identityReview,
+    identityReviewed: true,
+    siteGroupId: siteGroup?.id || null,
     siteGroupAction: target.action,
-    canonicalProductUrl: `/#produto-${encodeURIComponent(siteGroup.canonicalSlug)}`,
+    canonicalProductUrl: `/#produto-${encodeURIComponent(siteGroup?.canonicalSlug || newProducts[0].slug)}`,
     products: queuedGroup.products.map((item, index) => ({
       supplierProductId: String(item.supplierProductId), title: item.title, color: item.detectedColor,
-      sizes: item.sizes || [], supplierUrl: item.url, photo: newProducts[index].images[0],
+      sizes: item.sizes || [], supplierUrl: item.url, referencePhoto: item.referencePath, photo: newProducts[index].images[0],
+      imageCanvas: photoManifest.photos[String(item.supplierProductId)].canvas || 'padrão SCORSATTO',
+      imageFraming: photoManifest.photos[String(item.supplierProductId)].framing || 'produto centralizado no padrão visual SCORSATTO',
       siteSlug: newProducts[index].slug, siteUrl: `/#produto-${encodeURIComponent(newProducts[index].slug)}`,
       price, status: 'publicado-no-site',
     })),
@@ -169,7 +224,8 @@ for (const group of groups) for (const slug of group.slugs || []) slugCounts.set
 for (const id of queuedIds) {
   const product = products.find(item => String(item.supplierProductId) === id);
   if (!product) throw new Error(`Produto não cadastrado: ${id}`);
-  if (slugCounts.get(product.slug) !== 1) throw new Error(`Agrupamento ambíguo para ${product.slug}: ${slugCounts.get(product.slug) || 0}`);
+  const expectedMembership = product.supplierProductId === '15125' ? 0 : 1;
+  if ((slugCounts.get(product.slug) || 0) !== expectedMembership) throw new Error(`Agrupamento incorreto para ${product.slug}: esperado ${expectedMembership}, encontrado ${slugCounts.get(product.slug) || 0}`);
 }
 if (new Set(products.map(product => product.slug)).size !== products.length) throw new Error('Há slugs duplicados no catálogo.');
 if (new Set(products.map(product => product.id)).size !== products.length) throw new Error('Há IDs duplicados no catálogo.');
@@ -181,7 +237,7 @@ fs.writeFileSync(INDEX, html, 'utf8');
 
 const published = {
   day: '2026-09-11', sourceDay: queue.day, publishedAt: new Date().toISOString(),
-  rule: 'Peças publicadas após aprovação humana; agrupamento exige mesma marca, modelo e família de tecido.',
+  rule: 'Peças publicadas após aprovação humana; agrupamento exige mesma marca, modelo, tecido e identidade visual. Nome parecido nunca é suficiente.',
   status: 'publicado-no-site', groupCount: publishedGroups.length, productCount: queuedIds.length, groups: publishedGroups,
 };
 fs.writeFileSync(PUBLISHED, JSON.stringify(published, null, 2) + '\n', 'utf8');

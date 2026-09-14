@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-11T22:52:34.311Z",
+  "generatedAt": "2026-09-14T22:49:00.431Z",
   "products": [
     {
       "ref": "SC-001",
@@ -176,7 +176,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/optimized/site/camiseta-algodao-egipcio-azul-marinho-15881-a88bb72581.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-algodao-egipcio-azul-marinho-15881",
       "category": "camisetas",
-      "updatedAt": "2026-07-28"
+      "updatedAt": "2026-09-14"
     },
     {
       "ref": "15861",
@@ -1720,7 +1720,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-azul-marinho-16494-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-azul-marinho-16494",
       "category": "gola-polo",
-      "updatedAt": "2026-09-03"
+      "updatedAt": "2026-09-13"
     },
     {
       "ref": "15601 / 16499",
@@ -1736,7 +1736,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-branco-16493-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-branco-16493",
       "category": "gola-polo",
-      "updatedAt": "2026-08-15"
+      "updatedAt": "2026-09-13"
     },
     {
       "ref": "16497",
@@ -1768,7 +1768,7 @@
       "imageUrl": "https://usescorsatto.com.br/generated/validation/lacoste-polos/lacoste-gola-polo-premium-vinho-16498-scorsatto-preview.png",
       "productUrl": "https://usescorsatto.com.br/#produto-gola-polo-premium-vinho-16498",
       "category": "gola-polo",
-      "updatedAt": "2026-08-27"
+      "updatedAt": "2026-09-13"
     },
     {
       "ref": "16500",
@@ -1883,42 +1883,42 @@
       "updatedAt": "2026-09-11"
     },
     {
-      "ref": "16611",
-      "name": "Camiseta Supima - Bege",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16611.webp",
-      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-bege-16611",
-      "category": "camisetas",
-      "updatedAt": "2026-09-11"
-    },
-    {
-      "ref": "16607",
-      "name": "Camiseta Supima - Marrom",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16607.webp",
-      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-marrom-16607",
-      "category": "camisetas",
-      "updatedAt": "2026-09-11"
-    },
-    {
-      "ref": "16609",
-      "name": "Camiseta Supima - Preto",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16609.webp",
-      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-16609",
-      "category": "camisetas",
-      "updatedAt": "2026-09-11"
-    },
-    {
       "ref": "15837",
       "name": "Camiseta Supima - Verde",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15837.webp",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-11/scp-15837-v2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-verde-15837",
       "category": "camisetas",
       "updatedAt": "2026-09-11"
     },
     {
+      "ref": "16611",
+      "name": "Camiseta Supima Polo Sport - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16611.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-polo-sport-bege-16611",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16607",
+      "name": "Camiseta Supima Polo Sport - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16607.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-polo-sport-marrom-16607",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "16609",
+      "name": "Camiseta Supima Polo Sport - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16609.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-polo-sport-preto-16609",
+      "category": "camisetas",
+      "updatedAt": "2026-09-11"
+    },
+    {
       "ref": "16608",
-      "name": "Camiseta Supima - Verde",
+      "name": "Camiseta Supima Polo Sport - Verde",
       "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16608.webp",
-      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-verde-16608",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-polo-sport-verde-16608",
       "category": "camisetas",
       "updatedAt": "2026-09-11"
     },
@@ -1947,14 +1947,6 @@
       "updatedAt": "2026-09-11"
     },
     {
-      "ref": "15125",
-      "name": "Calça Sarja - Marrom",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15125.webp",
-      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-marrom-15125",
-      "category": "calcas",
-      "updatedAt": "2026-09-11"
-    },
-    {
       "ref": "15286",
       "name": "Calça Sarja - Marrom",
       "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15286.webp",
@@ -1967,6 +1959,14 @@
       "name": "Calça Sarja - Verde",
       "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-14365.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-verde-14365",
+      "category": "calcas",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "ref": "15125",
+      "name": "Calça Sarja Esporte Fino - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-15125.webp",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-esporte-fino-marrom-15125",
       "category": "calcas",
       "updatedAt": "2026-09-11"
     },
@@ -2021,7 +2021,7 @@
     {
       "ref": "16631",
       "name": "Camiseta Pima Jersey - Azul Marinho",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16631.webp",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-11/scp-16631-v2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-azul-marinho-16631",
       "category": "camisetas",
       "updatedAt": "2026-09-11"
@@ -2037,7 +2037,7 @@
     {
       "ref": "16630",
       "name": "Camiseta Pima Jersey - Preto",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16630.webp",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-11/scp-16630-v2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-camiseta-pima-jersey-preto-16630",
       "category": "camisetas",
       "updatedAt": "2026-09-11"
@@ -2045,7 +2045,7 @@
     {
       "ref": "16077",
       "name": "Moletom C Capuz Premium Live - Bege",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16077.webp",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-11/scp-16077-v2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-moletom-c-capuz-premium-live-bege-16077",
       "category": "casacos",
       "updatedAt": "2026-09-11"
@@ -2053,7 +2053,7 @@
     {
       "ref": "16076",
       "name": "Moletom C Capuz Premium Live - Verde",
-      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-10/web/scp-16076.webp",
+      "imageUrl": "https://usescorsatto.com.br/generated/aprovadas/site/2026-09-11/scp-16076-v2.webp",
       "productUrl": "https://usescorsatto.com.br/#produto-moletom-c-capuz-premium-live-verde-16076",
       "category": "casacos",
       "updatedAt": "2026-09-11"

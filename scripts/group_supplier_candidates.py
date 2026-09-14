@@ -151,6 +151,11 @@ def base_name(item):
     brand = normalize(item.get("brandLabel"))
     text = text.replace(brand, " ")
     tokens = [token for token in text.split() if token not in NOISE and not token.isdigit() and not re.search(r"\d", token)]
+    url_text = normalize(item.get("url"))
+    # O fornecedor às vezes informa a subfamília apenas na URL. Ela muda o
+    # modelo e não pode desaparecer durante o agrupamento.
+    if "esporte fino" in url_text and "esporte fino" not in " ".join(tokens):
+        tokens.extend(("esporte", "fino"))
     return title_case(" ".join(tokens))
 
 
@@ -213,18 +218,15 @@ def confidence_for_group(items):
     if len(fingerprints) != 1:
         return "individual"
 
-    # Títulos de fornecedor raramente dizem "lisa" ou descrevem todos os
-    # detalhes visuais. Isso não deve espalhar 20 ou 40 cores/referências da
-    # mesma família pelo painel. Quando marca, categoria e modelo coincidem,
-    # mantemos a família junta; a falta de evidência visual reduz a confiança
-    # para revisão humana, em vez de desfazer o grupo.
+    # Nome e tecido nunca bastam para provar que duas peças são idênticas.
+    # Sem um sinal explícito de identidade visual, o grupo sempre exige
+    # revisão humana lado a lado com a imagem real do fornecedor.
     only = items[0].get("fingerprint") or product_fingerprint(items[0])
     explicit_style = any(
         only.get(field) not in (None, "", "nao-declarado")
         for field in ("estampa", "gola", "fechamento", "manga", "modelagem", "construcao")
     )
-    declared_material = only.get("malhaTecido") not in (None, "", "tecido-nao-declarado")
-    return "alta" if explicit_style or declared_material else "revisar"
+    return "alta" if explicit_style else "revisar"
 
 
 def group_items(candidates):
@@ -265,7 +267,7 @@ def group_items(candidates):
                 "collection": representative.get("collection"),
                 "baseName": representative.get("baseName"),
                 "fingerprint": representative.get("fingerprint"),
-                "groupingRule": "Mesma marca, categoria, modelo e identidade declarada pelo fornecedor. Cor, tamanho e referência podem variar. Grupos sem evidência visual completa exigem revisão humana.",
+                "groupingRule": "Sugestão por marca, categoria e modelo. Só publicar agrupado após conferir tecido, construção, estampa, bordado e logo lado a lado com a foto real.",
                 "colors": colors,
                 "sizes": sizes,
                 "count": len(items),
@@ -696,14 +698,14 @@ def write_grouped_preview(groups, singles, output_html, source_json, new_on_site
       grid.innerHTML = items.map(item => {{
         const products = item.products || [];
         const cover = products[0]?.photo ? '../../' + products[0].photo : '';
-        const action = item.siteGroupAction === 'merged-existing' ? 'Agrupada ao modelo existente' : 'Novo modelo criado';
+        const action = item.siteGroupAction === 'merged-existing' ? 'Agrupada ao modelo existente' : item.siteGroupAction === 'new-product' ? 'Peça individual · sem agrupamento' : 'Novo modelo criado';
         const productCards = products.map(product => `
           <article class="product-card">
             <img src="${{escapeHtml('../../' + product.photo)}}" alt="Foto de ${{escapeHtml(product.title)}}">
-            <div><strong>${{escapeHtml(product.title)}}</strong><span>${{escapeHtml(product.color || '')}} · tamanhos: ${{escapeHtml((product.sizes || []).join(', '))}}</span><span><b>R$ ${{Number(product.price || 0).toFixed(2).replace('.', ',')}}</b> · publicado</span><a href="${{escapeHtml('../../' + product.siteUrl)}}" target="_blank" rel="noreferrer">Abrir no site</a></div>
+            <div><strong>${{escapeHtml(product.title)}}</strong><span>${{escapeHtml(product.color || '')}} · tamanhos: ${{escapeHtml((product.sizes || []).join(', '))}}</span><span><b>R$ ${{Number(product.price || 0).toFixed(2).replace('.', ',')}}</b> · publicado</span><span><b>Identidade conferida</b> · marca, modelo, tecido e visual</span><a href="${{escapeHtml('../../' + product.siteUrl)}}" target="_blank" rel="noreferrer">Abrir no site</a><a href="${{escapeHtml(product.supplierUrl)}}" target="_blank" rel="noreferrer">Comparar com a peça real</a></div>
           </article>`).join('');
         return `<article class="approved-card published-card">
-          <div class="approved-card-head"><img src="${{escapeHtml(cover)}}" alt=""><div><span class="eyebrow">PUBLICADO NO SITE</span><h3>${{escapeHtml(item.name)}}</h3><p>${{escapeHtml(item.brand)}} · ${{products.length}} peça(s)</p><div class="pipeline"><span>No ar</span><span>${{escapeHtml(action)}}</span></div></div></div>
+          <div class="approved-card-head"><img src="${{escapeHtml(cover)}}" alt=""><div><span class="eyebrow">PUBLICADO NO SITE</span><h3>${{escapeHtml(item.name)}}</h3><p>${{escapeHtml(item.brand)}} · ${{products.length}} peça(s)</p><p><b>Critério:</b> ${{escapeHtml(item.identityReview || 'revisão visual registrada')}}</p><div class="pipeline"><span>No ar</span><span>${{escapeHtml(action)}}</span></div></div></div>
           <details class="variants"><summary>Ver peças publicadas</summary><div class="approved-products">${{productCards}}</div></details>
         </article>`;
       }}).join('');
