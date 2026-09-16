@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-09-16T15:06:26Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15664",
+      "name": "Gola Polo Premium - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxe044",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
