@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-09-17T15:08:00Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 5,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15923",
+      "name": "Camiseta Manga Longa - Off White",
+      "url": "https://www.catalogopoa.com.br/camiseta-manga-longa-xe-off-white-mangalongaxe0007",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16111",
+      "name": "Sueter Meio Ziper - Marrom",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-marrom-sueterziperxe0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16605",
+      "name": "Calça Sarja - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-preto-404018083",
+      "oldSizes": [
+        "38",
+        "40",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "38",
+        "40",
+        "44"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16602",
+      "name": "Calça Sarja - Marrom",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-marrom-escuro-404018079",
+      "oldSizes": [
+        "38",
+        "40",
+        "42",
+        "44",
+        "48"
+      ],
+      "newSizes": [
+        "38",
+        "40",
+        "44",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16628",
+      "name": "Camiseta Pima Jersey - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-bege-jerseyrl0002",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
