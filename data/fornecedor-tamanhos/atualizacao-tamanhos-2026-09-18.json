@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-09-18T14:34:41Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 4,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16494",
+      "name": "Gola Polo Premium - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-marinho-155332745101",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16601",
+      "name": "Calça Sarja - Off White",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-off-white-404018078",
+      "oldSizes": [
+        "40",
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "40",
+        "42",
+        "46",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16596",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16594",
+      "name": "Camisa Social Oxford - Cinza",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-cinza-302902138",
+      "oldSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
