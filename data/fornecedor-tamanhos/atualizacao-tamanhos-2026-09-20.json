@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-09-20T14:18:03Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 5,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16005",
+      "name": "Camisa Social - Branco",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-branco-xadrez-gran-camisasocialxe00010",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15222",
+      "name": "Camisa Social - Cinza Claro",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-gelo-302902132",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16109",
+      "name": "Sueter Meio Ziper - Preto",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-preto-sueterziperxe0001",
+      "oldSizes": [
+        "P",
+        "M"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16594",
+      "name": "Camisa Social Oxford - Cinza",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-cinza-302902138",
+      "oldSizes": [
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16596",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
