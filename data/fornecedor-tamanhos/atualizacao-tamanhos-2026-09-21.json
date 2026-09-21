@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-09-21T16:31:59Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16596",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [
+        "P",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
