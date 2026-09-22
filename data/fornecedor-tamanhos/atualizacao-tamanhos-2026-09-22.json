@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-09-22T15:05:44Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 4,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15290",
+      "name": "Calca Sarja - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-azul-marinho-calcasarjaxe0005",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15287",
+      "name": "Calca Sarja - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-preto-calcasarjaxe0002",
+      "oldSizes": [
+        "38",
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16596",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+      "oldSizes": [
+        "P",
+        "G"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15289",
+      "name": "Calça Sarja - Gelo",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-creme-calcasarjaxe0004",
+      "oldSizes": [
+        "38",
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    }
+  ]
+}
