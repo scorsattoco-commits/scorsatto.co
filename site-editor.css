@@ -1,0 +1,11 @@
+#entrega-trocas .section-head{justify-content:flex-start;text-align:left}
+.site-editor{position:fixed;inset:0;z-index:2000;background:#fff;overflow:auto;padding:24px;color:#111}
+.site-editor-inner{max-width:850px;margin:auto}
+.site-editor h2{font-size:32px;margin:12px 0}
+.site-editor label{display:grid;gap:8px;margin:18px 0;font-size:14px}
+.site-editor textarea,.site-editor select{font:inherit;border:1px solid #aaa;padding:12px;width:100%;box-sizing:border-box;background:white;color:#111}
+.site-editor textarea{min-height:90px}
+.site-editor-actions{display:flex;gap:12px;flex-wrap:wrap;position:sticky;top:-24px;background:white;padding:16px 0;border-bottom:1px solid #ddd;z-index:1}
+.site-editor button,.site-editor-preview button{padding:12px 16px;border:1px solid #111;background:white;color:#111;cursor:pointer;min-height:44px;font:inherit}
+.site-editor [data-editor-preview]{background:#111;color:white}
+.site-editor-preview{position:fixed;bottom:12px;left:12px;right:12px;z-index:2100;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;background:#fff;padding:12px;border:1px solid #111;box-shadow:0 3px 20px #0002}

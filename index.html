@@ -635,6 +635,8 @@
   </style>
 <link rel="stylesheet" href="purchase-experience.css?v=20260923-dual2">
 <script src="purchase-experience.js?v=20260923-dual3"></script>
+<script src="site-editor.js?v=20260923" defer></script>
+<link rel="stylesheet" href="site-editor.css?v=20260923">
 </head>
 <body>
   <header class="topbar" id="topbar">
@@ -784,9 +786,7 @@
   <section class="section policy-section" id="entrega-trocas">
     <div class="section-inner">
       <div class="section-head">
-        <p class="eyebrow">Atendimento</p>
         <h2>Como funciona.</h2>
-        <p class="muted">Do interesse na pe&ccedil;a ao envio, tudo resolvido pelo WhatsApp.</p>
       </div>
       <div class="policy-grid">
         <div class="policy-card"><strong>1. Monte sua sacola</strong><span>Escolha suas peças e tamanhos, adicione à sacola e explore as combinações sugeridas.</span></div>
@@ -6410,7 +6410,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (!isAdminAccount()) return "";
       const messageHtml = `<div class="account-message${accountMessage ? " visible" : ""}">${safeHtml(accountMessage)}</div>`;
       return `<div class="admin-page-shell">
-        ${adminSwitch()}
+        ${adminSwitch()}<button class="secondary-btn" type="button" data-site-editor-open>Editor do site · teste</button>
         ${messageHtml}
         <div class="admin-page-content">
           ${activeAdminView === "backoffice" ? renderBackofficePanel() : activeAdminView === "groups" ? renderGroupAdminPanel() : renderCatalogAdminPanel()}
