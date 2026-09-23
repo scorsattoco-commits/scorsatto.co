@@ -119,11 +119,20 @@ function quickMainPurchase(product){
 
 
 // Local recommendation rules, not a fit prediction or inventory reservation.
-let fitPreferences={top:null,bottom:null};
+let fitPreferences={top:null,bottomNumber:null,bottomLetter:null};
+try{const saved=JSON.parse(sessionStorage.getItem('scorsattoVisitSizes')||'{}');for(const kind of ['top','bottomNumber','bottomLetter'])if(typeof saved[kind]==='string'&&saved[kind].length<=8)fitPreferences[kind]=saved[kind];if(typeof saved.bottom==='string'&&saved.bottom.length<=8)fitPreferences[/^\d+$/.test(saved.bottom)?'bottomNumber':'bottomLetter'] ||= saved.bottom;}catch{}
+const fitEditing={top:false,bottom:false};
+function saveFitPreferences(){try{sessionStorage.setItem('scorsattoVisitSizes',JSON.stringify(fitPreferences));}catch{}}
 const fitSeen=new Map();
 const fitOriginalClick=handleCombinationClick;
 function fitBottom(p){return ['calcas','bermudas'].includes(p.collection);}
 function fitSizes(p){return kitAvailableSizes(p).filter(size=>Number(p.stock?.[size]||0)>(cart.find(i=>i.key===cartKey(p.slug,size))?.quantity||0));}
+function fitSizeKey(p,size){return fitBottom(p)?(/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter'):'top';}
+function fitRemember(p,size){fitPreferences[fitSizeKey(p,size)]=size;}
+function fitMatches(p,size){const wanted=fitPreferences[fitSizeKey(p,size)];return wanted===size;}
+function fitEligible(p){return fitSizes(p).some(size=>fitMatches(p,size));}
+function fitBottomSummary(){return [fitPreferences.bottomNumber,fitPreferences.bottomLetter].filter(Boolean).join(' e ');}
+function fitBottomComplete(sizes){return sizes.every(size=>!!fitPreferences[/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter']);}
 function fitText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
 function fitScore(base,p){
  const color=fitText(variantColorName(p)),baseColor=fitText(variantColorName(base));
@@ -137,11 +146,8 @@ function fitScore(base,p){
 }
 function fitPool(base,group){return visibleProducts().filter(p=>p.slug!==base.slug&&group.includes(p.collection)&&productImage(p)&&fitSizes(p).length&&fitScore(base,p)>=0);}
 function fitPick(base,group,old){
- const desired=fitPreferences[group.some(c=>['calcas','bermudas'].includes(c))?'bottom':'top'];
- const isBottomGroup=group.some(c=>['calcas','bermudas'].includes(c));
- if(isBottomGroup!==fitBottom(base)&&!desired)return null;
- let pool=fitPool(base,group).filter(p=>!desired||fitSizes(p).includes(desired));
- const key=base.slug+'|'+group.join(',')+'|'+desired;
+ let pool=fitPool(base,group).filter(fitEligible);
+ const key=base.slug+'|'+group.join(',')+'|'+JSON.stringify(fitPreferences);
  let seen=fitSeen.get(key)||new Set();
  let unseen=pool.filter(p=>!seen.has(p.slug));
  if(!unseen.length){seen=new Set(old?[old.slug]:[]);unseen=pool.filter(p=>!seen.has(p.slug));}
@@ -155,26 +161,26 @@ function fitPick(base,group,old){
  if(chosen)seen.add(chosen.slug);fitSeen.set(key,seen);return chosen;
 }
 function fitRender(){
+ saveFitPreferences();
  const s=combinationState,base=s.slots[0].product;
  const topSizes=[...new Set(s.groups.filter(g=>!g.some(c=>['calcas','bermudas'].includes(c))).flatMap(g=>fitPool(base,g).flatMap(fitSizes)))].sort((a,b)=>['PP','P','M','G','GG','XG','XXG'].indexOf(a)-['PP','P','M','G','GG','XG','XXG'].indexOf(b));
  const bottomSizes=[...new Set(s.groups.filter(g=>g.some(c=>['calcas','bermudas'].includes(c))).flatMap(g=>fitPool(base,g).flatMap(fitSizes)))].sort((a,b)=>String(a).localeCompare(String(b),undefined,{numeric:true}));
- return `<section class="combination quick-complements" aria-label="Complementos por tamanho"><h3>Complete sua escolha.</h3><p class="fit-note">${fitPreferences.top?'Sugestões no tamanho '+safeHtml(fitPreferences.top)+'. Confirme o caimento de cada marca.':'Escolha o tamanho principal para refinar as sugestões.'}</p>${fitBottom(base)&&topSizes.length?`<div class="fit-preference"><p>Qual tamanho você usa nas peças de cima?</p><div class="quick-sizes" role="group" aria-label="Seu tamanho em camisetas e camisas">${topSizes.map(size=>`<button type="button" data-fit-top="${safeHtml(size)}" aria-pressed="${fitPreferences.top===size}">${safeHtml(size)}</button>`).join('')}</div></div>`:''}${!fitBottom(base)&&bottomSizes.length?`<div class="fit-preference"><p>Seu tamanho em calças e bermudas</p><div class="quick-sizes" role="group" aria-label="Seu tamanho em peças de baixo">${bottomSizes.map(size=>`<button type="button" data-fit-bottom="${safeHtml(size)}" aria-pressed="${fitPreferences.bottom===size}">${safeHtml(size)}</button>`).join('')}</div></div>`:''}<div class="quick-pieces">${s.slots.slice(1).map((slot,i)=>{
- const p=slot.product;if(!p){const lower=s.groups[i].some(c=>['calcas','bermudas'].includes(c));const wanted=fitPreferences[lower?'bottom':'top'];return `<article class="quick-piece fit-empty"><p>${wanted?'Nenhuma opção nesta categoria no tamanho '+safeHtml(wanted)+'.':'Escolha acima seu tamanho '+(lower?'de calça ou bermuda':'nas peças de cima')+' para ver as sugestões.'}</p></article>`;}
- const desired=fitPreferences[fitBottom(p)?'bottom':'top'];
- return `<article class="quick-piece" data-quick-slot="${i+1}" ${slot.added?'data-added-size="'+safeHtml(slot.size)+'"':''}><img src="${safeHtml(productImage(p))}" alt="${safeHtml(displayProductName(p))}" loading="lazy"><div><h4>${safeHtml(displayProductName(p))}</h4><p>${safeHtml(variantColorName(p))} · ${currency.format(p.price)}</p><p class="fit-availability">${isAvailableNow(p)?'Pronta entrega':'Sob consulta · disponibilidade a confirmar'}</p><p class="fit-note">${/preto|branco|off|gelo|cinza|marinho|bege|caqui/.test(fitText(variantColorName(p)))?'Uma base neutra para acompanhar sua escolha.':'Uma alternativa de cor para o conjunto.'}</p><div class="quick-sizes" role="group" aria-label="Tamanho de ${safeHtml(displayProductName(p))}">${kitAvailableSizes(p).filter(size=>!desired||size===desired).map(size=>`<button type="button" data-fast-size="${safeHtml(size)}" aria-pressed="${slot.size===size}">${safeHtml(size)}</button>`).join('')}</div><button type="button" class="primary-btn" data-fast-add>${slot.added?'Na sacola ✓ · Continuar':isAvailableNow(p)?'Adicionar':'Adicionar sob consulta'}</button><small role="status" aria-live="polite">${slot.size?'Tamanho '+safeHtml(slot.size):'Confirme seu tamanho'}</small><button type="button" class="quick-bag" data-fit-swap="${i+1}" ${fitHasAlternative(i+1)?'':'disabled'}>${fitHasAlternative(i+1)?'Ver outra opção ↻':'Sem outra opção neste tamanho'}</button></div></article>`;
+ return `<section class="combination quick-complements" aria-label="Complementos por tamanho"><h3>Complete sua escolha.</h3><p class="fit-note">${fitPreferences.top?'Sugestões no tamanho '+safeHtml(fitPreferences.top)+'. Confirme o caimento de cada marca.':'Escolha o tamanho principal para refinar as sugestões.'}</p>${fitBottom(base)&&topSizes.length?`<div class="fit-preference"><p>${fitPreferences.top?'Peças de cima · Seu tamanho: <strong>'+safeHtml(fitPreferences.top)+'</strong>':'Qual tamanho você usa nas peças de cima?'} ${fitPreferences.top?'<button type="button" class="fit-edit" data-fit-edit="top" aria-expanded="'+fitEditing.top+'">Alterar</button>':''}</p><div class="quick-sizes" ${fitPreferences.top&&!fitEditing.top?'hidden':''} role="group" aria-label="Seu tamanho em camisetas e camisas">${topSizes.map(size=>`<button type="button" data-fit-top="${safeHtml(size)}" aria-pressed="${fitPreferences.top===size}">${safeHtml(size)}</button>`).join('')}</div></div>`:''}${!fitBottom(base)&&bottomSizes.length?`<div class="fit-preference"><p>${fitBottomSummary()?'Calças e bermudas · Seus tamanhos: <strong>'+safeHtml(fitBottomSummary())+'</strong>':'Seu tamanho em calças e bermudas'} ${fitBottomSummary()?'<button type="button" class="fit-edit" data-fit-edit="bottom" aria-expanded="'+fitEditing.bottom+'">Alterar</button>':''}</p><div class="quick-sizes" ${fitBottomComplete(bottomSizes)&&!fitEditing.bottom?'hidden':''} role="group" aria-label="Seu tamanho em peças de baixo">${renderSizeRows(bottomSizes)}</div></div>`:''}<div class="quick-pieces">${s.slots.slice(1).map((slot,i)=>{
+ const p=slot.product;if(!p){const lower=s.groups[i].some(c=>['calcas','bermudas'].includes(c));const wanted=lower?fitBottomSummary():fitPreferences.top;return `<article class="quick-piece fit-empty"><p>${wanted?'Nenhuma opção nesta categoria no tamanho '+safeHtml(wanted)+'.':'Escolha acima seu tamanho '+(lower?'de calça ou bermuda':'nas peças de cima')+' para ver as sugestões.'}</p></article>`;}
+
+ return `<article class="quick-piece" data-quick-slot="${i+1}" ${slot.added?'data-added-size="'+safeHtml(slot.size)+'"':''}><img src="${safeHtml(productImage(p))}" alt="${safeHtml(displayProductName(p))}" loading="lazy"><div><h4>${safeHtml(displayProductName(p))}</h4><p>${safeHtml(variantColorName(p))} · ${currency.format(p.price)}</p><p class="fit-availability">${isAvailableNow(p)?'Pronta entrega':'Sob consulta · disponibilidade a confirmar'}</p><div class="quick-sizes" role="group" aria-label="Tamanho de ${safeHtml(displayProductName(p))}">${kitAvailableSizes(p).filter(size=>fitMatches(p,size)).map(size=>`<button type="button" data-fast-size="${safeHtml(size)}" aria-pressed="${slot.size===size}">${safeHtml(size)}</button>`).join('')}</div><button type="button" class="primary-btn" data-fast-add>${slot.added?'Na sacola ✓ · Continuar':isAvailableNow(p)?'Adicionar':'Adicionar sob consulta'}</button><small role="status" aria-live="polite">${slot.size?'Tamanho '+safeHtml(slot.size):'Confirme seu tamanho'}</small><button type="button" class="quick-bag" data-fit-swap="${i+1}" ${fitHasAlternative(i+1)?'':'disabled'}>${fitHasAlternative(i+1)?'Ver outra opção ↻':'Sem outra opção neste tamanho'}</button></div></article>`;
  }).join('')}</div><button type="button" class="quick-bag" data-fast-bag>Ver minha sacola →</button><button type="button" class="quick-bag quick-refresh" data-fast-refresh>Ver outras combinações ↻</button><small class="quick-refresh-feedback" role="status" aria-live="polite"></small></section>`;
 }
 renderCombination=function(base){
  const bottom=fitBottom(base),outer=['jaquetas','casacos','sueteres'].includes(base.collection);
  const groups=bottom?[['camisetas','gola-polo'],['jaquetas','sueteres']]:outer?[['camisetas','gola-polo'],['calcas']]:[['calcas','bermudas'],['jaquetas','sueteres']];
- if(selectedDetailSize)fitPreferences[bottom?'bottom':'top']=selectedDetailSize;
+ if(selectedDetailSize)fitRemember(base,selectedDetailSize);
  combinationState={base:base.slug,groups,slots:[{product:base,size:null},...groups.map(group=>({product:fitPick(base,group),size:null}))]};
  return fitRender();
 };
 function fitHasAlternative(index){
  const s=combinationState,slot=s.slots[index];
- const desired=fitPreferences[s.groups[index-1].some(c=>['calcas','bermudas'].includes(c))?'bottom':'top'];
- return fitPool(s.slots[0].product,s.groups[index-1]).some(p=>p.slug!==slot.product?.slug&&(!desired||fitSizes(p).includes(desired)));
+ return fitPool(s.slots[0].product,s.groups[index-1]).some(p=>p.slug!==slot.product?.slug&&fitEligible(p));
 }
 function fitUpdate(index){
  const s=combinationState,base=s.slots[0].product;
@@ -183,18 +189,18 @@ function fitUpdate(index){
 }
 refreshCombination=function(){
  if(!combinationState?.groups)return;
- const base=combinationState.slots[0].product;if(selectedDetailSize)fitPreferences[fitBottom(base)?'bottom':'top']=selectedDetailSize;
+ const base=combinationState.slots[0].product;if(selectedDetailSize)fitRemember(base,selectedDetailSize);
  combinationState.slots.slice(1).forEach((slot,i)=>{
-  const desired=fitPreferences[combinationState.groups[i].some(c=>['calcas','bermudas'].includes(c))?'bottom':'top'];
-  if(!slot.product||desired&&!fitSizes(slot.product).includes(desired))combinationState.slots[i+1]={product:fitPick(base,combinationState.groups[i]),size:null};
-  else if(desired&&slot.size!==desired){slot.size=null;slot.added=false;}
+  if(!slot.product||!fitEligible(slot.product))combinationState.slots[i+1]={product:fitPick(base,combinationState.groups[i]),size:null};
+  else if(slot.size&&!fitMatches(slot.product,slot.size)){slot.size=null;slot.added=false;}
  });
  productDetail.querySelector('.quick-complements').outerHTML=fitRender();
 };
 handleCombinationClick=function(event){
  const b=event.target.closest('.combination button');if(!b)return false;
- if(b.hasAttribute('data-fit-top')){fitPreferences.top=b.dataset.fitTop;refreshCombination();return true;}
- if(b.hasAttribute('data-fit-bottom')){fitPreferences.bottom=b.dataset.fitBottom||null;refreshCombination();return true;}
+ if(b.hasAttribute('data-fit-edit')){const kind=b.dataset.fitEdit;if(!['top','bottom'].includes(kind))return true;fitEditing[kind]=!fitEditing[kind];productDetail.querySelector('.quick-complements').outerHTML=fitRender();productDetail.querySelector('[data-fit-edit="'+kind+'"]')?.focus({preventScroll:true});return true;}
+ if(b.hasAttribute('data-fit-top')){fitEditing.top=false;fitPreferences.top=b.dataset.fitTop;refreshCombination();return true;}
+ if(b.hasAttribute('data-fit-bottom')){fitEditing.bottom=false;fitPreferences[/^\d+$/.test(b.dataset.fitBottom)?'bottomNumber':'bottomLetter']=b.dataset.fitBottom||null;refreshCombination();return true;}
  if(b.hasAttribute('data-fit-swap')||b.hasAttribute('data-fast-refresh')){
   const index=b.hasAttribute('data-fit-swap')?Number(b.dataset.fitSwap):undefined;
   const old=combinationState.slots.map(s=>s.product?.slug).join('|');fitUpdate(index);
@@ -241,3 +247,9 @@ document.addEventListener('DOMContentLoaded',()=>{
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&productDetailSection.classList.contains('open')&&!document.querySelector('.cart-drawer.open,.account-drawer.open'))closeProduct();});
  window.addEventListener('resize',()=>{document.documentElement.style.setProperty('--purchase-menu-height',Math.ceil(topbar.getBoundingClientRect().height)+'px');},{passive:true});
 });
+function renderSizeRows(sizes){
+ const numeric=sizes.filter(size=>/^\d+$/.test(String(size))).sort((a,b)=>Number(a)-Number(b));
+ const order=['PP','P','M','G','GG','XG','XXG','XGG','G1','G2','G3','G4'];
+ const letters=sizes.filter(size=>!/^\d+$/.test(String(size))).sort((a,b)=>{const ai=order.indexOf(a),bi=order.indexOf(b);return (ai<0?999:ai)-(bi<0?999:bi)||String(a).localeCompare(String(b));});
+ return [[numeric,'Numeração'],[letters,'Tamanhos em letras']].filter(([values])=>values.length).map(([values,label])=>'<div class="fit-size-scale"><span class="fit-scale-label">'+label+'</span><div class="fit-size-row" role="group" aria-label="'+label+'">'+values.map(size=>'<button type="button" data-fit-bottom="'+safeHtml(size)+'" aria-pressed="'+(fitPreferences[/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter']===size)+'">'+safeHtml(size)+'</button>').join('')+'</div></div>').join('');
+}
