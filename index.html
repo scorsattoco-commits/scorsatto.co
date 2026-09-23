@@ -633,6 +633,8 @@
       .favorites-page .favorite-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
+<link rel="stylesheet" href="purchase-experience.css?v=20260923">
+<script src="purchase-experience.js?v=20260923"></script>
 </head>
 <body>
   <header class="topbar" id="topbar">
@@ -2484,12 +2486,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function variantOptionSizes(product) {
       const option = currentVariantOption(product);
-      return sortSizes((option?.variants || [product]).flatMap((variant) => variant.sizes ?? []));
+      return sortSizes((option?.variants || [product]).flatMap((variant) => kitAvailableSizes(variant)));
     }
 
     function variantForSize(product, size) {
       const option = currentVariantOption(product);
-      return option?.variants.find((variant) => (variant.sizes ?? []).includes(size)) || product;
+      return option?.variants.find((variant) => kitAvailableSizes(variant).includes(size)) || product;
     }
 
     function productVariants(product) {
@@ -6917,12 +6919,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return isAvailableNow(product) ? "Disponível agora para envio imediato" : "Disponibilidade confirmada antes da finalização";
     }
 
+    let purchaseReturnContext=null;
     function openProduct(slug, scroll = true) {
       const product = PRODUCTS.find((item) => item.slug === slug);
-      if (!product) return;
+      if (!product || !isPublicProduct(product)) return;
+      const firstOpen=!productDetailSection.classList.contains('open');
+      if(firstOpen)purchaseReturnContext={hash:location.hash.startsWith('#produto-')?'#produtos':location.hash||'#inicio',scroll:window.scrollY,direct:location.hash.startsWith('#produto-')};
+      document.documentElement.style.setProperty('--purchase-menu-height',Math.ceil(topbar.getBoundingClientRect().height)+'px');
+      document.body.classList.add('shopping-product-open');
+      backToProducts.textContent='← Voltar à coleção';
       recordCustomerEvent("product_view", slug, { name: displayProductName(product), reference: supplierReference(product) || product.supplierProductId || "" });
       selectedProductSlug = slug;
-      selectedDetailSize = variantOptionSizes(product)?.[0] ?? null;
+      selectedDetailSize = null;
       const images = uniqueImages(product);
       const variants = productVariants(product);
       const options = variantOptions(product);
@@ -6949,6 +6957,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
           <div class="detail-choice-block">
             <p class="filter-group-title">Selecionar tamanho</p>
+            <p id="sizeSelectionFeedback" class="muted" role="status" aria-live="polite">Escolha seu tamanho.</p>
             <div class="size-grid">${optionSizes.map((size) => `<button class="size-btn${size === selectedDetailSize ? " active" : ""}" type="button" data-size="${size}">${size}</button>`).join("")}</div>
           </div>
           <div class="detail-actions">
@@ -6965,19 +6974,21 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           ${account ? "" : `<div class="signup-nudge"><strong>Salvar sua seleção</strong><span>Crie sua conta para guardar favoritos, recuperar carrinho e receber aviso do seu tamanho ou cor.</span><button type="button" data-open-account-inline="criar">Criar conta</button></div>`}
         </div>
       `;
+      productDetail.querySelector('.detail-actions').insertAdjacentHTML('afterend',renderCombination(product));
+      setupQuickPurchase(product);
       productDetailSection.classList.add("open");
       updateSeoForProduct(product);
-      if (scroll) productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      if(scroll||firstOpen)productDetailSection.scrollTop=0;
       history.replaceState(null, "", "#produto-" + slug);
     }
 
-    function closeProduct() {
+    function closeProduct(updateHash=true) {
+      document.body.classList.remove('shopping-product-open');
       productDetailSection.classList.remove("open");
       selectedProductSlug = null;
       selectedDetailSize = null;
       updateSeoForCollection(groupedProducts(sortProductList(baseCategoryProducts())));
-      history.replaceState(null, "", "#produtos");
-      document.querySelector("#produtos").scrollIntoView({ behavior: "smooth" });
+      if(updateHash){history.replaceState(null,'',purchaseReturnContext?.hash||'#produtos');if(purchaseReturnContext?.direct)document.querySelector('#produtos').scrollIntoView({block:'start'});else window.scrollTo({top:purchaseReturnContext?.scroll||0,behavior:'instant'});}
     }
 
     function productSortValue(product, mode) {
@@ -7108,6 +7119,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       renderProducts();
     });
     productDetail.addEventListener("click", (event) => {
+      if(handleCombinationClick(event))return;
       const thumb = event.target.closest("button[data-image]");
       if (thumb) {
         setDetailGalleryImage(thumb.dataset.imageIndex || 0);
@@ -7126,13 +7138,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const size = event.target.closest("button[data-size]");
       if (size) {
         selectedDetailSize = size.dataset.size;
+        refreshCombination();
+        const feedback=productDetail.querySelector('#sizeSelectionFeedback');
+        if(feedback)feedback.textContent=sizeSelectionFeedback(PRODUCTS.find(p=>p.slug===selectedProductSlug),selectedDetailSize);
+        const action=productDetail.querySelector('#detailAdd');
+        if(action){action.disabled=false;action.textContent=primaryProductActionLabel(PRODUCTS.find(p=>p.slug===selectedProductSlug));}
         productDetail.querySelectorAll(".size-btn").forEach((button) => button.classList.toggle("active", button.dataset.size === selectedDetailSize));
-        renderStickyProductBar();
       }
       const variant = event.target.closest("button[data-variant-slug]");
       if (variant) {
         openProduct(variant.dataset.variantSlug, false);
-        setTimeout(() => productDetailSection.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
       }
       const favorite = event.target.closest("button[data-toggle-favorite]");
       if (favorite) toggleFavorite(favorite.dataset.toggleFavorite);
@@ -7140,7 +7155,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (inlineAccount) openAccount(inlineAccount.dataset.openAccountInline || "criar");
       if (event.target.closest("#detailAdd")) {
         const selectedProduct = PRODUCTS.find((item) => item.slug === selectedProductSlug);
-        handlePrimaryProductAction(selectedProduct);
+        quickMainPurchase(selectedProduct);
       }
     });
     backToProducts.addEventListener("click", closeProduct);
