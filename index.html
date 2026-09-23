@@ -634,7 +634,7 @@
     }
   </style>
 <link rel="stylesheet" href="purchase-experience.css?v=20260923">
-<script src="purchase-experience.js?v=20260923"></script>
+<script src="purchase-experience.js?v=20260923b"></script>
 </head>
 <body>
   <header class="topbar" id="topbar">
@@ -3225,6 +3225,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
                 `Marca: ${product ? brandFromProduct(product) : "-"}`,
                 `Cor: ${product ? variantColorName(product) : "-"}`,
                 `Tamanho: ${item.size}`,
+                `Disponibilidade: ${product && isAvailableNow(product) ? "Pronta entrega" : "Sob consulta — confirmar disponibilidade e prazo"}`,
                 `Quantidade: ${item.quantity}`,
                 `Referência: ${product ? orderReference(product) || "sob consulta" : "sob consulta"}`,
                 `Valor: ${currency.format(price)}`,
@@ -3268,17 +3269,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function primaryProductActionLabel(product) {
-      return isAvailableNow(product) ? "Adicionar ao carrinho" : "Consultar pelo WhatsApp";
+      return "Adicionar à sacola";
     }
 
     function handlePrimaryProductAction(product) {
       if (!product) return;
-      if (!isAvailableNow(product)) {
-        openContextWhatsApp();
-        return;
-      }
-      const cartProduct = variantForSize(product, selectedDetailSize);
-      addToCart(cartProduct?.slug || product.slug, selectedDetailSize, 1);
+      quickMainPurchase(product);
     }
 
     function handleSizeAlert(product) {
@@ -6157,7 +6153,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           </button>
           <div class="favorite-actions">
             <button type="button" data-account-open-product="${product.slug}">Ver peça</button>
-            <button type="button" data-favorite-whatsapp="${product.slug}">WhatsApp</button>
+            <button type="button" data-favorite-whatsapp="${product.slug}">Adicionar à sacola</button>
           </div>
         </article>`).join("")}</div>`;
     }
@@ -7165,9 +7161,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (removeFavorite) { toggleFavorite(removeFavorite.dataset.removeFavorite); return; }
       const favoriteWhatsApp = event.target.closest("[data-favorite-whatsapp]");
       if (favoriteWhatsApp) {
-        selectedProductSlug = favoriteWhatsApp.dataset.favoriteWhatsapp;
-        selectedDetailSize = variantOptionSizes(PRODUCTS.find((item) => item.slug === selectedProductSlug))?.[0] ?? null;
-        openContextWhatsApp();
+        openProduct(favoriteWhatsApp.dataset.favoriteWhatsapp);
+        quickMainPurchase(PRODUCTS.find((item) => item.slug === selectedProductSlug));
         return;
       }
       const openFavorite = event.target.closest("[data-account-open-product]");

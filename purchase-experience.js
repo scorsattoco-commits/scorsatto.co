@@ -37,7 +37,7 @@ function renderCombination(base){
  return html.replace('<h3>Combina com sua peça</h3>','<h3>Sua escolha combina com estas peças.</h3>').replace('</section>','<button type="button" class="quick-bag quick-refresh" data-fast-refresh>Ver outras combinações ↻</button><small class="quick-refresh-feedback" role="status" aria-live="polite"></small></section>');
 }
 function quickAddProduct(p,size){
- if(!p||!size||!isPublicProduct(p)||!isAvailableNow(p))return 'Disponibilidade sob consulta.';
+ if(!p||!size||!isPublicProduct(p))return 'Esta peça não está disponível para seleção.';
  const key=cartKey(p.slug,size),current=cart.find(item=>item.key===key);
  if(!kitAvailableSizes(p).includes(size))return 'Este tamanho não está disponível. Escolha outro.';
  if(Number(p.stock?.[size]||0)<(current?.quantity||0)+1)return current?'Já está na sacola ✓':'Este tamanho não está disponível. Escolha outro.';
@@ -88,17 +88,22 @@ function setupQuickPurchase(product){
  bar.querySelector('button').addEventListener('click',()=>{action.click();sync();});
  productDetailSection.onscroll=sync;productDetail.onclick=()=>{if(selectedDetailSize)productDetail.querySelector('.size-grid')?.classList.remove('choose-size-now');sync();};sync();
 }
+function showPurchaseComplements(){
+ const section=productDetail.querySelector('.quick-complements');if(!section)return;
+ const heading=section.querySelector('h3');heading.tabIndex=-1;heading.focus({preventScroll:true});
+ section.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+}
 function quickMainPurchase(product){
  if(!selectedDetailSize){requestQuickSize(productDetail.querySelector('.size-grid'),productDetail.querySelector('#sizeSelectionFeedback'));return;}
  productDetail.querySelector('.size-grid').classList.remove('choose-size-now');
- if(productDetail.querySelector('#detailAdd').dataset.addedSize===selectedDetailSize){guideNextComplement();return;}
  const target=variantForSize(product,selectedDetailSize);
- if(!isAvailableNow(target)){handlePrimaryProductAction(product);return;}
+ if(productDetail.querySelector('#detailAdd').dataset.addedSize===selectedDetailSize&&cart.some(item=>item.key===cartKey(target.slug,selectedDetailSize))){showPurchaseComplements();return;}
  const error=quickAddProduct(target,selectedDetailSize),button=productDetail.querySelector('#detailAdd');
  const ok=!error||error==='Já está na sacola ✓';button.textContent=ok?'Na sacola ✓ · Ver complementos':'Escolher outro tamanho';button.disabled=false;
  if(ok)button.dataset.addedSize=selectedDetailSize;
- productDetail.querySelector('#quickMainFeedback').textContent=error||'Na sua sacola. Continue escolhendo.';
+ productDetail.querySelector('#quickMainFeedback').textContent=error||(isAvailableNow(target)?'Na sua sacola. Continue escolhendo.':'Na sacola · disponibilidade e prazo serão confirmados no atendimento.');
  if(ok){
+  showPurchaseComplements();
   const section=productDetail.querySelector('.quick-complements');
   const next=[...(section?.querySelectorAll('.quick-piece[data-quick-slot]')||[])].find(card=>!card.dataset.addedSize);
   if(next){
