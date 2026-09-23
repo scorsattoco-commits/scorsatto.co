@@ -714,7 +714,7 @@
             <div class="active-filters" id="activeFilters"></div>
             <div class="product-grid" id="grid"></div>
             <button class="secondary-btn load-more-products" id="loadMoreProducts" type="button">Carregar mais peças</button>
-            <div class="empty" id="empty">Nenhuma peça encontrada nesta seleção.</div>
+            <div class="empty" id="empty"><p role="status">Nenhuma peça encontrada nesta seleção.</p><p>Remova os filtros ou explore a coleção completa.</p><button class="secondary-btn" type="button" id="emptyClearFilters">Limpar filtros</button> <a class="secondary-btn" href="#produtos" data-filter-link="todos">Ver coleção</a></div>
           </div>
         </div>
       </div>
@@ -789,9 +789,13 @@
         <p class="muted">Do interesse na pe&ccedil;a ao envio, tudo resolvido pelo WhatsApp.</p>
       </div>
       <div class="policy-grid">
-        <div class="policy-card"><strong>1. Escolha</strong><span>Veja a pe&ccedil;a, selecione tamanho e envie para atendimento.</span></div>
-        <div class="policy-card"><strong>2. Feche</strong><span>Receba disponibilidade, prazo e frete sem sair do WhatsApp.</span></div>
-        <div class="policy-card"><strong>3. Receba</strong><span>Acompanhe o envio e conte com orienta&ccedil;&atilde;o de troca se precisar.</span></div>
+        <div class="policy-card"><strong>1. Monte sua sacola</strong><span>Escolha suas peças e tamanhos, adicione à sacola e explore as combinações sugeridas.</span></div>
+        <div class="policy-card"><strong>2. Confira sua seleção</strong><span>Revise os itens da sacola e toque em “Finalizar pelo WhatsApp” para enviar sua seleção ao atendimento.</span></div>
+        <div class="policy-card"><strong>3. Confirme seu pedido</strong><span>Confirme disponibilidade, frete, prazo e pagamento pelo WhatsApp antes de concluir a compra.</span></div>
+      </div>
+      <div class="policy-grid" style="margin-top:16px">
+        <div class="policy-card" id="entrega" style="scroll-margin-top:110px"><strong>Entrega</strong><span>Atendemos envios para todo o Brasil. Informe seu CEP no WhatsApp para consultar frete e prazo antes de concluir o pedido. Peças sob consulta dependem da confirmação de disponibilidade.</span><a href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20quero%20consultar%20frete%20e%20prazo%20para%20meu%20CEP." target="_blank" rel="noopener noreferrer">Consultar entrega</a></div>
+        <div class="policy-card" id="trocas" style="scroll-margin-top:110px"><strong>Trocas e devoluções</strong><span>Para consultar as condições ou solicitar uma troca ou devolução, fale com o atendimento pelo WhatsApp. Se já comprou, tenha em mãos a identificação do pedido e a peça que deseja consultar.</span><a href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20preciso%20de%20orienta%C3%A7%C3%A3o%20sobre%20troca%20ou%20devolu%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">Falar sobre troca ou devolução</a></div>
       </div>
     </div>
   </section>
@@ -874,8 +878,8 @@
           <h3 class="footer-heading">Atendimento</h3>
           <a class="footer-link" href="https://www.instagram.com/scorsatto.co/" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a class="footer-link" href="https://wa.me/5554997055401?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20cole%C3%A7%C3%A3o%20da%20Scorsatto." target="_blank" rel="noreferrer">WhatsApp</a>
-          <a class="footer-link" href="#entrega-trocas">Entrega</a>
-          <a class="footer-link" href="#entrega-trocas">Trocas</a>
+          <a class="footer-link" href="#entrega">Entrega</a>
+          <a class="footer-link" href="#trocas">Trocas</a>
         </nav>
         <nav class="footer-column" aria-label="Conta">
           <h3 class="footer-heading">Conta</h3>
@@ -7076,6 +7080,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       resetProductRenderLimit();
       renderFilters();
       renderProducts();
+    });
+    document.querySelector("#emptyClearFilters").addEventListener("click", () => {
+      setFilter(active);
+      search.focus({ preventScroll: true });
     });
     activeFilters.addEventListener("click", (event) => {
       const clear = event.target.closest("button[data-clear-filters]");
