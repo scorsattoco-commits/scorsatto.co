@@ -200,7 +200,7 @@ handleCombinationClick=function(event){
  const b=event.target.closest('.combination button');if(!b)return false;
  if(b.hasAttribute('data-fit-edit')){const kind=b.dataset.fitEdit;if(!['top','bottom'].includes(kind))return true;fitEditing[kind]=!fitEditing[kind];productDetail.querySelector('.quick-complements').outerHTML=fitRender();productDetail.querySelector('[data-fit-edit="'+kind+'"]')?.focus({preventScroll:true});return true;}
  if(b.hasAttribute('data-fit-top')){fitEditing.top=false;fitPreferences.top=b.dataset.fitTop;refreshCombination();return true;}
- if(b.hasAttribute('data-fit-bottom')){fitEditing.bottom=true;fitPreferences[/^\d+$/.test(b.dataset.fitBottom)?'bottomNumber':'bottomLetter']=b.dataset.fitBottom||null;refreshCombination();return true;}
+ if(b.hasAttribute('data-fit-bottom')){fitEditing.bottom=false;fitPreferences[/^\d+$/.test(b.dataset.fitBottom)?'bottomNumber':'bottomLetter']=b.dataset.fitBottom||null;refreshCombination();productDetail.querySelector('[data-fit-edit="bottom"]')?.focus({preventScroll:true});return true;}
  if(b.hasAttribute('data-fit-swap')||b.hasAttribute('data-fast-refresh')){
   const index=b.hasAttribute('data-fit-swap')?Number(b.dataset.fitSwap):undefined;
   const old=combinationState.slots.map(s=>s.product?.slug).join('|');fitUpdate(index);
