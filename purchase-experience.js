@@ -19,7 +19,7 @@ function guideNextComplement(from){
 }
 function renderQuickPieces(base){
  const bottom=['calcas','bermudas'].includes(base.collection),outer=['jaquetas','casacos','sueteres'].includes(base.collection);
- const groups=bottom?[['camisetas','gola-polo'],['jaquetas','sueteres']]:outer?[['camisetas','gola-polo'],['calcas']]:[['calcas','bermudas'],['jaquetas','sueteres']];
+ const groups=bottom?[['camisetas','gola-polo'],['jaquetas','sueteres']]:outer?[['camisetas','gola-polo'],['calcas','bermudas']]:[['calcas','bermudas'],['jaquetas','sueteres']];
  const slots=[{product:base,size:null}];
  groups.forEach(group=>{
   const pool=visibleProducts().filter(p=>p.slug!==base.slug&&group.includes(p.collection)&&isAvailableNow(p)&&kitAvailableSizes(p).some(size=>Number(p.stock?.[size]||0)>(cart.find(item=>item.key===cartKey(p.slug,size))?.quantity||0))&&productImage(p));
@@ -173,7 +173,7 @@ function fitRender(){
 }
 renderCombination=function(base){
  const bottom=fitBottom(base),outer=['jaquetas','casacos','sueteres'].includes(base.collection);
- const groups=bottom?[['camisetas','gola-polo'],['jaquetas','sueteres']]:outer?[['camisetas','gola-polo'],['calcas']]:[['calcas','bermudas'],['jaquetas','sueteres']];
+ const groups=bottom?[['camisetas','gola-polo'],['jaquetas','sueteres']]:outer?[['camisetas','gola-polo'],['calcas','bermudas']]:[['calcas','bermudas'],['jaquetas','sueteres']];
  if(selectedDetailSize)fitRemember(base,selectedDetailSize);
  combinationState={base:base.slug,groups,slots:[{product:base,size:null},...groups.map(group=>({product:fitPick(base,group),size:null}))]};
  return fitRender();
@@ -200,7 +200,7 @@ handleCombinationClick=function(event){
  const b=event.target.closest('.combination button');if(!b)return false;
  if(b.hasAttribute('data-fit-edit')){const kind=b.dataset.fitEdit;if(!['top','bottom'].includes(kind))return true;fitEditing[kind]=!fitEditing[kind];productDetail.querySelector('.quick-complements').outerHTML=fitRender();productDetail.querySelector('[data-fit-edit="'+kind+'"]')?.focus({preventScroll:true});return true;}
  if(b.hasAttribute('data-fit-top')){fitEditing.top=false;fitPreferences.top=b.dataset.fitTop;refreshCombination();return true;}
- if(b.hasAttribute('data-fit-bottom')){fitEditing.bottom=false;fitPreferences[/^\d+$/.test(b.dataset.fitBottom)?'bottomNumber':'bottomLetter']=b.dataset.fitBottom||null;refreshCombination();return true;}
+ if(b.hasAttribute('data-fit-bottom')){fitEditing.bottom=true;fitPreferences[/^\d+$/.test(b.dataset.fitBottom)?'bottomNumber':'bottomLetter']=b.dataset.fitBottom||null;refreshCombination();return true;}
  if(b.hasAttribute('data-fit-swap')||b.hasAttribute('data-fast-refresh')){
   const index=b.hasAttribute('data-fit-swap')?Number(b.dataset.fitSwap):undefined;
   const old=combinationState.slots.map(s=>s.product?.slug).join('|');fitUpdate(index);
@@ -251,5 +251,5 @@ function renderSizeRows(sizes){
  const numeric=sizes.filter(size=>/^\d+$/.test(String(size))).sort((a,b)=>Number(a)-Number(b));
  const order=['PP','P','M','G','GG','XG','XXG','XGG','G1','G2','G3','G4'];
  const letters=sizes.filter(size=>!/^\d+$/.test(String(size))).sort((a,b)=>{const ai=order.indexOf(a),bi=order.indexOf(b);return (ai<0?999:ai)-(bi<0?999:bi)||String(a).localeCompare(String(b));});
- return [[numeric,'Numeração'],[letters,'Tamanhos em letras']].filter(([values])=>values.length).map(([values,label])=>'<div class="fit-size-scale"><span class="fit-scale-label">'+label+'</span><div class="fit-size-row" role="group" aria-label="'+label+'">'+values.map(size=>'<button type="button" data-fit-bottom="'+safeHtml(size)+'" aria-pressed="'+(fitPreferences[/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter']===size)+'">'+safeHtml(size)+'</button>').join('')+'</div></div>').join('');
+ return [[numeric,'Numeração'],[letters,'Tamanhos em letras']].filter(([values])=>values.length).map(([values,label])=>'<div class="fit-size-scale"><div class="fit-size-row" role="group" aria-label="'+label+'">'+values.map(size=>'<button type="button" data-fit-bottom="'+safeHtml(size)+'" aria-pressed="'+(fitPreferences[/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter']===size)+'">'+safeHtml(size)+'</button>').join('')+'</div></div>').join('');
 }
