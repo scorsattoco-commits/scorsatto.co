@@ -5861,7 +5861,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const orderTotal = ordersRows.reduce((sum, order) => sum + (order.items || []).reduce((itemSum, item) => itemSum + Number(item.price || 0) * Number(item.quantity || 1), 0), 0);
       const productViews = eventsRows.filter((event) => event.event_type === "product_view").length;
       const identifiedVisitors = segmentCounts.leads;
-      const catalog = catalogDiagnostics();
+      const catalog = activeBackofficeTab === "operacao" ? catalogDiagnostics() : null;
       const todayRows = today.todayVisitors.map((key) => {
         const customerEvents = today.todayEvents.filter((event) => customerMatch(event, key));
         const pageViews = customerEvents.filter((event) => event.event_type === "page_view").length;
@@ -5909,7 +5909,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         `;
       }
 
-      const customerRows = customerKeys.map((key) => {
+      const customerRows = (activeBackofficeTab === "clientes" ? customerKeys : []).map((key) => {
         const contact = customerContact(key);
         const cartCount = carts.filter((item) => customerMatch(item, key)).reduce((sum, item) => sum + Number(item.quantity || 1), 0);
         const favCount = favoritesRows.filter((item) => customerMatch(item, key)).length;
@@ -5925,7 +5925,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         return `<tr><td>${customerButton(key)}</td><td>${(order.items || []).map((item) => `${safeHtml(item.name || productLabel(item.slug))}<br><span class="muted">Ref. ${safeHtml(item.reference || "-")} - Tam. ${safeHtml(item.size || "-")} - Qtd. ${safeHtml(item.quantity || 1)}</span>`).join("<br><br>")}</td><td>${currency.format((order.items || []).reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0))}</td><td>${formatDateTime(order.created_at)}</td></tr>`;
       });
       const eventRows = eventsRows.slice(0, 80).map((event) => `<tr><td>${formatDateTime(event.created_at)}</td><td>${customerButton(eventCustomerKey(event))}</td><td>${safeHtml(eventLabel(event.event_type))}</td><td>${event.product_slug ? safeHtml(productLabel(event.product_slug)) : safeHtml(event.metadata?.path || "-")}</td></tr>`);
-      const insightCards = customerKeys.slice(0, 36).map(customerInsightCard).join("");
+      const insightCards = activeBackofficeTab === "clientes" ? customerKeys.slice(0, 36).map(customerInsightCard).join("") : "";
       const minimizedFicha = activeBackofficeCustomerId === "__closed__" && minimizedBackofficeCustomerId
         ? renderBackofficeSection("Ficha minimizada", `<p class="backoffice-note">${safeHtml(customerDisplay(minimizedBackofficeCustomerId).name)} está recolhido para reduzir informação na tela.</p><button class="secondary-btn" type="button" data-restore-backoffice-customer>Maximizar ficha</button>`, false)
         : "";
@@ -5934,7 +5934,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <button class="primary-btn" type="submit">Buscar</button>
           <button class="secondary-btn" type="button" data-clear-backoffice-search>Limpar</button>
         </form>`;
-      const dailyDetails = `
+      const dailyDetails = () => `
         ${renderBackofficeSection("Painel automático", renderAutomaticCommandCenter(today, activeCarts, abandoned, eventsRows, ordersRows, allCustomerKeys), true)}
         ${renderBackofficeSection("Alertas automáticos", renderSmartAlerts(today, activeCarts, abandoned, eventsRows, ordersRows, allCustomerKeys), true)}
         ${renderBackofficeSection("Metas de hoje", renderDailyGoals(today, activeCarts, ordersRows), true)}
@@ -5942,7 +5942,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         ${renderBackofficeSection("Relatório semanal automático", renderWeeklyExecutiveReport(eventsRows, ordersRows, activeCarts, allCustomerKeys), true)}
         ${renderBackofficeSection("Clientes quentes agora", renderHotCustomers(allCustomerKeys), true)}
         ${renderBackofficeSection("Agenda de contato", renderContactAgenda(allCustomerKeys), true)}`;
-      const dailyContent = `
+      const dailyContent = () => `
         <div class="backoffice-grid">
           <div class="metric-card"><strong>${today.todayPageViews.length}</strong><span>Acessos hoje</span></div>
           <div class="metric-card"><strong>${today.todayVisitors.length}</strong><span>Pessoas únicas hoje</span></div>
@@ -5957,9 +5957,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           <span class="backoffice-note">${todayBackofficeDetailsVisible ? "Análises detalhadas carregadas nesta sessão." : "Análises, listas e relatórios extensos são carregados somente quando necessários."}</span>
           <button class="secondary-btn" type="button" data-toggle-backoffice-today-details>${todayBackofficeDetailsVisible ? "Ocultar análises" : "Ver análises detalhadas"}</button>
         </div>
-        ${todayBackofficeDetailsVisible ? dailyDetails : ""}`;
-      const instagramContent = renderInstagramDaily(allCustomerKeys, eventsRows);
-      const clientsContent = `
+        ${todayBackofficeDetailsVisible ? dailyDetails() : ""}`;
+      const instagramContent = () => renderInstagramDaily(allCustomerKeys, eventsRows);
+      const clientsContent = () => `
         ${searchForm}
         <div class="backoffice-segments" aria-label="Segmentos do backoffice">${segmentButtons}</div>
         ${renderBackofficeSection("Comando de clientes", `<p class="backoffice-note">Prioridade por compra, carrinho, WhatsApp, cadastro, favoritos e comportamento recente. Clique em um card para abrir a ficha completa.</p>${renderCustomerCommandCenter(customerKeys)}`, true)}
@@ -5978,13 +5978,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         ${renderBackofficeSection(activeBackofficeSegment === "clientes" ? "Clientes cadastrados" : activeBackofficeSegment === "leads" ? "Leads da curadoria" : activeBackofficeSegment === "carrinhos" ? "Carrinhos ativos" : activeBackofficeSegment === "pedidos" ? "Pedidos via WhatsApp" : activeBackofficeSegment === "visitantes" ? "Visitantes" : "Todos os contatos", `<p class="backoffice-note">Clique em qualquer linha para abrir a ficha completa com dados, carrinho, favoritos, pedidos e acessos.</p>${renderBackofficeTable(["Cliente", "Score", "Próxima ação", "E-mail", "WhatsApp", "Cidade", "Carrinho", "Fav.", "Pedidos", "Eventos", "Última atividade"], customerRows, "Nenhum registro neste segmento ainda.")}`, true)}
         ${renderBackofficeSection("Cadastros feitos hoje", renderBackofficeTable(["Cliente", "E-mail", "WhatsApp", "Cidade", "Origem", "Criado em"], todaySignupRows, "Nenhum cadastro novo hoje ainda."), todaySignupRows.length > 0)}
         ${renderBackofficeSection("Adicionar lead manual", `<form class="account-form" data-manual-lead-form><label class="field"><span>Nome</span><input name="name" placeholder="Nome do lead"></label><label class="field"><span>WhatsApp</span><input name="phone" placeholder="Telefone"></label><label class="field"><span>E-mail</span><input name="email" placeholder="E-mail"></label><label class="field"><span>Tamanho</span><input name="size" placeholder="P, M, G, 42..."></label><label class="field"><span>Objetivo do kit</span><input name="kitGoal" placeholder="Casual, trabalho, pronta entrega..."></label><button class="primary-btn" type="submit">Adicionar lead</button></form>`, false)}`;
-      const accessContent = renderAccessAnalytics(eventsRows, profiles, todayRows, eventRows);
-      const productsContent = `
+      const accessContent = () => renderAccessAnalytics(eventsRows, profiles, todayRows, eventRows);
+      const productsContent = () => `
         ${renderBackofficeSection("Radar de produtos", renderProductDemandRadar(eventsRows, ordersRows), true)}
         ${renderBackofficeSection("Ranking de peças para postar", renderProductPostRanking(eventsRows, ordersRows), true)}
         ${renderBackofficeSection("Radar de problema de produto", renderProductProblemRadar(eventsRows, ordersRows), true)}
         ${renderCommercialReports(eventsRows, ordersRows)}`;
-      const operationContent = `
+      const operationContent = () => `
         ${renderBackofficeSection("Operação da vitrine", `<div class="backoffice-grid">
           <div class="metric-card"><strong>${catalog.ready}</strong><span>Pronta entrega</span></div>
           <div class="metric-card"><strong>${catalog.consultation}</strong><span>Sob consulta</span></div>
@@ -5999,16 +5999,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         ${renderBackofficeSection("Roteiros de venda", renderCommercialScripts(), false)}
         ${renderBackofficeSection("Automações inteligentes", renderAutomationLab(today, activeCarts, eventsRows), false)}`;
       const tabContent = activeBackofficeTab === "clientes"
-        ? clientsContent
+        ? clientsContent()
         : activeBackofficeTab === "instagram"
-          ? instagramContent
+          ? instagramContent()
           : activeBackofficeTab === "acessos"
-            ? accessContent
+            ? accessContent()
             : activeBackofficeTab === "produtos"
-              ? productsContent
+              ? productsContent()
               : activeBackofficeTab === "operacao"
-                ? operationContent
-                : dailyContent;
+                ? operationContent()
+                : dailyContent();
 
       return `
         <div class="backoffice-actions">
@@ -6439,7 +6439,39 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       </div>`;
     }
 
+    let activeBackofficeMemo = null;
+    let backofficeMemoInstalled = false;
+    function memoizeBackofficeRead(fn) {
+      return function(key) {
+        if (!activeBackofficeMemo) return fn(key);
+        let values = activeBackofficeMemo.get(fn);
+        if (!values) { values = new Map(); activeBackofficeMemo.set(fn, values); }
+        if (!values.has(key)) values.set(key, fn(key));
+        return values.get(key);
+      };
+    }
     function renderAdminWorkspace() {
+      if (!backofficeMemoInstalled) {
+        visitorLinkedAccountKey = memoizeBackofficeRead(visitorLinkedAccountKey);
+        eventCustomerKey = memoizeBackofficeRead(eventCustomerKey);
+        profileByCustomerKey = memoizeBackofficeRead(profileByCustomerKey);
+        isInternalCustomerKey = memoizeBackofficeRead(isInternalCustomerKey);
+        isInternalBackofficeRecord = memoizeBackofficeRead(isInternalBackofficeRecord);
+        customerContact = memoizeBackofficeRead(customerContact);
+        customerStage = memoizeBackofficeRead(customerStage);
+        customerLastActivity = memoizeBackofficeRead(customerLastActivity);
+        customerSalesScore = memoizeBackofficeRead(customerSalesScore);
+        customerHasCart = memoizeBackofficeRead(customerHasCart);
+        customerHasOrder = memoizeBackofficeRead(customerHasOrder);
+        customerHasCurationLead = memoizeBackofficeRead(customerHasCurationLead);
+        backofficeMemoInstalled = true;
+      }
+      const previous = activeBackofficeMemo;
+      activeBackofficeMemo = new Map();
+      try { return renderAdminWorkspaceContent(); }
+      finally { activeBackofficeMemo = previous; }
+    }
+    function renderAdminWorkspaceContent() {
       if (!isAdminAccount()) return "";
       const messageHtml = `<div class="account-message${accountMessage ? " visible" : ""}">${safeHtml(accountMessage)}</div>`;
       return `<div class="admin-page-shell">
@@ -6507,7 +6539,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         </section>`;
     }
     function renderBackofficeStandalone() {
-      if (!backofficeStandalone) return;
+      if (!backofficeStandalone || !backofficePage?.classList.contains("open")) return;
       const pageTitle = backofficePage?.querySelector(".backoffice-page-title h2");
       const pageIntro = backofficePage?.querySelector(".backoffice-page-title .backoffice-note");
       const titleMap = { backoffice: "Backoffice", catalog: "Catálogo", groups: "Grupos de produtos" };
