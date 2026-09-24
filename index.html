@@ -2651,9 +2651,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const consultation = products.length - ready - sold;
       const withoutReference = products.filter((product) => !(supplierReference(product) || product.supplierProductId)).length;
       const grouped = new Set(approvedProductGroups.flatMap((group) => group.slugs || [])).size;
-      const possibleGroups = products.filter((product) => similarGroupCandidates(product).length).length;
       const missingDetail = products.length - detailImages;
-      return { products, standardImages, detailImages, ready, sold, consultation, missingDetail, withoutReference, grouped, possibleGroups };
+      return { products, standardImages, detailImages, ready, sold, consultation, missingDetail, withoutReference, grouped };
     }
 
     function productFacts(product) {
@@ -3742,7 +3741,37 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       };
     }
 
-    async function loadBackofficeData(force = false) {
+    let backofficePending = null;
+    let backofficeFetchedAt = 0;
+    let backofficeFetchedOwner = null;
+    let backofficePendingOwner = null;
+    function boundedBackofficeRead(query) {
+      const controller = new AbortController();
+      let timer;
+      const timeout = new Promise((resolve) => {
+        timer = setTimeout(() => { controller.abort(); resolve({ data: null, error: { message: "Tempo de espera excedido." } }); }, 12000);
+      });
+      const request = Promise.resolve(typeof query.abortSignal === "function" ? query.abortSignal(controller.signal) : query)
+        .catch((error) => ({ data: null, error }));
+      return Promise.race([request, timeout]).finally(() => clearTimeout(timer));
+    }
+    function loadBackofficeData(force = false) {
+      if (!isAdminAccount()) return Promise.resolve(null);
+      const owner = account?.id || account?.email;
+      if (backofficePending && backofficePendingOwner === owner) return backofficePending;
+      if (backofficeData && backofficeFetchedOwner === owner && !force && Date.now() - backofficeFetchedAt < 60000) return Promise.resolve(backofficeData);
+      backofficePendingOwner = owner;
+      const pending = fetchBackofficeData(true, owner).then((data) => {
+        if (data && !backofficeError && (account?.id || account?.email) === owner) { backofficeFetchedAt = Date.now(); backofficeFetchedOwner = owner; }
+        return data;
+      }).catch(() => {
+        if (isAdminAccount() && (account?.id || account?.email) === owner) backofficeError = "Não foi possível atualizar agora. As outras abas continuam disponíveis. Tente atualizar novamente.";
+        return null;
+      }).finally(() => { if (backofficePending === pending) backofficePending = null; });
+      backofficePending = pending;
+      return pending;
+    }
+    async function fetchBackofficeData(force = false, owner = account?.id || account?.email) {
       if (!isAdminAccount()) return null;
       const localData = localBackofficeData();
       if (!db) {
@@ -3756,7 +3785,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       // O e-mail configurado libera a interface, mas a leitura completa no
       // Supabase depende da linha em admin_users. Sem isso, o RLS devolve uma
       // lista vazia e simula um painel sem acessos.
-      if (!adminVerified && !await refreshAdminAccess()) {
+      const access = !adminVerified ? await boundedBackofficeRead(Promise.resolve().then(() => refreshAdminAccess()).then((verified) => ({ data: verified }))) : { data: true };
+      if (!access.data) {
         backofficeError = "A conta está reconhecida, mas ainda não tem permissão no banco para ler os dados completos. Rode supabase/backoffice-accesses-fix.sql no SQL Editor e entre novamente.";
         return null;
       }
@@ -3771,7 +3801,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         db.from("customer_events").select("*").order("created_at", { ascending: false }).limit(420),
         db.from("instagram_leads").select("id,external_id,handle,name,city,source,origin,follows_profile,context,note,status,score,last_interaction_at,created_at,updated_at").order("score", { ascending: false }).order("last_interaction_at", { ascending: false }).limit(90),
         db.rpc("backoffice_customer_event_health").maybeSingle(),
-      ]);
+      ].map(boundedBackofficeRead));
+      if (!isAdminAccount() || (account?.id || account?.email) !== owner) return null;
       // Cada fonte do Backoffice é independente. Uma permissão ou falha temporária
       // em clientes/carrinhos não pode esconder a fila de leads do Instagram,
       // que tem política própria e é a prioridade comercial desta tela.
@@ -3784,8 +3815,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         instagramLeads: instagramLeadsResult.error ? localData.instagramLeads : [...(instagramLeadsResult.data || []), ...localData.instagramLeads],
         events: [...(eventsResult.error ? [] : (eventsResult.data || [])), ...localData.events].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)),
       };
+      const incomplete = [profilesResult, addressesResult, cartsResult, favoritesResult, ordersResult, eventsResult, instagramLeadsResult].some((result) => result.error);
       backofficeEventHealth = eventHealthResult.error ? null : eventHealthResult.data || null;
-      backofficeLoadedAt = formatDateTime(new Date().toISOString());
+      backofficeLoadedAt = formatDateTime(new Date().toISOString()) + (incomplete ? " · Dados parciais: algumas fontes não responderam. Use Atualizar dados." : "");
       return backofficeData;
     }
 
@@ -5785,11 +5817,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function renderBackofficePanel() {
+      if (backofficePending && !backofficeData) return `<div class="account-card" role="status"><strong>Carregando dados…</strong><span class="muted">Você já pode abrir Catálogo, Grupos ou Editor do site.</span></div>`;
       if (!backofficeData && isAdminAccount()) {
         backofficeData = localBackofficeData();
         backofficeLoadedAt = formatDateTime(new Date().toISOString()) + " (local)";
       }
-      if (backofficeError) return `<div class="account-card"><strong>Permissão pendente</strong><span class="muted">${backofficeError}</span></div><button class="primary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>`;
+      if (backofficeError) return `<div class="account-card" role="status"><strong>Atualização pendente</strong><span class="muted">${safeHtml(backofficeError)}</span></div><button class="primary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>`;
       if (!backofficeData) return `<div class="account-card"><strong>Backoffice pronto</strong><span class="muted">Clique em atualizar para carregar clientes, carrinhos, pedidos e acessos do Supabase.</span></div><button class="primary-btn" type="button" data-refresh-backoffice>Atualizar dados</button>`;
 
       const profiles = (backofficeData.profiles || []).filter((item) => !isInternalBackofficeRecord(item));
@@ -6462,7 +6495,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function renderAdminPanel() {
-      if (!isAdminAccount()) return "";
+      if (!isAdminAccount() || activeAccountTab !== "admin" || backofficePage?.classList.contains("open")) return "";
       return `
         <section class="account-panel${activeAccountTab === "admin" ? " active" : ""}" data-panel="admin">
           <h3>Backoffice SCORSATTO</h3>
@@ -6507,8 +6540,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       closeCart();
       backofficePage?.classList.add("open");
       document.body.style.overflow = "hidden";
-      if (isAdminAccount() && activeAdminView === "backoffice") await loadBackofficeData(force);
+      const pending = isAdminAccount() && activeAdminView === "backoffice" ? loadBackofficeData(force) : null;
       renderBackofficeStandalone();
+      if (pending) {
+        await pending;
+        if (isAdminAccount() && activeAdminView === "backoffice" && backofficePage?.classList.contains("open")) renderBackofficeStandalone();
+      }
     }
 
     async function openAdminPage(view = "backoffice", updateHash = true) {
@@ -6518,7 +6555,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         const route = activeAdminView === "groups" ? "#admin-grupos" : activeAdminView === "catalog" ? "#admin-catalogo" : "#admin-backoffice";
         history.replaceState(null, "", route);
       }
-      await openBackofficePage(true);
+      await openBackofficePage(false);
       if (activeAdminView === "groups" && backofficeStandalone && !backofficeStandalone.innerHTML.trim()) {
         backofficeStandalone.innerHTML = renderGroupAdminFallback();
       }
