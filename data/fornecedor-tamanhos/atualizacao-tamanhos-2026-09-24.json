@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-09-24T15:20:04Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16006",
+      "name": "Camisa Social - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-tricoline-preto-xadrez-grande-camisasocialxe00011",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16277",
+      "name": "Gola Polo Premium - Bege",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-bege-15533274590",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
