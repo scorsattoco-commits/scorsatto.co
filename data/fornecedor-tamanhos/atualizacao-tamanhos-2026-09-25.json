@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-09-25T15:23:07Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 6,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15184",
+      "name": "Camiseta Algodão Egípcio - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-preto-com-azul-rl000036",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16151",
+      "name": "Jaqueta Puffer - Preto",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-bege-copia-pufferxe00010",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16612",
+      "name": "Camiseta Pima Jersey - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-be-jerseylct00010",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16614",
+      "name": "Camiseta Pima Jersey - Cinza",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-cinza-jerseylct00012",
+      "oldSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16616",
+      "name": "Camiseta Pima Jersey - Verde",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-verde-jerseylct00014",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
