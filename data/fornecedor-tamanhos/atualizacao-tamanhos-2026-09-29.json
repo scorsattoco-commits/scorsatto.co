@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-09-29T16:34:44Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16615",
+      "name": "Camiseta Pima Jersey - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-marrom-jerseylct00013",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
