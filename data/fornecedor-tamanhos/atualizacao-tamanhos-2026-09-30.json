@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-09-30T16:29:35Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 250,
+  "failureCount": 3,
+  "failureRate": 1.2,
+  "health": "attention",
+  "failures": [
+    {
+      "id": "scp-16158",
+      "url": "https://www.catalogopoa.com.br/calca-moletom-xe-azul-marinho-calcamolxe00004",
+      "failureType": "request-error",
+      "reason": "Remote end closed connection without response"
+    },
+    {
+      "id": "scp-16151",
+      "url": "https://www.catalogopoa.com.br/jaqueta-xe-gominho-grossa-bege-copia-pufferxe00010",
+      "failureType": "request-error",
+      "reason": "<urlopen error _ssl.c:993: The handshake operation timed out>"
+    },
+    {
+      "id": "scp-16124",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-off-white-molsemxe00039",
+      "failureType": "request-error",
+      "reason": "<urlopen error [Errno 104] Connection reset by peer>"
+    }
+  ],
+  "changes": [
+    {
+      "id": "scp-16316",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-preto-camisasocialxe00021",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16602",
+      "name": "Calça Sarja - Marrom",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-marrom-escuro-404018079",
+      "oldSizes": [
+        "38",
+        "40",
+        "44",
+        "48"
+      ],
+      "newSizes": [
+        "38",
+        "40",
+        "42",
+        "44",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
