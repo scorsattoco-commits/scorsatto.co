@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-10-01T17:05:20Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 3,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15707",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-rl-slin-azul-escuro-premiumrl0002",
+      "oldSizes": [
+        "38",
+        "40"
+      ],
+      "newSizes": [
+        "40"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-14584",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-arm-skinny-azul-escuro-401003108",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15153",
+      "name": "Bermuda Sarja - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-xe-azul-marinho-bermsarjaxe0003",
+      "oldSizes": [
+        "38",
+        "40",
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    }
+  ]
+}
