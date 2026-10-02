@@ -1,0 +1,46 @@
+{
+  "generatedAt": "2026-10-02T16:19:35Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-12293",
+      "name": "Camiseta Algodão Egípcio - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-algodao-egipcio-rl-preto-rl000026",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
