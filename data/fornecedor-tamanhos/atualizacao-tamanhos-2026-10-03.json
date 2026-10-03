@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-10-03T14:47:09Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16047",
+      "name": "Sueter Meio Ziper - Cinza",
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-sueterpremium00016",
+      "oldSizes": [
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
