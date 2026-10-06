@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-10-06T16:53:03Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16601",
+      "name": "Calça Sarja - Off White",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-off-white-404018078",
+      "oldSizes": [
+        "40",
+        "42",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "40",
+        "42",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
