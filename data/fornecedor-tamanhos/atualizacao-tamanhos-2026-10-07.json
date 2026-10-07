@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-10-07T17:30:13Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 3,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16047",
+      "name": "Sueter Meio Ziper - Cinza",
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-sueterpremium00016",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16498",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-vinho-15533274515",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16276",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-v-15533274589",
+      "oldSizes": [
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
