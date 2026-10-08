@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-10-08T17:28:35Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 8,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15707",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-rl-slin-azul-escuro-premiumrl0002",
+      "oldSizes": [
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15876",
+      "name": "Calca Jeans - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-calcajeansxe000016",
+      "oldSizes": [
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16616",
+      "name": "Camiseta Pima Jersey - Verde",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-verde-jerseylct00014",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16615",
+      "name": "Camiseta Pima Jersey - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-marrom-jerseylct00013",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16606",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+      "oldSizes": [
+        "44",
+        "48"
+      ],
+      "newSizes": [
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16630",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-preto-jerseyrl0004",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16598",
+      "name": "Camisa Social Xadrez - Azul",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-xadrez-azul-com-vermelho-camisasocialxe00023",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16599",
+      "name": "Camisa Social Xadrez - Azul",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-xadrez-cinza-com-azu-camisasocialxe00024",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
