@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-10-09T17:06:49Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 3,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14897",
+      "name": "Calça Jeans Skinny - Azul",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-azul-401018039",
+      "oldSizes": [
+        "48"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16275",
+      "name": "Gola Polo Premium - Cinza Claro",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-ci-15533274588",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16615",
+      "name": "Camiseta Pima Jersey - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-marrom-jerseylct00013",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
