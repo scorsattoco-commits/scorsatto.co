@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-10-12T19:54:53Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15840",
+      "name": "Camiseta Supima - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-azul-marinho-supimarl00004",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16111",
+      "name": "Sueter Meio Ziper - Marrom",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-marrom-sueterziperxe0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
