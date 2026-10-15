@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-10-15T15:10:59Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 4,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15835",
+      "name": "Camiseta Supima - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe00017",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16498",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-vinho-15533274515",
+      "oldSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16496",
+      "name": "Gola Polo Premium - Verde",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-verde-155332745103",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16611",
+      "name": "Camiseta Supima Polo Sport - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl000010",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
