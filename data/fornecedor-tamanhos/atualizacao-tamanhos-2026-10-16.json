@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-10-16T14:57:09Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 5,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15838",
+      "name": "Camiseta Supima - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl00002",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15824",
+      "name": "Camiseta Supima - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-bege-supimaxe00011",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16497",
+      "name": "Gola Polo Premium - Cinza Claro",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-cinza-claro-155332745104",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16498",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-vinho-15533274515",
+      "oldSizes": [
+        "M",
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16631",
+      "name": "Camiseta Pima Jersey - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-azul-marinh-jerseyrl0005",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
