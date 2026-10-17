@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-10-17T13:49:59Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 0,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": []
+}
