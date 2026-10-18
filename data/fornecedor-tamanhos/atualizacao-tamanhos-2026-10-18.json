@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-10-18T14:05:21Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15838",
+      "name": "Camiseta Supima - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl00002",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15841",
+      "name": "Camiseta Supima - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-marrom-supimarl00005",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
