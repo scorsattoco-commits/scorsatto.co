@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-10-19T17:04:17Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15875",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-rl-skinny-azul-escuro-premiumrl0003",
+      "oldSizes": [
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-14053",
+      "name": "Bermuda Linho - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-hb-azul-marinho-mauhb001",
+      "oldSizes": [
+        "P",
+        "M"
+      ],
+      "newSizes": [
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
