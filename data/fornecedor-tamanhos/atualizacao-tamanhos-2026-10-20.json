@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-10-20T15:15:03Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 3,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14575",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-copia-4010160014",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16111",
+      "name": "Sueter Meio Ziper - Marrom",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-marrom-sueterziperxe0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16493",
+      "name": "Gola Polo Premium - Branco",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-branc-155332745100",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
