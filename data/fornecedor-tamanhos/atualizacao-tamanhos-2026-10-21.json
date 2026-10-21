@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-10-21T15:27:30Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 4,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14208",
+      "name": "Bermuda Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/bermuda-jeans-hb-azul-escur-302006079",
+      "oldSizes": [
+        "38",
+        "40"
+      ],
+      "newSizes": [
+        "38"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16601",
+      "name": "Calça Sarja - Off White",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-off-white-404018078",
+      "oldSizes": [
+        "40",
+        "42",
+        "48"
+      ],
+      "newSizes": [
+        "40",
+        "42"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16595",
+      "name": "Camisa Social Oxford - Azul Claro",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-claro-302902139",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
