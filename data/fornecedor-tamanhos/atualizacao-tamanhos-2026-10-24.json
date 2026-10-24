@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-10-24T14:04:08Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14672",
+      "name": "Calca Jeans - Marrom",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-marrom-calcajeansxe00002",
+      "oldSizes": [
+        "38",
+        "40",
+        "44",
+        "46"
+      ],
+      "newSizes": [
+        "38",
+        "40",
+        "42",
+        "44",
+        "46"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-14673",
+      "name": "Calca Jeans - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-escuro-calcajeansxe00003",
+      "oldSizes": [
+        "38",
+        "40"
+      ],
+      "newSizes": [
+        "40"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
