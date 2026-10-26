@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-10-26T16:51:20Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16034",
+      "name": "Camiseta Pima Jersey - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-arm-b-jerseyarm00016",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
