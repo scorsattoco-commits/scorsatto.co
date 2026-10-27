@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-10-27T15:56:48Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 9,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15644",
+      "name": "Camiseta Pima - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-xe-preto-pimajerseyxe0054",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15546",
+      "name": "Camisa Social - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-tricoline-rl-xadrez-preto-302902137",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16047",
+      "name": "Sueter Meio Ziper - Cinza",
+      "url": "https://www.catalogopoa.com.br/sueter-rl-meio-ziper-cinza-sueterpremium00016",
+      "oldSizes": [
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16613",
+      "name": "Camiseta Pima Jersey - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-branco-jerseylct00011",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16614",
+      "name": "Camiseta Pima Jersey - Cinza",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-cinza-jerseylct00012",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16616",
+      "name": "Camiseta Pima Jersey - Verde",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-verde-jerseylct00014",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16606",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+      "oldSizes": [
+        "48"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16597",
+      "name": "Camisa Social Oxford - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-marinho-302902141",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
