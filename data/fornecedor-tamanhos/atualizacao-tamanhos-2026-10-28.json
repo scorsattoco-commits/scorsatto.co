@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-10-28T16:45:16Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 4,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15546",
+      "name": "Camisa Social - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-tricoline-rl-xadrez-preto-302902137",
+      "oldSizes": [],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16606",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+      "oldSizes": [],
+      "newSizes": [
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16631",
+      "name": "Camiseta Pima Jersey - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-azul-marinh-jerseyrl0005",
+      "oldSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16597",
+      "name": "Camisa Social Oxford - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-marinho-302902141",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
