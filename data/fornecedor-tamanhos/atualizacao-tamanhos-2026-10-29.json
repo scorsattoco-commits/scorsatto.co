@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-10-29T17:01:04Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15546",
+      "name": "Camisa Social - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-tricoline-rl-xadrez-preto-302902137",
+      "oldSizes": [
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
