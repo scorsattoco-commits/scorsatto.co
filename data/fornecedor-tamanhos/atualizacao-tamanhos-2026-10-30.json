@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-10-30T16:45:50Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14673",
+      "name": "Calca Jeans - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-skinny-cinza-escuro-calcajeansxe00003",
+      "oldSizes": [
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
