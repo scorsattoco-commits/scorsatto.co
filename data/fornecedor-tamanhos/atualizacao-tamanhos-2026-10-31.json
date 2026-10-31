@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-10-31T15:48:38Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14215",
+      "name": "Bermuda Sarja - Off White",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-xe-off-white-043",
+      "oldSizes": [
+        "40"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
