@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-11-04T18:09:03Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15288",
+      "name": "Calça Sarja - Cinza Claro",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-cinza-claro-calcasarjaxe0003",
+      "oldSizes": [
+        "38",
+        "46"
+      ],
+      "newSizes": [
+        "38"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
