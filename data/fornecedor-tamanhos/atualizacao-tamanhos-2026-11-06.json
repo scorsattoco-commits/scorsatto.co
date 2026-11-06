@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-11-06T17:36:46Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16500",
+      "name": "Gola Polo Premium - Azul",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-azul-15533274517",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16603",
+      "name": "Calça Sarja - Marrom",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-marrom-claro-404018080",
+      "oldSizes": [
+        "38",
+        "42",
+        "44",
+        "48"
+      ],
+      "newSizes": [
+        "38",
+        "44",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
