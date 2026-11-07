@@ -407,6 +407,23 @@
     .admin-photo-card { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); display: grid; gap: 8px; padding: 8px; }
     .admin-photo-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--soft); mix-blend-mode: multiply; }
     .admin-photo-card button { min-height: 34px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .manual-catalog { border: 1px solid var(--black); border-radius: var(--radius-control); background: var(--paper); padding: 16px; display: grid; gap: 14px; }
+    .manual-catalog-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    .manual-catalog-head h3 { margin: 3px 0 5px; font-size: 20px; }
+    .manual-catalog-head p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; max-width: 760px; }
+    .manual-catalog-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .manual-catalog-grid .wide { grid-column: 1 / -1; }
+    .manual-variants { display: grid; gap: 10px; }
+    .manual-variant { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); padding: 12px; display: grid; gap: 10px; }
+    .manual-variant-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .manual-variant-head strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .manual-variant-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+    .manual-size-grid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(86px, 1fr)); gap: 7px; }
+    .manual-size-item { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 7px; display: grid; gap: 5px; }
+    .manual-size-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .manual-size-item input { width: 100%; min-height: 34px; border: 1px solid var(--line); background: var(--white); padding: 0 8px; }
+    .manual-catalog-summary { border: 1px solid var(--line); background: var(--white); padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .manual-catalog-summary strong { color: var(--black); }
     .admin-page-shell { display: grid; gap: 16px; }
     .admin-page-content { display: grid; gap: 14px; }
     .admin-health-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
@@ -580,7 +597,8 @@
       .gallery-arrow { width: 36px; height: 36px; font-size: 21px; }
       .gallery-arrow.prev { left: 8px; }
       .gallery-arrow.next { right: 8px; }
-      .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command, .instagram-command-grid { grid-template-columns: 1fr; }
+      .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command, .instagram-command-grid, .manual-catalog-grid, .manual-variant-grid { grid-template-columns: 1fr; }
+      .manual-catalog-head { display: grid; }
       .instagram-flow { grid-template-columns: 1fr; }
       .instagram-hero-top, .instagram-queue-head { display: grid; }
       .backoffice-grid, .admin-health-grid, .instagram-command-grid, .backoffice-section, .metric-card, .instagram-lead-card { width: 100%; max-width: 100%; min-width: 0; }
@@ -996,6 +1014,16 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     let adminCatalogFilter = "all";
     let adminCatalogLimit = 60;
     let adminCatalogSearchTimer = 0;
+    let manualCatalogOpen = false;
+    let manualCatalogDraftTimer = 0;
+    let manualCatalogDraft = (() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem("scorsattoManualCatalogDraftV1") || "null");
+        return saved && typeof saved === "object" ? saved : null;
+      } catch {
+        return null;
+      }
+    })();
     let catalogSyncState = "idle";
     let catalogSyncMessage = "Aguardando sincronização";
     let catalogLastSyncedAt = "";
@@ -2449,15 +2477,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       applyApprovedGroups([payload, ...withoutUsedProducts]);
       localStorage.setItem("scorsattoPublishedGroupsV1", JSON.stringify(approvedProductGroups));
       if (db && account?.id) {
-        const { error } = await db.from("product_groups").upsert({
-          id: payload.id,
-          name: draft.name,
-          data: payload,
-          active: true,
+        const { error } = await db.from("product_overrides").upsert({
+          slug: "__group__:" + payload.id,
+          data: { _manualGroup: payload, _meta: { updatedAt: new Date().toISOString(), updatedBy: "Administrador SCORSATTO", verified: true } },
           updated_by: account.id,
           updated_at: new Date().toISOString(),
         });
-        if (error) accountMessage = "Grupo aplicado nesta sessão e exportado localmente. Para salvar no banco, crie a tabela product_groups no Supabase.";
+        if (error) accountMessage = "Grupo aplicado nesta sessão, mas não foi possível salvá-lo no banco.";
         else accountMessage = "Grupo aprovado e salvo no banco.";
       } else {
         accountMessage = "Grupo aprovado nesta sessão. Use Exportar JSON para publicar como base definitiva.";
@@ -2850,7 +2876,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function applyProductOverride(slug, override) {
-      const product = PRODUCTS.find((item) => item.slug === slug);
+      if (override?._manualGroup) return;
+      let product = PRODUCTS.find((item) => item.slug === slug);
+      if (!product && override?._manualProduct && typeof override._manualProduct === "object") {
+        product = {
+          ...override._manualProduct,
+          slug,
+          id: override._manualProduct.id || "manual-" + slug,
+          manual: true,
+          curated: true,
+        };
+        PRODUCTS.push(product);
+      }
       if (!product || !override) return;
       if (typeof override.name === "string") product.name = override.name;
       if (Number.isFinite(Number(override.price)) && Number(override.price) >= 0) product.price = Number(override.price);
@@ -2871,9 +2908,20 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       Object.entries(productOverrides).forEach(([slug, override]) => applyProductOverride(slug, override));
     }
 
+    function mergeApprovedGroupSources(groups = []) {
+      const byId = new Map();
+      [...groups, ...PRODUCT_GROUPS].forEach((group) => {
+        const normalized = normalizeGroupPayload(group);
+        if (normalized && !byId.has(normalized.id)) byId.set(normalized.id, normalized);
+      });
+      applyApprovedGroups([...byId.values()]);
+      localStorage.setItem("scorsattoPublishedGroupsV1", JSON.stringify(approvedProductGroups));
+    }
+
     async function loadProductOverrides() {
       catalogSyncState = "saving";
       catalogSyncMessage = "Sincronizando catálogo";
+      let loadedManualGroups = [];
       if (db) {
         const { data, error } = await db.from("product_overrides").select("slug,data");
         if (error) {
@@ -2881,7 +2929,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           catalogSyncMessage = "Falha ao carregar alterações";
           console.warn("Não foi possível carregar as alterações do catálogo.", error);
         } else if (data) {
-          productOverrides = Object.fromEntries(data.map((row) => [row.slug, row.data || {}]));
+          loadedManualGroups = data.map((row) => row.data?._manualGroup).filter(Boolean);
+          productOverrides = Object.fromEntries(data.filter((row) => !row.data?._manualGroup).map((row) => [row.slug, row.data || {}]));
           localStorage.setItem("scorsattoProductOverridesV1", JSON.stringify(productOverrides));
           catalogSyncState = "ok";
           catalogLastSyncedAt = new Date().toISOString();
@@ -2892,6 +2941,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         catalogSyncMessage = "Banco indisponível";
       }
       applyProductOverrides();
+      if (loadedManualGroups.length) mergeApprovedGroupSources(loadedManualGroups);
       updateShopHeader();
       renderFilters();
       renderProducts();
@@ -6382,6 +6432,216 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         </form>`;
     }
 
+    function defaultManualCatalogDraft() {
+      return {
+        groupName: "",
+        baseName: "",
+        brand: "",
+        collection: "camisetas",
+        price: "",
+        description: "",
+        presentation: "group",
+        visibility: "draft",
+        variants: [{ id: "variant-" + Date.now(), color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} }],
+      };
+    }
+
+    function ensureManualCatalogDraft() {
+      if (!manualCatalogDraft || typeof manualCatalogDraft !== "object") manualCatalogDraft = defaultManualCatalogDraft();
+      if (!Array.isArray(manualCatalogDraft.variants) || !manualCatalogDraft.variants.length) manualCatalogDraft.variants = defaultManualCatalogDraft().variants;
+      return manualCatalogDraft;
+    }
+
+    function saveManualCatalogDraft() {
+      localStorage.setItem("scorsattoManualCatalogDraftV1", JSON.stringify(ensureManualCatalogDraft()));
+    }
+
+    function manualCatalogSlug(value) {
+      return normalize(value).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    function syncManualCatalogDraftFromForm(form) {
+      if (!form) return ensureManualCatalogDraft();
+      const draft = ensureManualCatalogDraft();
+      ["groupName", "baseName", "brand", "collection", "price", "description", "presentation", "visibility"].forEach((field) => {
+        if (form.elements[field]) draft[field] = String(form.elements[field].value || "").trim();
+      });
+      draft.variants = [...form.querySelectorAll("[data-manual-variant]")].map((card) => {
+        const sizes = sortSizes(cleanList(card.querySelector("[data-manual-sizes]")?.value || ""));
+        const stock = {};
+        card.querySelectorAll("[data-manual-stock-size]").forEach((input) => {
+          stock[input.dataset.manualStockSize] = Math.max(0, Math.floor(Number(input.value || 0)));
+        });
+        return {
+          id: card.dataset.manualVariant,
+          color: String(card.querySelector("[data-manual-color]")?.value || "").trim(),
+          reference: String(card.querySelector("[data-manual-reference]")?.value || "").trim(),
+          image: String(card.querySelector("[data-manual-image]")?.value || "").trim(),
+          sizes,
+          stock: normalizeStock(stock, sizes),
+        };
+      });
+      saveManualCatalogDraft();
+      return draft;
+    }
+
+    function renderManualCatalogForm() {
+      const draft = ensureManualCatalogDraft();
+      const readyVariants = draft.variants.filter((variant) => Object.values(variant.stock || {}).some((value) => Number(value) > 0)).length;
+      return `<form class="manual-catalog" data-account-form="manual-catalog" id="manualCatalogForm">
+        <div class="manual-catalog-head">
+          <div><span class="eyebrow">Inclusão manual</span><h3>Novo grupo ou peça individual</h3><p>Cadastre as cores como variações da mesma peça. Quantidade maior que zero significa pronta entrega naquele tamanho; quantidade zero mantém o tamanho sob consulta.</p></div>
+          <button class="secondary-btn" type="button" data-close-manual-catalog>Fechar</button>
+        </div>
+        <div class="manual-catalog-grid">
+          <label class="field"><span>Marca</span><input name="brand" value="${safeHtml(draft.brand || "")}" placeholder="Ex.: Ralph Lauren" required></label>
+          <label class="field"><span>Nome da peça</span><input name="baseName" value="${safeHtml(draft.baseName || "")}" placeholder="Ex.: Camiseta Pima" required></label>
+          <label class="field"><span>Categoria</span><select name="collection"><option value="camisetas"${draft.collection === "camisetas" ? " selected" : ""}>Camisetas</option><option value="gola-polo"${draft.collection === "gola-polo" ? " selected" : ""}>Gola polo</option><option value="camisa-social"${draft.collection === "camisa-social" ? " selected" : ""}>Camisa social</option><option value="manga-longa"${draft.collection === "manga-longa" ? " selected" : ""}>Manga longa</option><option value="calcas"${draft.collection === "calcas" ? " selected" : ""}>Calças</option><option value="bermudas"${draft.collection === "bermudas" ? " selected" : ""}>Bermudas</option><option value="casacos"${draft.collection === "casacos" ? " selected" : ""}>Casacos</option><option value="jaquetas"${draft.collection === "jaquetas" ? " selected" : ""}>Jaquetas</option><option value="sueteres"${draft.collection === "sueteres" ? " selected" : ""}>Suéteres</option><option value="acessorios"${draft.collection === "acessorios" ? " selected" : ""}>Acessórios</option></select></label>
+          <label class="field"><span>Preço de venda</span><input name="price" type="number" min="0" step="0.01" value="${safeHtml(draft.price || "")}" placeholder="199,90" required></label>
+          <label class="field"><span>Exibição</span><select name="presentation"><option value="group"${draft.presentation === "group" ? " selected" : ""}>Agrupar as cores</option><option value="separate"${draft.presentation === "separate" ? " selected" : ""}>Manter peças separadas</option></select></label>
+          <label class="field"><span>Nome do grupo</span><input name="groupName" value="${safeHtml(draft.groupName || "")}" placeholder="Preenchido automaticamente se vazio"></label>
+          <label class="field"><span>Publicação</span><select name="visibility"><option value="draft"${draft.visibility !== "public" ? " selected" : ""}>Salvar como rascunho</option><option value="public"${draft.visibility === "public" ? " selected" : ""}>Publicar no site</option></select></label>
+          <label class="field wide"><span>Descrição</span><textarea name="description" rows="3" placeholder="Tecido, caimento e detalhes reais da peça">${safeHtml(draft.description || "")}</textarea></label>
+        </div>
+        <div class="manual-variants">
+          ${draft.variants.map((variant, index) => {
+            const sizes = sortSizes(variant.sizes || []);
+            return `<section class="manual-variant" data-manual-variant="${safeHtml(variant.id)}">
+              <div class="manual-variant-head"><strong>Cor ${index + 1}</strong><button class="admin-row-action secondary" type="button" data-remove-manual-variant="${safeHtml(variant.id)}"${draft.variants.length === 1 ? " disabled" : ""}>Remover</button></div>
+              <div class="manual-variant-grid">
+                <label class="field"><span>Cor</span><input data-manual-color value="${safeHtml(variant.color || "")}" placeholder="Ex.: Azul-marinho" required></label>
+                <label class="field"><span>Referência real</span><input data-manual-reference value="${safeHtml(variant.reference || "")}" placeholder="Código único" required></label>
+                <label class="field"><span>Tamanhos</span><input data-manual-sizes value="${safeHtml(sizes.join(", "))}" placeholder="P, M, G, GG" required></label>
+                <label class="field"><span>Foto real/padrão</span><input data-manual-image value="${safeHtml(variant.image || "")}" placeholder="URL ou caminho da imagem" required></label>
+                <div class="manual-size-grid">${sizes.map((size) => `<label class="manual-size-item"><span>${safeHtml(size)}</span><input data-manual-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(variant.stock?.[size] || 0))}" aria-label="Quantidade ${safeHtml(size)}"></label>`).join("")}</div>
+              </div>
+              <div class="backoffice-actions"><span class="backoffice-note">Altere a lista de tamanhos e clique em atualizar antes de informar as quantidades.</span><button class="admin-row-action secondary" type="button" data-refresh-manual-sizes="${safeHtml(variant.id)}">Atualizar tamanhos</button></div>
+            </section>`;
+          }).join("")}
+          <button class="secondary-btn" type="button" data-add-manual-variant>+ Adicionar outra cor</button>
+        </div>
+        <div class="manual-catalog-summary"><strong>${draft.variants.length} cor(es)</strong> · ${readyVariants} com algum tamanho em pronta entrega · ${draft.presentation === "group" ? "serão exibidas juntas" : "serão mantidas separadas"}.</div>
+        <label class="field-check"><input name="identityConfirmed" type="checkbox" required> Conferi peça, cor, modelo, tecido, referência, foto e tamanhos. Autorizo salvar esta inclusão.</label>
+        <div class="backoffice-actions"><span class="backoffice-note">Nada é publicado sem esta confirmação. Rascunhos ficam ocultos dos clientes.</span><button class="primary-btn" type="submit">Revisar e salvar</button></div>
+      </form>`;
+    }
+
+    function buildManualCatalogPayload(form) {
+      const draft = syncManualCatalogDraftFromForm(form);
+      const price = Number(draft.price);
+      if (!draft.brand || !draft.baseName) throw new Error("Informe marca e nome da peça.");
+      if (!Number.isFinite(price) || price <= 0) throw new Error("Informe um preço de venda válido.");
+      if (draft.presentation === "group" && draft.variants.length < 2) throw new Error("Para criar um grupo, adicione pelo menos duas cores. Com uma cor, escolha manter separada.");
+      if (!form.elements.identityConfirmed?.checked) throw new Error("Confirme a conferência humana da peça antes de salvar.");
+      const seenReferences = new Set();
+      const seenColors = new Set();
+      const products = draft.variants.map((variant) => {
+        const reference = variant.reference.trim();
+        const color = variant.color.trim();
+        const sizes = sortSizes(variant.sizes || []);
+        const image = variant.image.trim();
+        if (!reference || !color || !image || !sizes.length) throw new Error("Cada cor precisa de referência real, foto e pelo menos um tamanho.");
+        const referenceKey = normalize(reference);
+        const colorKey = normalize(color);
+        if (seenReferences.has(referenceKey)) throw new Error(`A referência ${reference} está repetida neste cadastro.`);
+        if (seenColors.has(colorKey)) throw new Error(`A cor ${color} está repetida neste cadastro.`);
+        const existing = PRODUCTS.find((item) => normalize(supplierReference(item) || item.supplierProductId || "") === referenceKey);
+        if (existing) throw new Error(`A referência ${reference} já pertence a ${displayProductName(existing)}.`);
+        seenReferences.add(referenceKey);
+        seenColors.add(colorKey);
+        const stock = normalizeStock(variant.stock || {}, sizes);
+        const ready = Object.values(stock).some((quantity) => Number(quantity) > 0);
+        const slug = `${manualCatalogSlug(draft.baseName)}-${manualCatalogSlug(color)}-${manualCatalogSlug(reference)}`;
+        const visibility = draft.visibility === "public" ? "public" : "draft";
+        const product = {
+          id: "manual-" + manualCatalogSlug(reference),
+          supplierProductId: reference,
+          slug,
+          name: `${draft.baseName} - ${color}`,
+          collection: draft.collection || "outros",
+          price,
+          cost: 0,
+          margin: price,
+          supplierUrl: "cadastro-manual-scorsatto",
+          supplierName: "Cadastro manual SCORSATTO",
+          status: ready ? "disponivel" : "sob-consulta",
+          curated: true,
+          manual: true,
+          lastCheckedAt: new Date().toISOString().slice(0, 10),
+          images: [image],
+          sizes,
+          stock,
+          description: draft.description || "",
+          composition: "Conferir etiqueta da peça.",
+          care: "Consultar etiqueta original antes da lavagem.",
+          tags: [draft.brand, draft.baseName, color, "cadastro-manual", ready ? "pronta-entrega" : "sob-consulta"],
+          internalNotes: "Inclusão manual aprovada no catálogo administrativo SCORSATTO.",
+          variantLabel: color,
+          visibility,
+          hidden: visibility !== "public",
+        };
+        return { product, color, override: { ...product, _manualProduct: product } };
+      });
+      const groupName = draft.groupName || `${draft.brand} - ${draft.baseName}`;
+      const groupId = "manual-" + manualCatalogSlug(groupName) + "-" + Date.now().toString(36);
+      const group = draft.presentation === "group" ? {
+        id: groupId,
+        name: groupName,
+        canonicalSlug: products[0].product.slug,
+        slugs: products.map((item) => item.product.slug),
+        labels: Object.fromEntries(products.map((item) => [item.product.slug, item.color])),
+      } : null;
+      return { draft, products, group };
+    }
+
+    async function submitManualCatalogForm(form, render) {
+      const button = form.querySelector("button[type='submit']");
+      if (button) button.disabled = true;
+      try {
+        if (!isAdminAccount() || !db || !account?.id || !await refreshAdminAccess()) throw new Error("Sua sessão administrativa não tem permissão para publicar.");
+        const payload = buildManualCatalogPayload(form);
+        const readySizes = payload.products.reduce((total, item) => total + Object.values(item.product.stock).filter((quantity) => Number(quantity) > 0).length, 0);
+        const action = payload.draft.visibility === "public" ? "PUBLICAR" : "SALVAR COMO RASCUNHO";
+        const confirmed = window.confirm(`${action}: ${payload.products.length} cor(es), ${readySizes} tamanho(s) em pronta entrega${payload.group ? ", agrupadas no site" : ", mantidas separadas"}. Confirma?`);
+        if (!confirmed) return;
+        const savedAt = new Date().toISOString();
+        const rows = payload.products.map((item) => ({
+          slug: item.product.slug,
+          data: { ...item.override, _meta: { updatedAt: savedAt, updatedBy: "Administrador SCORSATTO", verified: false, history: [] } },
+          updated_by: account.id,
+          updated_at: savedAt,
+        }));
+        if (payload.group) rows.push({
+          slug: "__group__:" + payload.group.id,
+          data: { _manualGroup: payload.group, _meta: { updatedAt: savedAt, updatedBy: "Administrador SCORSATTO", verified: false } },
+          updated_by: account.id,
+          updated_at: savedAt,
+        });
+        const { error } = await db.from("product_overrides").upsert(rows);
+        if (error) throw new Error(`Nada foi publicado: ${error.message || "erro no banco"}`);
+        const rowSlugs = rows.map((row) => row.slug);
+        const { data: verifiedRows, error: verifyError } = await db.from("product_overrides").select("slug,data,updated_at").in("slug", rowSlugs);
+        if (verifyError || !verifiedRows || verifiedRows.length !== rows.length) throw new Error("O banco recebeu o cadastro, mas a conferência final não terminou. Sincronize o catálogo antes de tentar novamente.");
+        verifiedRows.filter((row) => !row.data?._manualGroup).forEach((row) => {
+          productOverrides[row.slug] = { ...row.data, _meta: { ...(row.data._meta || {}), verified: true, verifiedAt: new Date().toISOString() } };
+          applyProductOverride(row.slug, productOverrides[row.slug]);
+        });
+        localStorage.setItem("scorsattoProductOverridesV1", JSON.stringify(productOverrides));
+        if (payload.group) mergeApprovedGroupSources([payload.group]);
+        activeAdminSlug = payload.products[0].product.slug;
+        manualCatalogDraft = defaultManualCatalogDraft();
+        saveManualCatalogDraft();
+        manualCatalogOpen = false;
+        accountMessage = `${payload.products.length} peça(s) ${payload.draft.visibility === "public" ? "publicada(s)" : "salva(s) como rascunho"}${payload.group ? " em um grupo" : " separadamente"}.`;
+        await loadProductOverrides();
+      } catch (error) {
+        accountMessage = error.message || "Não foi possível salvar o cadastro manual.";
+      } finally {
+        activeAdminView = "catalog";
+        render();
+      }
+    }
+
     function renderCatalogAdminPanel() {
       const publicProducts = PRODUCTS.filter(isPublicProduct);
       const metrics = {
@@ -6401,11 +6661,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         <div class="admin-catalog-toolbar">
           <input class="admin-catalog-search" data-admin-catalog-search value="${safeHtml(adminCatalogSearch)}" placeholder="Buscar por nome, marca, referência ou SKU" aria-label="Buscar no catálogo">
           <div class="admin-catalog-actions">
+            <button class="primary-btn" type="button" data-open-manual-catalog>+ Incluir grupo/peça</button>
             <select class="admin-catalog-filter" data-admin-catalog-filter aria-label="Filtrar catálogo"><option value="all"${adminCatalogFilter === "all" ? " selected" : ""}>Todos</option><option value="ready"${adminCatalogFilter === "ready" ? " selected" : ""}>Pronta entrega</option><option value="consultation"${adminCatalogFilter === "consultation" ? " selected" : ""}>Sob consulta</option><option value="hidden"${adminCatalogFilter === "hidden" ? " selected" : ""}>Ocultos</option><option value="sold"${adminCatalogFilter === "sold" ? " selected" : ""}>Vendidos</option><option value="issues"${adminCatalogFilter === "issues" ? " selected" : ""}>Com inconsistência</option></select>
             <button class="admin-row-action secondary" type="button" data-admin-sync-catalog>Sincronizar</button>
             <span class="admin-sync ${syncClass}">${safeHtml(catalogSyncMessage)}</span>
           </div>
         </div>
+        ${manualCatalogOpen ? renderManualCatalogForm() : ""}
         <div class="admin-kpi-grid">
           <button class="admin-kpi${adminCatalogFilter === "all" ? " active" : ""}" type="button" data-filter-button="all"><strong>${metrics.public}</strong><span>Publicados</span></button>
           <button class="admin-kpi${adminCatalogFilter === "ready" ? " active" : ""}" type="button" data-filter-button="ready"><strong>${metrics.ready}</strong><span>Pronta entrega</span></button>
@@ -6760,6 +7022,43 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     async function handleCatalogAdminClick(event, render) {
       if (!isAdminAccount()) return false;
+      if (event.target.closest("[data-open-manual-catalog]")) {
+        manualCatalogOpen = true;
+        ensureManualCatalogDraft();
+        render();
+        requestAnimationFrame(() => document.getElementById("manualCatalogForm")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+        return true;
+      }
+      if (event.target.closest("[data-close-manual-catalog]")) {
+        const form = event.target.closest("form");
+        if (form) syncManualCatalogDraftFromForm(form);
+        manualCatalogOpen = false;
+        render();
+        return true;
+      }
+      if (event.target.closest("[data-add-manual-variant]")) {
+        const form = event.target.closest("form");
+        const draft = syncManualCatalogDraftFromForm(form);
+        draft.variants.push({ id: "variant-" + Date.now(), color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} });
+        saveManualCatalogDraft();
+        manualCatalogOpen = true;
+        render();
+        return true;
+      }
+      const removeManualVariant = event.target.closest("[data-remove-manual-variant]");
+      if (removeManualVariant) {
+        const draft = syncManualCatalogDraftFromForm(event.target.closest("form"));
+        if (draft.variants.length > 1) draft.variants = draft.variants.filter((variant) => variant.id !== removeManualVariant.dataset.removeManualVariant);
+        saveManualCatalogDraft();
+        render();
+        return true;
+      }
+      if (event.target.closest("[data-refresh-manual-sizes]")) {
+        syncManualCatalogDraftFromForm(event.target.closest("form"));
+        manualCatalogOpen = true;
+        render();
+        return true;
+      }
       const filter = event.target.closest("[data-filter-button]");
       if (filter) {
         adminCatalogFilter = filter.dataset.filterButton || "all";
@@ -7751,6 +8050,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     });
     backofficePage.addEventListener("input", (event) => {
+      const manualForm = event.target.closest("form[data-account-form='manual-catalog']");
+      if (manualForm && isAdminAccount()) {
+        clearTimeout(manualCatalogDraftTimer);
+        manualCatalogDraftTimer = setTimeout(() => syncManualCatalogDraftFromForm(manualForm), 250);
+      }
       const catalogSearch = event.target.closest("[data-admin-catalog-search]");
       if (catalogSearch && isAdminAccount()) {
         adminCatalogSearch = catalogSearch.value || "";
@@ -7845,12 +8149,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         saveLeadManageForm(leadManageForm);
         return;
       }
-      const form = event.target.closest("form[data-account-form='admin-product']");
+      const form = event.target.closest("form[data-account-form]");
       if (!form || !isAdminAccount()) return;
       event.preventDefault();
-      await submitAdminProductForm(form, renderBackofficeStandalone);
+      if (form.dataset.accountForm === "manual-catalog") await submitManualCatalogForm(form, renderBackofficeStandalone);
+      else if (form.dataset.accountForm === "admin-product") await submitAdminProductForm(form, renderBackofficeStandalone);
     });
     accountDrawer.addEventListener("input", (event) => {
+      const manualForm = event.target.closest("form[data-account-form='manual-catalog']");
+      if (manualForm && isAdminAccount()) {
+        clearTimeout(manualCatalogDraftTimer);
+        manualCatalogDraftTimer = setTimeout(() => syncManualCatalogDraftFromForm(manualForm), 250);
+      }
       const catalogSearch = event.target.closest("[data-admin-catalog-search]");
       if (catalogSearch && isAdminAccount()) {
         adminCatalogSearch = catalogSearch.value || "";
@@ -7978,6 +8288,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (form.dataset.accountForm === "admin-product" && isAdminAccount()) {
         activeAccountTab = "admin";
         await submitAdminProductForm(form, renderAccount);
+      }
+      if (form.dataset.accountForm === "manual-catalog" && isAdminAccount()) {
+        activeAccountTab = "admin";
+        await submitManualCatalogForm(form, renderAccount);
       }
     });
     cartMini.addEventListener("click", openCart);
