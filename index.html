@@ -6416,7 +6416,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
               ${issue.invalidReference ? '<div class="admin-alert danger"><strong>Referência inválida</strong><span>Cadastre uma referência real antes de vender.</span></div>' : ""}
             </div>
             <div class="admin-editor-grid">
-              <label class="field wide"><span>Nome exibido</span><input name="name" value="${safeHtml(product.name || "")}" required></label>
+              <label class="field wide"><span>Título exibido no site</span><input name="name" value="${safeHtml(product.name || "")}" required></label>
               <label class="field"><span>Preço</span><input name="price" type="number" min="0" step="0.01" value="${Number(product.price || 0).toFixed(2)}" required></label>
               <label class="field"><span>Disponibilidade</span><select name="status"><option value="disponivel"${product.status === "disponivel" ? " selected" : ""}>Pronta entrega</option><option value="sob-consulta"${product.status === "sob-consulta" ? " selected" : ""}>Sob consulta</option><option value="vendido"${product.status === "vendido" ? " selected" : ""}>Vendido</option></select></label>
               <label class="field"><span>Visibilidade</span><select name="visibility"><option value="public"${productVisibility(product) === "public" ? " selected" : ""}>Publicado</option><option value="hidden"${productVisibility(product) === "hidden" ? " selected" : ""}>Oculto</option><option value="draft"${productVisibility(product) === "draft" ? " selected" : ""}>Rascunho</option></select></label>
@@ -6425,6 +6425,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
               <label class="field wide"><span>Descrição</span><textarea name="description" rows="5">${safeHtml(product.description || "")}</textarea></label>
               <label class="field wide"><span>Fotos atuais — uma por linha</span><textarea name="images" rows="5" placeholder="Uma URL ou caminho por linha">${safeHtml(imagesText)}</textarea></label>
               <label class="field wide"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
+              <label class="field wide"><span>Substituir foto principal por upload</span><input data-admin-product-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-admin-product-upload-status>Remove margens extras e padroniza a peça em 1100 × 1100.</small></label>
             </div>
           </div>
           <aside class="admin-editor-aside">
@@ -6448,7 +6449,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         description: "",
         presentation: "group",
         visibility: "draft",
-        variants: [{ id: "variant-" + Date.now(), color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} }],
+        variants: [{ id: "variant-" + Date.now(), title: "", color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} }],
       };
     }
 
@@ -6471,16 +6472,49 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (!file || !/^image\/(?:jpeg|png|webp)$/i.test(file.type || "")) throw new Error("Use uma imagem JPG, PNG ou WEBP.");
       if (file.size > 15 * 1024 * 1024) throw new Error("A imagem deve ter no máximo 15 MB.");
       const bitmap = await createImageBitmap(file);
+      const analysisScale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+      const analysis = document.createElement("canvas");
+      analysis.width = Math.max(1, Math.round(bitmap.width * analysisScale));
+      analysis.height = Math.max(1, Math.round(bitmap.height * analysisScale));
+      const analysisContext = analysis.getContext("2d", { willReadFrequently: true });
+      analysisContext.drawImage(bitmap, 0, 0, analysis.width, analysis.height);
+      const pixels = analysisContext.getImageData(0, 0, analysis.width, analysis.height).data;
+      const cornerPoints = [[2, 2], [analysis.width - 3, 2], [2, analysis.height - 3], [analysis.width - 3, analysis.height - 3]];
+      const corner = cornerPoints.reduce((sum, [x, y]) => {
+        const index = (Math.max(0, y) * analysis.width + Math.max(0, x)) * 4;
+        return [sum[0] + pixels[index], sum[1] + pixels[index + 1], sum[2] + pixels[index + 2], sum[3] + pixels[index + 3]];
+      }, [0, 0, 0, 0]).map((value) => value / cornerPoints.length);
+      let minX = analysis.width, minY = analysis.height, maxX = -1, maxY = -1;
+      const step = Math.max(1, Math.floor(Math.max(analysis.width, analysis.height) / 900));
+      for (let y = 0; y < analysis.height; y += step) {
+        for (let x = 0; x < analysis.width; x += step) {
+          const index = (y * analysis.width + x) * 4;
+          const alpha = pixels[index + 3];
+          const difference = Math.max(Math.abs(pixels[index] - corner[0]), Math.abs(pixels[index + 1] - corner[1]), Math.abs(pixels[index + 2] - corner[2]));
+          const visible = corner[3] < 30 ? alpha > 24 : alpha > 24 && difference > 16;
+          if (!visible) continue;
+          minX = Math.min(minX, x); minY = Math.min(minY, y); maxX = Math.max(maxX, x); maxY = Math.max(maxY, y);
+        }
+      }
+      const foundContent = maxX >= minX && maxY >= minY;
+      const paddingX = foundContent ? Math.round((maxX - minX + 1) * .055) : 0;
+      const paddingY = foundContent ? Math.round((maxY - minY + 1) * .055) : 0;
+      const cropX = foundContent ? Math.max(0, minX - paddingX) / analysisScale : 0;
+      const cropY = foundContent ? Math.max(0, minY - paddingY) / analysisScale : 0;
+      const cropRight = foundContent ? Math.min(analysis.width, maxX + paddingX) / analysisScale : bitmap.width;
+      const cropBottom = foundContent ? Math.min(analysis.height, maxY + paddingY) / analysisScale : bitmap.height;
+      const cropWidth = Math.max(1, cropRight - cropX);
+      const cropHeight = Math.max(1, cropBottom - cropY);
       const canvas = document.createElement("canvas");
       canvas.width = 1100;
       canvas.height = 1100;
       const context = canvas.getContext("2d");
       context.fillStyle = "#f4f0e8";
       context.fillRect(0, 0, canvas.width, canvas.height);
-      const scale = Math.min(1000 / bitmap.width, 1000 / bitmap.height);
-      const width = Math.max(1, Math.round(bitmap.width * scale));
-      const height = Math.max(1, Math.round(bitmap.height * scale));
-      context.drawImage(bitmap, Math.round((1100 - width) / 2), Math.round((1100 - height) / 2), width, height);
+      const scale = Math.min(990 / cropWidth, 990 / cropHeight);
+      const width = Math.max(1, Math.round(cropWidth * scale));
+      const height = Math.max(1, Math.round(cropHeight * scale));
+      context.drawImage(bitmap, cropX, cropY, cropWidth, cropHeight, Math.round((1100 - width) / 2), Math.round((1100 - height) / 2), width, height);
       bitmap.close?.();
       return canvas.toDataURL("image/webp", .86);
     }
@@ -6500,6 +6534,28 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         if (preview) { preview.src = dataUrl; preview.hidden = false; }
         if (status) status.textContent = `${file.name} · pronta para enviar`;
         syncManualCatalogDraftFromForm(input.closest("form"));
+      } catch (error) {
+        input.value = "";
+        if (status) status.textContent = error.message || "Não foi possível preparar a imagem.";
+      } finally {
+        input.disabled = false;
+      }
+    }
+
+    async function processAdminProductImageInput(input) {
+      const file = input?.files?.[0];
+      const form = input?.closest("form[data-account-form='admin-product']");
+      if (!file || !form) return;
+      const status = form.querySelector("[data-admin-product-upload-status]");
+      input.disabled = true;
+      if (status) status.textContent = "Removendo margens e padronizando…";
+      try {
+        const dataUrl = await compressManualCatalogImage(file);
+        const images = cleanList(form.elements.images?.value || "");
+        form.elements.images.value = [dataUrl, ...images.slice(1)].join("\n");
+        const preview = form.querySelector(".admin-editor-preview img");
+        if (preview) preview.src = dataUrl;
+        if (status) status.textContent = `${file.name} · pronta para salvar`;
       } catch (error) {
         input.value = "";
         if (status) status.textContent = error.message || "Não foi possível preparar a imagem.";
@@ -6546,6 +6602,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         });
         return {
           id: card.dataset.manualVariant,
+          title: String(card.querySelector("[data-manual-title]")?.value || "").trim(),
           color: String(card.querySelector("[data-manual-color]")?.value || "").trim(),
           reference: String(card.querySelector("[data-manual-reference]")?.value || "").trim(),
           image: String(card.querySelector("[data-manual-image]")?.value || "").trim(),
@@ -6581,13 +6638,14 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             return `<section class="manual-variant" data-manual-variant="${safeHtml(variant.id)}">
               <div class="manual-variant-head"><strong>Cor ${index + 1}</strong><button class="admin-row-action secondary" type="button" data-remove-manual-variant="${safeHtml(variant.id)}"${draft.variants.length === 1 ? " disabled" : ""}>Remover</button></div>
               <div class="manual-variant-grid">
+                <label class="field"><span>Título desta peça</span><input data-manual-title value="${safeHtml(variant.title || "")}" placeholder="Opcional: usa nome + cor"></label>
                 <label class="field"><span>Cor</span><input data-manual-color value="${safeHtml(variant.color || "")}" placeholder="Ex.: Azul-marinho" required></label>
                 <label class="field"><span>Referência real</span><input data-manual-reference value="${safeHtml(variant.reference || "")}" placeholder="Código único" required></label>
                 <label class="field"><span>Tamanhos</span><input data-manual-sizes value="${safeHtml(sizes.join(", "))}" placeholder="P, M, G, GG" required></label>
                 <label class="field"><span>URL da foto (opcional)</span><input data-manual-image value="${safeHtml(variant.image || "")}" placeholder="Cole uma URL ou faça upload abaixo" required></label>
                 <div class="manual-image-upload">
                   <img data-manual-image-preview src="${safeHtml(variant.image || "")}" alt="Prévia da ${safeHtml(variant.color || `cor ${index + 1}`)}"${variant.image ? "" : " hidden"}>
-                  <div class="manual-image-upload-copy"><strong>Fazer upload da imagem</strong><input data-manual-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-manual-upload-status>JPG, PNG ou WEBP até 15 MB. A foto será centralizada e padronizada em 1100 × 1100.</small></div>
+                  <div class="manual-image-upload-copy"><strong>Fazer upload da imagem</strong><input data-manual-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-manual-upload-status>JPG, PNG ou WEBP até 15 MB. Remove margens extras, centraliza e padroniza em 1100 × 1100.</small></div>
                 </div>
                 <div class="manual-size-grid">${sizes.map((size) => `<label class="manual-size-item"><span>${safeHtml(size)}</span><input data-manual-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(variant.stock?.[size] || 0))}" aria-label="Quantidade ${safeHtml(size)}"></label>`).join("")}</div>
               </div>
@@ -6633,7 +6691,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           id: "manual-" + manualCatalogSlug(reference),
           supplierProductId: reference,
           slug,
-          name: `${draft.baseName} - ${color}`,
+          name: (variant.title || "").trim() || `${draft.baseName} - ${color}`,
           collection: draft.collection || "outros",
           price,
           cost: 0,
@@ -7084,6 +7142,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       try {
         const { slug, override } = buildAdminProductOverride(form);
         activeAdminSlug = slug;
+        if (override.images?.[0]?.startsWith("data:image/")) {
+          const publicImage = await persistManualCatalogImage({ slug, images: [override.images[0]] });
+          override.images[0] = publicImage;
+        }
         await saveProductOverride(slug, override);
         accountMessage = "Produto publicado e verificado com sucesso.";
       } catch (error) {
@@ -7121,7 +7183,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (event.target.closest("[data-add-manual-variant]")) {
         const form = event.target.closest("form");
         const draft = syncManualCatalogDraftFromForm(form);
-        draft.variants.push({ id: "variant-" + Date.now(), color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} });
+        draft.variants.push({ id: "variant-" + Date.now(), title: "", color: "", reference: "", image: "", sizes: ["P", "M", "G", "GG"], stock: {} });
         saveManualCatalogDraft();
         manualCatalogOpen = true;
         render();
@@ -8192,6 +8254,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     backofficePage.addEventListener("change", async (event) => {
       const imageInput = event.target.closest("[data-manual-image-file]");
       if (imageInput && isAdminAccount()) await processManualCatalogImageInput(imageInput);
+      const productImageInput = event.target.closest("[data-admin-product-image-file]");
+      if (productImageInput && isAdminAccount()) await processAdminProductImageInput(productImageInput);
     });
     backofficePage.addEventListener("submit", async (event) => {
       const searchForm = event.target.closest("[data-backoffice-search-form]");
@@ -8303,6 +8367,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     accountDrawer.addEventListener("change", async (event) => {
       const imageInput = event.target.closest("[data-manual-image-file]");
       if (imageInput && isAdminAccount()) await processManualCatalogImageInput(imageInput);
+      const productImageInput = event.target.closest("[data-admin-product-image-file]");
+      if (productImageInput && isAdminAccount()) await processAdminProductImageInput(productImageInput);
     });
     accountDrawer.addEventListener("submit", async (event) => {
       const searchForm = event.target.closest("[data-backoffice-search-form]");
