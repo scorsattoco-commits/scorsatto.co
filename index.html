@@ -428,6 +428,10 @@
     .manual-image-upload-copy strong { font-size: 12px; }
     .manual-image-upload-copy small { color: var(--muted); font-size: 11px; line-height: 1.45; }
     .manual-image-upload input[type="file"] { width: 100%; font-size: 11px; }
+    .manual-image-adjust { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 9px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 8px; align-items: end; }
+    .manual-image-adjust label { display: grid; gap: 5px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .manual-image-adjust input[type="range"] { width: 100%; accent-color: var(--black); }
+    .manual-image-adjust button { min-height: 38px; white-space: nowrap; }
     .manual-catalog-summary { border: 1px solid var(--line); background: var(--white); padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
     .manual-catalog-summary strong { color: var(--black); }
     .admin-page-shell { display: grid; gap: 16px; }
@@ -603,7 +607,7 @@
       .gallery-arrow { width: 36px; height: 36px; font-size: 21px; }
       .gallery-arrow.prev { left: 8px; }
       .gallery-arrow.next { right: 8px; }
-      .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command, .instagram-command-grid, .manual-catalog-grid, .manual-variant-grid { grid-template-columns: 1fr; }
+      .profile-actions, .backoffice-grid, .admin-health-grid, .backoffice-command, .instagram-command-grid, .manual-catalog-grid, .manual-variant-grid, .manual-image-adjust { grid-template-columns: 1fr; }
       .manual-catalog-head { display: grid; }
       .instagram-flow { grid-template-columns: 1fr; }
       .instagram-hero-top, .instagram-queue-head { display: grid; }
@@ -1022,6 +1026,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     let adminCatalogSearchTimer = 0;
     let manualCatalogOpen = false;
     let manualCatalogDraftTimer = 0;
+    const manualImageSourceByKey = new Map();
     let manualCatalogDraft = (() => {
       try {
         const saved = JSON.parse(localStorage.getItem("scorsattoManualCatalogDraftV1") || "null");
@@ -6426,6 +6431,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
               <label class="field wide"><span>Fotos atuais — uma por linha</span><textarea name="images" rows="5" placeholder="Uma URL ou caminho por linha">${safeHtml(imagesText)}</textarea></label>
               <label class="field wide"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
               <label class="field wide"><span>Substituir foto principal por upload</span><input data-admin-product-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-admin-product-upload-status>Remove margens extras e padroniza a peça em 1100 × 1100.</small></label>
+              <div class="manual-image-adjust wide">
+                <label>Zoom<input data-product-image-zoom type="range" min="80" max="220" value="100"></label>
+                <label>Horizontal<input data-product-image-x type="range" min="-100" max="100" value="0"></label>
+                <label>Vertical<input data-product-image-y type="range" min="-100" max="100" value="0"></label>
+                <button class="admin-row-action secondary" type="button" data-apply-product-image>Aplicar ajuste</button>
+              </div>
             </div>
           </div>
           <aside class="admin-editor-aside">
@@ -6530,6 +6541,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (status) status.textContent = "Preparando imagem no padrão 1100 × 1100…";
       try {
         const dataUrl = await compressManualCatalogImage(file);
+        manualImageSourceByKey.set(card.dataset.manualVariant, dataUrl);
         if (imageField) imageField.value = dataUrl;
         if (preview) { preview.src = dataUrl; preview.hidden = false; }
         if (status) status.textContent = `${file.name} · pronta para enviar`;
@@ -6551,6 +6563,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       if (status) status.textContent = "Removendo margens e padronizando…";
       try {
         const dataUrl = await compressManualCatalogImage(file);
+        manualImageSourceByKey.set("product:" + String(form.elements.slug?.value || ""), dataUrl);
         const images = cleanList(form.elements.images?.value || "");
         form.elements.images.value = [dataUrl, ...images.slice(1)].join("\n");
         const preview = form.querySelector(".admin-editor-preview img");
@@ -6561,6 +6574,79 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         if (status) status.textContent = error.message || "Não foi possível preparar a imagem.";
       } finally {
         input.disabled = false;
+      }
+    }
+
+    function loadCatalogAdjustmentImage(source) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error("Não foi possível abrir a imagem para ajuste."));
+        image.src = source;
+      });
+    }
+
+    async function adjustedCatalogImage(source, zoomValue, horizontalValue, verticalValue) {
+      const image = await loadCatalogAdjustmentImage(source);
+      const zoom = Math.max(.8, Math.min(2.2, Number(zoomValue || 100) / 100));
+      const horizontal = Math.max(-100, Math.min(100, Number(horizontalValue || 0))) / 100;
+      const vertical = Math.max(-100, Math.min(100, Number(verticalValue || 0))) / 100;
+      const canvas = document.createElement("canvas");
+      canvas.width = 1100;
+      canvas.height = 1100;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#f4f0e8";
+      context.fillRect(0, 0, 1100, 1100);
+      const baseScale = Math.min(1100 / image.naturalWidth, 1100 / image.naturalHeight);
+      const width = image.naturalWidth * baseScale * zoom;
+      const height = image.naturalHeight * baseScale * zoom;
+      const travelX = Math.max(0, (width - 1100) / 2);
+      const travelY = Math.max(0, (height - 1100) / 2);
+      const x = (1100 - width) / 2 + horizontal * travelX;
+      const y = (1100 - height) / 2 + vertical * travelY;
+      context.drawImage(image, x, y, width, height);
+      return canvas.toDataURL("image/webp", .88);
+    }
+
+    async function applyManualCatalogImageAdjustment(button) {
+      const card = button.closest("[data-manual-variant]");
+      if (!card) return;
+      const imageField = card.querySelector("[data-manual-image]");
+      const preview = card.querySelector("[data-manual-image-preview]");
+      const status = card.querySelector("[data-manual-upload-status]");
+      const source = manualImageSourceByKey.get(card.dataset.manualVariant) || imageField?.value || "";
+      if (!source) throw new Error("Faça o upload da foto antes de ajustar.");
+      button.disabled = true;
+      if (status) status.textContent = "Aplicando enquadramento…";
+      try {
+        const adjusted = await adjustedCatalogImage(source, card.querySelector("[data-image-zoom]")?.value, card.querySelector("[data-image-x]")?.value, card.querySelector("[data-image-y]")?.value);
+        if (imageField) imageField.value = adjusted;
+        if (preview) { preview.src = adjusted; preview.hidden = false; }
+        if (status) status.textContent = "Enquadramento aplicado. Salve para publicar.";
+        syncManualCatalogDraftFromForm(button.closest("form"));
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function applyAdminProductImageAdjustment(button) {
+      const form = button.closest("form[data-account-form='admin-product']");
+      if (!form) return;
+      const key = "product:" + String(form.elements.slug?.value || "");
+      const images = cleanList(form.elements.images?.value || "");
+      const source = manualImageSourceByKey.get(key) || images[0] || "";
+      if (!source) throw new Error("Envie uma foto antes de ajustar.");
+      const status = form.querySelector("[data-admin-product-upload-status]");
+      button.disabled = true;
+      if (status) status.textContent = "Aplicando enquadramento…";
+      try {
+        const adjusted = await adjustedCatalogImage(source, form.querySelector("[data-product-image-zoom]")?.value, form.querySelector("[data-product-image-x]")?.value, form.querySelector("[data-product-image-y]")?.value);
+        form.elements.images.value = [adjusted, ...images.slice(1)].join("\n");
+        const preview = form.querySelector(".admin-editor-preview img");
+        if (preview) preview.src = adjusted;
+        if (status) status.textContent = "Enquadramento aplicado. Clique em Salvar e publicar.";
+      } finally {
+        button.disabled = false;
       }
     }
 
@@ -6646,6 +6732,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
                 <div class="manual-image-upload">
                   <img data-manual-image-preview src="${safeHtml(variant.image || "")}" alt="Prévia da ${safeHtml(variant.color || `cor ${index + 1}`)}"${variant.image ? "" : " hidden"}>
                   <div class="manual-image-upload-copy"><strong>Fazer upload da imagem</strong><input data-manual-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-manual-upload-status>JPG, PNG ou WEBP até 15 MB. Remove margens extras, centraliza e padroniza em 1100 × 1100.</small></div>
+                </div>
+                <div class="manual-image-adjust">
+                  <label>Zoom<input data-image-zoom type="range" min="80" max="220" value="100"></label>
+                  <label>Horizontal<input data-image-x type="range" min="-100" max="100" value="0"></label>
+                  <label>Vertical<input data-image-y type="range" min="-100" max="100" value="0"></label>
+                  <button class="admin-row-action secondary" type="button" data-apply-manual-image>Aplicar ajuste</button>
                 </div>
                 <div class="manual-size-grid">${sizes.map((size) => `<label class="manual-size-item"><span>${safeHtml(size)}</span><input data-manual-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(variant.stock?.[size] || 0))}" aria-label="Quantidade ${safeHtml(size)}"></label>`).join("")}</div>
               </div>
@@ -7166,6 +7258,18 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     async function handleCatalogAdminClick(event, render) {
       if (!isAdminAccount()) return false;
+      const applyManualImage = event.target.closest("[data-apply-manual-image]");
+      if (applyManualImage) {
+        try { await applyManualCatalogImageAdjustment(applyManualImage); }
+        catch (error) { const status = applyManualImage.closest("[data-manual-variant]")?.querySelector("[data-manual-upload-status]"); if (status) status.textContent = error.message || "Não foi possível ajustar a foto."; }
+        return true;
+      }
+      const applyProductImage = event.target.closest("[data-apply-product-image]");
+      if (applyProductImage) {
+        try { await applyAdminProductImageAdjustment(applyProductImage); }
+        catch (error) { const status = applyProductImage.closest("form")?.querySelector("[data-admin-product-upload-status]"); if (status) status.textContent = error.message || "Não foi possível ajustar a foto."; }
+        return true;
+      }
       if (event.target.closest("[data-open-manual-catalog]")) {
         manualCatalogOpen = true;
         ensureManualCatalogDraft();
