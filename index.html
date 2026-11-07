@@ -422,6 +422,12 @@
     .manual-size-item { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 7px; display: grid; gap: 5px; }
     .manual-size-item span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .manual-size-item input { width: 100%; min-height: 34px; border: 1px solid var(--line); background: var(--white); padding: 0 8px; }
+    .manual-image-upload { grid-column: 1 / -1; border: 1px dashed var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 10px; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; align-items: center; }
+    .manual-image-upload img { width: 92px; height: 92px; object-fit: contain; background: var(--white); border: 1px solid var(--line); }
+    .manual-image-upload-copy { display: grid; gap: 7px; }
+    .manual-image-upload-copy strong { font-size: 12px; }
+    .manual-image-upload-copy small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .manual-image-upload input[type="file"] { width: 100%; font-size: 11px; }
     .manual-catalog-summary { border: 1px solid var(--line); background: var(--white); padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
     .manual-catalog-summary strong { color: var(--black); }
     .admin-page-shell { display: grid; gap: 16px; }
@@ -6453,7 +6459,73 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function saveManualCatalogDraft() {
-      localStorage.setItem("scorsattoManualCatalogDraftV1", JSON.stringify(ensureManualCatalogDraft()));
+      try {
+        localStorage.setItem("scorsattoManualCatalogDraftV1", JSON.stringify(ensureManualCatalogDraft()));
+      } catch {
+        // Fotos enviadas podem ultrapassar a cota do navegador. O rascunho
+        // continua vivo nesta sessão e será salvo no banco na publicação.
+      }
+    }
+
+    async function compressManualCatalogImage(file) {
+      if (!file || !/^image\/(?:jpeg|png|webp)$/i.test(file.type || "")) throw new Error("Use uma imagem JPG, PNG ou WEBP.");
+      if (file.size > 15 * 1024 * 1024) throw new Error("A imagem deve ter no máximo 15 MB.");
+      const bitmap = await createImageBitmap(file);
+      const canvas = document.createElement("canvas");
+      canvas.width = 1100;
+      canvas.height = 1100;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#f4f0e8";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      const scale = Math.min(1000 / bitmap.width, 1000 / bitmap.height);
+      const width = Math.max(1, Math.round(bitmap.width * scale));
+      const height = Math.max(1, Math.round(bitmap.height * scale));
+      context.drawImage(bitmap, Math.round((1100 - width) / 2), Math.round((1100 - height) / 2), width, height);
+      bitmap.close?.();
+      return canvas.toDataURL("image/webp", .86);
+    }
+
+    async function processManualCatalogImageInput(input) {
+      const file = input?.files?.[0];
+      const card = input?.closest("[data-manual-variant]");
+      if (!file || !card) return;
+      const status = card.querySelector("[data-manual-upload-status]");
+      const preview = card.querySelector("[data-manual-image-preview]");
+      const imageField = card.querySelector("[data-manual-image]");
+      input.disabled = true;
+      if (status) status.textContent = "Preparando imagem no padrão 1100 × 1100…";
+      try {
+        const dataUrl = await compressManualCatalogImage(file);
+        if (imageField) imageField.value = dataUrl;
+        if (preview) { preview.src = dataUrl; preview.hidden = false; }
+        if (status) status.textContent = `${file.name} · pronta para enviar`;
+        syncManualCatalogDraftFromForm(input.closest("form"));
+      } catch (error) {
+        input.value = "";
+        if (status) status.textContent = error.message || "Não foi possível preparar a imagem.";
+      } finally {
+        input.disabled = false;
+      }
+    }
+
+    async function persistManualCatalogImage(product) {
+      const image = product.images?.[0] || "";
+      if (!image.startsWith("data:image/")) return image;
+      try {
+        const blob = await fetch(image).then((response) => response.blob());
+        const path = `catalogo-manual/${new Date().toISOString().slice(0, 10)}/${product.slug}.webp`;
+        const bucket = db.storage.from("product-images");
+        const { error } = await bucket.upload(path, blob, { contentType: "image/webp", upsert: true });
+        if (!error) {
+          const { data } = bucket.getPublicUrl(path);
+          if (data?.publicUrl) return data.publicUrl;
+        }
+      } catch {
+        // Se o bucket ainda não estiver configurado, a imagem comprimida fica
+        // dentro do registro do produto e continua funcionando no site.
+      }
+      if (image.length > 900000) throw new Error("A imagem ficou grande demais para salvar. Escolha uma foto menor ou em JPG.");
+      return image;
     }
 
     function manualCatalogSlug(value) {
@@ -6512,7 +6584,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
                 <label class="field"><span>Cor</span><input data-manual-color value="${safeHtml(variant.color || "")}" placeholder="Ex.: Azul-marinho" required></label>
                 <label class="field"><span>Referência real</span><input data-manual-reference value="${safeHtml(variant.reference || "")}" placeholder="Código único" required></label>
                 <label class="field"><span>Tamanhos</span><input data-manual-sizes value="${safeHtml(sizes.join(", "))}" placeholder="P, M, G, GG" required></label>
-                <label class="field"><span>Foto real/padrão</span><input data-manual-image value="${safeHtml(variant.image || "")}" placeholder="URL ou caminho da imagem" required></label>
+                <label class="field"><span>URL da foto (opcional)</span><input data-manual-image value="${safeHtml(variant.image || "")}" placeholder="Cole uma URL ou faça upload abaixo" required></label>
+                <div class="manual-image-upload">
+                  <img data-manual-image-preview src="${safeHtml(variant.image || "")}" alt="Prévia da ${safeHtml(variant.color || `cor ${index + 1}`)}"${variant.image ? "" : " hidden"}>
+                  <div class="manual-image-upload-copy"><strong>Fazer upload da imagem</strong><input data-manual-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-manual-upload-status>JPG, PNG ou WEBP até 15 MB. A foto será centralizada e padronizada em 1100 × 1100.</small></div>
+                </div>
                 <div class="manual-size-grid">${sizes.map((size) => `<label class="manual-size-item"><span>${safeHtml(size)}</span><input data-manual-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(variant.stock?.[size] || 0))}" aria-label="Quantidade ${safeHtml(size)}"></label>`).join("")}</div>
               </div>
               <div class="backoffice-actions"><span class="backoffice-note">Altere a lista de tamanhos e clique em atualizar antes de informar as quantidades.</span><button class="admin-row-action secondary" type="button" data-refresh-manual-sizes="${safeHtml(variant.id)}">Atualizar tamanhos</button></div>
@@ -6604,6 +6680,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         const action = payload.draft.visibility === "public" ? "PUBLICAR" : "SALVAR COMO RASCUNHO";
         const confirmed = window.confirm(`${action}: ${payload.products.length} cor(es), ${readySizes} tamanho(s) em pronta entrega${payload.group ? ", agrupadas no site" : ", mantidas separadas"}. Confirma?`);
         if (!confirmed) return;
+        for (const item of payload.products) {
+          const publicImage = await persistManualCatalogImage(item.product);
+          item.product.images = [publicImage];
+          item.override.images = [publicImage];
+          item.override._manualProduct = { ...item.override._manualProduct, images: [publicImage] };
+        }
         const savedAt = new Date().toISOString();
         const rows = payload.products.map((item) => ({
           slug: item.product.slug,
@@ -8107,6 +8189,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       activeAdminView = "catalog";
       renderBackofficeStandalone();
     });
+    backofficePage.addEventListener("change", async (event) => {
+      const imageInput = event.target.closest("[data-manual-image-file]");
+      if (imageInput && isAdminAccount()) await processManualCatalogImageInput(imageInput);
+    });
     backofficePage.addEventListener("submit", async (event) => {
       const searchForm = event.target.closest("[data-backoffice-search-form]");
       if (searchForm && isAdminAccount()) {
@@ -8213,6 +8299,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       activeAdminSlug = adminSelect.value;
       activeAccountTab = "admin";
       renderAccount();
+    });
+    accountDrawer.addEventListener("change", async (event) => {
+      const imageInput = event.target.closest("[data-manual-image-file]");
+      if (imageInput && isAdminAccount()) await processManualCatalogImageInput(imageInput);
     });
     accountDrawer.addEventListener("submit", async (event) => {
       const searchForm = event.target.closest("[data-backoffice-search-form]");
