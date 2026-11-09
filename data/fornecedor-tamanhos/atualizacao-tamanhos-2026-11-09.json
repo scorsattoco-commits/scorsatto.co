@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-11-09T20:54:34Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 1,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16111",
+      "name": "Sueter Meio Ziper - Marrom",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-marrom-sueterziperxe0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
