@@ -439,6 +439,14 @@
     .direct-image-editor::before { inset: 33.333% 0 auto; height: 1px; background: #111; box-shadow: 0 calc(var(--editor-size, 300px) / 3) 0 #111; }
     .direct-image-editor::after { inset: 0 auto 0 33.333%; width: 1px; background: #111; box-shadow: calc(var(--editor-size, 300px) / 3) 0 0 #111; }
     .direct-image-hint { position: absolute; z-index: 3; left: 10px; bottom: 10px; padding: 7px 9px; border-radius: 999px; background: rgba(17,17,17,.78); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .04em; pointer-events: none; }
+    .direct-image-toolbar { position: absolute; z-index: 5; top: 10px; right: 10px; display: flex; gap: 6px; }
+    .direct-image-toolbar button { min-width: 38px; min-height: 38px; padding: 0 11px; border: 1px solid rgba(255,255,255,.45); border-radius: 999px; background: rgba(17,17,17,.86); color: #fff; font: 800 11px/1 Arial, sans-serif; cursor: pointer; box-shadow: 0 5px 18px rgba(0,0,0,.18); }
+    .direct-image-toolbar button:hover { background: #000; }
+    .direct-image-editor.is-expanded { position: fixed; z-index: 1000000; inset: 0; width: 100vw !important; height: 100vh; aspect-ratio: auto; border: 0; background: #f4f0e8; }
+    .direct-image-editor.is-expanded .direct-image-toolbar { top: 22px; right: 22px; }
+    .direct-image-editor.is-expanded .direct-image-toolbar button { min-width: 48px; min-height: 48px; font-size: 13px; }
+    .direct-image-editor.is-expanded .direct-image-hint { left: 50%; bottom: 24px; transform: translateX(-50%); font-size: 12px; padding: 10px 15px; }
+    body.image-editor-open { overflow: hidden; }
     .manual-image-upload .direct-image-editor { width: min(100%, 360px); }
     .manual-image-upload { grid-template-columns: minmax(220px, 360px) minmax(0, 1fr); align-items: start; }
     .manual-catalog-summary { border: 1px solid var(--line); background: var(--white); padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
@@ -6449,7 +6457,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             </div>
           </div>
           <aside class="admin-editor-aside">
-            <div class="admin-editor-preview direct-image-editor" data-direct-image-editor="product">${productImage(product) ? `<img src="${safeHtml(productImage(product))}" alt="${safeHtml(displayProductName(product))}">` : '<span>Sem foto</span>'}<span class="direct-image-hint">Arraste a foto para ajustar</span></div>
+            <div class="admin-editor-preview direct-image-editor" data-direct-image-editor="product">${productImage(product) ? `<img src="${safeHtml(productImage(product))}" alt="${safeHtml(displayProductName(product))}">` : '<span>Sem foto</span>'}<div class="direct-image-toolbar"><button type="button" data-direct-image-zoom-out aria-label="Diminuir foto">−</button><button type="button" data-toggle-image-editor-size>Expandir foto</button><button type="button" data-direct-image-zoom-in aria-label="Aumentar foto">+</button></div><span class="direct-image-hint">Arraste a foto para ajustar</span></div>
             <div class="admin-history"><strong>Histórico recente</strong><div class="admin-history-list">${history.length ? [...history].reverse().slice(0, 6).map((item, index) => `<div class="admin-history-item"><span>${safeHtml((item.fields || []).join(", ") || "alteração")}</span><time>${safeHtml(formatDateTime(item.at))}</time>${index === 0 && item.before ? `<button class="admin-row-action secondary" type="button" data-admin-undo="${safeHtml(product.slug)}">Desfazer última</button>` : ""}</div>`).join("") : '<span class="muted">Nenhuma alteração registrada nesta versão.</span>'}</div></div>
           </aside>
           <div class="admin-editor-footer">
@@ -6638,7 +6646,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const zoom = Math.max(.8, Math.min(2.2, Number(controls.zoom.value || 100) / 100));
       const horizontal = Math.max(-100, Math.min(100, Number(controls.x.value || 0)));
       const vertical = Math.max(-100, Math.min(100, Number(controls.y.value || 0)));
-      const width = stage.clientWidth || 300;
+      const width = Math.min(stage.clientWidth || 300, stage.clientHeight || stage.clientWidth || 300);
       stage.style.setProperty("--editor-size", `${width}px`);
       image.style.transform = `translate(${horizontal * width * .0045}px, ${vertical * width * .0045}px) scale(${zoom})`;
     }
@@ -6651,9 +6659,29 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return true;
     }
 
+    function toggleDirectImageEditor(button, forceClose = false) {
+      const stage = button?.closest("[data-direct-image-editor]");
+      if (!stage) return;
+      const shouldExpand = forceClose ? false : !stage.classList.contains("is-expanded");
+      document.querySelectorAll("[data-direct-image-editor].is-expanded").forEach((item) => item.classList.remove("is-expanded"));
+      stage.classList.toggle("is-expanded", shouldExpand);
+      document.body.classList.toggle("image-editor-open", shouldExpand);
+      const label = stage.querySelector("[data-toggle-image-editor-size]");
+      if (label) label.textContent = shouldExpand ? "Fechar tela cheia" : "Expandir foto";
+      requestAnimationFrame(() => updateDirectImageEditor(stage));
+    }
+
+    function stepDirectImageZoom(button, direction) {
+      const stage = button?.closest("[data-direct-image-editor]");
+      const controls = directImageControls(stage);
+      if (!controls.zoom) return;
+      controls.zoom.value = String(Math.max(80, Math.min(220, Number(controls.zoom.value || 100) + direction * 10)));
+      updateDirectImageEditor(stage);
+    }
+
     function startDirectImageDrag(event) {
       const stage = event.target.closest("[data-direct-image-editor]");
-      if (!stage || event.button > 0) return;
+      if (!stage || event.button > 0 || event.target.closest(".direct-image-toolbar")) return;
       const controls = directImageControls(stage);
       if (!controls.x || !controls.y) return;
       event.preventDefault();
@@ -6661,7 +6689,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const startY = event.clientY;
       const originalX = Number(controls.x.value || 0);
       const originalY = Number(controls.y.value || 0);
-      const travel = Math.max(1, (stage.clientWidth || 300) * .45);
+      const travel = Math.max(1, Math.min(stage.clientWidth || 300, stage.clientHeight || stage.clientWidth || 300) * .45);
       stage.setPointerCapture?.(event.pointerId);
       const move = (moveEvent) => {
         controls.x.value = String(Math.max(-100, Math.min(100, Math.round(originalX + (moveEvent.clientX - startX) / travel * 100))));
@@ -6800,7 +6828,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
                 <label class="field"><span>Tamanhos</span><input data-manual-sizes value="${safeHtml(sizes.join(", "))}" placeholder="P, M, G, GG" required></label>
                 <label class="field"><span>URL da foto (opcional)</span><input data-manual-image value="${safeHtml(variant.image || "")}" placeholder="Cole uma URL ou faça upload abaixo" required></label>
                 <div class="manual-image-upload">
-                  <div class="direct-image-editor" data-direct-image-editor="manual"><img data-manual-image-preview src="${safeHtml(variant.image || "")}" alt="Prévia da ${safeHtml(variant.color || `cor ${index + 1}`)}"${variant.image ? "" : " hidden"}><span class="direct-image-hint">Arraste a foto para ajustar</span></div>
+                  <div class="direct-image-editor" data-direct-image-editor="manual"><img data-manual-image-preview src="${safeHtml(variant.image || "")}" alt="Prévia da ${safeHtml(variant.color || `cor ${index + 1}`)}"${variant.image ? "" : " hidden"}><div class="direct-image-toolbar"><button type="button" data-direct-image-zoom-out aria-label="Diminuir foto">−</button><button type="button" data-toggle-image-editor-size>Expandir foto</button><button type="button" data-direct-image-zoom-in aria-label="Aumentar foto">+</button></div><span class="direct-image-hint">Arraste a foto para ajustar</span></div>
                   <div class="manual-image-upload-copy"><strong>Fazer upload da imagem</strong><input data-manual-image-file type="file" accept="image/jpeg,image/png,image/webp"><small data-manual-upload-status>JPG, PNG ou WEBP até 15 MB. Depois, arraste a peça diretamente na foto e use o zoom.</small></div>
                 </div>
                 <div class="manual-image-adjust">
@@ -7328,6 +7356,21 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     async function handleCatalogAdminClick(event, render) {
       if (!isAdminAccount()) return false;
+      const expandImageEditor = event.target.closest("[data-toggle-image-editor-size]");
+      if (expandImageEditor) {
+        toggleDirectImageEditor(expandImageEditor);
+        return true;
+      }
+      const zoomImageIn = event.target.closest("[data-direct-image-zoom-in]");
+      if (zoomImageIn) {
+        stepDirectImageZoom(zoomImageIn, 1);
+        return true;
+      }
+      const zoomImageOut = event.target.closest("[data-direct-image-zoom-out]");
+      if (zoomImageOut) {
+        stepDirectImageZoom(zoomImageOut, -1);
+        return true;
+      }
       const applyManualImage = event.target.closest("[data-apply-manual-image]");
       if (applyManualImage) {
         try { await applyManualCatalogImageAdjustment(applyManualImage); }
@@ -8642,6 +8685,11 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       renderProducts();
     });
     window.addEventListener("hashchange", handleHashChange);
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const expanded = document.querySelector("[data-direct-image-editor].is-expanded");
+      if (expanded) toggleDirectImageEditor(expanded.querySelector("[data-toggle-image-editor-size]"), true);
+    });
     window.addEventListener("scroll", updateScrollState, { passive: true });
 
     const observer = new IntersectionObserver((entries) => {
