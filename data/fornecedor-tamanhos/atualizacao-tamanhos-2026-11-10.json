@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-11-10T18:02:20Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 2,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16492",
+      "name": "Gola Polo Premium - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-pre-15533274599",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16605",
+      "name": "Calça Sarja - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-preto-404018083",
+      "oldSizes": [
+        "38",
+        "40",
+        "44"
+      ],
+      "newSizes": [
+        "40",
+        "44"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
