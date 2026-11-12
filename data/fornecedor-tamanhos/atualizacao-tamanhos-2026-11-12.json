@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-11-12T18:29:08Z",
+  "apply": true,
+  "checked": 253,
+  "changed": 7,
+  "succeeded": 253,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14883",
+      "name": "Gola Polo Premium - Off White",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-rl-off-white-801118082",
+      "oldSizes": [
+        "M"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16276",
+      "name": "Gola Polo Premium - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-lct-v-15533274589",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16617",
+      "name": "Camiseta Pima Jersey - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-preto-jerseylct00015",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16606",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+      "oldSizes": [],
+      "newSizes": [
+        "44"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16605",
+      "name": "Calça Sarja - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-preto-404018083",
+      "oldSizes": [
+        "40",
+        "44"
+      ],
+      "newSizes": [
+        "40"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16596",
+      "name": "Camisa Social Oxford - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-pret-302902140",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16594",
+      "name": "Camisa Social Oxford - Cinza",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-cinza-302902138",
+      "oldSizes": [
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
