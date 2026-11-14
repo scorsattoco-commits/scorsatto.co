@@ -679,7 +679,7 @@
     }
   </style>
 <link rel="stylesheet" href="purchase-experience.css?v=20260923-dual2">
-<script src="purchase-experience.js?v=20260923-dual3"></script>
+<script src="purchase-experience.js?v=20261114-central"></script>
 <script src="site-editor.js?v=20260923" defer></script>
 <link rel="stylesheet" href="site-editor.css?v=20260923">
 </head>
@@ -1215,11 +1215,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         .replace(/\bAlgodao Egipcio\b/g, "Algodão Egípcio");
     }
     function productMaterial(product) {
-      const text = productText(product);
+      const text = String(product.id || '').startsWith('team-') ? normalize(product.name) : productText(product);
       const found = MATERIAL_RULES.find(([, terms]) => terms.some((term) => text.includes(normalize(term))));
       return found?.[0] || "";
     }
     function productBaseName(product) {
+      if (String(product.id || '').startsWith('team-')) return titleCaseProduct(cleanName(product.name).replace(/\b(?:RL|LCT|XE)\b/g, '').replace(/\s+/g, ' ').trim());
       const base = titleCaseProduct(cleanName(product.name));
       const material = productMaterial(product);
       if (!material || normalize(base).includes(normalize(material))) return base;
@@ -1241,6 +1242,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       return productTitleName(product);
     }
     function shortProductDescription(product) {
+      if (String(product.id || '').startsWith('team-')) return product.description || '';
       const material = productMaterial(product);
       const color = colorFromName(product.name);
       const colorText = color && color !== "Cor sob consulta" ? color.toLowerCase() : "";
@@ -3417,6 +3419,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function supplierReference(product) {
+      if (String(product.id || '').startsWith('team-')) return String(product.supplierProductId || '');
       if (product.reference) return product.reference;
       const supplierId = String(product.supplierProductId || "").trim();
       if (supplierId.startsWith("SC-")) return supplierId;
