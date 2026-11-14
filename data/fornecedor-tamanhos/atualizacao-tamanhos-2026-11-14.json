@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-11-14T16:40:33Z",
+  "apply": true,
+  "checked": 293,
+  "changed": 7,
+  "succeeded": 293,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "team-17350",
+      "name": "Camisa Social XE OXFORD - Verde Musgo",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-verde-musgo-camisasocialxe00032",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17417",
+      "name": "Camiseta SUPIMA LCT - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-preto-supimalct0004",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17409",
+      "name": "Camiseta SUPIMA RL - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-marrom-supimarl000011",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17413",
+      "name": "Camiseta SUPIMA RL - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-pre-supimarl000015",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17166",
+      "name": "Camiseta TEXTURIZADA RL - Vinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-texturizada-rl-vinho-texturizadarl0005",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16627",
+      "name": "Camiseta PIMA JERSEY RL - Vermelho escuro",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-rl-vermelho-escur-jerseyrl0001",
+      "oldSizes": [
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17397",
+      "name": "Mauricinho de praia XE - Azul marinho",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-azul-marinho-tactelnacionalxe0002",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
