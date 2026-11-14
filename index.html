@@ -179,7 +179,8 @@
     .variant-btn { width: 34px; height: 34px; border: 1px solid transparent; border-radius: 50%; background: transparent; color: var(--black); display: inline-grid; place-items: center; padding: 0; cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
     .variant-btn:hover { transform: translateY(-1px); }
     .variant-btn.active { border-color: var(--black); box-shadow: 0 0 0 3px var(--white), 0 0 0 4px var(--black); }
-    .variant-dot { width: 24px; height: 24px; border: 1px solid rgba(0,0,0,.18); border-radius: 50%; background: var(--swatch, #f5f5f1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.52); }
+    .variant-dot { width: 24px; height: 24px; border: 1px solid rgba(0,0,0,.18); border-radius: 50%; background: var(--swatch, #f5f5f1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.52); overflow: hidden; display: inline-flex; align-items: center; justify-content: center; }
+    .variant-dot img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.65); transform-origin: 50% 35%; }
     .variant-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .reference-line { margin: 12px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .04em; }
     .favorite-btn { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--white); color: var(--black); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
@@ -7734,7 +7735,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
             <div class="price">${currency.format(product.price)}</div>
             <div class="detail-summary-line"><strong>${brandFromProduct(product)}</strong><span>${variantColorName(product)}</span></div>
           </div>
-          ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}"></span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
+          ${options.length > 1 ? `<div class="detail-choice-block"><p class="filter-group-title">Selecionar cor</p><div class="variant-row">${options.map((option) => `<button class="variant-btn${option.variants.some((variant) => variant.slug === product.slug) ? " active" : ""}" type="button" data-variant-slug="${option.representative.slug}" aria-label="${variantColorName(option.representative)}" title="${variantColorName(option.representative)}"><span class="variant-dot" style="--swatch:${swatchColor(variantColorName(option.representative))}">${productImage(option.representative) ? `<img src="${safeHtml(productImage(option.representative))}" alt="" aria-hidden="true" decoding="async">` : ""}</span><span class="variant-label">${variantColorName(option.representative)}</span></button>`).join("")}</div></div>` : ""}
           <div class="detail-choice-block">
             <p class="filter-group-title purchase-size-title">Escolha seu tamanho</p>
             <p id="sizeSelectionFeedback" class="muted" role="status" aria-live="polite">Escolha seu tamanho.</p>
