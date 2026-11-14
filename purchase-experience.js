@@ -1,5 +1,5 @@
 // SCORSATTO product purchase and size-aware recommendations.
-function kitAvailableSizes(product){return (product?.sizes||[]).filter(size=>Number(product.stock?.[size]||0)>0);}
+function kitAvailableSizes(product){if(String(product?.id||'').startsWith('team-')&&product.status==='sob-consulta')return [...(product.sizes||[])];return (product?.sizes||[]).filter(size=>Number(product.stock?.[size]||0)>0);}
 function sizeSelectionFeedback(product,size){return 'Tamanho '+size+(isAvailableNow(variantForSize(product,size))?' · Pronta entrega':' · Sob consulta');}
 // Local preview: stock-checked, explicit additions without opening the bag.
 let combinationState=null;
@@ -253,3 +253,4 @@ function renderSizeRows(sizes){
  const letters=sizes.filter(size=>!/^\d+$/.test(String(size))).sort((a,b)=>{const ai=order.indexOf(a),bi=order.indexOf(b);return (ai<0?999:ai)-(bi<0?999:bi)||String(a).localeCompare(String(b));});
  return [[numeric,'Numeração'],[letters,'Tamanhos em letras']].filter(([values])=>values.length).map(([values,label])=>'<div class="fit-size-scale"><div class="fit-size-row" role="group" aria-label="'+label+'">'+values.map(size=>'<button type="button" data-fit-bottom="'+safeHtml(size)+'" aria-pressed="'+(fitPreferences[/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter']===size)+'">'+safeHtml(size)+'</button>').join('')+'</div></div>').join('');
 }
+
