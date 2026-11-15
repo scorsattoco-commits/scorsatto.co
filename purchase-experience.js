@@ -1,6 +1,36 @@
 // SCORSATTO product purchase and size-aware recommendations.
-function kitAvailableSizes(product){if(String(product?.id||'').startsWith('team-')&&product.status==='sob-consulta')return [...(product.sizes||[])];return (product?.sizes||[]).filter(size=>Number(product.stock?.[size]||0)>0);}
-function sizeSelectionFeedback(product,size){return 'Tamanho '+size+(isAvailableNow(variantForSize(product,size))?' · Pronta entrega':' · Sob consulta');}
+function stockedSizes(product){
+ return (product?.sizes||[]).filter(size=>physicalStockQuantity(product,size)>0);
+}
+function physicalStockQuantity(product,size){
+ if(!product||product.status==='vendido')return 0;
+ return Number(product.localStock?.[size]??(product.status==='disponivel'?product.stock?.[size]:0))||0;
+}
+function kitAvailableSizes(product){
+ if(!product)return [];
+ if(product.status==='disponivel'||supplierStockUnavailable(product))return stockedSizes(product);
+ if(String(product.id||'').startsWith('team-')&&product.status==='sob-consulta')return [...(product.sizes||[])];
+ return (product.sizes||[]).filter(size=>physicalStockQuantity(product,size)>0||Number(product.stock?.[size]||0)>0);
+}
+function chooseSizeVariant(variants,size,readyOnly=false){
+ return variants.find(variant=>stockedSizes(variant).includes(size))
+  || (!readyOnly?variants.find(variant=>kitAvailableSizes(variant).includes(size)):undefined);
+}
+function orderableQuantity(product,size){
+ return physicalStockQuantity(product,size)||(kitAvailableSizes(product).includes(size)?Math.max(1,Number(product.stock?.[size]||0)):0);
+}
+function sameStockReference(a,b){
+ const aRef=String(a.supplierProductId??'').trim().toLowerCase();
+ const bRef=String(b.supplierProductId??'').trim().toLowerCase();
+ return Boolean(aRef&&aRef===bRef&&!/^sc-\d+$/.test(aRef)&&a.collection===b.collection);
+}
+function supplierStockUnavailable(product){
+ return Boolean(product.supplierUrl&&window.scorsattoSupplierUnavailable?.includes(product.supplierUrl.replace(/\/$/,'')));
+}
+function sizeSelectionFeedback(product,size){
+ const variant=variantForSize(product,size);
+ return 'Tamanho '+size+(stockedSizes(variant).includes(size)?' · Pronta entrega':variant?' · Sob consulta':' · Indisponível');
+}
 // Local preview: stock-checked, explicit additions without opening the bag.
 let combinationState=null;
 function refreshCombination(){}
@@ -40,7 +70,7 @@ function quickAddProduct(p,size){
  if(!p||!size||!isPublicProduct(p))return 'Esta peça não está disponível para seleção.';
  const key=cartKey(p.slug,size),current=cart.find(item=>item.key===key);
  if(!kitAvailableSizes(p).includes(size))return 'Este tamanho não está disponível. Escolha outro.';
- if(Number(p.stock?.[size]||0)<(current?.quantity||0)+1)return current?'Já está na sacola ✓':'Este tamanho não está disponível. Escolha outro.';
+ if(orderableQuantity(p,size)<(current?.quantity||0)+1)return current?'Já está na sacola ✓':'Este tamanho não está disponível. Escolha outro.';
  if(current)current.quantity++;else cart.push({key,slug:p.slug,size,quantity:1});
  saveCart();recordCustomerEvent('add_to_cart',p.slug,{size,quantity:1});return null;
 }
@@ -97,11 +127,12 @@ function quickMainPurchase(product){
  if(!selectedDetailSize){requestQuickSize(productDetail.querySelector('.size-grid'),productDetail.querySelector('#sizeSelectionFeedback'));return;}
  productDetail.querySelector('.size-grid').classList.remove('choose-size-now');
  const target=variantForSize(product,selectedDetailSize);
+ if(!target){productDetail.querySelector('#quickMainFeedback').textContent='Este tamanho não está disponível. Escolha outro.';return;}
  if(productDetail.querySelector('#detailAdd').dataset.addedSize===selectedDetailSize&&cart.some(item=>item.key===cartKey(target.slug,selectedDetailSize))){showPurchaseComplements();return;}
  const error=quickAddProduct(target,selectedDetailSize),button=productDetail.querySelector('#detailAdd');
  const ok=!error||error==='Já está na sacola ✓';button.textContent=ok?'Na sacola ✓ · Ver complementos':'Escolher outro tamanho';button.disabled=false;
  if(ok)button.dataset.addedSize=selectedDetailSize;
- productDetail.querySelector('#quickMainFeedback').textContent=error||(isAvailableNow(target)?'Na sua sacola. Continue escolhendo.':'Na sacola · disponibilidade e prazo serão confirmados no atendimento.');
+ productDetail.querySelector('#quickMainFeedback').textContent=error||(physicalStockQuantity(target,selectedDetailSize)>0?'Na sua sacola. Continue escolhendo.':'Na sacola · disponibilidade e prazo serão confirmados no atendimento.');
  if(ok){
   showPurchaseComplements();
   const section=productDetail.querySelector('.quick-complements');
@@ -126,7 +157,7 @@ function saveFitPreferences(){try{sessionStorage.setItem('scorsattoVisitSizes',J
 const fitSeen=new Map();
 const fitOriginalClick=handleCombinationClick;
 function fitBottom(p){return ['calcas','bermudas'].includes(p.collection);}
-function fitSizes(p){return kitAvailableSizes(p).filter(size=>Number(p.stock?.[size]||0)>(cart.find(i=>i.key===cartKey(p.slug,size))?.quantity||0));}
+function fitSizes(p){return kitAvailableSizes(p).filter(size=>orderableQuantity(p,size)>(cart.find(i=>i.key===cartKey(p.slug,size))?.quantity||0));}
 function fitSizeKey(p,size){return fitBottom(p)?(/^\d+$/.test(String(size))?'bottomNumber':'bottomLetter'):'top';}
 function fitRemember(p,size){fitPreferences[fitSizeKey(p,size)]=size;}
 function fitMatches(p,size){const wanted=fitPreferences[fitSizeKey(p,size)];return wanted===size;}

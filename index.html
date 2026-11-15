@@ -680,7 +680,8 @@
     }
   </style>
 <link rel="stylesheet" href="purchase-experience.css?v=20260923-dual2">
-<script src="purchase-experience.js?v=20261114-central"></script>
+<script src="supplier-visibility.js"></script>
+<script src="purchase-experience.js?v=20261115-stock"></script>
 <script src="site-editor.js?v=20260923" defer></script>
 <link rel="stylesheet" href="site-editor.css?v=20260923">
 </head>
@@ -1365,9 +1366,13 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     const forceVisitorView = new URLSearchParams(location.search).get("view") === "visitor";
     const hasAdminEmail = () => Boolean(account?.email && ADMIN_EMAILS.includes(normalize(account.email)));
     const isAdminAccount = () => Boolean(hasAdminEmail() && !forceVisitorView);
-    const isAvailableNow = (product) => product.status === "disponivel";
+    const isAvailableNow = (product) => stockedSizes(product).length > 0;
     const canUseGroupsPanel = () => Boolean(isAdminAccount());
-    const isPublicProduct = (product) => !product.hidden && product.visibility !== "hidden" && product.visibility !== "draft" && product.status !== "vendido";
+    const isCatalogVisible = (product) => !product.hidden && product.visibility !== "hidden" && product.visibility !== "draft" && product.status !== "vendido";
+    const isPublicProduct = (product) => isCatalogVisible(product) && (
+      isAvailableNow(product) || (product.status !== "disponivel" && !supplierStockUnavailable(product))
+      || linkedStockVariants(product).some(isAvailableNow)
+    );
     // A vitrine deve refletir exatamente o que o cliente vê. Produtos ocultos
     // continuam acessíveis no Catálogo administrativo, que usa PRODUCTS direto.
     const visibleProducts = () => PRODUCTS.filter(isPublicProduct);
@@ -2554,13 +2559,26 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function variantOptionSizes(product) {
-      const option = currentVariantOption(product);
-      return sortSizes((option?.variants || [product]).flatMap((variant) => kitAvailableSizes(variant)));
+      const sizes = active === "disponiveis-agora" ? stockedSizes : kitAvailableSizes;
+      return sortSizes(sizeVariants(product).flatMap(sizes));
     }
 
     function variantForSize(product, size) {
-      const option = currentVariantOption(product);
-      return option?.variants.find((variant) => kitAvailableSizes(variant).includes(size)) || product;
+      return chooseSizeVariant(sizeVariants(product),size,active === "disponiveis-agora");
+    }
+
+    function linkedStockVariants(product) {
+      if (!product) return [];
+      const group = productGroup(product);
+      return PRODUCTS.filter(other => other !== product && isCatalogVisible(other)
+        && (sameStockReference(product,other)
+          || (group?.slugs.includes(other.slug) && variantOptionKey(product) === variantOptionKey(other))));
+    }
+
+    function sizeVariants(product) {
+      if (!product) return [];
+      return [product,...linkedStockVariants(product)].filter(variant => isPublicProduct(variant)
+        && (active !== "disponiveis-agora" || isAvailableNow(variant)));
     }
 
     function productVariants(product) {
@@ -2591,7 +2609,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function variantSizes(product) {
-      return sortSizes(productVariants(product).flatMap((item) => item.sizes ?? []));
+      return sortSizes(productVariants(product).flatMap(variantOptionSizes));
     }
 
     function variantColors(product) {
@@ -2910,7 +2928,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
     }
 
     function catalogChangeSummary(before, after) {
-      const labels = { name: "nome", price: "preço", status: "disponibilidade", sizes: "tamanhos", stock: "estoque", images: "fotos", description: "descrição", hidden: "visibilidade", visibility: "visibilidade" };
+      const labels = { name: "nome", price: "preço", status: "disponibilidade", sizes: "tamanhos", stock: "estoque", localStock: "estoque próprio", images: "fotos", description: "descrição", hidden: "visibilidade", visibility: "visibilidade" };
       return Object.keys(labels).filter((key) => JSON.stringify(before?.[key]) !== JSON.stringify(after?.[key])).map((key) => labels[key]).filter((label, index, items) => items.indexOf(label) === index);
     }
 
@@ -2937,6 +2955,10 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         product.stock = normalizeStock(override.stock || product.stock, override.sizes);
       }
       if (override.stock && typeof override.stock === "object") product.stock = normalizeStock(override.stock, product.sizes || Object.keys(override.stock));
+      if (override.localStock === null) delete product.localStock;
+      else if (override.localStock && typeof override.localStock === "object") {
+        product.localStock = normalizeStock(override.localStock, product.sizes || Object.keys(override.localStock));
+      }
       if (typeof override.description === "string") product.description = override.description;
       if (typeof override.hidden === "boolean") product.hidden = override.hidden;
       if (typeof override.visibility === "string") product.visibility = override.visibility;
@@ -2994,7 +3016,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const product = PRODUCTS.find((item) => item.slug === slug);
       const savedAt = new Date().toISOString();
       const history = Array.isArray(previous?._meta?.history) ? previous._meta.history.slice(-19) : [];
-      const before = product ? { name: product.name || "", price: Number(product.price || 0), status: product.status || "sob-consulta", sizes: [...(product.sizes || [])], stock: { ...(product.stock || {}) }, images: [...(product.images || [])], description: product.description || "", visibility: productVisibility(product), hidden: productVisibility(product) !== "public" } : {};
+      const before = product ? { name: product.name || "", price: Number(product.price || 0), status: product.status || "sob-consulta", sizes: [...(product.sizes || [])], stock: { ...(product.stock || {}) }, localStock: product.localStock ? { ...product.localStock } : null, images: [...(product.images || [])], description: product.description || "", visibility: productVisibility(product), hidden: productVisibility(product) !== "public" } : {};
       const payload = { ...override, _meta: { updatedAt: savedAt, updatedBy: "Administrador SCORSATTO", verified: false, history: [...history, { at: savedAt, fields: catalogChangeSummary(previous, override), before }] } };
       catalogSyncState = "saving";
       catalogSyncMessage = "Salvando e verificando";
@@ -3193,7 +3215,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         if (![...selected.brand].some((value) => variants.some((variant) => productBrand(variant)?.label === value))) return false;
       }
       if (selected.size.size) {
-        if (![...selected.size].some((value) => variants.some((variant) => variant.sizes?.includes(value)))) return false;
+        if (![...selected.size].some((value) => variants.some((variant) => variantOptionSizes(variant).includes(value)))) return false;
       }
       if (selected.color.size) {
         if (![...selected.color].some((value) => variants.some((variant) => colorMatch(variant, COLORS.find((item) => item.label === value))))) return false;
@@ -3317,7 +3339,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
                 `Marca: ${product ? brandFromProduct(product) : "-"}`,
                 `Cor: ${product ? variantColorName(product) : "-"}`,
                 `Tamanho: ${item.size}`,
-                `Disponibilidade: ${product && isAvailableNow(product) ? "Pronta entrega" : "Sob consulta — confirmar disponibilidade e prazo"}`,
+                `Disponibilidade: ${physicalStockQuantity(product,item.size) >= item.quantity ? "Pronta entrega" : "Sob consulta — confirmar disponibilidade e prazo"}`,
                 `Quantidade: ${item.quantity}`,
                 `Referência: ${product ? orderReference(product) || "sob consulta" : "sob consulta"}`,
                 `Valor: ${currency.format(price)}`,
@@ -6456,6 +6478,7 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
               <label class="field"><span>Visibilidade</span><select name="visibility"><option value="public"${productVisibility(product) === "public" ? " selected" : ""}>Publicado</option><option value="hidden"${productVisibility(product) === "hidden" ? " selected" : ""}>Oculto</option><option value="draft"${productVisibility(product) === "draft" ? " selected" : ""}>Rascunho</option></select></label>
               <label class="field"><span>Tamanhos</span><input name="sizes" value="${safeHtml(sizesText)}" placeholder="P, M, G, GG"></label>
               <div class="field wide"><span>Quantidade por tamanho</span><div class="admin-stock-grid">${sizes.length ? sizes.map((size) => `<label class="admin-stock-item"><span>${safeHtml(size)}</span><input data-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0, Number(product.stock?.[size] || 0))}"></label>`).join("") : '<span class="muted">Informe os tamanhos, salve e reabra para cadastrar as quantidades.</span>'}</div></div>
+              <div class="field wide"${product.status==="sob-consulta"?"":" hidden"} data-local-stock-field><span>Estoque próprio à pronta entrega</span><div class="admin-stock-grid" data-local-stock-grid>${localStockInputs(sizes,product.localStock)}</div></div>
               <label class="field wide"><span>Descrição</span><textarea name="description" rows="5">${safeHtml(product.description || "")}</textarea></label>
               <label class="field wide"><span>Fotos atuais — uma por linha</span><textarea name="images" rows="5" placeholder="Uma URL ou caminho por linha">${safeHtml(imagesText)}</textarea></label>
               <label class="field wide"><span>Adicionar foto</span><input name="newImage" placeholder="Cole URL ou caminho da imagem"></label>
@@ -7314,6 +7337,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       form.querySelectorAll("[data-stock-size]").forEach((input) => {
         stock[input.dataset.stockSize] = Math.max(0, Math.floor(Number(input.value || 0)));
       });
+      const localStock = Object.fromEntries([...form.querySelectorAll("[data-local-stock-size]")]
+        .map(input => [input.dataset.localStockSize, Math.max(0, Math.floor(Number(input.value || 0)))]));
       const images = cleanList(data.images);
       if (data.newImage) images.push(data.newImage);
       const visibility = ["public", "hidden", "draft"].includes(data.visibility) ? data.visibility : "public";
@@ -7330,6 +7355,8 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
           status: ["disponivel", "sob-consulta", "vendido"].includes(data.status) ? data.status : "sob-consulta",
           sizes,
           stock: normalizeStock(stock, sizes),
+          localStock: data.status === "sob-consulta" && Object.values(localStock).some(quantity => quantity > 0)
+            ? normalizeStock(localStock, sizes) : null,
           images: [...new Set(images)],
           description: data.description || "",
           visibility,
@@ -7358,12 +7385,22 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       }
     }
 
+    function localStockInputs(sizes,stock={}){
+      return sizes.map(size => `<label class="admin-stock-item"><span>${safeHtml(size)}</span><input data-local-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${Math.max(0,Number(stock[size]||0))}"></label>`).join("");
+    }
+
     function refreshAdminStockFields(form) {
-      const grid = form?.querySelector(".admin-stock-grid");
+      const grid = form?.querySelector(".admin-stock-grid:not([data-local-stock-grid])");
       if (!grid) return;
       const current = Object.fromEntries([...grid.querySelectorAll("[data-stock-size]")].map((input) => [input.dataset.stockSize, input.value]));
       const sizes = cleanList(form.elements.sizes?.value || "");
       grid.innerHTML = sizes.length ? sizes.map((size) => `<label class="admin-stock-item"><span>${safeHtml(size)}</span><input data-stock-size="${safeHtml(size)}" type="number" min="0" step="1" value="${safeHtml(current[size] || "0")}"></label>`).join("") : '<span class="muted">Informe pelo menos um tamanho.</span>';
+      const localGrid=form.querySelector('[data-local-stock-grid]');
+      if(localGrid){
+        const quantities=Object.fromEntries([...localGrid.querySelectorAll('[data-local-stock-size]')]
+          .map(input=>[input.dataset.localStockSize,input.value]));
+        localGrid.innerHTML=localStockInputs(sizes,quantities);
+      }
     }
 
     async function handleCatalogAdminClick(event, render) {
@@ -7886,8 +7923,19 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         refreshCombination();
         const feedback=productDetail.querySelector('#sizeSelectionFeedback');
         if(feedback)feedback.textContent=sizeSelectionFeedback(PRODUCTS.find(p=>p.slug===selectedProductSlug),selectedDetailSize);
+        const product=PRODUCTS.find(p=>p.slug===selectedProductSlug);
+        const selected=variantForSize(product,selectedDetailSize);
         const action=productDetail.querySelector('#detailAdd');
-        if(action){action.disabled=false;action.textContent=primaryProductActionLabel(PRODUCTS.find(p=>p.slug===selectedProductSlug));}
+        if(action){
+          action.disabled=!selected;
+          action.textContent=selected?primaryProductActionLabel(selected):'Tamanho indisponível';
+        }
+        if(selected){
+          const formattedPrice=currency.format(selected.price);
+          productDetail.querySelector('.detail-purchase-head .price').textContent=formattedPrice;
+          const quickPrice=productDetailSection.querySelector('#quickPurchaseBar span');
+          if(quickPrice)quickPrice.textContent=formattedPrice;
+        }
         productDetail.querySelectorAll(".size-btn").forEach((button) => button.classList.toggle("active", button.dataset.size === selectedDetailSize));
       }
       const variant = event.target.closest("button[data-variant-slug]");

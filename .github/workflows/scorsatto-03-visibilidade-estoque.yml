@@ -1,0 +1,62 @@
+name: SCORSATTO 03 — ocultar estoque indisponível
+
+on:
+  schedule:
+    - cron: "17 12 * * 1" # Segunda, 09:17 em São Paulo (UTC-3)
+  workflow_dispatch:
+    inputs:
+      audit_only:
+        description: Conferir sem alterar a vitrine
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: scorsatto-tamanhos
+  cancel-in-progress: false
+
+jobs:
+  conferir:
+    if: github.ref == 'refs/heads/gh-pages'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Conferir disponibilidade no fornecedor
+        env:
+          APPLY: ${{ github.event_name == 'schedule' || inputs.audit_only == false }}
+        run: |
+          options=()
+          if [[ "$APPLY" == 'true' ]]; then options+=(--apply); fi
+          python scripts/weekly_supplier_visibility.py "${options[@]}" > "$RUNNER_TEMP/visibilidade.json"
+          jq -r '"Referências verificadas: \(.checked) · indisponibilidades novas: \(.newUnavailable | length) · reposições: \(.restocked | length) · falhas de leitura: \(.failures | length)"' "$RUNNER_TEMP/visibilidade.json" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scorsatto-visibilidade-estoque
+          path: ${{ runner.temp }}/visibilidade.json
+      - name: Atualizar visibilidade na loja
+        if: github.event_name == 'schedule' || inputs.audit_only == false
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! git diff --quiet -- supplier-visibility.js; then
+            git config user.name "scorsatto-automation[bot]"
+            git config user.email "scorsatto-automation[bot]@users.noreply.github.com"
+            git add supplier-visibility.js
+            git commit -m "chore(automation): atualiza visibilidade do estoque"
+            git push
+          fi
+          # Commits using GITHUB_TOKEN do not trigger legacy GitHub Pages automatically.
+          live_commit=$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq 'select(.status == "built") | .commit')
+          if [[ -n "$live_commit" ]] && git cat-file -e "$live_commit:supplier-visibility.js" 2>/dev/null &&
+             git diff --quiet "$live_commit" HEAD -- supplier-visibility.js; then
+            exit 0
+          fi
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '.status'

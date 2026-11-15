@@ -9,9 +9,28 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from supplier_common import parse_supplier_availability
 from update_supplier_sizes import normalize_sizes, observe_supplier, stock_from_sizes
+from weekly_supplier_visibility import supplier_url, verify
 
 
 class UpdateSupplierSizesTest(unittest.TestCase):
+    def test_weekly_hide_requires_two_matching_readings(self):
+        url = "https://www.catalogopoa.com.br/polo-123"
+        sold_out = {"state": "sold_out", "sizes": []}
+        available = {"state": "available", "sizes": ["G"]}
+        with patch("weekly_supplier_visibility.observe_supplier", side_effect=[sold_out, sold_out]):
+            self.assertEqual((url, "sold_out", None), verify(url))
+        with patch("weekly_supplier_visibility.observe_supplier", side_effect=[sold_out, available]):
+            self.assertIsNone(verify(url)[1])
+        with patch("weekly_supplier_visibility.observe_supplier", side_effect=[available, available]):
+            self.assertEqual((url, "available", None), verify(url))
+        with patch("weekly_supplier_visibility.observe_supplier", side_effect=HTTPError(url, 403, "Forbidden", None, None)):
+            self.assertIsNone(verify(url)[1])
+
+    def test_weekly_scan_only_accepts_exact_supplier_host(self):
+        self.assertEqual("https://www.catalogopoa.com.br/polo-123", supplier_url("https://www.catalogopoa.com.br/polo-123/"))
+        self.assertEqual("", supplier_url("https://catalogopoa.com.br.exemplo.com/polo-123"))
+        self.assertEqual("", supplier_url("estoque-proprio-scorsatto"))
+
     def test_stock_has_one_unit_for_each_available_size(self):
         self.assertEqual({"P": 1, "M": 1, "G": 1}, stock_from_sizes(["P", "M", "G"]))
 
