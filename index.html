@@ -194,10 +194,10 @@
     .size-btn { min-width: 48px; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); cursor: pointer; font-size: 13px; font-weight: 600; transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
     .size-btn:hover { transform: translateY(-1px); border-color: var(--black); }
     .size-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
-    #productDetail .variant-btn, #productDetail .size-btn { position: relative; }
-    #productDetail .stock-bolt { position: absolute; top: -5px; right: -5px; display: grid; place-items: center; width: 17px; height: 17px; border: 1px solid #fff; border-radius: 50%; background: #24583e; color: #fff; font: 700 12px/1 system-ui, sans-serif; }
+    #productDetail .size-btn { position: relative; }
+    #productDetail .stock-bolt { position: absolute; top: -4px; right: -4px; display: grid; place-items: center; width: 15px; height: 15px; border: 1px solid #fff; border-radius: 50%; background: #24583e; color: #fff; font: 700 10px/1 system-ui, sans-serif; }
     #productDetail .size-btn.has-ready-stock:not(.active) { border-color: #357450; background: #e8f4ed; color: #19432e; }
-    #productDetail #sizeSelectionFeedback.has-ready-stock { display: inline-flex; align-items: center; min-height: 30px; padding: 3px 9px; border-radius: 5px; background: #e8f4ed; color: #19432e; font-weight: 700; }
+    #productDetail #sizeSelectionFeedback.has-ready-stock { color: #24583e; }
     .detail-actions { display: grid; gap: 10px; margin-top: 20px; }
     .commercial-scripts { display: grid; gap: 8px; }
     .commercial-script { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); padding: 10px; display: grid; gap: 6px; }
@@ -7712,8 +7712,9 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
       const readySizes=variantOptionSizes(product).filter(size=>physicalStockQuantity(variantForSize(product,size),size)>0);
       const selectedReady=readySizes.includes(selectedDetailSize);
       feedback.classList.toggle('has-ready-stock',selectedDetailSize?selectedReady:readySizes.length>0);
+      const readyText=readySizes.length===1?'Tamanho '+readySizes[0]:'Tamanhos '+readySizes.join(', ');
       feedback.textContent=selectedDetailSize?sizeSelectionFeedback(product,selectedDetailSize)
-        :readySizes.length?'⚡ Pronta entrega: '+readySizes.join(', '):'Escolha seu tamanho.';
+        :readySizes.length?readyText+' · Pronta entrega':'Escolha seu tamanho.';
     }
 
     function renderReadyStockOptions(product){
@@ -7731,8 +7732,6 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
         if(!variant)continue;
         const color=variantColorName(variant);
         const ready=sizeVariants(variant).some(isAvailableNow);
-        button.querySelector('.stock-bolt')?.remove();
-        if(ready)button.insertAdjacentHTML('beforeend',bolt);
         button.setAttribute('aria-label',ready?color+' · Pronta entrega':color);
         button.title=button.getAttribute('aria-label');
       }
