@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -2569,10 +2569,12 @@ const CATEGORIES = [{"slug":"todos","label":"Todos"},{"slug":"disponiveis-agora"
 
     function linkedStockVariants(product) {
       if (!product) return [];
-      const group = productGroup(product);
+      const groups = approvedProductGroups.filter(group => group.slugs.includes(product.slug));
       return PRODUCTS.filter(other => other !== product && isCatalogVisible(other)
         && (sameStockReference(product,other)
-          || (group?.slugs.includes(other.slug) && variantOptionKey(product) === variantOptionKey(other))));
+          || groups.some(group => group.slugs.includes(other.slug)
+            && normalize(group.labels?.[product.slug] || variantColorName(product))
+              === normalize(group.labels?.[other.slug] || variantColorName(other)))));
     }
 
     function sizeVariants(product) {
