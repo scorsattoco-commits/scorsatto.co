@@ -46,10 +46,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! git diff --quiet -- supplier-visibility.js; then
+          jq --arg runId "$GITHUB_RUN_ID" '{runId:$runId,checked,unavailable:.confirmedUnavailable,newUnavailable:(.newUnavailable|length),restocked:(.restocked|length),failures:(.failures|length)}' "$RUNNER_TEMP/visibilidade.json" > supplier-visibility-report.json
+          git add supplier-visibility.js supplier-visibility-report.json
+          if ! git diff --cached --quiet; then
             git config user.name "scorsatto-automation[bot]"
             git config user.email "scorsatto-automation[bot]@users.noreply.github.com"
-            git add supplier-visibility.js
             git commit -m "chore(automation): atualiza visibilidade do estoque"
             git pull --rebase origin gh-pages
             git push
@@ -57,7 +58,7 @@ jobs:
           # Commits using GITHUB_TOKEN do not trigger legacy GitHub Pages automatically.
           live_commit=$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq 'select(.status == "built") | .commit')
           if [[ -n "$live_commit" ]] && git cat-file -e "$live_commit:supplier-visibility.js" 2>/dev/null &&
-             git diff --quiet "$live_commit" HEAD -- supplier-visibility.js; then
+             git diff --quiet "$live_commit" HEAD -- supplier-visibility.js supplier-visibility-report.json; then
             exit 0
           fi
           gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '.status'
