@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-11-16T20:36:53Z",
+  "apply": true,
+  "checked": 293,
+  "changed": 2,
+  "succeeded": 293,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "team-17416",
+      "name": "Camiseta SUPIMA LCT - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-branco-supimalct0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17414",
+      "name": "Camiseta SUPIMA LCT - Azul bebe",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-azul-bebe-supimalct0001",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
