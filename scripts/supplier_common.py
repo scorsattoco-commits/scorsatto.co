@@ -197,7 +197,9 @@ def discover_relevant_category_urls(categories=None):
     selected = []
     for url in urls:
         low = url.lower()
-        if any(token in low for token in allow) and not any(token in low for token in deny):
+        if low.rstrip("/") == "https://www.catalogopoa.com.br/bermudas/bermudatactel":
+            selected.append(url)
+        elif any(token in low for token in allow) and not any(token in low for token in deny):
             selected.append(url)
     return selected
 
@@ -270,5 +272,11 @@ def is_scorsatto_candidate(item, categories=None, brands=None):
             "malha",
         )
     )
-    deny = any(token in text for token in ("feminino", "feminina", "infantil", "regata", "oversized", "plus", "short doll", "tactel", "poliamida", "praia"))
+    bermuda = item.get("collection") == "bermudas"
+    rl_tactel = (
+        bermuda and item.get("brandLabel", "").lower() == "ralph lauren"
+        and "poliamida" in text and "elastano" in text
+    )
+    deny = any(token in text for token in ("feminino", "feminina", "infantil", "regata", "oversized", "plus", "short doll", "praia"))
+    deny = deny or ("poliamida" in text and not bermuda) or ("tactel" in text and not rl_tactel)
     return allow_brand and allow_collection and allow_product and not deny and bool(item.get("sizes"))
