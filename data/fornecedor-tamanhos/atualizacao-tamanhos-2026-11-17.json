@@ -1,0 +1,239 @@
+{
+  "generatedAt": "2026-11-17T19:15:52Z",
+  "apply": true,
+  "checked": 325,
+  "changed": 13,
+  "succeeded": 325,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-15820",
+      "name": "Camiseta Supima - Marrom",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-marrom-supimaxe0007",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17161",
+      "name": "Mauricinho Linho ESPECIAL RL - Cinza",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-cinza-linhorl005",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17160",
+      "name": "Mauricinho Linho ESPECIAL RL - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-branco-linhorl004",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17158",
+      "name": "Mauricinho Linho ESPECIAL RL - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-preto-linhorl002",
+      "oldSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17159",
+      "name": "Mauricinho Linho ESPECIAL RL - Azul marinho",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-azul-marinho-linhorl003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16953",
+      "name": "Tactel Importado Arm Elastano - Preto",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-preto-tactelarm04",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16969",
+      "name": "TRICOLINE - Azul-marinho",
+      "url": "https://www.catalogopoa.com.br/camisa-social-lct-tricoline-azul-marinho-camisasociallct0001",
+      "oldSizes": [
+        "G"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16971",
+      "name": "TRICOLINE - Preto",
+      "url": "https://www.catalogopoa.com.br/camisa-social-lct-tricoline-preto-camisasociallct0003",
+      "oldSizes": [
+        "G"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17325",
+      "name": "Gola Polo Premium XE - Azul-marinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-copia-golapoloxeazul0111",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17324",
+      "name": "Gola Polo Premium XE - Preto",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-preto-golapoloxepret001",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17328",
+      "name": "Gola Polo Premium XE - Vermelho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-vermelho-golapoloverxe02892",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17326",
+      "name": "Gola Polo Premium XE - Vinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-vinho-golapoloxinhoxe011",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17474",
+      "name": "Mauricinho Sarja Elastano - Azul-bebê",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-azul-bebe-mausarjalct0006",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
