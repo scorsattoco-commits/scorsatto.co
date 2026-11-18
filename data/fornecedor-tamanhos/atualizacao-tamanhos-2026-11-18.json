@@ -1,0 +1,304 @@
+{
+  "generatedAt": "2026-11-18T18:57:08Z",
+  "apply": true,
+  "checked": 347,
+  "changed": 19,
+  "succeeded": 347,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-16113",
+      "name": "Sueter Meio Ziper - Cinza",
+      "url": "https://www.catalogopoa.com.br/sueter-xe-meio-ziper-c-sueterziperxe0005",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15894",
+      "name": "Casaco Moletom - Off White",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-off-white-molcapuzxe00057",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16070",
+      "name": "Casaco Moletom - Bege",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-bege-molcapuzxe00073",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-15895",
+      "name": "Casaco Moletom - Branco",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-xe-branco-molcapuzxe00058",
+      "oldSizes": [
+        "M"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16119",
+      "name": "Casaco Moletom - Bege",
+      "url": "https://www.catalogopoa.com.br/moletom-s-capuz-xe-bege-molsemxe00034",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16613",
+      "name": "Camiseta Pima Jersey - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-pima-jersey-lct-branco-jerseylct00011",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17417",
+      "name": "Camiseta SUPIMA LCT - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-preto-supimalct0004",
+      "oldSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17410",
+      "name": "Camiseta SUPIMA RL - Azul marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-azul-marinho-supimarl000012",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17413",
+      "name": "Camiseta SUPIMA RL - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-pre-supimarl000015",
+      "oldSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17158",
+      "name": "Mauricinho Linho ESPECIAL RL - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-preto-linhorl002",
+      "oldSizes": [
+        "P",
+        "M"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17160",
+      "name": "Mauricinho Linho ESPECIAL RL - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-branco-linhorl004",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17161",
+      "name": "Mauricinho Linho ESPECIAL RL - Cinza",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-cinza-linhorl005",
+      "oldSizes": [
+        "P",
+        "G"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16077",
+      "name": "Moletom C Capuz Premium Live - Bege",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-lct-live-bege-capuzlct0029",
+      "oldSizes": [
+        "M"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17471",
+      "name": "Mauricinho Sarja Elastano - Creme",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-crem-mausarjalct0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16076",
+      "name": "Moletom C Capuz Premium Live - Verde",
+      "url": "https://www.catalogopoa.com.br/moletom-c-capuz-premium-lct-live-verde-capuzlct0028",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17200",
+      "name": "Mauricinho Sarja ARA - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-ara-preto-mauara0021",
+      "oldSizes": [
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17478",
+      "name": "LINHO - Verde",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-rl-verde-linhorl00025",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17483",
+      "name": "LINHO - Amarelo",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-rl-amarelo-linhorl00030",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17453",
+      "name": "Camiseta SUPIMA TOMMY - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00035",
+      "oldSizes": [
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    }
+  ]
+}
