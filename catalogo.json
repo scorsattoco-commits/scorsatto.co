@@ -2953,6 +2953,30 @@
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-verde-16982",
       "category": "bermudas",
       "updatedAt": null
+    },
+    {
+      "ref": "16959",
+      "name": "Calça Sarja XE - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16959-8505dd85c0cc188b.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-bege-16959",
+      "category": "calcas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16958",
+      "name": "Calça Sarja XE - Chumbo",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16958-5fa3d331b627d397.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-chumbo-16958",
+      "category": "calcas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16955",
+      "name": "Calça Sarja XE - Creme",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16955-2655ddbd627934ce.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-creme-16955",
+      "category": "calcas",
+      "updatedAt": null
     }
   ]
 }
