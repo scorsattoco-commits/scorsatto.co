@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-11-19T19:05:12Z",
+  "apply": true,
+  "checked": 347,
+  "changed": 5,
+  "succeeded": 347,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "team-17398",
+      "name": "Mauricinho de praia XE - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-branco-tactelnacionalxe0003",
+      "oldSizes": [
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17469",
+      "name": "Mauricinho Sarja Elastano - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-branco-mausarjalct0001",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17471",
+      "name": "Mauricinho Sarja Elastano - Creme",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-crem-mausarjalct0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17451",
+      "name": "Camiseta SUPIMA TOMMY - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe00033",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17197",
+      "name": "Mauricinho Sarja ARA - Rosa",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-ara-rosa-mauara0018",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
