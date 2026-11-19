@@ -2913,6 +2913,46 @@
       "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-marrom-13192",
       "category": "bermudas",
       "updatedAt": null
+    },
+    {
+      "ref": "13191",
+      "name": "Bermuda Sarja RL - Azul Meia Noite",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/13191-cd306a433407720e.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-azul-meia-noite-13191",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16981",
+      "name": "Bermuda Sarja RL - Cinza claro",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16981-aa591c75526678be.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-cinza-claro-16981",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "13193",
+      "name": "Bermuda Sarja RL - Marrom Escuro",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/13193-f97cd9f9a6abdd80.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-marrom-escuro-13193",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16983",
+      "name": "Bermuda Sarja RL - Chumbo",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16983-72b774c5b1ae5c79.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-chumbo-16983",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16982",
+      "name": "Bermuda Sarja RL - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16982-cbb7d6aa7952436a.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-verde-16982",
+      "category": "bermudas",
+      "updatedAt": null
     }
   ]
 }
