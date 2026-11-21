@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-11-21T17:41:52Z",
+  "apply": true,
+  "checked": 356,
+  "changed": 5,
+  "succeeded": 356,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "team-17347",
+      "name": "Camisa Social XE OXFORD - Azul",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-azul-camisasocialxe00029",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17416",
+      "name": "Camiseta SUPIMA LCT - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-branco-supimalct0003",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17414",
+      "name": "Camiseta SUPIMA LCT - Azul bebe",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-azul-bebe-supimalct0001",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17402",
+      "name": "Mauricinho de praia XE - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-preto-tactelnacionalxe0007",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16953",
+      "name": "Tactel Importado Arm Elastano - Preto",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-preto-tactelarm04",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
