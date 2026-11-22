@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-11-22T17:57:05Z",
+  "apply": true,
+  "checked": 356,
+  "changed": 7,
+  "succeeded": 356,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14293",
+      "name": "Calca Jeans - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-xe-sknny-preto-038",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17414",
+      "name": "Camiseta SUPIMA LCT - Azul bebe",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-azul-bebe-supimalct0001",
+      "oldSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17397",
+      "name": "Mauricinho de praia XE - Azul marinho",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-azul-marinho-tactelnacionalxe0002",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16952",
+      "name": "Tactel Importado Arm Elastano - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-azul-marinho-tactelarm03",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17157",
+      "name": "Mauricinho Linho ESPECIAL RL - Marrom escuro",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-marrom-linhorl001",
+      "oldSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16951",
+      "name": "Tactel Importado Arm Elastano - Cinza",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-cinza-tactelarm02",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17451",
+      "name": "Camiseta SUPIMA TOMMY - Branco",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-branco-supimaxe00033",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
