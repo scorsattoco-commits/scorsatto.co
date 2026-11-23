@@ -2977,6 +2977,134 @@
       "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-creme-16955",
       "category": "calcas",
       "updatedAt": null
+    },
+    {
+      "ref": "16957",
+      "name": "Calça Sarja XE - Gelo",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16957-bcdb5c83dd70974d.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-gelo-16957",
+      "category": "calcas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16956",
+      "name": "Calça Sarja XE - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16956-8c5ab496e31f6ef6.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-preto-16956",
+      "category": "calcas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16954",
+      "name": "Calça Sarja XE - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16954-52e3c5501b78f383.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-calca-sarja-xe-azul-marinho-16954",
+      "category": "calcas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17503",
+      "name": "Bermuda Tactel Poliamida - Bege",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17503-dcefe06f51f1ca04.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-tactel-poliamida-bege-17503",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17506",
+      "name": "Bermuda Tactel Poliamida - Branco",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17506-36f5b1fea1a0edd5.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-tactel-poliamida-branco-17506",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17507",
+      "name": "Bermuda Tactel Poliamida - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17507-74a3fa4855079da2.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-tactel-poliamida-marrom-17507",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17500",
+      "name": "Bermuda Tactel Poliamida - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17500-0edd2a1cc0c5320c.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-tactel-poliamida-preto-17500",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17505",
+      "name": "Bermuda Tactel Poliamida - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17505-c926f21e6bcf7f62.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-tactel-poliamida-verde-17505",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17531",
+      "name": "Camiseta SUPIMA - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17531-87dee1c35720744b.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-azul-marinho-17531",
+      "category": "camisetas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17528",
+      "name": "Camiseta SUPIMA - Azul bebe",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17528-a85796e8149289ff.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-azul-bebe-17528",
+      "category": "camisetas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17527",
+      "name": "Camiseta SUPIMA - Branco",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17527-bedc728a9d4f1267.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-branco-17527",
+      "category": "camisetas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17532",
+      "name": "Camiseta SUPIMA - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17532-98e48d50749db587.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-preto-17532",
+      "category": "camisetas",
+      "updatedAt": null
+    },
+    {
+      "ref": "17529",
+      "name": "Camiseta SUPIMA - Verde",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/17529-37abf494bfa96437.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-camiseta-supima-verde-17529",
+      "category": "camisetas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16985",
+      "name": "Bermuda Sarja RL - Preto",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16985-2c9bd6521cc5f180.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-preto-16985",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16987",
+      "name": "Bermuda Sarja RL - Azul Marinho",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16987-7fed471e3b092637.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-azul-marinho-16987",
+      "category": "bermudas",
+      "updatedAt": null
+    },
+    {
+      "ref": "16984",
+      "name": "Bermuda Sarja RL - Marrom",
+      "imageUrl": "https://usescorsatto.com.br/generated/catalogo-equipe/16984-8d1684265e1871f9.png",
+      "productUrl": "https://usescorsatto.com.br/#produto-bermuda-sarja-rl-marrom-16984",
+      "category": "bermudas",
+      "updatedAt": null
     }
   ]
 }
