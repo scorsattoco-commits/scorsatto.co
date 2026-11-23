@@ -1,0 +1,547 @@
+{
+  "generatedAt": "2026-11-23T22:08:18Z",
+  "apply": true,
+  "checked": 372,
+  "changed": 31,
+  "succeeded": 372,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-13274",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-4010160006",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16611",
+      "name": "Camiseta Supima Polo Sport - Bege",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-bege-supimarl000010",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16604",
+      "name": "Calça Sarja - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-azul-marinho-404018082",
+      "oldSizes": [
+        "38",
+        "48"
+      ],
+      "newSizes": [
+        "38"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16606",
+      "name": "Calça Sarja - Cinza",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-rl-cinza-404018084",
+      "oldSizes": [
+        "44"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "scp-16595",
+      "name": "Camisa Social Oxford - Azul Claro",
+      "url": "https://www.catalogopoa.com.br/camisa-social-oxford-rl-azul-claro-302902139",
+      "oldSizes": [
+        "P",
+        "M",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17414",
+      "name": "Camiseta SUPIMA LCT - Azul bebe",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-lct-azul-bebe-supimalct0001",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17402",
+      "name": "Mauricinho de praia XE - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-preto-tactelnacionalxe0007",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17413",
+      "name": "Camiseta SUPIMA RL - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-pre-supimarl000015",
+      "oldSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17369",
+      "name": "Bermuda Moletom RL - Preto",
+      "url": "https://www.catalogopoa.com.br/bermuda-moletom-rl-preto-bermmolrl0001",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16950",
+      "name": "Tactel Importado Arm Elastano - Marrom",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-marrom-tactelarm01",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16953",
+      "name": "Tactel Importado Arm Elastano - Preto",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-preto-tactelarm04",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16952",
+      "name": "Tactel Importado Arm Elastano - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-azul-marinho-tactelarm03",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16951",
+      "name": "Tactel Importado Arm Elastano - Cinza",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-cinza-tactelarm02",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17329",
+      "name": "Gola Polo Premium XE - Branco",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-golapoloxebranco363839",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17474",
+      "name": "Mauricinho Sarja Elastano - Azul-bebê",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-azul-bebe-mausarjalct0006",
+      "oldSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "P",
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17470",
+      "name": "Mauricinho Sarja Elastano - Cinza-claro",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-lct-elastano-cinza-clar-mausarjalct0002",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17199",
+      "name": "Mauricinho Sarja ARA - Cinza",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-ara-cinza-mauara0020",
+      "oldSizes": [
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "M"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17201",
+      "name": "Mauricinho Sarja ARA - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-sarja-ara-branco-mauara0022",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16981",
+      "name": "Bermuda Sarja RL - Cinza claro",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-cinza-claro-1037",
+      "oldSizes": [
+        "38",
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "38",
+        "46"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16982",
+      "name": "Bermuda Sarja RL - Verde",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-verde-1038",
+      "oldSizes": [
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "42",
+        "46"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16957",
+      "name": "Calça Sarja XE - Gelo",
+      "url": "https://www.catalogopoa.com.br/calca-sarja-xe-gel-calcasarjaxe0009",
+      "oldSizes": [
+        "40",
+        "42",
+        "44",
+        "46"
+      ],
+      "newSizes": [
+        "40",
+        "44",
+        "46"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16983",
+      "name": "Bermuda Sarja RL - Chumbo",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-chumbo-1039",
+      "oldSizes": [
+        "42",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17507",
+      "name": "Bermuda Tactel Poliamida - Marrom",
+      "url": "https://www.catalogopoa.com.br/bermuda-tactel-poliamida-rl-elastano-marrom-bermtacpolirl00005",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17482",
+      "name": "LINHO - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-rl-preto-linhorl00029",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17503",
+      "name": "Bermuda Tactel Poliamida - Bege",
+      "url": "https://www.catalogopoa.com.br/bermuda-tactel-poliamida-rl-elastano-bege-bermtacpolirl00002",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17505",
+      "name": "Bermuda Tactel Poliamida - Verde",
+      "url": "https://www.catalogopoa.com.br/bermuda-tactel-poliamida-rl-elastano-verde-bermtacpolirl00003",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17506",
+      "name": "Bermuda Tactel Poliamida - Branco",
+      "url": "https://www.catalogopoa.com.br/bermuda-tactel-poliamida-rl-elastano-branco-bermtacpolirl00004",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17531",
+      "name": "Camiseta SUPIMA - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-azul-marinho-supimaxe00043",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16985",
+      "name": "Bermuda Sarja RL - Preto",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-preto-1041",
+      "oldSizes": [
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "42",
+        "44",
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17529",
+      "name": "Camiseta SUPIMA - Verde",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-verde-supimaxe00041",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16984",
+      "name": "Bermuda Sarja RL - Marrom",
+      "url": "https://www.catalogopoa.com.br/bermuda-sarja-rl-marrom-1040",
+      "oldSizes": [
+        "42",
+        "44",
+        "46",
+        "48"
+      ],
+      "newSizes": [
+        "48"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
