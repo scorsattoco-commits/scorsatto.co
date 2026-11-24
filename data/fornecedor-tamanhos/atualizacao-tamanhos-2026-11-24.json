@@ -1,0 +1,46 @@
+{
+  "generatedAt": "2026-11-24T20:45:09Z",
+  "apply": true,
+  "checked": 372,
+  "changed": 2,
+  "succeeded": 372,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-13112",
+      "name": "Calca Jeans - Preto",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-lct-skinny-preto-401018032",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "removed",
+      "evidence": "http-404",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17332",
+      "name": "Gola Polo Premium XE - Marrom",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-marrom-golapoloxemarrom2987298",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
