@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-11-25T20:01:24Z",
+  "apply": true,
+  "checked": 372,
+  "changed": 11,
+  "succeeded": 372,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "scp-14036",
+      "name": "Calca Jeans - Azul Escuro",
+      "url": "https://www.catalogopoa.com.br/calca-jeans-hb-skinny-azul-escuro-4010160011",
+      "oldSizes": [
+        "38"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17349",
+      "name": "Camisa Social XE OXFORD - Rosa claro",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-rosa-claro-camisasocialxe00031",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17346",
+      "name": "Camisa Social XE OXFORD - Branco",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-branco-camisasocialxe00028",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17166",
+      "name": "Camiseta TEXTURIZADA RL - Vinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-texturizada-rl-vinho-texturizadarl0005",
+      "oldSizes": [
+        "M",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17402",
+      "name": "Mauricinho de praia XE - Preto",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-preto-tactelnacionalxe0007",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17400",
+      "name": "Mauricinho de praia XE - Chumbo",
+      "url": "https://www.catalogopoa.com.br/mauricinho-de-praia-xe-chumbo-tactelnacionalxe0005",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16951",
+      "name": "Tactel Importado Arm Elastano - Cinza",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-cinza-tactelarm02",
+      "oldSizes": [
+        "P",
+        "G",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16952",
+      "name": "Tactel Importado Arm Elastano - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-azul-marinho-tactelarm03",
+      "oldSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17329",
+      "name": "Gola Polo Premium XE - Branco",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-branco-golapoloxebranco363839",
+      "oldSizes": [
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17531",
+      "name": "Camiseta SUPIMA - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-azul-marinho-supimaxe00043",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17532",
+      "name": "Camiseta SUPIMA - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00044",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
