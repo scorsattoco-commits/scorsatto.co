@@ -591,19 +591,18 @@
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 759px) {
       .topbar { background: rgba(255,255,255,.94); }
-      .topbar-inner { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "brand actions" "mobileNav mobileNav"; gap: 7px 10px; padding: 10px 12px 8px; }
-      .mobile-symbol { grid-area: brand; display: inline-flex; align-items: center; width: max-content; min-height: 38px; color: var(--black); font-family: "Cormorant Garamond", serif; font-size: 20px; font-weight: 400; letter-spacing: .15em; opacity: 1; transition: opacity .28s ease, transform .28s ease; }
-      .brand { grid-area: brand; width: max-content; min-height: 38px; display: inline-flex; align-items: center; font-size: 20px; opacity: 0; pointer-events: none; }
-      .topbar.is-scrolled .mobile-symbol { opacity: 0; transform: translateX(-5px); pointer-events: none; }
-      .topbar.is-scrolled .brand { opacity: 1; transform: translateX(0); pointer-events: auto; }
-      .header-actions { grid-area: actions; }
+      .topbar-inner { grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr); grid-template-areas: ". brand actions" "mobileNav mobileNav mobileNav"; gap: 7px 0; padding: 10px 12px 8px; }
+      .mobile-symbol { grid-area: brand; justify-self: center; display: inline-flex; align-items: center; width: max-content; min-height: 38px; color: var(--black); font-family: "Cormorant Garamond", serif; font-size: clamp(16px, 4.6vw, 20px); font-weight: 400; letter-spacing: .15em; white-space: nowrap; }
+      .brand { display: none; }
+      .topbar.is-scrolled .mobile-symbol { opacity: 1; transform: none; pointer-events: auto; }
+      .header-actions { grid-area: actions; justify-self: end; }
       .desktop-nav { display: none; }
       .mobile-nav-scroll { grid-area: mobileNav; display: flex; justify-content: space-between; gap: 6px; overflow-x: auto; padding-top: 2px; scrollbar-width: none; }
       .mobile-nav-scroll::-webkit-scrollbar { display: none; }
       .mobile-nav-scroll .nav-link { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 10px; font-size: 10px; letter-spacing: .09em; }
       .hero { min-height: 48svh; padding-top: 104px; padding-bottom: 22px; }
-      .hero-logo { width: min(84vw, 720px); }
-      .hero-brand { font-size: clamp(54px, 15vw, 96px); }
+      .hero-logo { width: min(84vw, 720px); max-width: 100%; min-width: 0; }
+      .hero-brand { font-size: clamp(30px, 12vw, 90px); }
       .hero-signature { margin-top: 16px; font-size: 10px; letter-spacing: .22em; }
       .hero-actions { margin-top: 20px; gap: 8px; }
       .hero-cta { min-height: 38px; padding: 0 12px; font-size: 10px; letter-spacing: .08em; }
