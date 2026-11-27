@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-11-27T19:34:01Z",
+  "apply": true,
+  "checked": 372,
+  "changed": 10,
+  "succeeded": 372,
+  "failureCount": 0,
+  "failureRate": 0.0,
+  "health": "healthy",
+  "failures": [],
+  "changes": [
+    {
+      "id": "team-17351",
+      "name": "Camisa Social XE OXFORD - Creme",
+      "url": "https://www.catalogopoa.com.br/camisa-social-xe-oxford-crem-camisasocialxe00033",
+      "oldSizes": [
+        "P",
+        "M",
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17413",
+      "name": "Camiseta SUPIMA RL - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-pre-supimarl000015",
+      "oldSizes": [
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "G",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17410",
+      "name": "Camiseta SUPIMA RL - Azul marinho",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-rl-azul-marinho-supimarl000012",
+      "oldSizes": [
+        "P",
+        "GG"
+      ],
+      "newSizes": [
+        "G",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17369",
+      "name": "Bermuda Moletom RL - Preto",
+      "url": "https://www.catalogopoa.com.br/bermuda-moletom-rl-preto-bermmolrl0001",
+      "oldSizes": [
+        "M",
+        "G"
+      ],
+      "newSizes": [
+        "G"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17160",
+      "name": "Mauricinho Linho ESPECIAL RL - Branco",
+      "url": "https://www.catalogopoa.com.br/mauricinho-linho-especial-rl-branco-linhorl004",
+      "oldSizes": [
+        "P"
+      ],
+      "newSizes": [],
+      "availabilityState": "sold_out",
+      "evidence": "explicit-sold-out-message",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-16952",
+      "name": "Tactel Importado Arm Elastano - Azul Marinho",
+      "url": "https://www.catalogopoa.com.br/tactel-importado-arm-elastano-azul-marinho-tactelarm03",
+      "oldSizes": [
+        "G",
+        "GG"
+      ],
+      "newSizes": [
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17293",
+      "name": "POLO - Azul",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-3811102",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17325",
+      "name": "Gola Polo Premium XE - Azul-marinho",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-marinho-copia-golapoloxeazul0111",
+      "oldSizes": [
+        "P",
+        "XXG"
+      ],
+      "newSizes": [
+        "P"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17327",
+      "name": "Gola Polo Premium XE - Azul",
+      "url": "https://www.catalogopoa.com.br/gola-polo-premium-xe-azul-golapoloazulxe917289",
+      "oldSizes": [
+        "P",
+        "M",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "M",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    },
+    {
+      "id": "team-17532",
+      "name": "Camiseta SUPIMA - Preto",
+      "url": "https://www.catalogopoa.com.br/camiseta-supima-xe-preto-supimaxe00044",
+      "oldSizes": [
+        "P",
+        "GG",
+        "XXG"
+      ],
+      "newSizes": [
+        "P",
+        "GG"
+      ],
+      "availabilityState": "available",
+      "evidence": "size-options",
+      "confirmedReads": 2
+    }
+  ]
+}
